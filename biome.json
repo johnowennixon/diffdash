@@ -1,0 +1,123 @@
+{
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "files": {
+    "ignoreUnknown": true
+  },
+  "formatter": {
+    "attributePosition": "auto",
+    "enabled": true,
+    "formatWithErrors": false,
+    "ignore": [],
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineEnding": "lf",
+    "lineWidth": 120
+  },
+  "javascript": {
+    "formatter": {
+      "arrowParentheses": "always",
+      "bracketSameLine": false,
+      "bracketSpacing": false,
+      "jsxQuoteStyle": "double",
+      "quoteProperties": "preserve",
+      "semicolons": "asNeeded",
+      "trailingCommas": "all"
+    }
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "a11y": {
+        "noSvgWithoutTitle": "error",
+        "useAltText": "error",
+        "useKeyWithClickEvents": "error"
+      },
+      "complexity": {
+        "noBannedTypes": "error",
+        "noForEach": "error",
+        "noUselessRename": "error",
+        "noUselessTernary": "error",
+        "useArrowFunction": "error",
+        "useLiteralKeys": "off",
+        "useOptionalChain": "error",
+        "useRegexLiterals": "off"
+      },
+      "correctness": {
+        "noSwitchDeclarations": "error",
+        "noUnnecessaryContinue": "error",
+        "noUnusedImports": "error",
+        "noUnusedVariables": "error",
+        "noVoidTypeReturn": "off",
+        "useExhaustiveDependencies": "error",
+        "useJsxKeyInIterable": "error"
+      },
+      "performance": {
+        "noAccumulatingSpread": "error",
+        "noDelete": "off"
+      },
+      "security": {
+        "noDangerouslySetInnerHtml": "error"
+      },
+      "style": {
+        "noInferrableTypes": "error",
+        "noNamespace": "error",
+        "noNegationElse": "error",
+        "noNonNullAssertion": "error",
+        "noParameterAssign": "off",
+        "noParameterProperties": "error",
+        "noShoutyConstants": "error",
+        "noUnusedTemplateLiteral": "error",
+        "noUselessElse": "error",
+        "useBlockStatements": "error",
+        "useCollapsedElseIf": "error",
+        "useConsistentArrayType": {
+          "level": "error",
+          "options": {
+            "syntax": "generic"
+          }
+        },
+        "useDefaultParameterLast": "error",
+        "useExponentiationOperator": "error",
+        "useExportType": "error",
+        "useFilenamingConvention": {
+          "level": "error",
+          "options": {
+            "requireAscii": true,
+            "filenameCases": ["snake_case"]
+          }
+        },
+        "useForOf": "error",
+        "useImportType": "error",
+        "useNamingConvention": "off",
+        "useNodeAssertStrict": "error",
+        "useNodejsImportProtocol": "error",
+        "useNumberNamespace": "error",
+        "useSelfClosingElements": "error",
+        "useShorthandAssign": "error",
+        "useSingleCaseStatement": "error",
+        "useTemplate": "off"
+      },
+      "suspicious": {
+        "noArrayIndexKey": "error",
+        "noConfusingVoidType": "error",
+        "noDoubleEquals": "error",
+        "noDuplicateTestHooks": "error",
+        "noEmptyBlockStatements": "error",
+        "noExplicitAny": "error",
+        "noGlobalIsNan": "error",
+        "noImplicitAnyLet": "error",
+        "noRedeclare": "error",
+        "useAwait": "off"
+      }
+    }
+  },
+  "organizeImports": {
+    "enabled": true
+  },
+  "vcs": {
+    "clientKind": "git",
+    "enabled": true,
+    "useIgnoreFile": true
+  }
+}
