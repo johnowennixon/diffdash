@@ -1,14 +1,17 @@
+import * as lib_abort from "./lib_abort.js"
+import {EMPTY} from "./lib_char.js"
 import * as lib_datetime from "./lib_datetime.js"
-import type {DiffdashConfig} from "./lib_diffdash_config.js"
+import * as lib_debug from "./lib_debug.js"
 import * as lib_git_message_prompt from "./lib_git_message_prompt.js"
 import * as lib_git_message_validate from "./lib_git_message_validate.js"
 import * as lib_llm_chat from "./lib_llm_chat.js"
+import type {LlmConfig} from "./lib_llm_config.js"
 import * as lib_package_details from "./lib_package_details.js"
 import * as lib_tell from "./lib_tell.js"
 
-interface GenerateMessageParams {
-  config: DiffdashConfig
-  diff_stats: string
+export interface GitMessageGenerateDetails {
+  llm_config: LlmConfig
+  diffstat: string
   diff: string
 }
 
@@ -27,74 +30,59 @@ function add_footer(message: string, model: string): string {
 /**
  * Generate a commit message for staged changes
  */
-export async function generate_message(params: GenerateMessageParams): Promise<string> {
-  const {config, diff_stats, diff} = params
+export async function generate_message(details: GitMessageGenerateDetails): Promise<string> {
+  const {llm_config, diffstat, diff} = details
 
-  // Generate the system and user prompts
-  const system_prompt = config.system_prompt || lib_git_message_prompt.get_system_prompt()
+  const {llm_model} = llm_config
 
-  // Create a prompt using the original format but without an original message
+  // Create the system prompts
+  const system_prompt = lib_git_message_prompt.get_system_prompt()
+
+  // Create the user prompt
   const user_prompt = lib_git_message_prompt.get_user_prompt({
-    diffstat: diff_stats,
+    diffstat,
     diff,
-    original: "",
+    original: EMPTY,
     use_original: false,
   })
 
-  // Add prefix and suffix if provided
-  let final_prompt = user_prompt
-  if (config.user_prompt_prefix) {
-    final_prompt = config.user_prompt_prefix + "\n\n" + final_prompt
-  }
-  if (config.user_prompt_suffix) {
-    final_prompt = final_prompt + "\n\n" + config.user_prompt_suffix
-  }
-
   // Debug: show the prompts if requested
-  if (config.debug_llm_inputs) {
-    lib_tell.info("System prompt:")
+  if (lib_debug.channels.llm_inputs) {
+    lib_tell.info("LLM input system prompt:")
     console.log(system_prompt)
-    lib_tell.info("User prompt:")
-    console.log(final_prompt)
+
+    lib_tell.info("LLM input user prompt:")
+    console.log(user_prompt)
   }
 
   // Call the LLM API to generate a message
-  const llm_response = await lib_llm_chat.call_llm({
-    llm_config: config.llm_config,
-    system_prompt,
-    user_prompt: final_prompt,
-  })
-
-  // Debug: show the raw response if requested
-  if (config.debug_llm_outputs) {
-    lib_tell.info("LLM response:")
-    console.log(llm_response)
-  }
+  const llm_response = await lib_llm_chat.call_llm({llm_config, system_prompt, user_prompt})
 
   if (!llm_response.success) {
-    lib_tell.warning(`LLM API call failed: ${llm_response.error_message}`)
-    return add_footer("Update with changes from staging area", config.llm_config.llm_model)
+    lib_abort.abort(`LLM API call failed: ${llm_response.error_message}`)
+  }
+
+  // Debug: show the raw response if requested
+  if (lib_debug.channels.llm_outputs) {
+    lib_tell.info("LLM output:")
+    console.log(llm_response.text)
   }
 
   // Validate the generated message
-  const validation_result = lib_git_message_validate.validate_message(llm_response.text, {
-    min_length: config.min_message_length,
-    max_length: config.max_message_length,
-  })
+  const validation_result = lib_git_message_validate.validate_message(llm_response.text)
 
   if (!validation_result.valid) {
     lib_tell.warning(`Generated message failed validation: ${validation_result.reason}`)
 
     if (validation_result.suggested_fix) {
-      lib_tell.info("Using suggested fix.")
-      return add_footer(validation_result.suggested_fix, config.llm_config.llm_model)
+      lib_tell.info("Using suggested fix")
+      return add_footer(validation_result.suggested_fix, llm_model)
     }
 
-    // If no fix is suggested, use a default message to avoid errors
-    lib_tell.info("Using default message.")
-    return add_footer("Update with changes from staging area", config.llm_config.llm_model)
+    // If no fix is suggested, abort
+    lib_abort.abort("Unable to use the generated message")
   }
 
   // Add a footer to the generated message
-  return add_footer(llm_response.text, config.llm_config.llm_model)
+  return add_footer(llm_response.text, llm_model)
 }

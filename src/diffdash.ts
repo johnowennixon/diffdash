@@ -5,8 +5,8 @@ import * as lib_ansi from "./lib_ansi.js"
 import {EMPTY, LF} from "./lib_char.js"
 import * as lib_diffdash_config from "./lib_diffdash_config.js"
 import * as lib_git_message_generator from "./lib_git_message_generator.js"
+import * as lib_git_simple_staging from "./lib_git_simple_staging.js"
 import * as lib_git_simple_utils from "./lib_git_simple_utils.js"
-import * as lib_git_staging from "./lib_git_staging.js"
 import * as lib_readline_prompt from "./lib_readline_prompt.js"
 import * as lib_stdio from "./lib_stdio.js"
 import * as lib_tell from "./lib_tell.js"
@@ -57,12 +57,14 @@ async function main(): Promise<void> {
   // Process and validate configuration
   const config = lib_diffdash_config.process_config()
 
+  const {llm_config} = config
+
   // Open and validate the repository
   if (config.verbose) {
-    lib_tell.info(`Opening repository at ${config.repo_path}...`)
+    lib_tell.action("Opening repository")
   }
 
-  const git = await lib_git_simple_utils.open_repository(config.repo_path)
+  const git = await lib_git_simple_utils.open_repository()
   const is_valid = await lib_git_simple_utils.validate_repository(git)
 
   if (!is_valid) {
@@ -70,7 +72,7 @@ async function main(): Promise<void> {
   }
 
   // Check for staged changes
-  const has_staged_changes = await lib_git_staging.has_staged_changes(git)
+  const has_staged_changes = await lib_git_simple_staging.has_staged_changes(git)
 
   if (!has_staged_changes) {
     lib_abort.abort("No staged changes found. Please stage changes before creating a commit.")
@@ -81,8 +83,8 @@ async function main(): Promise<void> {
     lib_tell.info("Gathering information about staged changes...")
   }
 
-  const diff_stats = await lib_git_staging.get_staged_diff_stats(git)
-  const diff = await lib_git_staging.get_staged_diff(git)
+  const diffstat = await lib_git_simple_staging.get_staged_diffstat(git)
+  const diff = await lib_git_simple_staging.get_staged_diff(git)
 
   // Generate commit message
   if (config.verbose) {
@@ -90,8 +92,8 @@ async function main(): Promise<void> {
   }
 
   const commit_message = await lib_git_message_generator.generate_message({
-    config,
-    diff_stats,
+    llm_config,
+    diffstat: diffstat,
     diff,
   })
 
@@ -111,7 +113,7 @@ async function main(): Promise<void> {
   }
 
   try {
-    await lib_git_staging.create_commit(git, commit_message)
+    await lib_git_simple_staging.create_commit(git, commit_message)
     lib_tell.success("Commit created successfully!")
   } catch (error) {
     lib_abort.abort(`Failed to create commit: ${error instanceof Error ? error.message : String(error)}`)
