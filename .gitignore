@@ -1,6 +1,2 @@
-.DS_Store
-.env
-.eslintcache
-.npm.token
 dist
 node_modules
