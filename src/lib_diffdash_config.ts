@@ -4,7 +4,7 @@ import * as lib_debug from "./lib_debug.js"
 import type {LlmConfig, LlmProvider} from "./lib_llm_config.js"
 import {LLM_PROVIDER_CHOICES} from "./lib_llm_config.js"
 import * as lib_llm_config from "./lib_llm_config.js"
-import * as lib_package_details from "./lib_package_details.js"
+import {PROGRAM_NAME} from "./lib_package_details.js"
 
 export default {}
 
@@ -22,7 +22,7 @@ export const arg_schema = {
   debug_llm_outputs: a.arg_boolean({help: "Show raw outputs from the LLM"}),
 }
 
-export const arg_parser = a.make_arg_parser(arg_schema, lib_package_details.PROGRAM_NAME)
+export const arg_parser = a.make_arg_parser(arg_schema, PROGRAM_NAME)
 
 export interface DiffdashConfig {
   llm_config: LlmConfig

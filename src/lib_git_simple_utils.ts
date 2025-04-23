@@ -60,9 +60,9 @@ export function format_date_for_git(date: Date): string {
 }
 
 export async function open_repository(repo_path: string = process.cwd()): Promise<GitRepo> {
-  try {
-    const resolved_path = lib_file_path.absolute(repo_path)
+  const resolved_path = lib_file_path.absolute(repo_path)
 
+  try {
     const git = simpleGit(resolved_path)
 
     await git.checkIsRepo()

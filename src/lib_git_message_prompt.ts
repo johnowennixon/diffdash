@@ -13,7 +13,7 @@ export interface GitMessagePromptDetails {
 
 export function get_system_prompt(): string {
   const system_prompt = `
-Your role is to generate a Git commit message in standard English.
+Your role is to generate a Git commit message in conversational English.
 The user does not want Conventional Commits.
 Just use proper sentences throughout.
 
@@ -28,7 +28,8 @@ Some reminders of how diffs work:
 Use the following format:
 - First line: A single sentence giving a concise summary of the changes written.
 - Leave a blank line after the first line.
-- Then add a handful of bullet points containing single sentences explaining the key changes in more detail.
+- Then add a handful of bullet points (lines starting with a dash).
+- Each bullet point should be a single sentence explaining the key changes in more detail.
 
 Please write in full sentences that start with a capital letter.
 Each sentence should be on its own line.
