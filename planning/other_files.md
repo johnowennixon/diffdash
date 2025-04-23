@@ -32,7 +32,7 @@ Node Version Manager configuration file specifying the required Node.js version,
 Configuration for Biome, the JavaScript/TypeScript formatter and linter used in this project. Enforces code style rules including snake_case naming, 2-space indentation, 120 character line width, and other formatting preferences defined in the coding standards.
 
 ### package.json
-Node.js project configuration defining the package name, version, dependencies, and scripts. Contains build commands, linting operations, and lists all project dependencies with their version requirements.
+Node.js project configuration defining the package name, version, dependencies, and scripts. Contains build commands, linting operations, and lists all project dependencies with their version requirements. Includes dependencies for multiple LLM providers (OpenAI, Anthropic, Google Gemini, and OpenRouter) via the appropriate SDK packages.
 
 ### pnpm-lock.yaml
 PNPM lockfile that ensures consistent dependency installation across environments by recording exact versions of all installed packages and their dependencies.

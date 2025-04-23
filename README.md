@@ -5,7 +5,7 @@ A command-line tool to generate high-quality commit messages for staged changes 
 ## Features
 
 - Automatically analyzes staged changes in a Git repository
-- Generates detailed commit messages using an LLM (OpenAI, Anthropic, or Google)
+- Generates detailed commit messages using an LLM (OpenAI, Anthropic, Google, or OpenRouter)
 - Displays messages with helpful syntax highlighting
 - Allows users to accept, edit, or cancel commits
 - Adds a footer to track AI assistance
@@ -40,6 +40,12 @@ diffdash --llm-provider openai
 # Specify model
 diffdash --llm-provider anthropic --llm-model claude-3-opus-20240229
 
+# Use OpenRouter
+diffdash --llm-provider openrouter
+
+# Use a specific model with OpenRouter
+diffdash --llm-provider openrouter --llm-model google/gemini-2.5-flash-preview
+
 # Customize the prompt
 diffdash --user-prompt-suffix "Include information about the purpose of these changes."
 
@@ -60,6 +66,9 @@ export ANTHROPIC_API_KEY=your-api-key
 
 # For Google
 export GOOGLE_API_KEY=your-api-key
+
+# For OpenRouter
+export OPENROUTER_API_KEY=your-api-key
 ```
 
 Or passed as command-line arguments:
@@ -72,7 +81,7 @@ diffdash --llm-provider openai --openai-api-key your-api-key
 
 | Option | Description |
 |--------|-------------|
-| `--llm-provider` | LLM provider to use (openai, anthropic, google) |
+| `--llm-provider` | LLM provider to use (openai, anthropic, google, openrouter) |
 | `--llm-model` | LLM model to use from the selected provider |
 | `--debug-llm-inputs` | Show prompts sent to the LLM |
 | `--debug-llm-outputs` | Show raw outputs from the LLM |

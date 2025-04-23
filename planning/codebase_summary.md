@@ -5,7 +5,7 @@ Diffdash is a TypeScript command-line tool that generates high-quality commit me
 ## Core Features
 
 - Analyzes staged changes in a Git repository
-- Generates descriptive commit messages using LLMs (OpenAI, Anthropic, Google Gemini)
+- Generates descriptive commit messages using LLMs (OpenAI, Anthropic, Google Gemini, OpenRouter)
 - Displays the generated message with syntax highlighting
 - Provides an interactive workflow to accept, edit, or cancel the commit
 - Adds specialized footers to identify AI-assisted commits
@@ -107,7 +107,7 @@ The codebase follows a modular design with specialized libraries:
 
 9. **Command Line Interface**: Structured and user-friendly CLI with clear error messages and interactive elements.
 
-10. **Flexibility**: Support for multiple LLM providers allows users to choose their preferred service.
+10. **Flexibility**: Support for multiple LLM providers (OpenAI, Anthropic, Google Gemini, OpenRouter) allows users to choose their preferred service.
 
 ## Development Status
 

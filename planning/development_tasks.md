@@ -20,6 +20,7 @@ This document outlines the sequence of development tasks to transform the curren
     - [x] Update message validator for commit messages
     - [x] Simplify footer generation (remove version comparison logic)
     - [x] Ensure proper LLM provider configuration and error handling
+    - [x] Add support for OpenRouter as an LLM provider
 
 ### User Interaction
     - [x] Create interactive message display with syntax highlighting

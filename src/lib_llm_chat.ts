@@ -1,6 +1,7 @@
 import {createAnthropic} from "@ai-sdk/anthropic"
 import {createGoogleGenerativeAI} from "@ai-sdk/google"
 import {createOpenAI} from "@ai-sdk/openai"
+import {createOpenRouter} from "@openrouter/ai-sdk-provider"
 import type {LanguageModelV1} from "ai"
 import {generateText} from "ai"
 
@@ -22,6 +23,7 @@ const PROVIDER_MAP: Record<LlmProvider, (model: string, llm_api_key: string) => 
   anthropic: (model: string, llm_api_key: string) => createAnthropic({apiKey: llm_api_key})(model),
   google: (model: string, llm_api_key: string) => createGoogleGenerativeAI({apiKey: llm_api_key})(model),
   openai: (model: string, llm_api_key: string) => createOpenAI({apiKey: llm_api_key})(model),
+  openrouter: (model: string, llm_api_key: string) => createOpenRouter({apiKey: llm_api_key}).chat(model),
 }
 
 export async function call_llm({

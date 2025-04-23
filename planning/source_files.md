@@ -57,10 +57,10 @@ Contains utility functions for common Git operations with simplified interfaces.
 Enhances object inspection and pretty printing for debugging and logging purposes. Provides customizable object serialization with depth control and circular reference handling. Implements colorized output formatting for different data types and structures.
 
 #### lib_llm_chat.ts
-Interfaces with Large Language Model APIs for conversational AI functionality. Provides a unified interface for sending messages to different LLM providers like OpenAI and Anthropic. Implements message history management and context handling for maintaining conversation state.
+Interfaces with Large Language Model APIs for conversational AI functionality. Provides a unified interface for sending messages to different LLM providers like OpenAI, Anthropic, Google Gemini, and OpenRouter. Implements message history management and context handling for maintaining conversation state.
 
 #### lib_llm_config.ts
-Manages configuration settings for integrating with Large Language Model providers. Provides structured configuration objects for API endpoints, authentication, and model parameters. Implements validation and normalization of LLM configuration options.
+Manages configuration settings for integrating with Large Language Model providers (OpenAI, Anthropic, Google Gemini, and OpenRouter). Provides structured configuration objects for API endpoints, authentication, and model parameters. Implements validation and normalization of LLM configuration options.
 
 #### lib_package_details.ts
 Extracts and exports package information from package.json. Provides constants for the program name and version for use throughout the application.

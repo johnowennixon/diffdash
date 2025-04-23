@@ -34,6 +34,7 @@
     "@ai-sdk/anthropic": "1.2.10",
     "@ai-sdk/google": "1.2.13",
     "@ai-sdk/openai": "1.3.17",
+    "@openrouter/ai-sdk-provider": "0.4.5",
     "ai": "4.3.9",
     "ansis": "3.17.0",
     "argparse": "2.0.1",

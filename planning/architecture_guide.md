@@ -91,7 +91,7 @@ The primary goal is to provide a self-contained tool that analyzes staged change
 ## 5. Message Generation Logic
 - Includes logic for formatting and appending the footer to generated messages.
 - Includes the LLM model name in the footer for traceability.
-- Support for multiple LLM providers through the Vercel AI SDK (OpenAI, Anthropic, and Google Gemini, with ability to add more).
+- Support for multiple LLM providers through the Vercel AI SDK (OpenAI, Anthropic, Google Gemini, and OpenRouter, with ability to add more).
 - Separation of concerns with system prompts being passed from application layer.
 - Validation logic for LLM output.
 - Debug options to view LLM inputs (--debug-llm-inputs) and outputs (--debug-llm-outputs).

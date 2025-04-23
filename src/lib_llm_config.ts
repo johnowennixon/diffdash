@@ -4,9 +4,9 @@ import * as lib_tell from "./lib_tell.js"
 
 export default {}
 
-export type LlmProvider = "anthropic" | "google" | "openai"
+export type LlmProvider = "anthropic" | "google" | "openai" | "openrouter"
 
-export const LLM_PROVIDER_CHOICES: Array<LlmProvider> = ["anthropic", "google", "openai"]
+export const LLM_PROVIDER_CHOICES: Array<LlmProvider> = ["anthropic", "google", "openai", "openrouter"]
 
 export interface LlmConfig {
   llm_provider: LlmProvider
@@ -28,6 +28,9 @@ export function default_llm_model({llm_provider}: {llm_provider: LlmProvider}): 
   if (llm_provider === "google") {
     return "gemini-2.0-flash"
   }
+  if (llm_provider === "openrouter") {
+    return "google/gemini-2.5-flash-preview"
+  }
 
   return undefined
 }
@@ -41,6 +44,9 @@ export function get_llm_api_key({llm_provider}: {llm_provider: LlmProvider}): st
   }
   if (llm_provider === "google") {
     return lib_env.get_abort("GEMINI_API_KEY")
+  }
+  if (llm_provider === "openrouter") {
+    return lib_env.get_abort("OPENROUTER_API_KEY")
   }
 
   return EMPTY
