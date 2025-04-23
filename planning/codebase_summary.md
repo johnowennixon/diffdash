@@ -21,34 +21,93 @@ The codebase follows a modular design with specialized libraries:
    - Handles configuration, validation, user confirmation, and commit creation
 
 2. **Git Operations** (`lib_git_*.ts`):
-   - Repository access and validation
-   - Staged changes analysis and diff formatting
-   - Commit message generation and validation
-   - Commit creation with generated message
+   - Repository access and validation (`lib_git_simple_utils.ts`)
+   - Staged changes analysis and diff formatting (`lib_git_simple_staging.ts`)
+   - Commit message generation (`lib_git_message_generator.ts`)
+   - Message validation and fixing common issues (`lib_git_message_validate.ts`)
+   - UI presentation for commit messages (`lib_git_message_ui.ts`)
 
 3. **LLM Integration** (`lib_llm_*.ts`):
-   - API communication with multiple LLM providers via Vercel AI SDK
-   - Dynamic prompt generation incorporating diff context
-   - Response validation and error handling
+   - API communication with multiple LLM providers via Vercel AI SDK (`lib_llm_chat.ts`)
+   - Configuration management for LLM providers (`lib_llm_config.ts`)
+   - Prompt engineering for generating quality commit messages (`lib_git_message_prompt.ts`)
 
 4. **User Interaction**:
-   - Interactive confirmation with options to accept, edit, or cancel
-   - Editor integration for message editing
-   - Message validation with automatic fixes for common issues
+   - Interactive confirmation with options to accept, edit, or cancel (`lib_readline_prompt.ts`)
+   - Command-line argument parsing and configuration (`lib_diffdash_config.ts`, `lib_arg_infer.ts`)
+   - User messaging and console output (`lib_tell.ts`, `lib_ansi.ts`)
 
-5. **User Experience**:
-   - Rich command-line interface with comprehensive options
-   - Color-coded output with syntax highlighting for commit messages
-   - Clear status messages during the process
-   - Debug channels for LLM inputs/outputs
+5. **Utility Functions**:
+   - File path manipulation (`lib_file_path.ts`)
+   - File I/O operations (`lib_file_io.ts`)
+   - Error handling and graceful abortion (`lib_abort.ts`)
+   - Debugging tools (`lib_debug.ts`)
+   - Date/time formatting (`lib_datetime.ts`)
+   - Package information access (`lib_package_details.ts`)
 
-## Technology Stack
+## Workflow
 
-- TypeScript with strict type checking
-- Node.js (v22+)
-- simple-git for Git operations
-- Vercel AI SDK for LLM interactions
-- Biome for linting and formatting
+1. **Initialization**:
+   - The process begins with `diffdash.ts`, which processes command-line arguments and environment variables
+   - The application validates the current directory is a valid Git repository
+   - It checks for staged changes and aborts if none exist
+
+2. **Diff Analysis**:
+   - Retrieves the staged diff and diffstat using simple-git library
+   - Formats the diff information for LLM consumption
+
+3. **Message Generation**:
+   - Constructs a prompt containing the staged changes
+   - Sends the prompt to the configured LLM provider (OpenAI, Anthropic, or Google)
+   - Processes the LLM response to extract the commit message
+   - Validates the message for quality and format requirements
+   - Applies automatic fixes for common issues when possible
+
+4. **User Interaction**:
+   - Displays the generated commit message with proper formatting
+   - Prompts the user to accept, edit, or reject the message
+   - Creates the Git commit if accepted
+
+## Technologies and Dependencies
+
+- **Core Technologies**:
+  - TypeScript with strict type checking (ES2023 target)
+  - Node.js (v22+)
+  - Vercel AI SDK for LLM integration
+
+- **Key Dependencies**:
+  - `simple-git`: Git repository operations
+  - `@ai-sdk/*`: Provider-specific clients for LLM integration (OpenAI, Anthropic, Google)
+  - `ai`: Vercel's AI SDK for generative AI interactions
+  - `ansis`: Terminal color and styling
+  - `argparse`: Command-line argument parsing
+
+- **Development Tools**:
+  - Biome: Modern linting, formatting, and code quality tools
+  - TypeScript with strict configuration
+  - Custom tooling for build management (shebangs, chmod)
+
+## Design Patterns and Architecture Choices
+
+1. **Modularity**: The codebase follows a modular design with clear separation of concerns. Each library file has a specific purpose and focuses on a single aspect of functionality.
+
+2. **Functional Programming**: Functions are designed to be pure when possible, with minimal side effects and clear inputs/outputs.
+
+3. **Immutability**: Data is treated as immutable where appropriate, reducing the risk of unexpected state changes.
+
+4. **Error Handling**: The application uses a consistent pattern for error handling, with structured error messages and graceful exits.
+
+5. **Dependency Injection**: Components receive their dependencies as parameters rather than creating them directly, enhancing testability.
+
+6. **Type Safety**: The project uses TypeScript with a strict type-checking configuration, reducing runtime errors through static analysis.
+
+7. **Prompt Engineering**: Carefully designed LLM prompts that structure the input and output format for consistent results.
+
+8. **Message Validation**: Automatic validation and fixing of generated commit messages ensures they meet quality standards.
+
+9. **Command Line Interface**: Structured and user-friendly CLI with clear error messages and interactive elements.
+
+10. **Flexibility**: Support for multiple LLM providers allows users to choose their preferred service.
 
 ## Development Status
 
