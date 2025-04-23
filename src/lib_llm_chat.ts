@@ -6,7 +6,7 @@ import {generateText} from "ai"
 
 import {EMPTY} from "./lib_char.js"
 import * as lib_debug from "./lib_debug.js"
-import type {LlmProvider} from "./lib_llm_config.js"
+import type {LlmConfig, LlmProvider} from "./lib_llm_config.js"
 import * as lib_tell from "./lib_tell.js"
 
 export default {}
@@ -17,21 +17,18 @@ export interface LlmResponse {
   error_message?: string
 }
 
-const PROVIDER_MAP: Record<LlmProvider, (model: string) => LanguageModelV1> = {
-  anthropic: (model: string) => createAnthropic({apiKey: process.env["ANTHROPIC_API_KEY"] || ""})(model),
-  google: (model: string) => createGoogleGenerativeAI({apiKey: process.env["GOOGLE_API_KEY"] || ""})(model),
-  openai: (model: string) => createOpenAI({apiKey: process.env["OPENAI_API_KEY"] || ""})(model),
+const PROVIDER_MAP: Record<LlmProvider, (model: string, llm_api_key: string) => LanguageModelV1> = {
+  anthropic: (model: string, llm_api_key: string) => createAnthropic({apiKey: llm_api_key})(model),
+  google: (model: string, llm_api_key: string) => createGoogleGenerativeAI({apiKey: llm_api_key})(model),
+  openai: (model: string, llm_api_key: string) => createOpenAI({apiKey: llm_api_key})(model),
 }
 
-export interface CallLlmParams {
-  provider: LlmProvider
-  model: string
-  system_prompt: string
-  user_prompt: string
-}
-
-export async function call_llm(params: CallLlmParams): Promise<LlmResponse> {
-  const {provider, model, system_prompt, user_prompt} = params
+export async function call_llm({
+  llm_config,
+  user_prompt,
+  system_prompt,
+}: {llm_config: LlmConfig; user_prompt: string; system_prompt: string}): Promise<LlmResponse> {
+  const {llm_provider, llm_model, llm_api_key} = llm_config
 
   try {
     if (lib_debug.channels.llm_inputs) {
@@ -39,33 +36,12 @@ export async function call_llm(params: CallLlmParams): Promise<LlmResponse> {
       lib_debug.string_block({content: user_prompt, title: "LLM USER PROMPT"})
     }
 
-    // Check if we have the API key
-    switch (provider) {
-      case "openai": {
-        if (!process.env["OPENAI_API_KEY"]) {
-          throw new Error("OPENAI_API_KEY environment variable not set")
-        }
-        break
-      }
-      case "anthropic": {
-        if (!process.env["ANTHROPIC_API_KEY"]) {
-          throw new Error("ANTHROPIC_API_KEY environment variable not set")
-        }
-        break
-      }
-      case "google": {
-        if (!process.env["GOOGLE_API_KEY"]) {
-          throw new Error("GOOGLE_API_KEY environment variable not set")
-        }
-        break
-      }
-    }
+    const provider_fn = PROVIDER_MAP[llm_provider]
 
-    const provider_fn = PROVIDER_MAP[provider]
-    const model_instance = provider_fn(model)
+    const model = provider_fn(llm_model, llm_api_key)
 
     const result = await generateText({
-      model: model_instance,
+      model,
       system: system_prompt,
       prompt: user_prompt,
     })

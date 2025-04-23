@@ -17,10 +17,6 @@ export function get_empty(key: string): string {
   return get_substitute(key, EMPTY)
 }
 
-export function get_string(key: string): string | undefined {
-  return process.env[key]
-}
-
 export function get_abort(key: string): string {
   return get(key) ?? lib_abort.abort(`Unable to find environment key: ${key}`)
 }

@@ -4,8 +4,8 @@ This document provides a comprehensive reference for all source files in the cod
 
 ## Programs
 
-### revisionist.ts
-Main entry point for the Revisionist tool. Orchestrates the process of configuring the application, validating the Git repository, obtaining user confirmation, and executing the history rewriting operation.
+### diffdash.ts
+Main entry point for the Diffdash tool. Orchestrates the process of configuring the application, validating the Git repository, analyzing staged changes, generating commit messages, and obtaining user confirmation before committing changes.
 
 ## Libraries
 
@@ -86,14 +86,14 @@ Provides advanced TypeScript type utilities extending the language's built-in ty
 #### lib_typescript.ts
 Contains TypeScript utility types for advanced type manipulations. Implements helper types like Expand for better type inference and display in editors.
 
-### Revisionist Libraries
+### Diffdash Libraries
 
-#### lib_revisionist_config.ts
-Manages configuration settings for the Revisionist Git history rewriting tool. Implements argument parsing with comprehensive command-line options for controlling LLM provider selection, debugging, and process behavior. Processes user-provided arguments into a structured RevisionistConfig object with appropriate defaults.
+#### lib_diffdash_config.ts
+Manages configuration settings for the Diffdash commit message generation tool. Implements argument parsing with comprehensive command-line options for controlling LLM provider selection, debugging, and process behavior. Processes user-provided arguments into a structured DiffdashConfig object with appropriate defaults.
 
-#### lib_revisionist_footer.ts
-Handles generation and validation of standardized footers appended to Git commit messages. Provides utilities to detect, parse, and create footer signatures that include tool name, version, timestamp, and LLM model information. Implements logic to determine whether messages need regeneration based on footer data and version compatibility.
+#### lib_git_message_generator.ts
+Handles the generation of Git commit messages using Large Language Models. Coordinates prompt creation, LLM API calls, message validation, and footer addition for a seamless message generation process. Provides utilities to format and enhance the generated message for optimal commit history.
 
-#### lib_revisionist_rewriter.ts
-Implements the core Git history rewriting functionality using LLMs to generate improved commit messages. Processes commits by extracting diffs, calling LLM APIs for message generation, and creating new commits with preserved metadata. Includes comprehensive reference updating for branches and tags while maintaining commit history integrity.
+#### lib_git_staging.ts
+Provides utilities for working with Git staged changes in a repository. Implements functions to check for staged changes, generate diffstat summaries, and retrieve detailed diffs of staged files. Includes functionality for committing staged changes with user-provided or LLM-generated commit messages.
 

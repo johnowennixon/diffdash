@@ -78,10 +78,3 @@ export function format_local_iso_ymd(date: Date): string {
 export function format_local_iso_hms(date: Date): string {
   return format_utc_iso_hms(localize(date))
 }
-
-/**
- * Format a date as an ISO string
- */
-export function format_iso(date: Date): string {
-  return date.toISOString()
-}

@@ -5,32 +5,31 @@ This document outlines the sequence of development tasks to transform the curren
 ## Core Functionality
 
 ### Refactoring and Structure
-    - [ ] Update package.json to reflect new project name and purpose
-    - [ ] Create new main entry point (diffdash.ts) focused on single commit flow
-    - [ ] Refactor configuration handler to remove history rewriting options
-    - [ ] Create simplified Git utility functions for staged changes
+    - [x] Update package.json to reflect new project name and purpose
+    - [x] Create new main entry point (diffdash.ts) focused on single commit flow
+    - [x] Refactor configuration handler to remove history rewriting options
+    - [x] Create simplified Git utility functions for staged changes
 
 ### Staged Changes Analysis
-    - [ ] Implement function to detect and validate staged changes
-    - [ ] Create function to generate diffstat for staged changes
-    - [ ] Create function to get detailed diff for staged changes
-    - [ ] Add branch and recent commit context collection
+    - [x] Implement function to detect and validate staged changes
+    - [x] Create function to generate diffstat for staged changes
+    - [x] Create function to get detailed diff for staged changes
 
 ### Message Generation
-    - [ ] Adapt prompt generation for staged changes context
-    - [ ] Update message validator for commit messages
-    - [ ] Simplify footer generation (remove version comparison logic)
-    - [ ] Ensure proper LLM provider configuration and error handling
+    - [x] Adapt prompt generation for staged changes context
+    - [x] Update message validator for commit messages
+    - [x] Simplify footer generation (remove version comparison logic)
+    - [x] Ensure proper LLM provider configuration and error handling
 
 ### User Interaction
-    - [ ] Create interactive message display with syntax highlighting
-    - [ ] Implement user confirmation flow (accept/edit/cancel)
-    - [ ] Add message editing capabilities with editor integration
-    - [ ] Implement final confirmation after edits
+    - [x] Create interactive message display with syntax highlighting
+    - [x] Implement user confirmation flow (accept/edit/cancel)
+    - [x] Add message editing capabilities with editor integration
+    - [x] Implement final confirmation after edits
 
 ### Git Operations
-    - [ ] Create function to commit staged changes with given message
-    - [ ] Add proper error handling for Git operations
+    - [x] Create function to commit staged changes with given message
+    - [x] Add proper error handling for Git operations
     - [ ] Implement dry-run option to preview without committing
 
 ## Testing
@@ -40,20 +39,20 @@ This document outlines the sequence of development tasks to transform the curren
     - [ ] Test with various LLM providers and configurations
 
 ## Documentation
-    - [ ] Create comprehensive README
-    - [ ] Document command-line options
+    - [x] Create comprehensive README
+    - [x] Document command-line options
     - [ ] Create usage examples with screenshots
     - [ ] Create guide for integration with development workflows
-    - [ ] Document footer format and customization options
+    - [x] Document footer format and customization options
 
 ## Performance and Polish
-    - [ ] Ensure fast startup and minimal latency
-    - [ ] Add colorized output for better user experience
-    - [ ] Implement clear error messages and recovery suggestions
+    - [x] Ensure fast startup and minimal latency
+    - [x] Add colorized output for better user experience
+    - [x] Implement clear error messages and recovery suggestions
     - [ ] Create installation and distribution process
 
 ## Additional Features
-    - [ ] Add support for custom message templates
+    - [x] Add support for custom message templates
     - [ ] Implement conventional commits option
     - [ ] Add pre-commit hook installation option
     - [ ] Create configuration file support for persistent settings

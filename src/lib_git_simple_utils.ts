@@ -6,8 +6,6 @@ import {EMPTY} from "./lib_char.js"
 import * as lib_file_path from "./lib_file_path.js"
 import * as lib_tell from "./lib_tell.js"
 
-// We're using 'any' type to avoid complex typing for git log results
-
 export default {}
 
 export type GitRepo = SimpleGit
@@ -316,44 +314,5 @@ export async function check_for_signed_tags(git: GitRepo): Promise<Array<string>
   } catch (error) {
     lib_tell.warning(`Error checking for signed tags: ${error instanceof Error ? error.message : String(error)}`)
     return [] // Return empty array if we couldn't check
-  }
-}
-
-/**
- * Get information about the current branch
- */
-export async function get_current_branch_info(git: GitRepo): Promise<{name: string; last_commit_sha: string}> {
-  try {
-    const branch_name = await git.revparse(["--abbrev-ref", "HEAD"])
-    const last_commit_sha = await git.revparse(["HEAD"])
-
-    return {
-      name: branch_name,
-      last_commit_sha,
-    }
-  } catch (error) {
-    lib_tell.warning(`Error getting current branch info: ${error instanceof Error ? error.message : String(error)}`)
-    // Return default values if something goes wrong
-    return {
-      name: "unknown",
-      last_commit_sha: "",
-    }
-  }
-}
-
-/**
- * Get the most recent commits from the current branch
- */
-export async function get_recent_commits(git: GitRepo, count = 3): Promise<Array<{sha: string; message: string}>> {
-  try {
-    const log_result = await git.log({maxCount: count})
-
-    return log_result.all.map((commit) => ({
-      sha: commit.hash,
-      message: commit.message,
-    }))
-  } catch (error) {
-    lib_tell.warning(`Error getting recent commits: ${error instanceof Error ? error.message : String(error)}`)
-    return []
   }
 }

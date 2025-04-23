@@ -1,4 +1,8 @@
 import {ArgumentParser} from "argparse"
+
+import * as lib_abort from "./lib_abort.js"
+import type {LlmConfig} from "./lib_llm_config.js"
+import * as lib_llm_config from "./lib_llm_config.js"
 import * as lib_package_details from "./lib_package_details.js"
 
 export interface DiffdashConfig {
@@ -6,8 +10,7 @@ export interface DiffdashConfig {
   repo_path: string
 
   // LLM settings
-  llm_provider: "openai" | "anthropic" | "google"
-  llm_model: string
+  llm_config: LlmConfig
 
   // Prompt settings
   system_prompt?: string
@@ -51,11 +54,6 @@ export function process_config(): DiffdashConfig {
     type: "str",
     default: "",
   })
-
-  // API keys are read directly from environment variables:
-  // - OPENAI_API_KEY
-  // - ANTHROPIC_API_KEY
-  // - GOOGLE_API_KEY
 
   // Prompt customization
   parser.add_argument("--system-prompt", {
@@ -103,12 +101,26 @@ export function process_config(): DiffdashConfig {
 
   const args = parser.parse_args()
 
+  const llm_provider = args.llm_provider as "openai" | "anthropic" | "google"
+  const llm_model = (args.llm_model ?? lib_llm_config.default_llm_model(args.llm_provider)) as string
+
+  if (llm_model === undefined) {
+    lib_abort.abort("The LLM model has not been defined")
+  }
+
+  const llm_api_key = lib_llm_config.get_llm_api_key({llm_provider})
+
+  const llm_config: LlmConfig = {
+    llm_provider,
+    llm_model,
+    llm_api_key,
+  }
+
   // Process the parsed arguments into our config object
   const config: DiffdashConfig = {
     repo_path: args.repo_path,
 
-    llm_provider: args.llm_provider as "openai" | "anthropic" | "google",
-    llm_model: get_default_model(args.llm_provider, args.llm_model),
+    llm_config,
 
     system_prompt: args.system_prompt,
     user_prompt_prefix: args.user_prompt_prefix,
@@ -123,29 +135,5 @@ export function process_config(): DiffdashConfig {
     verbose: !!args.verbose,
   }
 
-  // Validate the configuration
-  validate_config(config)
-
   return config
-}
-
-function get_default_model(provider: string, model?: string): string {
-  if (model) {
-    return model
-  }
-
-  switch (provider) {
-    case "openai":
-      return "gpt-4o"
-    case "anthropic":
-      return "claude-3-opus-20240229"
-    case "google":
-      return "gemini-1.5-pro"
-    default:
-      return "gpt-4o"
-  }
-}
-
-function validate_config(_config: DiffdashConfig): void {
-  // Validation happens in lib_llm_chat.ts when making API calls
 }

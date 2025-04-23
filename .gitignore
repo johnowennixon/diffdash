@@ -4,4 +4,3 @@
 .npm.token
 dist
 node_modules
-test.*
