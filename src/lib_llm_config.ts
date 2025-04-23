@@ -14,10 +14,8 @@ export interface LlmConfig {
   llm_api_key: string
 }
 
-export function show_llm_config({llm_config, verbose}: {llm_config: LlmConfig; verbose: boolean}): void {
-  if (verbose) {
-    lib_tell.info(`Using LLM: ${llm_config.llm_model} from ${llm_config.llm_provider}`)
-  }
+export function show_llm_config({llm_config}: {llm_config: LlmConfig}): void {
+  lib_tell.info(`Using LLM: ${llm_config.llm_model} from ${llm_config.llm_provider}`)
 }
 
 export function default_llm_model({llm_provider}: {llm_provider: LlmProvider}): string | undefined {

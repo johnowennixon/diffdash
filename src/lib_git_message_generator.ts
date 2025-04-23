@@ -37,7 +37,7 @@ export async function generate_message(details: GitMessageGenerateDetails): Prom
 
   const {llm_model} = llm_config
 
-  lib_llm_config.show_llm_config({llm_config, verbose: true})
+  lib_llm_config.show_llm_config({llm_config})
 
   // Create the system prompts
   const system_prompt = lib_git_message_prompt.get_system_prompt()
