@@ -2,7 +2,7 @@ import {ArgumentParser} from "argparse"
 
 import * as lib_abort from "./lib_abort.js"
 import * as lib_debug from "./lib_debug.js"
-import type {LlmConfig} from "./lib_llm_config.js"
+import type {LlmConfig, LlmProvider} from "./lib_llm_config.js"
 import * as lib_llm_config from "./lib_llm_config.js"
 import * as lib_package_details from "./lib_package_details.js"
 
@@ -22,14 +22,13 @@ export function process_config(): DiffdashConfig {
   parser.add_argument("--llm-provider", {
     help: "LLM provider to use (openai, anthropic, google)",
     type: "str",
-    choices: ["openai", "anthropic", "google"],
+    choices: lib_llm_config.LLM_PROVIDER_CHOICES,
     default: "openai",
   })
 
   parser.add_argument("--llm-model", {
     help: "LLM model to use (default depends upon provider)",
     type: "str",
-    default: "",
   })
 
   // Debug options
@@ -56,8 +55,8 @@ export function process_config(): DiffdashConfig {
 
   const verbose = !!args.verbose
 
-  const llm_provider = args.llm_provider as "openai" | "anthropic" | "google"
-  const llm_model = (args.llm_model ?? lib_llm_config.default_llm_model(args.llm_provider)) as string
+  const llm_provider = args.llm_provider as LlmProvider
+  const llm_model = (args.llm_model ?? lib_llm_config.default_llm_model({llm_provider})) as string | undefined
 
   if (llm_model === undefined) {
     lib_abort.abort("The LLM model has not been defined")

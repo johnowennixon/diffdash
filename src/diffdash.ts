@@ -17,7 +17,7 @@ async function main(): Promise<void> {
 
   // Open and validate the repository
   if (verbose) {
-    lib_tell.action("Opening repository")
+    lib_tell.debug("Opening repository")
   }
 
   const git = await lib_git_simple_utils.open_repository()
@@ -36,7 +36,7 @@ async function main(): Promise<void> {
 
   // Gather context for the commit message
   if (verbose) {
-    lib_tell.action("Gathering information about staged changes...")
+    lib_tell.debug("Gathering information about staged changes...")
   }
 
   const diffstat = await lib_git_simple_staging.get_staged_diffstat(git)
@@ -44,7 +44,7 @@ async function main(): Promise<void> {
 
   // Generate commit message
   if (verbose) {
-    lib_tell.action("Generating commit message using LLM...")
+    lib_tell.debug("Generating commit message using LLM...")
   }
 
   const commit_message = await lib_git_message_generator.generate_message({
@@ -65,7 +65,7 @@ async function main(): Promise<void> {
 
   // Create the commit
   if (verbose) {
-    lib_tell.action("Creating commit...")
+    lib_tell.debug("Creating commit...")
   }
 
   try {
