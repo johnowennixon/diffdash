@@ -7,7 +7,7 @@ The primary goal is to provide a self-contained tool that analyzes staged change
 ## 2. Core Components
 
 ### CLI Interface (lib_arg_infer)
-- Handles parsing all command-line arguments and options (e.g., repository path, LLM API keys/config, prompt details, validation parameters, flags to suppress certain functionality).
+- Handles parsing all command-line arguments and options (e.g., LLM config, debug settings).
 - Makes program name and version (e.g., from package.json) available to the application logic.
 - Provides help messages and usage instructions.
 
@@ -28,11 +28,10 @@ The primary goal is to provide a self-contained tool that analyzes staged change
 ### Git Commit Message Generator
 - Takes the following as input:
   - The staged changes (diff and diffstat).
-  - Branch information and recent commit messages (for context).
-  - LLM configuration (provider, model, parameters) from CLI args.
+  - LLM configuration (provider, model) from CLI args.
   - System prompt for setting LLM context.
   - Current program name and version.
-- Dynamically generates the LLM Prompt: Assembles a prompt with sections for diffstat, detailed diff, recent commit messages, and optional custom instructions.
+- Dynamically generates the LLM Prompt: Assembles a prompt with sections for diffstat, detailed diff.
 - Creates a system prompt: Defines the role and task for the LLM.
 - Interacts with LLM: Calls the LLM API via the Vercel AI SDK with the appropriate provider (OpenAI, Anthropic, Google Gemini), handles errors.
 - Receives and Parses Response: Gets the generated text message.
@@ -43,23 +42,19 @@ The primary goal is to provide a self-contained tool that analyzes staged change
 ### Git Commit Creator
 - Takes the generated commit message and creates a new commit with the staged changes.
 - Uses simple-git to perform the commit operation.
-- Preserves author information from Git configuration.
 
 ### User Confirmation Module
 - Always displays the generated commit message to the user before proceeding.
 - Provides an interactive confirmation prompt allowing the user to:
   - Accept the message and create the commit
-  - Edit the message before committing
   - Cancel the operation entirely
-- Provides clear information about LLM costs/latency.
 - When no staged changes are detected, provides a clear status message.
 
 ### Logging/Reporting
 - Outputs the LLM-generated commit message.
 - Reports the final outcome, including successful commit creation.
 - Uses color-coded action messages for clear status communication.
-- Provides appropriate summary based on execution mode (dry run vs. actual commit).
-- Includes debug channels for LLM inputs, outputs, and generated messages.
+- Includes debug channels for LLM inputs, outputs.
 - Logs errors clearly.
 
 ## 3. Workflow
@@ -96,7 +91,6 @@ The primary goal is to provide a self-contained tool that analyzes staged change
 ## 5. Message Generation Logic
 - Includes logic for formatting and appending the footer to generated messages.
 - Includes the LLM model name in the footer for traceability.
-- Dynamic prompt generation with conditional inclusion of custom instructions.
 - Support for multiple LLM providers through the Vercel AI SDK (OpenAI, Anthropic, and Google Gemini, with ability to add more).
 - Separation of concerns with system prompts being passed from application layer.
 - Validation logic for LLM output.
@@ -104,7 +98,7 @@ The primary goal is to provide a self-contained tool that analyzes staged change
 
 ## 6. User Experience and Safety
 - Required interactive confirmation showing the generated message
-- Options to accept, edit, or cancel the commit
+- Options to accept, or cancel the commit
 - Message validation to ensure quality
 - LLM API error handling with detailed messages
 - Environment variable fallbacks for API keys

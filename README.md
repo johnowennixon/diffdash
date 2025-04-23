@@ -72,17 +72,8 @@ diffdash --llm-provider openai --openai-api-key your-api-key
 
 | Option | Description |
 |--------|-------------|
-| `--repo-path` | Path to the Git repository (defaults to current directory) |
 | `--llm-provider` | LLM provider to use (openai, anthropic, google) |
 | `--llm-model` | LLM model to use from the selected provider |
-| `--openai-api-key` | OpenAI API key |
-| `--anthropic-api-key` | Anthropic API key |
-| `--google-api-key` | Google API key |
-| `--system-prompt` | Custom system prompt for the LLM |
-| `--user-prompt-prefix` | Text to include at the beginning of the user prompt |
-| `--user-prompt-suffix` | Text to include at the end of the user prompt |
-| `--min-message-length` | Minimum length for commit messages |
-| `--max-message-length` | Maximum length for commit messages |
 | `--debug-llm-inputs` | Show prompts sent to the LLM |
 | `--debug-llm-outputs` | Show raw outputs from the LLM |
 | `--verbose` | Enable verbose output |

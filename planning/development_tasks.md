@@ -23,9 +23,7 @@ This document outlines the sequence of development tasks to transform the curren
 
 ### User Interaction
     - [x] Create interactive message display with syntax highlighting
-    - [x] Implement user confirmation flow (accept/edit/cancel)
-    - [x] Add message editing capabilities with editor integration
-    - [x] Implement final confirmation after edits
+    - [x] Implement user confirmation flow (accept/cancel)
 
 ### Git Operations
     - [x] Create function to commit staged changes with given message
