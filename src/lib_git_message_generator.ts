@@ -51,26 +51,11 @@ export async function generate_message(details: GitMessageGenerateDetails): Prom
     use_original: false,
   })
 
-  // Debug: show the prompts if requested
-  if (lib_debug.channels.llm_inputs) {
-    lib_tell.info("LLM input system prompt:")
-    console.log(system_prompt)
-
-    lib_tell.info("LLM input user prompt:")
-    console.log(user_prompt)
-  }
-
   // Call the LLM API to generate a message
   const llm_response = await lib_llm_chat.call_llm({llm_config, system_prompt, user_prompt})
 
   if (!llm_response.success) {
     lib_abort.abort(`LLM API call failed: ${llm_response.error_message}`)
-  }
-
-  // Debug: show the raw response if requested
-  if (lib_debug.channels.llm_outputs) {
-    lib_tell.info("LLM output:")
-    console.log(llm_response.text)
   }
 
   // Validate the generated message
