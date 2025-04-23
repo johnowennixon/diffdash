@@ -1,53 +1,41 @@
-import {ArgumentParser} from "argparse"
-
 import * as lib_abort from "./lib_abort.js"
+import * as a from "./lib_arg_infer.js"
 import * as lib_debug from "./lib_debug.js"
 import type {LlmConfig, LlmProvider} from "./lib_llm_config.js"
+import {LLM_PROVIDER_CHOICES} from "./lib_llm_config.js"
 import * as lib_llm_config from "./lib_llm_config.js"
 import * as lib_package_details from "./lib_package_details.js"
 
 export default {}
+
+const DEFAULT_LLM_PROVIDER: LlmProvider = "openai"
+
+export const arg_schema = {
+  llm_provider: a.arg_choice_default<LlmProvider>({
+    help: "LLM provider to use",
+    choices: LLM_PROVIDER_CHOICES,
+    default: DEFAULT_LLM_PROVIDER,
+  }),
+  llm_model: a.arg_string({help: "LLM model to use (default depends upon provider)"}),
+
+  debug_llm_inputs: a.arg_boolean({help: "Show prompts sent to the LLM"}),
+  debug_llm_outputs: a.arg_boolean({help: "Show raw outputs from the LLM"}),
+}
+
+export const arg_parser = a.make_arg_parser(arg_schema, lib_package_details.PROGRAM_NAME)
 
 export interface DiffdashConfig {
   llm_config: LlmConfig
 }
 
 export function process_config(): DiffdashConfig {
-  const parser = new ArgumentParser({
-    description: `${lib_package_details.PROGRAM_NAME} (v${lib_package_details.PROGRAM_VERSION}) - Generate commit messages for staged changes using LLMs`,
-  })
+  const pa = arg_parser.parsed_args
 
-  // LLM provider and model
-  parser.add_argument("--llm-provider", {
-    help: "LLM provider to use (openai, anthropic, google)",
-    type: "str",
-    choices: lib_llm_config.LLM_PROVIDER_CHOICES,
-    default: "openai",
-  })
+  lib_debug.channels.llm_inputs = pa.debug_llm_inputs
+  lib_debug.channels.llm_outputs = pa.debug_llm_outputs
 
-  parser.add_argument("--llm-model", {
-    help: "LLM model to use (default depends upon provider)",
-    type: "str",
-  })
-
-  // Debug options
-  parser.add_argument("--debug-llm-inputs", {
-    help: "Show prompts sent to the LLM",
-    action: "store_true",
-  })
-
-  parser.add_argument("--debug-llm-outputs", {
-    help: "Show raw outputs from the LLM",
-    action: "store_true",
-  })
-
-  const args = parser.parse_args()
-
-  lib_debug.channels.llm_inputs = args.debug_llm_inputs
-  lib_debug.channels.llm_outputs = args.debug_llm_outputs
-
-  const llm_provider = args.llm_provider as LlmProvider
-  const llm_model = (args.llm_model ?? lib_llm_config.default_llm_model({llm_provider})) as string | undefined
+  const llm_provider = pa.llm_provider
+  const llm_model = pa.llm_model ?? lib_llm_config.default_llm_model({llm_provider})
 
   if (llm_model === undefined) {
     lib_abort.abort("The LLM model has not been defined")
