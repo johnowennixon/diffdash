@@ -71,7 +71,7 @@ export function inspect_when(when: boolean | undefined, obj: unknown, name: stri
   }
 }
 
-export function string_block({content, title, width = 100}: {content: string; title: string; width?: number}): void {
+export function string_block({content, title, width = 100}: {content: string; title?: string; width?: number}): void {
   const separator = EQUALS.repeat(width)
 
   const top_line = title ? lib_string_function.center_pad(SPACE + title + SPACE, width, EQUALS) : separator

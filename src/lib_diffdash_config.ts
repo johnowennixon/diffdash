@@ -10,7 +10,6 @@ export default {}
 
 export interface DiffdashConfig {
   llm_config: LlmConfig
-  verbose: boolean
 }
 
 export function process_config(): DiffdashConfig {
@@ -42,18 +41,10 @@ export function process_config(): DiffdashConfig {
     action: "store_true",
   })
 
-  // Miscellaneous
-  parser.add_argument("--verbose", {
-    help: "Enable verbose output",
-    action: "store_true",
-  })
-
   const args = parser.parse_args()
 
   lib_debug.channels.llm_inputs = args.debug_llm_inputs
   lib_debug.channels.llm_outputs = args.debug_llm_outputs
-
-  const verbose = !!args.verbose
 
   const llm_provider = args.llm_provider as LlmProvider
   const llm_model = (args.llm_model ?? lib_llm_config.default_llm_model({llm_provider})) as string | undefined
@@ -70,13 +61,10 @@ export function process_config(): DiffdashConfig {
     llm_api_key,
   }
 
-  lib_llm_config.show_llm_config({llm_config, verbose})
+  lib_llm_config.show_llm_config({llm_config, verbose: true})
 
   // Process the parsed arguments into our config object
-  const config: DiffdashConfig = {
-    llm_config,
-    verbose,
-  }
+  const config: DiffdashConfig = {llm_config}
 
   return config
 }

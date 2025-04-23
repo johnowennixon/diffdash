@@ -1,6 +1,7 @@
 #!/usr/bin/env tsx
 
 import * as lib_abort from "./lib_abort.js"
+import * as lib_ansi from "./lib_ansi.js"
 import * as lib_diffdash_config from "./lib_diffdash_config.js"
 import * as lib_git_message_generator from "./lib_git_message_generator.js"
 import * as lib_git_message_ui from "./lib_git_message_ui.js"
@@ -13,12 +14,7 @@ async function main(): Promise<void> {
   // Process and validate configuration
   const config = lib_diffdash_config.process_config()
 
-  const {llm_config, verbose} = config
-
-  // Open and validate the repository
-  if (verbose) {
-    lib_tell.debug("Opening repository")
-  }
+  const {llm_config} = config
 
   const git = await lib_git_simple_utils.open_repository()
   const is_valid = await lib_git_simple_utils.validate_repository(git)
@@ -34,18 +30,10 @@ async function main(): Promise<void> {
     lib_abort.abort("No staged changes found. Please stage changes before creating a commit.")
   }
 
-  // Gather context for the commit message
-  if (verbose) {
-    lib_tell.debug("Gathering information about staged changes...")
-  }
-
   const diffstat = await lib_git_simple_staging.get_staged_diffstat(git)
   const diff = await lib_git_simple_staging.get_staged_diff(git)
 
   // Generate commit message
-  if (verbose) {
-    lib_tell.debug("Generating commit message using LLM...")
-  }
 
   const commit_message = await lib_git_message_generator.generate_message({
     llm_config,
@@ -57,25 +45,19 @@ async function main(): Promise<void> {
   lib_tell.info("Generated commit message:")
   lib_git_message_ui.display_message(commit_message)
 
-  const confirmed = await lib_readline_prompt.confirm("Do you want to create this commit?")
+  const confirmed = await lib_readline_prompt.confirm(lib_ansi.bold("Do you want to create this commit?"))
 
   if (!confirmed) {
     lib_abort.abort("Commit cancelled by user.")
   }
 
   // Create the commit
-  if (verbose) {
-    lib_tell.debug("Creating commit...")
-  }
-
   try {
     await lib_git_simple_staging.create_commit(git, commit_message)
     lib_tell.success("Commit created successfully!")
   } catch (error) {
     lib_abort.abort(`Failed to create commit: ${error instanceof Error ? error.message : String(error)}`)
   }
-
-  lib_tell.okay()
 }
 
 await main().catch((error) => {
