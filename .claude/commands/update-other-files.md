@@ -1,6 +1,7 @@
 Please edit the documentation file `planning/other_files.md`.
 
 Look for non-source files in the codebase that are not ignored by Git.
+Make sure you include hidden files and files in hidden directories.
 
 For all files documented, check they are still in the codebase.
 If not, please remove them from the documentation.
