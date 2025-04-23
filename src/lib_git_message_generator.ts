@@ -1,7 +1,6 @@
 import * as lib_abort from "./lib_abort.js"
 import {EMPTY} from "./lib_char.js"
 import * as lib_datetime from "./lib_datetime.js"
-import * as lib_debug from "./lib_debug.js"
 import * as lib_git_message_prompt from "./lib_git_message_prompt.js"
 import * as lib_git_message_validate from "./lib_git_message_validate.js"
 import * as lib_llm_chat from "./lib_llm_chat.js"
