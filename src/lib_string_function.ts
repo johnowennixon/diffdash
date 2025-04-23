@@ -1,4 +1,3 @@
-import {SPACE} from "./lib_char.js"
 import type {StringMap, StringObject, StringReplacer} from "./lib_type.js"
 
 export default {}
@@ -23,16 +22,4 @@ export function map_to_object(map: StringMap): StringObject {
   }
 
   return obj
-}
-
-export function center_pad(text: string, width: number, pad_char = SPACE): string {
-  if (text.length >= width) {
-    return text
-  }
-
-  const total_pad = width - text.length
-  const left_pad = Math.floor(total_pad / 2)
-  const right_pad = total_pad - left_pad
-
-  return pad_char.repeat(left_pad) + text + pad_char.repeat(right_pad)
 }

@@ -1,8 +1,7 @@
-import {EMPTY, EQUALS, SPACE} from "./lib_char.js"
+import {EMPTY} from "./lib_char.js"
 import * as lib_enabled from "./lib_enabled.js"
 import * as lib_inspect from "./lib_inspect.js"
 import * as lib_stdio from "./lib_stdio.js"
-import * as lib_string_function from "./lib_string_function.js"
 import * as lib_tell from "./lib_tell.js"
 
 export default {}
@@ -69,14 +68,4 @@ export function inspect_when(when: boolean | undefined, obj: unknown, name: stri
   if (when !== undefined && when) {
     inspect(obj, name)
   }
-}
-
-export function string_block({content, title, width = 100}: {content: string; title?: string; width?: number}): void {
-  const separator = EQUALS.repeat(width)
-
-  const top_line = title ? lib_string_function.center_pad(SPACE + title + SPACE, width, EQUALS) : separator
-
-  lib_tell.debug(top_line)
-  lib_tell.debug(content)
-  lib_tell.debug(separator)
 }
