@@ -6,15 +6,10 @@ import type {LlmConfig} from "./lib_llm_config.js"
 import * as lib_llm_config from "./lib_llm_config.js"
 import * as lib_package_details from "./lib_package_details.js"
 
+export default {}
+
 export interface DiffdashConfig {
-  // LLM settings
   llm_config: LlmConfig
-
-  // Debug options
-  debug_llm_inputs: boolean
-  debug_llm_outputs: boolean
-
-  // Miscellaneous
   verbose: boolean
 }
 
@@ -32,7 +27,7 @@ export function process_config(): DiffdashConfig {
   })
 
   parser.add_argument("--llm-model", {
-    help: "LLM model to use from the selected provider",
+    help: "LLM model to use (default depends upon provider)",
     type: "str",
     default: "",
   })
@@ -59,6 +54,8 @@ export function process_config(): DiffdashConfig {
   lib_debug.channels.llm_inputs = args.debug_llm_inputs
   lib_debug.channels.llm_outputs = args.debug_llm_outputs
 
+  const verbose = !!args.verbose
+
   const llm_provider = args.llm_provider as "openai" | "anthropic" | "google"
   const llm_model = (args.llm_model ?? lib_llm_config.default_llm_model(args.llm_provider)) as string
 
@@ -74,14 +71,12 @@ export function process_config(): DiffdashConfig {
     llm_api_key,
   }
 
+  lib_llm_config.show_llm_config({llm_config, verbose})
+
   // Process the parsed arguments into our config object
   const config: DiffdashConfig = {
     llm_config,
-
-    debug_llm_inputs: !!args.debug_llm_inputs,
-    debug_llm_outputs: !!args.debug_llm_outputs,
-
-    verbose: !!args.verbose,
+    verbose,
   }
 
   return config

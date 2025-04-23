@@ -9,6 +9,8 @@ import type {LlmConfig} from "./lib_llm_config.js"
 import * as lib_package_details from "./lib_package_details.js"
 import * as lib_tell from "./lib_tell.js"
 
+export default {}
+
 export interface GitMessageGenerateDetails {
   llm_config: LlmConfig
   diffstat: string

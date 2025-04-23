@@ -1,5 +1,7 @@
 import type {SimpleGit} from "simple-git"
 
+export default {}
+
 export async function has_staged_changes(git: SimpleGit): Promise<boolean> {
   const status = await git.status()
   return status.staged.length > 0

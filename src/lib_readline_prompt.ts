@@ -1,5 +1,7 @@
 import * as readline from "node:readline"
 
+export default {}
+
 /**
  * Simple confirmation prompt that returns a boolean
  */
