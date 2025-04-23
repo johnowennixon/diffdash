@@ -51,7 +51,7 @@ Validates Git commit messages against quality and formatting criteria. Checks fo
 Implements simplified Git diff operations for quick file comparison. Provides functions to detect changes between different versions of files or directories. Offers a more user-friendly interface than raw Git diff output for common comparison tasks.
 
 #### lib_git_simple_utils.ts
-Contains utility functions for common Git operations with simplified interfaces. Abstracts away complex Git command details to provide easy-to-use helper functions. Includes functions for checking repository status, extracting branch information, and manipulating Git config.
+Contains utility functions for common Git operations with simplified interfaces. Abstracts away complex Git command details to provide easy-to-use helper functions. Includes functions for checking repository status, extracting branch information, manipulating Git config, and pushing changes to remote repositories.
 
 #### lib_inspect.ts
 Enhances object inspection and pretty printing for debugging and logging purposes. Provides customizable object serialization with depth control and circular reference handling. Implements colorized output formatting for different data types and structures.
@@ -101,7 +101,7 @@ Handles the generation of Git commit messages using Large Language Models. Coord
 Implements user interface components for displaying Git commit messages with proper formatting. Provides functions to present commit messages in a visually appealing format with consistent styling. Utilizes the text block display utilities for terminal output.
 
 #### lib_git_simple_staging.ts
-Provides utilities for working with Git staged changes in a repository. Implements functions to check for staged changes, generate diffstat summaries, and retrieve detailed diffs of staged files. Includes functionality for committing staged changes with user-provided or LLM-generated commit messages.
+Provides utilities for working with Git staged changes in a repository. Implements functions to check for staged and unstaged changes, generate diffstat summaries, and retrieve detailed diffs of staged files. Includes functionality for staging all changes and committing staged changes with user-provided or LLM-generated commit messages.
 
 #### lib_tui_block.ts
 Implements text-based user interface components for displaying formatted blocks of text. Provides utilities for creating bordered text blocks with optional titles and custom widths. Includes text centering and padding functions for consistent terminal output formatting.

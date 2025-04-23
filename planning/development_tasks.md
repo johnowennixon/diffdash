@@ -14,6 +14,7 @@ This document outlines the sequence of development tasks to transform the curren
     - [x] Implement function to detect and validate staged changes
     - [x] Create function to generate diffstat for staged changes
     - [x] Create function to get detailed diff for staged changes
+    - [x] Add option to automatically stage all changes when none are staged
 
 ### Message Generation
     - [x] Adapt prompt generation for staged changes context
@@ -29,6 +30,7 @@ This document outlines the sequence of development tasks to transform the curren
 ### Git Operations
     - [x] Create function to commit staged changes with given message
     - [x] Add proper error handling for Git operations
+    - [x] Add option to push changes to remote after commit
     - [ ] Implement dry-run option to preview without committing
 
 ## Testing

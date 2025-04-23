@@ -62,7 +62,7 @@ The primary goal is to provide a self-contained tool that analyzes staged change
 1. **Initialization**: User runs command, provides config.
 2. **Argument Parsing**: lib_arg_infer parses args and options. Get program name/version.
 3. **Repository Validation**: Validate repo via simple-git.
-4. **Check for Staged Changes**: Verify that changes have been staged for commit.
+4. **Check for Staged Changes**: Verify that changes have been staged for commit. If no staged changes are found but unstaged changes exist, prompt the user to stage all changes.
 5. **Gather Context**:
    - Retrieve branch information and recent commit messages.
    - Calculate diff and diffstat for staged changes.
@@ -78,6 +78,7 @@ The primary goal is to provide a self-contained tool that analyzes staged change
 8. **Create Commit**:
    - Create a commit with the accepted message (original or user-edited).
 9. **Reporting**: Report success with appropriate message confirming the commit was created.
+10. **Push Option**: Prompt user to push changes to remote repository after a successful commit.
 
 ## 4. Technology Stack
 - TypeScript
@@ -115,6 +116,8 @@ The primary goal is to provide a self-contained tool that analyzes staged change
 - **Prompt Optimization**: Streamlines prompts by only including relevant context.
 - **Message Editing**: Supports user edits to the generated message before final commit.
 - **Diffstat Summary**: Includes diffstat summaries for quick overview of changes.
+- **Push Integration**: Offers to push changes to remote after successful commit with tag support.
+- **Auto-staging Option**: Prompts to automatically stage all changes when no staged changes are found.
 
 ### Future Considerations
 - **Template Support**: Allow users to provide custom templates for commit messages.

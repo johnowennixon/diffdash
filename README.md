@@ -10,6 +10,8 @@ A command-line tool to generate high-quality commit messages for staged changes 
 - Allows users to accept, edit, or cancel commits
 - Adds a footer to track AI assistance
 - Includes diffstat summaries in the context
+- Offers to push changes to remote after successful commit
+- Prompts to stage all changes when no staged changes are detected
 
 ## Installation
 

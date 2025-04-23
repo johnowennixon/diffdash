@@ -27,7 +27,24 @@ async function main(): Promise<void> {
   const has_staged_changes = await lib_git_simple_staging.has_staged_changes(git)
 
   if (!has_staged_changes) {
-    lib_abort.abort("No staged changes found. Please stage changes before creating a commit.")
+    // Check if there are any unstaged changes
+    const has_unstaged_changes = await lib_git_simple_staging.has_unstaged_changes(git)
+
+    if (!has_unstaged_changes) {
+      lib_abort.abort("No changes found in the repository. Nothing to commit.")
+    }
+
+    // Ask if the user wants to stage all changes
+    const stage_all_confirmed = await lib_readline_prompt.confirm(
+      lib_ansi.bold("No staged changes found. Would you like to stage all changes?"),
+    )
+
+    if (stage_all_confirmed) {
+      await lib_git_simple_staging.stage_all_changes(git)
+      lib_tell.success("All changes have been staged.")
+    } else {
+      lib_abort.abort("No staged changes found. Please stage changes before creating a commit.")
+    }
   }
 
   const diffstat = await lib_git_simple_staging.get_staged_diffstat(git)
@@ -55,6 +72,18 @@ async function main(): Promise<void> {
   try {
     await lib_git_simple_staging.create_commit(git, commit_message)
     lib_tell.success("Commit created successfully!")
+
+    // Ask if the user wants to push the changes
+    const push_confirmed = await lib_readline_prompt.confirm(
+      lib_ansi.bold("Do you want to push these changes to remote?"),
+    )
+
+    if (push_confirmed) {
+      const push_success = await lib_git_simple_utils.push_to_remote(git)
+      if (push_success) {
+        lib_tell.success("Changes have been pushed to remote successfully!")
+      }
+    }
   } catch (error) {
     lib_abort.abort(`Failed to create commit: ${error instanceof Error ? error.message : String(error)}`)
   }

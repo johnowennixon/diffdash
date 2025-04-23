@@ -11,6 +11,8 @@ Diffdash is a TypeScript command-line tool that generates high-quality commit me
 - Adds specialized footers to identify AI-assisted commits
 - Supports message editing using the user's default editor
 - Includes comprehensive validation to ensure quality messages
+- Offers to push changes to remote after successful commit
+- Prompts to stage all changes when no staged changes are detected
 
 ## Architecture
 
@@ -67,6 +69,7 @@ The codebase follows a modular design with specialized libraries:
    - Displays the generated commit message with proper formatting
    - Prompts the user to accept, edit, or reject the message
    - Creates the Git commit if accepted
+   - Offers to push changes to remote after successful commit
 
 ## Technologies and Dependencies
 

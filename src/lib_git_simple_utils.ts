@@ -316,3 +316,18 @@ export async function check_for_signed_tags(git: GitRepo): Promise<Array<string>
     return [] // Return empty array if we couldn't check
   }
 }
+
+/**
+ * Push changes to the remote repository
+ * Uses --follow-tags to also push any tags associated with the commits being pushed
+ */
+export async function push_to_remote(git: GitRepo): Promise<boolean> {
+  try {
+    await git.push(["--follow-tags"])
+    lib_tell.success("Successfully pushed changes to remote")
+    return true
+  } catch (error) {
+    lib_tell.error(`Failed to push to remote: ${error instanceof Error ? error.message : String(error)}`)
+    return false
+  }
+}
