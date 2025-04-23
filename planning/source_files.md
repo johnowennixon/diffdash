@@ -91,9 +91,18 @@ Contains TypeScript utility types for advanced type manipulations. Implements he
 #### lib_diffdash_config.ts
 Manages configuration settings for the Diffdash commit message generation tool. Implements argument parsing with comprehensive command-line options for controlling LLM provider selection, debugging, and process behavior. Processes user-provided arguments into a structured DiffdashConfig object with appropriate defaults.
 
+#### lib_env.ts
+Provides utilities for working with environment variables in a type-safe manner. Implements functions for retrieving environment variables with fallbacks, empty defaults, or aborting when missing. Includes type definitions for environment records and methods for setting environment values.
+
 #### lib_git_message_generator.ts
 Handles the generation of Git commit messages using Large Language Models. Coordinates prompt creation, LLM API calls, message validation, and footer addition for a seamless message generation process. Provides utilities to format and enhance the generated message for optimal commit history.
 
-#### lib_git_staging.ts
+#### lib_git_message_ui.ts
+Implements user interface components for displaying Git commit messages with proper formatting. Provides functions to present commit messages in a visually appealing format with consistent styling. Utilizes the text block display utilities for terminal output.
+
+#### lib_git_simple_staging.ts
 Provides utilities for working with Git staged changes in a repository. Implements functions to check for staged changes, generate diffstat summaries, and retrieve detailed diffs of staged files. Includes functionality for committing staged changes with user-provided or LLM-generated commit messages.
+
+#### lib_tui_block.ts
+Implements text-based user interface components for displaying formatted blocks of text. Provides utilities for creating bordered text blocks with optional titles and custom widths. Includes text centering and padding functions for consistent terminal output formatting.
 

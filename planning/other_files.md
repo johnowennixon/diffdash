@@ -48,8 +48,11 @@ TypeScript configuration file that defines compilation settings including strict
 ### CLAUDE.md
 Specific instructions for Claude (the AI assistant) to follow when working with the codebase, ensuring consistent and correct interaction with the project.
 
+### README.md
+Primary project documentation providing an overview of Diffdash, a command-line tool for generating commit messages using AI. Includes installation instructions, usage examples, command-line options, and API key configuration details. Serves as the main reference for users looking to understand and utilize the tool's features.
+
 ### planning/architecture_guide.md
-Comprehensive technical architecture document outlining the goals, components, workflow, and technology stack of the Revisionist tool. Details the core modules, their responsibilities, and how they interact to provide Git commit message rewriting functionality.
+Comprehensive technical architecture document outlining the goals, components, workflow, and technology stack of the Diffdash tool. Details the core modules, their responsibilities, and how they interact to provide commit message generation functionality for staged changes.
 
 ### planning/codebase_summary.md
 Comprehensive overview of the codebase, describing its structure, program categories, library categories, technical characteristics, and key features.
@@ -61,7 +64,7 @@ Detailed coding style guidelines covering file naming, formatting, functions, va
 Basic instructions for linting, building, and fixing formatting issues in the codebase to ensure code quality.
 
 ### planning/lessons_learned.md
-Collection of insights and best practices discovered during the development process of the Revisionist tool. Summarizes important technical decisions, implementation strategies, and design improvements for future reference.
+Collection of insights and best practices discovered during the development process of the Diffdash tool. Summarizes important technical decisions, implementation strategies, and design improvements for future reference.
 
 ### planning/other_files.md
 Comprehensive documentation of all non-source files in the codebase, explaining their purpose and functionality.
@@ -69,8 +72,8 @@ Comprehensive documentation of all non-source files in the codebase, explaining 
 ### planning/source_files.md
 Comprehensive documentation of all source files in the codebase, explaining their purpose and functionality.
 
-### planning/tasks.md
-Detailed project roadmap organized in phases, tracking development progress through implementation tasks. Lists completed and remaining work items for transforming the project into a fully functional Revisionist tool.
+### planning/development_tasks.md
+Detailed project roadmap organized in phases, tracking development progress through implementation tasks. Lists completed and remaining work items for transforming the codebase from a Git history rewriting tool into a tool that generates commit messages for staged changes using LLMs.
 
 ## Claude Command Files
 
