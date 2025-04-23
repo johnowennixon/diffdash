@@ -1,7 +1,7 @@
-import * as lib_debug from "./lib_debug.js"
+import * as lib_tui_block from "./lib_tui_block.js"
 
 export default {}
 
 export function display_message(text: string): void {
-  lib_debug.string_block({content: text})
+  lib_tui_block.string_block({content: text})
 }
