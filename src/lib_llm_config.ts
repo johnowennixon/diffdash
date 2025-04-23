@@ -16,8 +16,7 @@ export interface LlmConfig {
 
 export function show_llm_config({llm_config, verbose}: {llm_config: LlmConfig; verbose: boolean}): void {
   if (verbose) {
-    lib_tell.info(`Using LLM provider: ${llm_config.llm_provider}`)
-    lib_tell.info(`Using LLM model:    ${llm_config.llm_model}`)
+    lib_tell.info(`Using LLM: ${llm_config.llm_model} from ${llm_config.llm_provider}`)
   }
 }
 
