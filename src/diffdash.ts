@@ -30,19 +30,19 @@ async function main(): Promise<void> {
     const has_unstaged_changes = await lib_git_simple_staging.has_unstaged_changes(git)
 
     if (!has_unstaged_changes) {
-      lib_abort.abort("No changes found in the repository. Nothing to commit.")
+      lib_abort.abort("No changes found in the repository - there is nothing to commit")
     }
 
     // Ask if the user wants to stage all changes
     const stage_all_confirmed = await lib_readline_ui.confirm(
-      "No staged changes found - would you like to stage all changes?",
+      "No staged changes found - would you like to add all changes?",
     )
 
     if (stage_all_confirmed) {
       await lib_git_simple_staging.stage_all_changes(git)
-      lib_tell.success("All changes have been staged.")
+      lib_tell.success("All changes have been added")
     } else {
-      lib_abort.abort("Please stage changes before creating a commit.")
+      lib_abort.abort("Please add changes before creating a commit")
     }
   }
 
@@ -50,7 +50,6 @@ async function main(): Promise<void> {
   const diff = await lib_git_simple_staging.get_staged_diff(git)
 
   // Generate commit message
-
   const commit_message = await lib_git_message_generator.generate_message({
     llm_config,
     diffstat,
@@ -61,7 +60,7 @@ async function main(): Promise<void> {
   lib_tell.info("Generated commit message:")
   lib_git_message_ui.display_message(commit_message)
 
-  const confirmed = await lib_readline_ui.confirm("Do you want to make the commit?")
+  const confirmed = await lib_readline_ui.confirm("Do you want to commit these changes?")
 
   if (!confirmed) {
     lib_abort.abort("Commit cancelled by user.")
@@ -69,15 +68,15 @@ async function main(): Promise<void> {
 
   // Create the commit
   await lib_git_simple_staging.create_commit(git, commit_message)
-  lib_tell.success("Commit created successfully")
+  lib_tell.success("Changes committed successfully")
 
   // Ask if the user wants to push the changes
-  const push_confirmed = await lib_readline_ui.confirm("Do you want to push these changes to remote?")
+  const push_confirmed = await lib_readline_ui.confirm("Do you want to push these changes?")
 
   if (push_confirmed) {
     const push_success = await lib_git_simple_utils.push_to_remote(git)
     if (push_success) {
-      lib_tell.success("Changes pushed to remote successfully")
+      lib_tell.success("Changes pushed successfully")
     }
   }
 }
