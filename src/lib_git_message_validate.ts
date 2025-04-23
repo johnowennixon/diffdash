@@ -20,8 +20,8 @@ export interface MessageValidationResult {
  * Validate a commit message
  */
 export function validate_message(message: string, options?: MessageValidationOptions): MessageValidationResult {
-  const min_length = options?.min_length || DEFAULT_MIN_LENGTH
-  const max_length = options?.max_length || DEFAULT_MAX_LENGTH
+  const min_length = options?.min_length ?? DEFAULT_MIN_LENGTH
+  const max_length = options?.max_length ?? DEFAULT_MAX_LENGTH
 
   // Check for empty message
   if (!message || message.trim() === EMPTY) {

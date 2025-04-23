@@ -61,9 +61,6 @@ export function process_config(): DiffdashConfig {
     llm_api_key,
   }
 
-  lib_llm_config.show_llm_config({llm_config, verbose: true})
-
-  // Process the parsed arguments into our config object
   const config: DiffdashConfig = {llm_config}
 
   return config

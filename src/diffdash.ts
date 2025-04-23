@@ -37,7 +37,7 @@ async function main(): Promise<void> {
 
   const commit_message = await lib_git_message_generator.generate_message({
     llm_config,
-    diffstat: diffstat,
+    diffstat,
     diff,
   })
 

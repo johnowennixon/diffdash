@@ -6,6 +6,7 @@ import * as lib_git_message_prompt from "./lib_git_message_prompt.js"
 import * as lib_git_message_validate from "./lib_git_message_validate.js"
 import * as lib_llm_chat from "./lib_llm_chat.js"
 import type {LlmConfig} from "./lib_llm_config.js"
+import * as lib_llm_config from "./lib_llm_config.js"
 import * as lib_package_details from "./lib_package_details.js"
 import * as lib_tell from "./lib_tell.js"
 
@@ -36,6 +37,8 @@ export async function generate_message(details: GitMessageGenerateDetails): Prom
   const {llm_config, diffstat, diff} = details
 
   const {llm_model} = llm_config
+
+  lib_llm_config.show_llm_config({llm_config, verbose: true})
 
   // Create the system prompts
   const system_prompt = lib_git_message_prompt.get_system_prompt()
