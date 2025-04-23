@@ -1,13 +1,12 @@
 #!/usr/bin/env tsx
 
 import * as lib_abort from "./lib_abort.js"
-import * as lib_ansi from "./lib_ansi.js"
 import * as lib_diffdash_config from "./lib_diffdash_config.js"
 import * as lib_git_message_generator from "./lib_git_message_generator.js"
 import * as lib_git_message_ui from "./lib_git_message_ui.js"
 import * as lib_git_simple_staging from "./lib_git_simple_staging.js"
 import * as lib_git_simple_utils from "./lib_git_simple_utils.js"
-import * as lib_readline_prompt from "./lib_readline_prompt.js"
+import * as lib_readline_ui from "./lib_readline_ui.js"
 import * as lib_tell from "./lib_tell.js"
 
 async function main(): Promise<void> {
@@ -35,15 +34,15 @@ async function main(): Promise<void> {
     }
 
     // Ask if the user wants to stage all changes
-    const stage_all_confirmed = await lib_readline_prompt.confirm(
-      lib_ansi.bold("No staged changes found. Would you like to stage all changes?"),
+    const stage_all_confirmed = await lib_readline_ui.confirm(
+      "No staged changes found - would you like to stage all changes?",
     )
 
     if (stage_all_confirmed) {
       await lib_git_simple_staging.stage_all_changes(git)
       lib_tell.success("All changes have been staged.")
     } else {
-      lib_abort.abort("No staged changes found. Please stage changes before creating a commit.")
+      lib_abort.abort("Please stage changes before creating a commit.")
     }
   }
 
@@ -62,30 +61,24 @@ async function main(): Promise<void> {
   lib_tell.info("Generated commit message:")
   lib_git_message_ui.display_message(commit_message)
 
-  const confirmed = await lib_readline_prompt.confirm(lib_ansi.bold("Do you want to create this commit?"))
+  const confirmed = await lib_readline_ui.confirm("Do you want to make the commit?")
 
   if (!confirmed) {
     lib_abort.abort("Commit cancelled by user.")
   }
 
   // Create the commit
-  try {
-    await lib_git_simple_staging.create_commit(git, commit_message)
-    lib_tell.success("Commit created successfully!")
+  await lib_git_simple_staging.create_commit(git, commit_message)
+  lib_tell.success("Commit created successfully")
 
-    // Ask if the user wants to push the changes
-    const push_confirmed = await lib_readline_prompt.confirm(
-      lib_ansi.bold("Do you want to push these changes to remote?"),
-    )
+  // Ask if the user wants to push the changes
+  const push_confirmed = await lib_readline_ui.confirm("Do you want to push these changes to remote?")
 
-    if (push_confirmed) {
-      const push_success = await lib_git_simple_utils.push_to_remote(git)
-      if (push_success) {
-        lib_tell.success("Changes have been pushed to remote successfully!")
-      }
+  if (push_confirmed) {
+    const push_success = await lib_git_simple_utils.push_to_remote(git)
+    if (push_success) {
+      lib_tell.success("Changes pushed to remote successfully")
     }
-  } catch (error) {
-    lib_abort.abort(`Failed to create commit: ${error instanceof Error ? error.message : String(error)}`)
   }
 }
 

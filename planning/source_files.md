@@ -65,7 +65,7 @@ Manages configuration settings for integrating with Large Language Model provide
 #### lib_package_details.ts
 Extracts and exports package information from package.json. Provides constants for the program name and version for use throughout the application.
 
-#### lib_readline_prompt.ts
+#### lib_readline_ui.ts
 Creates interactive command-line prompts for user input. Implements a confirm function that prompts users with yes/no questions and returns boolean results.
 
 #### lib_retry.ts
