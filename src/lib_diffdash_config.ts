@@ -12,14 +12,14 @@ const DEFAULT_LLM_PROVIDER: LlmProvider = "openai"
 
 export const arg_schema = {
   llm_provider: a.arg_choice_default<LlmProvider>({
-    help: "LLM provider to use",
+    help: `the LLM provider to use (default: ${DEFAULT_LLM_PROVIDER})`,
     choices: LLM_PROVIDER_CHOICES,
     default: DEFAULT_LLM_PROVIDER,
   }),
-  llm_model: a.arg_string({help: "LLM model to use (default depends upon provider)"}),
+  llm_model: a.arg_string({help: "the LLM model to use (default depends upon provider)", metavar: "MODEL"}),
 
-  debug_llm_inputs: a.arg_boolean({help: "Show prompts sent to the LLM"}),
-  debug_llm_outputs: a.arg_boolean({help: "Show raw outputs from the LLM"}),
+  debug_llm_inputs: a.arg_boolean({help: "debug prompts sent to the LLM"}),
+  debug_llm_outputs: a.arg_boolean({help: "debug outputs received from the LLM"}),
 }
 
 export const arg_parser = a.make_arg_parser(arg_schema, PROGRAM_NAME)
