@@ -12,7 +12,7 @@ async function main(): Promise<void> {
 
   const config = lib_diffdash_config.process_config()
 
-  lib_diffdash_core.sequence_work(config)
+  await lib_diffdash_core.sequence_work(config)
 
   lib_tell.okay()
 }

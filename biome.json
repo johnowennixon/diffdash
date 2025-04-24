@@ -108,7 +108,7 @@
         "noGlobalIsNan": "error",
         "noImplicitAnyLet": "error",
         "noRedeclare": "error",
-        "useAwait": "off"
+        "useAwait": "error"
       }
     }
   },
