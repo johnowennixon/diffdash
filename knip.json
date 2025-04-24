@@ -1,0 +1,9 @@
+{
+  "$schema": "https://unpkg.com/knip@5/schema.json",
+  "entry": ["src/diffdash.ts"],
+  "project": ["src/**/*.ts"],
+  "ignore": [],
+  "ignoreBinaries": [],
+  "ignoreDependencies": [],
+  "exclude": ["exports", "types"]
+}

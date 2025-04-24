@@ -28,6 +28,7 @@
     "fix:biome": "biome check src --write",
     "lint": "run-s -ls lint:biome && okay",
     "lint:biome": "echo 'Linting with Biome' && biome check src",
+    "lint:knip": "knip",
     "test": "run-s -ls lint build && okay"
   },
   "dependencies": {
@@ -47,6 +48,7 @@
     "@johnowennixon/okay": "3.1.0",
     "@types/argparse": "2.0.17",
     "@types/node": "22.14.1",
+    "knip": "5.50.5",
     "npm-run-all2": "7.0.2",
     "rimraf": "6.0.1",
     "typescript": "5.8.3"

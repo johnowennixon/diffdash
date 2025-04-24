@@ -20,9 +20,6 @@ Manages ANSI escape sequences for terminal text formatting and colors. Provides 
 #### lib_arg_infer.ts
 Implements advanced type inference for command-line arguments using TypeScript's type system. Provides automatic type derivation from function signatures for strongly-typed CLI interfaces. Creates a declarative pattern for defining command arguments with proper TypeScript typing.
 
-#### lib_array_get.ts
-Provides safe access methods for array elements with boundary checking and default values. Implements functions to retrieve items by index with graceful handling of out-of-bounds situations. Offers utilities for accessing elements from the end of an array or retrieving ranges of elements.
-
 #### lib_char.ts
 Defines constants for frequently used character literals to maintain consistency across the codebase. Provides named references for special characters, whitespace, and punctuation marks. Implements character classification functions for identifying character types and properties.
 
@@ -38,9 +35,6 @@ Implements feature flags and conditional enablement with configurable toggle mec
 #### lib_env.ts
 Provides utilities for working with environment variables in a type-safe manner. Implements functions for retrieving environment variables with fallbacks, empty defaults, or aborting when missing. Includes type definitions for environment records and methods for setting environment values.
 
-#### lib_file_io.ts
-Provides file input/output operations with robust error handling and automatic retries. Implements functions for reading, writing, and appending to files with various encoding options. Offers utilities for working with temporary files and secure file handling.
-
 #### lib_file_path.ts
 Manages file path operations with cross-platform compatibility and normalization. Provides utilities for path manipulation, joining, and resolution with proper handling of path separators. Implements safe path traversal with directory boundary enforcement.
 
@@ -55,9 +49,6 @@ Implements user interface components for displaying Git commit messages with pro
 
 #### lib_git_message_validate.ts
 Validates Git commit messages against quality and formatting criteria. Checks for issues like empty messages, excessive length, or insufficient content. Returns validation results with explanations and suggested replacements for invalid messages.
-
-#### lib_git_simple_diff.ts
-Implements simplified Git diff operations for quick file comparison. Provides functions to detect changes between different versions of files or directories. Offers a more user-friendly interface than raw Git diff output for common comparison tasks.
 
 #### lib_git_simple_staging.ts
 Provides utilities for working with Git staged changes in a repository. Implements functions to check for staged and unstaged changes, generate diffstat summaries, and retrieve detailed diffs of staged files. Includes functionality for staging all changes and committing staged.
@@ -79,9 +70,6 @@ Extracts and exports package information from package.json. Provides constants f
 
 #### lib_readline_ui.ts
 Creates interactive command-line prompts for user input. Implements a confirm function that prompts users with yes/no questions and returns boolean results.
-
-#### lib_retry.ts
-Implements automatic retry logic for operations that may fail transiently. Provides configurable retry strategies with backoff algorithms and maximum attempt limitations. Includes conditional retry based on specific error types or custom predicates.
 
 #### lib_stdio.ts
 Manages standard input/output streams with utilities for reading, writing, and redirecting content. Provides functions for working with stdin, stdout, and stderr with proper encoding handling. Implements TTY detection and special character handling for terminal interaction.
