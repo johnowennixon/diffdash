@@ -32,7 +32,7 @@ export function show_llm_config({llm_config}: {llm_config: LlmConfig}): void {
 }
 
 export function default_llm_provider(): LlmProvider {
-  return "openrouter"
+  return "openai"
 }
 
 export function default_llm_model({llm_provider}: {llm_provider: LlmProvider}): string | undefined {
