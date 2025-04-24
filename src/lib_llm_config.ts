@@ -15,7 +15,7 @@ export interface LlmConfig {
 }
 
 export function show_llm_config({llm_config}: {llm_config: LlmConfig}): void {
-  lib_tell.info(`Using LLM: ${llm_config.llm_model} from ${llm_config.llm_provider}`)
+  lib_tell.info(`Using LLM ${llm_config.llm_model} from ${llm_config.llm_provider}`)
 }
 
 export function default_llm_model({llm_provider}: {llm_provider: LlmProvider}): string | undefined {
