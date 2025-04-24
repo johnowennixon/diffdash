@@ -24,6 +24,7 @@ export const arg_schema = {
 
   disable_add: a.arg_boolean({help: "disable adding unstaged changes (takes priority over --auto-add)"}),
   disable_push: a.arg_boolean({help: "disable pushing changes (takes priority over --auto-push)"}),
+
   no_verify: a.arg_boolean({help: "bypass git hooks with --no-verify flag when pushing"}),
 
   debug_llm_inputs: a.arg_boolean({help: "debug prompts sent to the LLM"}),
