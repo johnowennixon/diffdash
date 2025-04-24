@@ -34,6 +34,7 @@ Use the following format:
 Please write in full sentences that start with a capital letter.
 Each sentence should be on its own line.
 Focus on what changed and why, not how.
+Avoid lists of more than three items in any one sentence and replace them with a summary.
 Use the present tense.
 
 Everything you write will be saved directly to Git and will not be reviewed by a human.
