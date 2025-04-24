@@ -15,7 +15,7 @@ export function center_pad(text: string, width: number, pad_char = SPACE): strin
   return pad_char.repeat(left_pad) + text + pad_char.repeat(right_pad)
 }
 
-export function string_block({content, title, width = 100}: {content: string; title?: string; width?: number}): void {
+export function string_block({content, title, width = 120}: {content: string; title?: string; width?: number}): void {
   const separator = EQUALS.repeat(width)
 
   const top_line = title ? center_pad(SPACE + title + SPACE, width, EQUALS) : separator
