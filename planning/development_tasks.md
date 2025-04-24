@@ -31,6 +31,9 @@ This document outlines the sequence of development tasks to transform the curren
     - [x] Create function to commit staged changes with given message
     - [x] Add proper error handling for Git operations
     - [x] Add option to push changes to remote after commit
+    - [x] Add automation options (--auto-add, --auto-commit, --auto-push)
+    - [x] Add constraint options (--disable-add, --disable-push)
+    - [x] Add --no-verify option to bypass git hooks
     - [ ] Implement dry-run option to preview without committing
 
 ## Testing

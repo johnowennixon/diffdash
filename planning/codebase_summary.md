@@ -13,6 +13,8 @@ DiffDash is a TypeScript command-line tool that generates high-quality commit me
 - Includes comprehensive validation to ensure quality messages
 - Offers to push changes to remote after successful commit
 - Prompts to stage all changes when no staged changes are detected
+- Supports automated workflows with --auto-add, --auto-commit, and --auto-push flags
+- Provides constraint options with --disable-add and --disable-push flags
 
 ## Architecture
 

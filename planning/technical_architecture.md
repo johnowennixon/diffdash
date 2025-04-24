@@ -118,6 +118,8 @@ The primary goal is to provide a self-contained tool that analyzes staged change
 - **Diffstat Summary**: Includes diffstat summaries for quick overview of changes.
 - **Push Integration**: Offers to push changes to remote after successful commit with tag support.
 - **Auto-staging Option**: Prompts to automatically stage all changes when no staged changes are found.
+- **Automation Options**: Supports fully automated workflows with --auto-add, --auto-commit, and --auto-push flags.
+- **Constraint Options**: Provides fine-grained control with --disable-add and --disable-push flags that take priority over automation options.
 
 ### Future Considerations
 - **Template Support**: Allow users to provide custom templates for commit messages.

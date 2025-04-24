@@ -320,10 +320,18 @@ export async function check_for_signed_tags(git: GitRepo): Promise<Array<string>
 /**
  * Push changes to the remote repository
  * Uses --follow-tags to also push any tags associated with the commits being pushed
+ * @param git The Git repository
+ * @param no_verify If true, use --no-verify to bypass git hooks
  */
-export async function push_to_remote(git: GitRepo): Promise<boolean> {
+export async function push_to_remote(git: GitRepo, no_verify = false): Promise<boolean> {
   try {
-    await git.push(["--follow-tags"])
+    const push_args = ["--follow-tags"]
+
+    if (no_verify) {
+      push_args.push("--no-verify")
+    }
+
+    await git.push(push_args)
     return true
   } catch (error) {
     lib_tell.error(`Failed to push to remote: ${error instanceof Error ? error.message : String(error)}`)

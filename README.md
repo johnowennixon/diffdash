@@ -43,6 +43,30 @@ diffdash --llm-provider anthropic --llm-model claude-3.5-sonnet
 # Use a specific model with OpenRouter
 diffdash --llm-provider openrouter --llm-model google/gemini-2.5-flash-preview
 
+# Automatically stage all changes, but still prompt for commit and push
+diffdash --auto-add
+
+# Automatically stage and commit changes, but still prompt for push
+diffdash --auto-add --auto-commit
+
+# Fully automated workflow (stage, commit, and push without prompts)
+diffdash --auto-add --auto-commit --auto-push
+
+# Generate message for already staged changes only (won't stage any new changes)
+diffdash --disable-add
+
+# Generate message and commit, but don't push or prompt to push
+diffdash --disable-push
+
+# Combine auto and disable options (auto-commit but don't allow adding or pushing)
+diffdash --disable-add --auto-commit --disable-push
+
+# Skip git hooks when pushing
+diffdash --no-verify
+
+# Fast, fully automated workflow without hooks
+diffdash --auto-add --auto-commit --auto-push --no-verify
+
 # Debug options
 diffdash --debug-llm-inputs --debug-llm-outputs
 ```
@@ -71,6 +95,12 @@ export OPENROUTER_API_KEY=your-api-key
 |--------|-------------|
 | `--llm-provider` | LLM provider to use (openai, anthropic, google, openrouter) |
 | `--llm-model` | LLM model to use from the selected provider (optional) |
+| `--auto-add` | Automatically stage all changes without prompting |
+| `--auto-commit` | Automatically commit changes without confirmation |
+| `--auto-push` | Automatically push changes after commit without prompting |
+| `--disable-add` | Disable adding unstaged changes (takes priority over --auto-add) |
+| `--disable-push` | Disable pushing changes (takes priority over --auto-push) |
+| `--no-verify` | Bypass git hooks when pushing with the --no-verify flag |
 | `--debug-llm-inputs` | Show prompts sent to the LLM |
 | `--debug-llm-outputs` | Show raw outputs from the LLM |
 
