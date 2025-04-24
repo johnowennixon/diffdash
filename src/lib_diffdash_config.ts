@@ -24,11 +24,11 @@ export const arg_schema = {
 
 export const arg_parser = a.make_arg_parser(arg_schema, PROGRAM_NAME)
 
-export interface DiffdashConfig {
+export interface DiffDashConfig {
   llm_config: LlmConfig
 }
 
-export function process_config(): DiffdashConfig {
+export function process_config(): DiffDashConfig {
   const pa = arg_parser.parsed_args
 
   lib_debug.channels.llm_inputs = pa.debug_llm_inputs
@@ -49,7 +49,7 @@ export function process_config(): DiffdashConfig {
     llm_api_key,
   }
 
-  const config: DiffdashConfig = {llm_config}
+  const config: DiffDashConfig = {llm_config}
 
   return config
 }

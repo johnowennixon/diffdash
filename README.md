@@ -1,17 +1,15 @@
-# Diffdash
+# DiffDash
 
-A command-line tool to generate high-quality commit messages for staged changes using AI.
+A command-line tool to generate Git commit messages using AI.
 
 ## Features
 
 - Automatically analyzes staged changes in a Git repository
-- Generates detailed commit messages using an LLM (OpenAI, Anthropic, Google, or OpenRouter)
-- Displays messages with helpful syntax highlighting
-- Allows users to accept, edit, or cancel commits
-- Adds a footer to track AI assistance
-- Includes diffstat summaries in the context
-- Offers to push changes to remote after successful commit
 - Prompts to stage all changes when no staged changes are detected
+- Generates detailed commit messages using an LLM (OpenAI, Anthropic, Google, or OpenRouter)
+- Adds a footer to track AI assistance
+- Prompts the users to accept or cancel the commit
+- Offers to push changes to remote after successful commit
 
 ## Installation
 
@@ -40,16 +38,10 @@ diffdash
 diffdash --llm-provider openai
 
 # Specify model
-diffdash --llm-provider anthropic --llm-model claude-3-opus-20240229
-
-# Use OpenRouter
-diffdash --llm-provider openrouter
+diffdash --llm-provider anthropic --llm-model claude-3.5-sonnet
 
 # Use a specific model with OpenRouter
 diffdash --llm-provider openrouter --llm-model google/gemini-2.5-flash-preview
-
-# Customize the prompt
-diffdash --user-prompt-suffix "Include information about the purpose of these changes."
 
 # Debug options
 diffdash --debug-llm-inputs --debug-llm-outputs
@@ -57,26 +49,20 @@ diffdash --debug-llm-inputs --debug-llm-outputs
 
 ## API Keys
 
-Diffdash requires API keys for the LLM providers. These can be provided as environment variables:
+DiffDash requires API keys for the LLM providers. These must be provided as environment variables:
 
 ```bash
-# For OpenAI (default provider)
+# For OpenAI
 export OPENAI_API_KEY=your-api-key
 
 # For Anthropic
 export ANTHROPIC_API_KEY=your-api-key
 
-# For Google
-export GOOGLE_API_KEY=your-api-key
+# For Google Gemini
+export GEMINI_API_KEY=your-api-key
 
 # For OpenRouter
 export OPENROUTER_API_KEY=your-api-key
-```
-
-Or passed as command-line arguments:
-
-```bash
-diffdash --llm-provider openai --openai-api-key your-api-key
 ```
 
 ## Command Line Options
@@ -84,10 +70,9 @@ diffdash --llm-provider openai --openai-api-key your-api-key
 | Option | Description |
 |--------|-------------|
 | `--llm-provider` | LLM provider to use (openai, anthropic, google, openrouter) |
-| `--llm-model` | LLM model to use from the selected provider |
+| `--llm-model` | LLM model to use from the selected provider (optional) |
 | `--debug-llm-inputs` | Show prompts sent to the LLM |
 | `--debug-llm-outputs` | Show raw outputs from the LLM |
-| `--verbose` | Enable verbose output |
 
 ## Development
 

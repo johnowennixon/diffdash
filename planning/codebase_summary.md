@@ -1,6 +1,6 @@
 # Codebase Summary
 
-Diffdash is a TypeScript command-line tool that generates high-quality commit messages for staged changes using large language models (LLMs). It analyzes the current staged changes, creates a well-crafted commit message, and allows the user to accept, edit, or cancel the commit.
+DiffDash is a TypeScript command-line tool that generates high-quality commit messages for staged changes using large language models (LLMs). It analyzes the current staged changes, creates a well-crafted commit message, and allows the user to accept, edit, or cancel the commit.
 
 ## Core Features
 

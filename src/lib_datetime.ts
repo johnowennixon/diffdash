@@ -1,5 +1,4 @@
 import {COLON, DASH, EMPTY, SPACE} from "./lib_char.js"
-import * as lib_string_function from "./lib_string_function.js"
 
 export default {}
 
@@ -45,16 +44,16 @@ export function format_utc_iso_hms(date: Date): string {
 
 export function format_utc_timestamp_alpha(date: Date): string {
   const s1 = date.toISOString().slice(0, 19)
-  const s2 = lib_string_function.replace_all(s1, DASH, EMPTY)
-  const s3 = lib_string_function.replace_all(s2, COLON, EMPTY)
+  const s2 = s1.replaceAll(DASH, EMPTY)
+  const s3 = s2.replaceAll(COLON, EMPTY)
   const s4 = s3 + "Z"
   return s4
 }
 
 export function format_utc_timestamp_numeric(date: Date): string {
   const s1 = date.toISOString().slice(0, 19)
-  const s2 = lib_string_function.replace_all(s1, DASH, EMPTY)
-  const s3 = lib_string_function.replace_all(s2, COLON, EMPTY)
+  const s2 = s1.replaceAll(DASH, EMPTY)
+  const s3 = s2.replaceAll(COLON, EMPTY)
   const s4 = s3.replace("T", EMPTY)
   return s4
 }
