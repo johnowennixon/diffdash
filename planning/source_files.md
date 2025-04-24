@@ -102,3 +102,6 @@ Contains TypeScript utility types for advanced type manipulations. Implements he
 
 #### lib_diffdash_config.ts
 Manages configuration settings for the DiffDash commit message generation tool. Implements argument parsing with comprehensive command-line options for controlling LLM provider selection, debugging, and process behavior. Processes user-provided arguments into a structured DiffDashConfig object with appropriate defaults.
+
+#### lib_diffdash_core.ts
+Implements the core application flow for the DiffDash tool with the main sequence of operations. Orchestrates repository validation, staged changes detection, message generation, and commit creation in a logical workflow. Provides user confirmation prompts at key decision points and handles optional push operations after commit.
