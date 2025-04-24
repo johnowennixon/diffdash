@@ -1,6 +1,7 @@
 #!/usr/bin/env tsx
 
 import * as lib_abort from "./lib_abort.js"
+import * as lib_ansi from "./lib_ansi.js"
 import * as lib_diffdash_config from "./lib_diffdash_config.js"
 import * as lib_git_message_generator from "./lib_git_message_generator.js"
 import * as lib_git_message_ui from "./lib_git_message_ui.js"
@@ -10,6 +11,10 @@ import * as lib_readline_ui from "./lib_readline_ui.js"
 import * as lib_tell from "./lib_tell.js"
 
 async function main(): Promise<void> {
+  const diffdash = lib_ansi.italic("DiffDash")
+
+  lib_tell.normal(`This is ${diffdash} - the AI Git commit tool as fast as an API call`)
+
   // Process and validate configuration
   const config = lib_diffdash_config.process_config()
 
