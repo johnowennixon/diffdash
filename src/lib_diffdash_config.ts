@@ -8,7 +8,7 @@ import {PROGRAM_NAME} from "./lib_package_details.js"
 
 export default {}
 
-const DEFAULT_LLM_PROVIDER: LlmProvider = "openai"
+const DEFAULT_LLM_PROVIDER: LlmProvider = lib_llm_config.default_llm_provider()
 
 export const arg_schema = {
   llm_provider: a.arg_choice_default<LlmProvider>({
