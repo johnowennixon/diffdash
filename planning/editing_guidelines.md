@@ -6,7 +6,7 @@
 ## Available scripts and commands
 - To lint the code, run `pnpm run lint`
 - To build the code, run `pnpm run build`
-- If you need to fix formatting issues, run `pnpm run fix:biome`
+- If you need to fix formatting issues, try running `pnpm run fix:biome`
 
 ## Installing software
 - Please do not install NPM packages yourself - just ask for this to be done for you
