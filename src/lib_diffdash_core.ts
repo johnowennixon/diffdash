@@ -1,4 +1,5 @@
 import type {SimpleGit} from "simple-git"
+
 import * as lib_abort from "./lib_abort.js"
 import type {DiffDashConfig} from "./lib_diffdash_config.js"
 import * as lib_git_message_generator from "./lib_git_message_generator.js"
