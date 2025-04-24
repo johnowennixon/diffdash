@@ -23,7 +23,7 @@ export function default_llm_model({llm_provider}: {llm_provider: LlmProvider}): 
     return "gpt-4.1-mini"
   }
   if (llm_provider === "anthropic") {
-    return "claude-3.5-haiku"
+    return "claude-3.5-haiku-latest"
   }
   if (llm_provider === "google") {
     return "gemini-2.0-flash"
