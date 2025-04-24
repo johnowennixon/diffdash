@@ -34,6 +34,9 @@ Configuration for Biome, the JavaScript/TypeScript formatter and linter used in 
 ### CLAUDE.md
 This is the project memory for Claude (the AI assistant). It will be read when starting a coding session. Normally it just tells Claude to read the planning documents.
 
+### knip.json
+Configuration for Knip, a tool that identifies unused files, exports, and dependencies in TypeScript projects. Helps maintain a clean codebase by detecting dead code and unnecessary imports, improving maintainability and reducing bundle sizes.
+
 ### package.json
 Node.js project configuration defining the package name, version, dependencies, and scripts. Contains build commands, linting operations, and lists all project dependencies with their version requirements.
 
