@@ -43,17 +43,17 @@ Anyone editing this file must take care to avoid adding architectural choices th
 
 AI coding agents should not edit this file unless explicitly requested.
 
+### planning/software_architecture_document.md
+The Software Architecture Document serves as a comprehensive blueprint for the software system, outlining its high-level structure, key components, and their interactions. It details the chosen architectural style and design patterns, explains how the architecture addresses critical quality attributes like performance, scalability, and security, and provides an overview of the data, interface, and deployment architectures. Crucially, it also documents the significant architectural decisions made, along with the rationale and trade-offs considered, providing a shared understanding of the system's fundamental design for all stakeholders and guiding the subsequent development efforts.
+
+Anyone editing this file should take care to avoid duplicating requirements that are described in the Software Requirements Specification.
+
+AI coding agents may be asked to keep this file up-to-date.
+
 ### planning/source_files.md
 Documentation of all source files in the codebase, explaining their purpose and functionality.
 
 Files are grouped by type - executables and libraries - and often into groups within that.
 All files are listed in alphabetic order within their group.
 
-AI coding agents should maintain this file to match the files in the `src` folder.
-
-### planning/technical_architecture.md
-A technical architecture document outlining the technology stack of the software, the core modules, and how the software works under the hood.
-
-Anyone editing this file should take care to avoid duplicating requirements that are described in a requirements specification.
-
-AI coding agents may be asked to keep this file up-to-date.
+AI coding agents should maintain this file to match the source files actually in the codebase.
