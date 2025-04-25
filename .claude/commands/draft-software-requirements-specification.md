@@ -1,4 +1,4 @@
-Please draft `planning/software_requirements_specification.md`.
+Please read as much of this codebase as you need and then draft `planning/software_requirements_specification.md`.
 
 This serves as the definitive source of information that describes the functionality, performance, and qualities of the software product to be developed. Its primary goal is to clearly and unambiguously articulate what the software must do to meet the needs of its stakeholders, without imposing specific design or implementation choices. This document acts as a contract between the development team and the stakeholders, ensuring a shared understanding of the product's scope and requirements. It will be used as the foundation for design, development, testing, and ultimately, the acceptance of the final product.
 
