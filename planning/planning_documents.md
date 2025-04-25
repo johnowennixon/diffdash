@@ -7,8 +7,13 @@ A non-definitive overview of the codebase, describing its structure, program cat
 
 AI coding agents may be asked to keep this file up-to-date.
 
-### planning/coding_style.md
+### planning/coding_style_guide.md
 Detailed coding style guidelines covering file naming, formatting, functions, variables, types, imports, and error handling practices that all contributors should follow.
+
+AI coding agents should not edit this file unless explicitly requested.
+
+### planning/developer_workflow_guide.md
+Basic instructions for linting, building, and fixing formatting issues in the codebase to ensure code quality.
 
 AI coding agents should not edit this file unless explicitly requested.
 
@@ -16,11 +21,6 @@ AI coding agents should not edit this file unless explicitly requested.
 A checklist of planned tasks that need to be accomplished to meet the requirements. The tasks may be grouped into phases.
 
 AI coding agents may maintain this document to be consistent with the progress towards completion. In particular, they should check tasks off when they are sure the task is complete.
-
-### planning/editing_guidelines.md
-Basic instructions for linting, building, and fixing formatting issues in the codebase to ensure code quality.
-
-AI coding agents should not edit this file unless explicitly requested.
 
 ### planning/other_files.md
 Documentation of all non-source, non-planning files in the codebase, explaining their purpose and functionality.

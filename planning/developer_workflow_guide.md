@@ -1,4 +1,4 @@
-# Editing Guidelines
+# Developer Workflow Guide
 
 ## Completion checklist
 - Before considering any change as complete, you must run a lint and build, and fix any errors
