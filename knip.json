@@ -4,6 +4,6 @@
   "project": ["src/**/*.ts"],
   "ignore": [],
   "ignoreBinaries": [],
-  "ignoreDependencies": [],
+  "ignoreDependencies": ["eslint-import-resolver-typescript"],
   "exclude": ["exports", "types"]
 }

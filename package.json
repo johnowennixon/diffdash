@@ -20,16 +20,18 @@
     "diffdash": "dist/src/diffdash.js"
   },
   "scripts": {
-    "build": "run-s -ls build:clean build:tsc build:shebang build:chmod && okay",
+    "build": "run-s -ls build:clean build:tsc build:shebang build:chmod",
     "build:chmod": "echo 'Changing bin files to be executable' && chmodx --package",
     "build:clean": "echo 'Removing dist' && rimraf dist",
     "build:shebang": "echo 'Fixing the shebangs' && add-shebangs --node --exclude 'dist/**/lib_*.js' 'dist/**/*.js'",
     "build:tsc": "echo 'Transpiling TypeScript to dist (using tsc)' && tsc --erasableSyntaxOnly --libReplacement false",
-    "fix:biome": "biome check src --write",
-    "lint": "run-s -ls lint:biome && okay",
+    "fix:biome": "echo 'Fixing with Biome' && biome check src --write",
+    "fix:eslint": "echo 'Fixing with ESLint' && eslint --fix",
+    "lint": "run-s -ls lint:biome lint:eslint lint:knip",
     "lint:biome": "echo 'Linting with Biome' && biome check src",
-    "lint:knip": "knip",
-    "test": "run-s -ls lint build && okay"
+    "lint:eslint": "echo 'Linting with ESLint' && eslint",
+    "lint:knip": "echo 'Linting with Knip' && knip",
+    "test": "run-s -ls lint build"
   },
   "dependencies": {
     "@ai-sdk/anthropic": "1.2.10",
@@ -43,14 +45,22 @@
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
+    "@eslint/eslintrc": "3.3.1",
+    "@eslint/js": "9.25.1",
     "@johnowennixon/add-shebangs": "1.1.0",
     "@johnowennixon/chmodx": "2.0.0",
-    "@johnowennixon/okay": "3.1.0",
     "@types/argparse": "2.0.17",
     "@types/node": "22.14.1",
+    "@typescript-eslint/eslint-plugin": "8.31.0",
+    "@typescript-eslint/parser": "8.31.0",
+    "eslint": "9.25.1",
+    "eslint-import-resolver-typescript": "4.3.4",
+    "eslint-plugin-import-x": "4.10.6",
+    "globals": "16.0.0",
     "knip": "5.50.5",
     "npm-run-all2": "7.0.2",
     "rimraf": "6.0.1",
-    "typescript": "5.8.3"
+    "typescript": "5.8.3",
+    "typescript-eslint": "8.31.0"
   }
 }
