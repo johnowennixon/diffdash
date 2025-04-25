@@ -3,9 +3,12 @@ import {fileURLToPath} from "node:url"
 
 import {FlatCompat} from "@eslint/eslintrc"
 import eslint_js from "@eslint/js"
+import plugin_stylistic from "@stylistic/eslint-plugin"
 import plugin_typescript from "@typescript-eslint/eslint-plugin"
 import parser_typescript from "@typescript-eslint/parser"
 import plugin_import_x from "eslint-plugin-import-x"
+import plugin_sonarjs from "eslint-plugin-sonarjs"
+import plugin_unicorn from "eslint-plugin-unicorn"
 import globals from "globals"
 import typescript_eslint from "typescript-eslint"
 
@@ -93,6 +96,48 @@ const rules_import_x = {
   ],
 }
 
+const rules_sonarjs = {
+  ...plugin_sonarjs.configs.recommended.rules,
+
+  "sonarjs/cognitive-complexity": "off",
+  "sonarjs/no-alphabetical-sort": "off",
+  "sonarjs/no-nested-conditional": "off",
+  "sonarjs/no-selector-parameter": "off",
+  "sonarjs/no-os-command-from-path": "off",
+  "sonarjs/no-unused-vars": "off",
+  "sonarjs/prefer-single-boolean-return": "off",
+  "sonarjs/pseudo-random": "off",
+  "sonarjs/redundant-type-aliases": "off",
+  "sonarjs/single-char-in-character-classes": "off",
+  "sonarjs/sonar-no-control-regex": "off",
+  "sonarjs/todo-tag": "off",
+  "sonarjs/unused-named-groups": "off",
+  "sonarjs/void-use": "off",
+}
+
+const rules_stylistic = {
+  ...plugin_stylistic.configs["recommended-flat"].rules,
+
+  "@stylistic/arrow-parens": "off",
+  "@stylistic/block-spacing": "off",
+  "@stylistic/brace-style": "off",
+  "@stylistic/comma-dangle": ["error", "always-multiline"],
+  "@stylistic/indent": "off",
+  "@stylistic/member-delimiter-style": "off",
+  "@stylistic/new-parens": "error",
+  "@stylistic/object-curly-spacing": "off",
+  "@stylistic/operator-linebreak": "off",
+  "@stylistic/quote-props": ["error", "consistent-as-needed", {}],
+  "@stylistic/quotes": [
+    "error",
+    "double",
+    {
+      avoidEscape: true,
+    },
+  ],
+  "@stylistic/spaced-comment": "error",
+}
+
 const rules_typescript = {
   "@typescript-eslint/array-type": [
     "error",
@@ -161,6 +206,38 @@ const rules_typescript = {
   "@typescript-eslint/unified-signatures": "error",
 }
 
+const rules_unicorn = {
+  ...plugin_unicorn.configs.recommended.rules,
+
+  "unicorn/consistent-destructuring": "off",
+  "unicorn/filename-case": [
+    "error",
+    {
+      cases: {
+        snakeCase: true,
+      },
+    },
+  ],
+  "unicorn/import-style": "off",
+  "unicorn/no-array-method-this-argument": "off",
+  "unicorn/no-array-callback-reference": "off",
+  "unicorn/no-array-push-push": "off",
+  "unicorn/no-array-reduce": "off",
+  "unicorn/no-keyword-prefix": "error",
+  "unicorn/no-lonely-if": "off",
+  "unicorn/no-nested-ternary": "off",
+  "unicorn/no-null": "off",
+  "unicorn/no-process-exit": "off",
+  "unicorn/no-useless-switch-case": "off",
+  "unicorn/no-useless-undefined": "off",
+  "unicorn/prefer-code-point": "off",
+  "unicorn/prefer-logical-operator-over-ternary": "off",
+  "unicorn/prefer-spread": "off",
+  "unicorn/prefer-string-replace-all": "off",
+  "unicorn/prevent-abbreviations": "off",
+  "unicorn/switch-case-braces": "off",
+}
+
 const configs = [
   {
     name: "local/ignores",
@@ -174,7 +251,10 @@ const configs = [
 
     plugins: {
       "import-x": plugin_import_x,
+      "sonarjs": plugin_sonarjs,
+      "@stylistic": plugin_stylistic,
       "@typescript-eslint": plugin_typescript,
+      "unicorn": plugin_unicorn,
     },
 
     languageOptions: {
@@ -196,7 +276,10 @@ const configs = [
     rules: {
       ...rules_eslint,
       ...rules_import_x,
+      ...rules_sonarjs,
+      ...rules_stylistic,
       ...rules_typescript,
+      ...rules_unicorn,
     },
   },
 
