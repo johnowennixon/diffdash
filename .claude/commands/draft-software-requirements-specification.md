@@ -8,6 +8,7 @@ Software Requirements Specifications do not include details of the technical imp
 - The software would run in Node.js and be distributed using npmjs.com
 - The software would be written in TypeScript
 - The coding style you find in these planning documents was agreed (you must not elaborate on its content - just reference the document)
+- None of the other planning documents would have been available to reference
 
 Here is some more information on how to write a Software Requirements Specification (SRS):
 

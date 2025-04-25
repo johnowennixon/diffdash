@@ -13,7 +13,7 @@
     "url": "https://gitlab.com/johnowennixon-project/diffdash.git"
   },
   "engines": {
-    "node": ">=22"
+    "node": ">=18"
   },
   "type": "module",
   "bin": {
