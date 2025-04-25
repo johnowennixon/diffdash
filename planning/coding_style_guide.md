@@ -1,4 +1,4 @@
-# Coding Style
+# Coding Style Guide
 
 ## Enforcement
 - Many of these coding style rules are enforced using lint and other tools
