@@ -17,11 +17,6 @@ Basic instructions for linting, building, and fixing formatting issues in the co
 
 AI coding agents should not edit this file unless explicitly requested.
 
-### planning/development_tasks.md
-A checklist of planned tasks that need to be accomplished to meet the requirements. The tasks may be grouped into phases.
-
-AI coding agents may maintain this document to be consistent with the progress towards completion. In particular, they should check tasks off when they are sure the task is complete.
-
 ### planning/other_files.md
 Documentation of all non-source, non-planning files in the codebase, explaining their purpose and functionality.
 
@@ -57,3 +52,8 @@ Files are grouped by type - executables and libraries - and often into groups wi
 All files are listed in alphabetic order within their group.
 
 AI coding agents should maintain this file to match the source files actually in the codebase.
+
+### planning/task_breakdown_and_checklist.md
+A checklist of planned tasks that need to be accomplished to meet the requirements. The tasks may be grouped into phases.
+
+AI coding agents may maintain this document to be consistent with the progress towards completion. In particular, they should check tasks off when they are sure the task is complete.
