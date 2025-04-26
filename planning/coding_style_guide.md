@@ -1,4 +1,4 @@
-# Coding Style Guide
+# Coding Style Guide for TypeScript
 
 ## Enforcement
 - Many of these coding style rules are enforced using lint and other tools
@@ -9,21 +9,22 @@
 - Many program filenames start with a two-character code
 
 ## Formatting
-- Indentation is made with two spaces
+- Indentation is made with two spaces - not tabs
 - Lines can be up to 120 characters long
 - Do not use trailing spaces at end of lines
 - All text files must end with a final newline
-- Do not terminate statements with semicolons
+- Do not terminate statements with semicolons unless absolutely necessary
 - Use trailing commas
 - Do not use bracket spacing
 
 ## Blank lines
 - Separate functions with a single blank line
 - Use blank lines liberally within functions
+- Avoid having two blank lines in a row
 
 ## Strings
 - Use double quotes for string literals
-- Use single quotes for strings that contain double quotes
+- Use single quotes for string literals that contain double quotes
 - Use template literals (with backticks) for string interpolation
 
 ## Functions
@@ -64,14 +65,9 @@
 - Character literals (e.g. "$") should be retrieved from `lib_char` instead of hardcoding - that includes the empty string
 
 ## Error Handling
-- Use `lib_assert` to enforce types and invariants
-- Use `lib_abort` to handle unrecoverable errors
+- If an error is unrecoverable, prefer to immediately abort rather than throwing exceptions
+- If a function call can be reasonably expected to throw an exception, the exception should be caught and converted to a boolean result
+- Conversely, if a function call might throw an exception but this is not expected, prefer to let the exception pass up the call chain and be printed out by the top-level program
 
 ## User Messages
-- For messages displayed to the user, I prefer curly quote marks to straight quote marks
-
-## Variable Naming Conventions
-- Functions which are top-level commands should be prefixed with `do_`
-
-## Command-line Interface
-- Use `lib_arg_infer` for command-line argument parsing
+- For messages displayed to the user, prefer curly quote marks to straight quote marks
