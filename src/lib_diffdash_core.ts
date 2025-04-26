@@ -4,21 +4,17 @@ import * as lib_abort from "./lib_abort.js"
 import type {DiffDashConfig} from "./lib_diffdash_config.js"
 import * as lib_git_message_generator from "./lib_git_message_generator.js"
 import * as lib_git_message_ui from "./lib_git_message_ui.js"
+import * as lib_git_simple_open from "./lib_git_simple_open.js"
 import * as lib_git_simple_staging from "./lib_git_simple_staging.js"
-import * as lib_git_simple_utils from "./lib_git_simple_utils.js"
 import * as lib_readline_ui from "./lib_readline_ui.js"
 import * as lib_tell from "./lib_tell.js"
 
 export default {}
 
 async function phase_open(): Promise<SimpleGit> {
-  const git = await lib_git_simple_utils.open_repository()
+  const git = await lib_git_simple_open.open_git_repo()
 
-  const is_valid = await lib_git_simple_utils.validate_repository(git)
-
-  if (!is_valid) {
-    lib_abort.with_error("Cannot proceed with an invalid repository")
-  }
+  await lib_git_simple_open.check_git_repo_is_not_bare(git)
 
   return git
 }
@@ -35,11 +31,11 @@ async function phase_add(config: DiffDashConfig, git: SimpleGit): Promise<void> 
   const has_unstaged_changes = await lib_git_simple_staging.has_unstaged_changes(git)
 
   if (!has_unstaged_changes) {
-    lib_abort.with_error("No changes found in the repository - there is nothing to commit")
+    lib_abort.with_warning("No changes found in the repository - there is nothing to commit")
   }
 
   if (disable_add) {
-    lib_abort.with_error("No staged changes found and adding changes is disabled")
+    lib_abort.with_warning("No staged changes found and adding changes is disabled")
   }
 
   if (auto_add) {
@@ -48,7 +44,7 @@ async function phase_add(config: DiffDashConfig, git: SimpleGit): Promise<void> 
     const add_confirmed = await lib_readline_ui.confirm("No staged changes found - would you like to add all changes?")
 
     if (!add_confirmed) {
-      lib_abort.with_error("Please add changes before creating a commit")
+      lib_abort.with_warning("Please add changes before creating a commit")
     }
   }
 
@@ -77,7 +73,7 @@ async function phase_commit(config: DiffDashConfig, git: SimpleGit): Promise<voi
     const commit_confirmed = await lib_readline_ui.confirm("Do you want to commit these changes?")
 
     if (!commit_confirmed) {
-      lib_abort.with_error("Commit cancelled by user.")
+      lib_abort.with_warning("Commit cancelled by user.")
     }
   }
 
@@ -101,7 +97,7 @@ async function phase_push(config: DiffDashConfig, git: SimpleGit): Promise<void>
     }
   }
 
-  const push_success = await lib_git_simple_utils.push_to_remote(git, no_verify)
+  const push_success = await lib_git_simple_staging.push_to_remote(git, no_verify)
   if (push_success) {
     lib_tell.success("Changes pushed successfully")
   }

@@ -1,5 +1,7 @@
 import type {SimpleGit} from "simple-git"
 
+import * as lib_tell from "./lib_tell.js"
+
 export default {}
 
 export async function has_staged_changes(git: SimpleGit): Promise<boolean> {
@@ -28,4 +30,20 @@ export async function get_staged_diff(git: SimpleGit): Promise<string> {
 
 export async function create_commit(git: SimpleGit, message: string): Promise<void> {
   await git.commit(message)
+}
+
+export async function push_to_remote(git: SimpleGit, no_verify = false): Promise<boolean> {
+  try {
+    const push_args = ["--follow-tags"]
+
+    if (no_verify) {
+      push_args.push("--no-verify")
+    }
+
+    await git.push(push_args)
+    return true
+  } catch (error) {
+    lib_tell.error(`Failed to push to remote: ${error instanceof Error ? error.message : String(error)}`)
+    return false
+  }
 }
