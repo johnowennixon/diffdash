@@ -7,7 +7,16 @@ export function exit(): never {
   process.exit(1)
 }
 
-export function abort(message: string): never {
+export function with_warning(message: string): never {
+  process.stdout.clearLine(0)
+  process.stdout.cursorTo(0)
+
+  lib_stdio.write_stderr_linefeed(lib_ansi.yellow(message))
+
+  exit()
+}
+
+export function with_error(message: string): never {
   process.stdout.clearLine(0)
   process.stdout.cursorTo(0)
 

@@ -53,7 +53,7 @@ export function process_config(): DiffDashConfig {
   const llm_model = pa.llm_model ?? lib_llm_config.default_llm_model({llm_provider})
 
   if (llm_model === undefined) {
-    lib_abort.abort("The LLM model has not been defined")
+    lib_abort.with_error("The LLM model has not been defined")
   }
 
   const llm_api_key = lib_llm_config.get_llm_api_key({llm_provider})

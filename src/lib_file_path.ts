@@ -64,7 +64,7 @@ export function is_executable(file_path: string): boolean {
 
 export function check_is_dir(dir_path: string | undefined): string {
   if (!dir_path || !is_dir(dir_path)) {
-    lib_abort.abort(`Directory not found: ${dir_path}`)
+    lib_abort.with_error(`Directory not found: ${dir_path}`)
   }
 
   return dir_path
@@ -72,7 +72,7 @@ export function check_is_dir(dir_path: string | undefined): string {
 
 export function check_is_file(file_path: string | undefined): string {
   if (!file_path || !is_file(file_path)) {
-    lib_abort.abort(`File not found: ${file_path}`)
+    lib_abort.with_error(`File not found: ${file_path}`)
   }
 
   return file_path
@@ -80,7 +80,7 @@ export function check_is_file(file_path: string | undefined): string {
 
 export function check_is_socket(file_path: string | undefined): string {
   if (!file_path || !is_socket(file_path)) {
-    lib_abort.abort(`Socket not found: ${file_path}`)
+    lib_abort.with_error(`Socket not found: ${file_path}`)
   }
 
   return file_path

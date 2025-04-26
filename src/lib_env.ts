@@ -18,7 +18,7 @@ export function get_empty(key: string): string {
 }
 
 export function get_abort(key: string): string {
-  return get(key) ?? lib_abort.abort(`Unable to find environment key: ${key}`)
+  return get(key) ?? lib_abort.with_error(`Unable to find environment key: ${key}`)
 }
 
 export function set(key: string, value: string): void {

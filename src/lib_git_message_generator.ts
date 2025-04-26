@@ -54,7 +54,7 @@ export async function generate_message(details: GitMessageGenerateDetails): Prom
   const llm_response = await lib_llm_chat.call_llm({llm_config, system_prompt, user_prompt})
 
   if (!llm_response.success) {
-    lib_abort.abort(`LLM API call failed: ${llm_response.error_message}`)
+    lib_abort.with_error(`LLM API call failed: ${llm_response.error_message}`)
   }
 
   // Validate the generated message
@@ -69,7 +69,7 @@ export async function generate_message(details: GitMessageGenerateDetails): Prom
     }
 
     // If no fix is suggested, abort
-    lib_abort.abort("Unable to use the generated message")
+    lib_abort.with_error("Unable to use the generated message")
   }
 
   // Add a footer to the generated message

@@ -17,7 +17,7 @@ async function phase_open(): Promise<SimpleGit> {
   const is_valid = await lib_git_simple_utils.validate_repository(git)
 
   if (!is_valid) {
-    lib_abort.abort("Cannot proceed with an invalid repository")
+    lib_abort.with_error("Cannot proceed with an invalid repository")
   }
 
   return git
@@ -35,11 +35,11 @@ async function phase_add(config: DiffDashConfig, git: SimpleGit): Promise<void> 
   const has_unstaged_changes = await lib_git_simple_staging.has_unstaged_changes(git)
 
   if (!has_unstaged_changes) {
-    lib_abort.abort("No changes found in the repository - there is nothing to commit")
+    lib_abort.with_error("No changes found in the repository - there is nothing to commit")
   }
 
   if (disable_add) {
-    lib_abort.abort("No staged changes found and adding changes is disabled")
+    lib_abort.with_error("No staged changes found and adding changes is disabled")
   }
 
   if (auto_add) {
@@ -48,7 +48,7 @@ async function phase_add(config: DiffDashConfig, git: SimpleGit): Promise<void> 
     const add_confirmed = await lib_readline_ui.confirm("No staged changes found - would you like to add all changes?")
 
     if (!add_confirmed) {
-      lib_abort.abort("Please add changes before creating a commit")
+      lib_abort.with_error("Please add changes before creating a commit")
     }
   }
 
@@ -77,7 +77,7 @@ async function phase_commit(config: DiffDashConfig, git: SimpleGit): Promise<voi
     const commit_confirmed = await lib_readline_ui.confirm("Do you want to commit these changes?")
 
     if (!commit_confirmed) {
-      lib_abort.abort("Commit cancelled by user.")
+      lib_abort.with_error("Commit cancelled by user.")
     }
   }
 
