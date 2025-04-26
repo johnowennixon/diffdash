@@ -5,6 +5,8 @@ import * as lib_file_path from "./lib_file_path.js"
 
 export default {}
 
+export type {SimpleGit} from "simple-git"
+
 export async function open_git_repo(repo_path: string = process.cwd()): Promise<SimpleGit> {
   const resolved_path = lib_file_path.absolute(repo_path)
 
