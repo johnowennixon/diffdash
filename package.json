@@ -31,6 +31,7 @@
     "lint:biome": "echo 'Linting with Biome' && biome check src",
     "lint:eslint": "echo 'Linting with ESLint' && eslint",
     "lint:knip": "echo 'Linting with Knip' && knip",
+    "lint:tsc": "echo 'Linting with tsc' && tsc --noEmit --erasableSyntaxOnly --libReplacement false",
     "test": "run-s -ls lint build"
   },
   "dependencies": {
