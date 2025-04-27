@@ -39,7 +39,7 @@ async function phase_add(config: DiffDashConfig, git: SimpleGit): Promise<void> 
   }
 
   if (auto_add) {
-    lib_tell.action("Auto-adding changes ...")
+    lib_tell.action("Auto-adding changes")
   } else {
     const add_confirmed = await lib_readline_ui.confirm("No staged changes found - would you like to add all changes?")
 
@@ -53,6 +53,8 @@ async function phase_add(config: DiffDashConfig, git: SimpleGit): Promise<void> 
 }
 
 async function phase_commit(config: DiffDashConfig, git: SimpleGit): Promise<void> {
+  lib_tell.action("Generating the commit message")
+
   const {llm_config, auto_commit} = config
 
   const diffstat = await lib_git_simple_staging.get_staged_diffstat(git)
@@ -64,16 +66,15 @@ async function phase_commit(config: DiffDashConfig, git: SimpleGit): Promise<voi
     diff,
   })
 
-  lib_tell.info("Generated commit message:")
   lib_git_message_ui.display_message(commit_message)
 
   if (auto_commit) {
-    lib_tell.action("Auto-committing changes ...")
+    lib_tell.action("Auto-committing changes")
   } else {
     const commit_confirmed = await lib_readline_ui.confirm("Do you want to commit these changes?")
 
     if (!commit_confirmed) {
-      lib_abort.with_warning("Commit cancelled by user.")
+      lib_abort.with_warning("Commit cancelled by user")
     }
   }
 
@@ -89,7 +90,7 @@ async function phase_push(config: DiffDashConfig, git: SimpleGit): Promise<void>
   }
 
   if (auto_push) {
-    lib_tell.action("Auto-pushing changes ...")
+    lib_tell.action("Auto-pushing changes")
   } else {
     const push_confirmed = await lib_readline_ui.confirm("Do you want to push these changes?")
     if (!push_confirmed) {
