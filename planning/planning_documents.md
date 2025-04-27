@@ -18,7 +18,7 @@ Basic instructions for linting, building, and fixing formatting issues in the co
 AI coding agents should not edit this file unless explicitly requested.
 
 ### planning/other_files.md
-Documentation of all non-source, non-planning files in the codebase, explaining their purpose and functionality.
+Documentation of all non-source, non-test, non-planning files in the codebase, explaining their purpose and functionality.
 
 Files are grouped by type - executables and libraries - and often into groups within that. All files are listed in alphabetic order within their group.
 
@@ -62,3 +62,10 @@ AI coding agents should maintain this file to match the source files actually in
 A checklist of planned tasks that need to be accomplished to meet the requirements. The tasks may be grouped into phases.
 
 AI coding agents may maintain this document to be consistent with the progress towards completion. In particular, they should check tasks off when they are sure the task is complete.
+
+### planning/work_in_progress.md
+Saved summaries of work in progress when an AI coding agent ran out of context.
+
+This file may be out-of-date but will give you an idea of past work.
+
+AI coding agents may be asked to keep this file up-to-date.
