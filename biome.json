@@ -7,7 +7,7 @@
     "attributePosition": "auto",
     "enabled": true,
     "formatWithErrors": false,
-    "ignore": [],
+    "ignore": ["tsconfig.json"],
     "indentStyle": "space",
     "indentWidth": 2,
     "lineEnding": "lf",
