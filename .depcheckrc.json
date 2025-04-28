@@ -1,3 +1,6 @@
 {
-  "ignores": ["rimraf"]
+  "ignores": [
+    "eslint-import-resolver-typescript",
+    "rimraf"
+  ]
 }
