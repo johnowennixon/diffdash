@@ -8,7 +8,7 @@ import * as lib_tell from "./lib_tell.js"
 async function main(): Promise<void> {
   const diffdash = lib_ansi.italic("DiffDash")
 
-  lib_tell.normal(`This is ${diffdash} - the AI Git commit tool as fast as an API call`)
+  lib_tell.normal(`This is ${diffdash} - the fast AI Git commit tool`)
 
   const config = lib_diffdash_config.process_config()
 
