@@ -1,23 +1,5 @@
 # Developer Workflow Guide for TypeScript
 
-## Installing Software
-- AI agents should not install NPM packages without asking.
-- AI agents should never attempt to install system packages - if they want this done, it should be done by a human.
-
-## Task Completion
-- Before considering any change as complete, you must run a lint and build, and fix any errors.
-- To lint the code, run `pnpm run lint`.
-- To build the code, run `pnpm run build`.
-- If you need to fix formatting issues, try running `pnpm run fix:biome`.
-
-## Available Linux Commands
-All common Linux utilities are available including:
-- `comm` - compare two sorted files line by line.
-- `find` - find files which have matching characteristics.
-- `grep` - find specific lines from files.
-- `pnpm` - for access to Node packages and scripts.
-- `sort` - sort a file or stream alphabetically.
-
 ## Best Practices
 - Keep It Simple Stupid: write code that is easy to understand and maintain.
 - Don't Repeat Yourself: if sections of code are mostly the same then the code should be refactored.
@@ -25,12 +7,44 @@ All common Linux utilities are available including:
 - Protect against simple mistakes: if function parameters are supplied in the wrong order the build should fail.
 - Architect for testability: consider both unit tests and integration tests.
 
+## Installing Software
+- AI agents should not install NPM packages without asking.
+- AI agents should never attempt to install system packages - if they want this done, it should be done by a human.
+
+## Task Completion
+Before considering any change as complete, you must:
+- run a lint, and fix any errors
+- run a build, and fix any errors
+- run any tests if they exist
+- consider updating the files documentation
+
+## Useful Bash snippets
+Try running these Bash commands:
+- to lint the code, run `pnpm run lint`
+- to build the code, run `pnpm run build`
+- to fix formatting issues, run `pnpm run fix:biome`
+
 ## Library Usage
 - Prefer to use available libraries rather than writing code.
 - Prefer to use libraries that are locally available rather than importing external libraries.
 - Local libraries are shared between projects.
 - If you want to write a library, make it as general purpose as possible.
 - If you need to write a library that is only useful for this project, including this project's name in the filename.
+
+## Fixing lint errors
+- Many errors, especially formatting errors, can be auto-fixed with `pnpm run fix:biome`.
+- The diagnostic is there for a reason - don't mark errors as ignored unless you have found no way to fix them.
+
+## Available Linux Commands
+All common Linux utilities are available including:
+- `chmod` - change file permissions.
+- `comm` - compare two sorted files line by line.
+- `diff` - find differences between files.
+- `find` - find files which have matching characteristics.
+- `git` - examine the commit history.
+- `grep` - find specific lines from files.
+- `pnpm` - for access to Node packages and scripts.
+- `sort` - sort a file or stream alphabetically.
 
 ## Available local libraries
 - Use local library `lib_abort` to handle unrecoverable errors.

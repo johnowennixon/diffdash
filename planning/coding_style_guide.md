@@ -87,10 +87,11 @@ Many of these coding style rules are enforced using linters and other tools.
 ### Types
 - We use TypeScript in strict mode.
 - The `any` type is banned - both explicit and implicit.
-- Functions should have their return types explicitly defined.
+- If you use a type exported by another module, import the type itself instead of using a property of a namespace import.
 - Types must be imported with a `type` keyword.
 
 ### Functions
+- Functions should have their return types explicitly defined.
 - Prefer named functions, but you can use arrow function for short inline functions.
 - Prefer parameters using destructured objects for functions with many parameters.
 
