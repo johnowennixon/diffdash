@@ -71,36 +71,34 @@ async function phase_status(git: SimpleGit): Promise<void> {
   // Display new files
   if (status.created.length > 0) {
     for (const file of status.created) {
-      lib_stdio.write_stdout_linefeed(`  new:      ${lib_tui.justify_left(max_length, file)}`)
+      lib_stdio.write_stdout_linefeed(`  ${lib_tui.justify_left(max_length, file)}  (new)`)
     }
   }
 
   // Display modified files
   if (status.modified.length > 0) {
     for (const file of status.modified) {
-      lib_stdio.write_stdout_linefeed(`  modified: ${lib_tui.justify_left(max_length, file)}`)
+      lib_stdio.write_stdout_linefeed(`  ${lib_tui.justify_left(max_length, file)}  (modified)`)
     }
   }
 
   // Display renamed files
   if (status.renamed.length > 0) {
     for (const rename of status.renamed) {
-      lib_stdio.write_stdout_linefeed(
-        `  renamed:  ${lib_tui.justify_left(max_length, rename.to)} (from ${rename.from})`,
-      )
+      lib_stdio.write_stdout_linefeed(`  ${lib_tui.justify_left(max_length, rename.to)}  (renamed from ${rename.from})`)
     }
   }
 
   // Display deleted files
   if (status.deleted.length > 0) {
     for (const file of status.deleted) {
-      lib_stdio.write_stdout_linefeed(`  deleted:  ${lib_tui.justify_left(max_length, file)}`)
+      lib_stdio.write_stdout_linefeed(`  ${lib_tui.justify_left(max_length, file)}  (deleted)`)
     }
   }
 
   // If no files are staged (this shouldn't happen at this point, but just in case)
   if (status.staged.length === 0) {
-    lib_stdio.write_stdout_linefeed("  No files staged for commit")
+    lib_abort.with_warning("No files staged for commit")
   }
 }
 
