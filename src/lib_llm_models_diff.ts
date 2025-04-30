@@ -1,6 +1,7 @@
 /* eslint-disable @stylistic/key-spacing */
 /* eslint-disable @stylistic/no-multi-spaces */
 
+import * as lib_abort from "./lib_abort.js"
 import type {LlmModelDetails} from "./lib_llm_config.js"
 
 export default {}
@@ -23,5 +24,9 @@ export type LlmModel = keyof typeof MODEL_DETAILS
 export const MODEL_DEFAULT: LlmModel = "gpt-4.1-mini"
 
 export function get_model_details(llm_model_name: LlmModel): LlmModelDetails {
+  if (!MODEL_CHOICES.includes(llm_model_name)) {
+    lib_abort.with_error("Invalid LLM model name")
+  }
+
   return MODEL_DETAILS[llm_model_name]
 }
