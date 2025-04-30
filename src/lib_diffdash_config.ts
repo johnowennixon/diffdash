@@ -25,6 +25,7 @@ export const arg_schema = {
 
   disable_add: a.arg_boolean({help: "disable adding unstaged changes (takes priority over --auto-add)"}),
   disable_push: a.arg_boolean({help: "disable pushing changes (takes priority over --auto-push)"}),
+  disable_status: a.arg_boolean({help: "disable displaying the status of staged files before commit"}),
 
   no_verify: a.arg_boolean({help: "bypass git hooks with --no-verify flag when pushing"}),
 
@@ -40,6 +41,7 @@ export interface DiffDashConfig {
   auto_commit: boolean
   auto_push: boolean
   disable_add: boolean
+  disable_status: boolean
   disable_push: boolean
   no_verify: boolean
 }
@@ -53,6 +55,7 @@ export function process_config(): DiffDashConfig {
     auto_commit,
     auto_push,
     disable_add,
+    disable_status,
     disable_push,
     debug_llm_inputs,
     debug_llm_outputs,
@@ -80,6 +83,7 @@ export function process_config(): DiffDashConfig {
     auto_commit,
     auto_push,
     disable_add,
+    disable_status,
     disable_push,
     no_verify,
   }

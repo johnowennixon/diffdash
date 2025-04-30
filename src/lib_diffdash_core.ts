@@ -54,7 +54,13 @@ async function phase_add(config: DiffDashConfig, git: SimpleGit): Promise<void> 
   lib_tell.success("All changed files added successfully")
 }
 
-async function phase_status(git: SimpleGit): Promise<void> {
+async function phase_status(config: DiffDashConfig, git: SimpleGit): Promise<void> {
+  const {disable_status} = config
+
+  if (disable_status) {
+    return
+  }
+
   lib_tell.info("Files staged for commit:")
 
   const status = await git.status()
@@ -158,7 +164,7 @@ export async function sequence_work(config: DiffDashConfig): Promise<void> {
   const git = await phase_open()
 
   await phase_add(config, git)
-  await phase_status(git)
+  await phase_status(config, git)
   await phase_commit(config, git)
   await phase_push(config, git)
 }
