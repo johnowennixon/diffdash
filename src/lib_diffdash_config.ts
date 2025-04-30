@@ -13,7 +13,7 @@ const llm_model_default = lib_llm_models_diff.MODEL_DEFAULT
 
 export const arg_schema = {
   llm_model: a.arg_choice_default<LlmModel>({
-    help: "the LLM model to use",
+    help: `the LLM model to use (defaults to ${llm_model_default})`,
     choices: llm_model_choices,
     default: llm_model_default,
   }),
