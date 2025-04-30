@@ -7,7 +7,9 @@ import * as lib_git_message_ui from "./lib_git_message_ui.js"
 import * as lib_git_simple_open from "./lib_git_simple_open.js"
 import * as lib_git_simple_staging from "./lib_git_simple_staging.js"
 import * as lib_readline_ui from "./lib_readline_ui.js"
+import * as lib_stdio from "./lib_stdio.js"
 import * as lib_tell from "./lib_tell.js"
+import * as lib_tui from "./lib_tui.js"
 
 export default {}
 
@@ -50,6 +52,56 @@ async function phase_add(config: DiffDashConfig, git: SimpleGit): Promise<void> 
 
   await lib_git_simple_staging.stage_all_changes(git)
   lib_tell.success("All changed files added successfully")
+}
+
+async function phase_status(git: SimpleGit): Promise<void> {
+  lib_tell.info("Files staged for commit:")
+
+  const status = await git.status()
+
+  // Get the maximum length of file paths for alignment
+  const all_files = [
+    ...status.created,
+    ...status.modified,
+    ...status.renamed.map((rename) => rename.to),
+    ...status.deleted,
+  ]
+  const max_length = Math.max(...all_files.map((file) => file.length), 10)
+
+  // Display new files
+  if (status.created.length > 0) {
+    for (const file of status.created) {
+      lib_stdio.write_stdout_linefeed(`  new:      ${lib_tui.justify_left(max_length, file)}`)
+    }
+  }
+
+  // Display modified files
+  if (status.modified.length > 0) {
+    for (const file of status.modified) {
+      lib_stdio.write_stdout_linefeed(`  modified: ${lib_tui.justify_left(max_length, file)}`)
+    }
+  }
+
+  // Display renamed files
+  if (status.renamed.length > 0) {
+    for (const rename of status.renamed) {
+      lib_stdio.write_stdout_linefeed(
+        `  renamed:  ${lib_tui.justify_left(max_length, rename.to)} (from ${rename.from})`,
+      )
+    }
+  }
+
+  // Display deleted files
+  if (status.deleted.length > 0) {
+    for (const file of status.deleted) {
+      lib_stdio.write_stdout_linefeed(`  deleted:  ${lib_tui.justify_left(max_length, file)}`)
+    }
+  }
+
+  // If no files are staged (this shouldn't happen at this point, but just in case)
+  if (status.staged.length === 0) {
+    lib_stdio.write_stdout_linefeed("  No files staged for commit")
+  }
 }
 
 async function phase_commit(config: DiffDashConfig, git: SimpleGit): Promise<void> {
@@ -108,6 +160,7 @@ export async function sequence_work(config: DiffDashConfig): Promise<void> {
   const git = await phase_open()
 
   await phase_add(config, git)
+  await phase_status(git)
   await phase_commit(config, git)
   await phase_push(config, git)
 }
