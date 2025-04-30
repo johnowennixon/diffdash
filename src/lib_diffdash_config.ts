@@ -1,22 +1,22 @@
-import * as lib_abort from "./lib_abort.js"
 import * as a from "./lib_arg_infer.js"
 import * as lib_debug from "./lib_debug.js"
-import type {LlmConfig, LlmProvider} from "./lib_llm_config.js"
-import {LLM_PROVIDER_CHOICES} from "./lib_llm_config.js"
+import type {LlmConfig} from "./lib_llm_config.js"
 import * as lib_llm_config from "./lib_llm_config.js"
+import * as lib_llm_models_diff from "./lib_llm_models_diff.js"
+import type {LlmModel} from "./lib_llm_models_diff.js"
 import {PROGRAM_NAME} from "./lib_package_details.js"
 
 export default {}
 
-const DEFAULT_LLM_PROVIDER: LlmProvider = lib_llm_config.default_llm_provider()
+const llm_model_choices = lib_llm_models_diff.MODEL_CHOICES
+const llm_model_default = lib_llm_models_diff.MODEL_DEFAULT
 
 export const arg_schema = {
-  llm_provider: a.arg_choice_default<LlmProvider>({
-    help: `the LLM provider to use (default: ${DEFAULT_LLM_PROVIDER})`,
-    choices: LLM_PROVIDER_CHOICES,
-    default: DEFAULT_LLM_PROVIDER,
+  llm_model: a.arg_choice_default<LlmModel>({
+    help: "the LLM model to use",
+    choices: llm_model_choices,
+    default: llm_model_default,
   }),
-  llm_model: a.arg_string({help: "the LLM model to use (default depends upon provider)", metavar: "MODEL"}),
 
   auto_add: a.arg_boolean({help: "automatically stage all changes without prompting"}),
   auto_commit: a.arg_boolean({help: "automatically commit changes without confirmation"}),
@@ -49,18 +49,15 @@ export function process_config(): DiffDashConfig {
   lib_debug.channels.llm_inputs = pa.debug_llm_inputs
   lib_debug.channels.llm_outputs = pa.debug_llm_outputs
 
-  const llm_provider = pa.llm_provider
-  const llm_model = pa.llm_model ?? lib_llm_config.default_llm_model({llm_provider})
-
-  if (llm_model === undefined) {
-    lib_abort.with_error("The LLM model has not been defined")
-  }
-
+  const llm_model_name = pa.llm_model
+  const llm_model_code = lib_llm_models_diff.get_model_details(llm_model_name).llm_model_code
+  const llm_provider = lib_llm_models_diff.get_model_details(llm_model_name).llm_provider
   const llm_api_key = lib_llm_config.get_llm_api_key({llm_provider})
 
   const llm_config: LlmConfig = {
+    llm_model_name,
+    llm_model_code,
     llm_provider,
-    llm_model,
     llm_api_key,
   }
 

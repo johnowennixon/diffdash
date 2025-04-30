@@ -2,8 +2,8 @@ import {generateText} from "ai"
 
 import {EMPTY} from "./lib_char.js"
 import * as lib_debug from "./lib_debug.js"
+import * as lib_llm_config from "./lib_llm_config.js"
 import type {LlmConfig} from "./lib_llm_config.js"
-import {LLM_PROVIDER_MAP} from "./lib_llm_config.js"
 import * as lib_tell from "./lib_tell.js"
 import * as lib_tui_block from "./lib_tui_block.js"
 
@@ -20,7 +20,7 @@ export async function call_llm({
   user_prompt,
   system_prompt,
 }: {llm_config: LlmConfig; user_prompt: string; system_prompt: string}): Promise<LlmResponse> {
-  const {llm_provider, llm_model, llm_api_key} = llm_config
+  const {llm_provider, llm_model_code, llm_api_key} = llm_config
 
   try {
     if (lib_debug.channels.llm_inputs) {
@@ -28,12 +28,10 @@ export async function call_llm({
       lib_tui_block.string_block({content: user_prompt, title: "LLM USER PROMPT"})
     }
 
-    const provider_fn = LLM_PROVIDER_MAP[llm_provider]
-
-    const model = provider_fn(llm_model, llm_api_key)
+    const ai_sdk_language_model = lib_llm_config.get_ai_sdk_language_model({llm_model_code, llm_provider, llm_api_key})
 
     const result = await generateText({
-      model,
+      model: ai_sdk_language_model,
       system: system_prompt,
       prompt: user_prompt,
     })
