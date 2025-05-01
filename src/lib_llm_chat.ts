@@ -24,8 +24,8 @@ export async function call_llm({
 
   try {
     if (lib_debug.channels.llm_inputs) {
-      lib_tui_block.string_block({content: system_prompt, title: "LLM SYSTEM PROMPT"})
-      lib_tui_block.string_block({content: user_prompt, title: "LLM USER PROMPT"})
+      lib_tui_block.string_block({teller: lib_tell.debug, content: system_prompt, title: "LLM SYSTEM PROMPT"})
+      lib_tui_block.string_block({teller: lib_tell.debug, content: user_prompt, title: "LLM USER PROMPT"})
     }
 
     const ai_sdk_language_model = lib_llm_config.get_ai_sdk_language_model({llm_model_code, llm_provider, llm_api_key})
@@ -39,7 +39,7 @@ export async function call_llm({
     const response_text = result.text
 
     if (lib_debug.channels.llm_outputs) {
-      lib_tui_block.string_block({content: response_text, title: "LLM RESPONSE"})
+      lib_tui_block.string_block({teller: lib_tell.debug, content: response_text, title: "LLM RESPONSE"})
     }
 
     return {

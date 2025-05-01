@@ -1,26 +1,21 @@
 import {EQUALS, SPACE} from "./lib_char.js"
-import * as lib_tell from "./lib_tell.js"
+import type {Teller} from "./lib_tell.js"
+import * as lib_tui from "./lib_tui.js"
 
 export default {}
 
-export function center_pad(text: string, width: number, pad_char = SPACE): string {
-  if (text.length >= width) {
-    return text
-  }
+export function string_block({
+  teller,
+  content,
+  title,
+  pad_char = EQUALS,
+  width = 120,
+}: {teller: Teller; content: string; title?: string; pad_char?: string; width?: number}): void {
+  const separator = pad_char.repeat(width)
 
-  const total_pad = width - text.length
-  const left_pad = Math.floor(total_pad / 2)
-  const right_pad = total_pad - left_pad
+  const top_line = title ? lib_tui.justify_centre({line: SPACE + title + SPACE, width, pad_char}) : separator
 
-  return pad_char.repeat(left_pad) + text + pad_char.repeat(right_pad)
-}
-
-export function string_block({content, title, width = 120}: {content: string; title?: string; width?: number}): void {
-  const separator = EQUALS.repeat(width)
-
-  const top_line = title ? center_pad(SPACE + title + SPACE, width, EQUALS) : separator
-
-  lib_tell.debug(top_line)
-  lib_tell.debug(content)
-  lib_tell.debug(separator)
+  teller(top_line)
+  teller(content)
+  teller(separator)
 }
