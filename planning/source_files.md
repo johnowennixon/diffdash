@@ -50,11 +50,11 @@ Implements user interface components for displaying Git commit messages with pro
 #### lib_git_message_validate.ts
 Validates Git commit messages against quality and formatting criteria. Checks for issues like empty messages, excessive length, or insufficient content. Returns validation results with explanations and suggested replacements for invalid messages.
 
+#### lib_git_simple_open.ts
+Provides functions for opening and validating Git repositories. Implements repository path resolution, existence checking, and validation against bare repositories. Exports the SimpleGit type for use throughout the codebase.
+
 #### lib_git_simple_staging.ts
 Provides utilities for working with Git staged changes in a repository. Implements functions to check for staged and unstaged changes, generate diffstat summaries, and retrieve detailed diffs of staged files. Includes functionality for staging all changes and committing staged.
-
-#### lib_git_simple_utils.ts
-Contains utility functions for common Git operations with simplified interfaces. Abstracts away complex Git command details to provide easy-to-use helper functions. Includes functions for checking repository status, extracting branch information, manipulating Git config, and pushing changes to remote repositories.
 
 #### lib_inspect.ts
 Enhances object inspection and pretty printing for debugging and logging purposes. Provides customizable object serialization with depth control and circular reference handling. Implements colorized output formatting for different data types and structures.
@@ -65,6 +65,9 @@ Interfaces with Large Language Model APIs for conversational AI functionality. P
 #### lib_llm_config.ts
 Manages configuration settings for integrating with Large Language Model providers (OpenAI, Anthropic, Google Gemini, and OpenRouter). Provides structured configuration objects for API endpoints, authentication, and model parameters. Implements validation and normalization of LLM configuration options.
 
+#### lib_llm_models_diff.ts
+Defines and manages the available LLM models for the DiffDash tool. Provides a mapping of model names to their implementation details including provider, model code, and cost information. Exports functions for retrieving model details and type definitions for LLM models.
+
 #### lib_package_details.ts
 Extracts and exports package information from package.json. Provides constants for the program name and version for use throughout the application.
 
@@ -74,14 +77,17 @@ Creates interactive command-line prompts for user input. Implements a confirm fu
 #### lib_stdio.ts
 Manages standard input/output streams with utilities for reading, writing, and redirecting content. Provides functions for working with stdin, stdout, and stderr with proper encoding handling. Implements TTY detection and special character handling for terminal interaction.
 
+#### lib_string_types.ts
+Defines TypeScript type definitions for string-related operations. Provides type aliases for common string manipulation patterns including maps, predicates, replacers, and record objects. Serves as a central location for string-related type definitions used throughout the codebase.
+
 #### lib_tell.ts
 Provides user-facing message display utilities with formatted output and color support. Implements functions for displaying informational, warning, error, and success messages. Offers utilities for structured output presentation with consistent styling.
 
+#### lib_tui.ts
+Implements text formatting utilities for terminal user interfaces. Provides functions for text justification, truncation, quoting, and special character handling. Includes utilities for formatting numbers, money values, and creating human-readable string representations.
+
 #### lib_tui_block.ts
 Implements text-based user interface components for displaying formatted blocks of text. Provides utilities for creating bordered text blocks with optional titles and custom widths. Includes text centering and padding functions for consistent terminal output formatting.
-
-#### lib_type.ts
-Provides advanced TypeScript type utilities extending the language's built-in type system. Implements utility types for common patterns like deep partials, read-only recursion, and union manipulation. Offers runtime type checking functions that align with static TypeScript types.
 
 #### lib_typescript.ts
 Contains TypeScript utility types for advanced type manipulations. Implements helper types like Expand for better type inference and display in editors.
