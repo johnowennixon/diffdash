@@ -4,12 +4,12 @@ A command-line tool to generate Git commit messages using AI.
 
 ## Features
 
-- Automatically analyzes staged changes in a Git repository
-- Prompts to stage all changes when no staged changes are detected
-- Generates detailed commit messages using a Large Language Model
-- Adds a footer to track AI assistance
-- Prompts the users to accept or cancel the commit
-- Offers to push changes to remote after successful commit
+* Automatically analyzes staged changes in a Git repository
+* Prompts to stage all changes when no staged changes are detected
+* Generates detailed commit messages using a Large Language Model
+* Adds a footer to track AI assistance
+* Prompts the users to accept or cancel the commit
+* Offers to push changes to remote after successful commit
 
 ## Installation
 

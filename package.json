@@ -27,10 +27,11 @@
     "build:tsc": "echo 'Transpiling TypeScript to dist (using tsc)' && tsc --erasableSyntaxOnly --libReplacement false",
     "fix:biome": "echo 'Fixing with Biome' && biome check --write",
     "fix:eslint": "echo 'Fixing with ESLint' && eslint --fix",
-    "lint": "run-s -ls lint:biome lint:knip",
+    "lint": "run-s -ls lint:biome lint:knip lint:markdownlint",
     "lint:biome": "echo 'Linting with Biome' && biome check",
     "lint:eslint": "echo 'Linting with ESLint' && eslint",
     "lint:knip": "echo 'Linting with Knip' && knip",
+    "lint:markdownlint": "echo 'Linting with markdownlint' && markdownlint-cli2 '**/*.md'",
     "lint:tsc": "echo 'Linting with tsc' && tsc --noEmit --erasableSyntaxOnly --libReplacement false",
     "test": "run-s -ls lint build"
   },
@@ -42,6 +43,7 @@
     "ai": "4.3.9",
     "ansis": "3.17.0",
     "argparse": "2.0.1",
+    "markdownlint-cli2": "0.17.2",
     "simple-git": "3.27.0"
   },
   "devDependencies": {
