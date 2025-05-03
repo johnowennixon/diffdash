@@ -61,6 +61,9 @@ diffdash --disable-status
 # Generate message and commit, but don't push or prompt to push
 diffdash --disable-push
 
+# Generate message but don't commit (exit after displaying the message)
+diffdash --disable-commit
+
 # Combine auto and disable options (auto-commit but don't allow adding or pushing)
 diffdash --disable-add --auto-commit --disable-push
 
@@ -103,6 +106,7 @@ export OPENROUTER_API_KEY=your-api-key
 | `--auto-push` | Automatically push changes after commit without prompting |
 | `--disable-add` | Disable adding unstaged changes (takes priority over --auto-add) |
 | `--disable-status` | Disable displaying the status of staged files before commit |
+| `--disable-commit` | Disable committing changes after displaying the generated message |
 | `--disable-push` | Disable pushing changes (takes priority over --auto-push) |
 | `--no-verify` | Bypass git hooks when pushing with the --no-verify flag |
 | `--debug-llm-inputs` | Show prompts sent to the LLM |

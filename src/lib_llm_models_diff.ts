@@ -7,7 +7,7 @@ import type {LlmModelDetails} from "./lib_llm_config.js"
 export default {}
 
 // biome-ignore format: keep on one line
-const MODEL_DETAILS = {
+const MODELS = {
   "claude-3.5-haiku":         {llm_model_code: "claude-3-5-haiku-latest",            llm_provider: "anthropic",  cents_input: 80},
   "gemini-2.0-flash":         {llm_model_code: "gemini-2.0-flash",                   llm_provider: "google",     cents_input: 10},
   "gemini-2.5-flash-preview": {llm_model_code: "google/gemini-2.5-flash-preview",    llm_provider: "openrouter", cents_input: 15},
@@ -18,16 +18,24 @@ const MODEL_DETAILS = {
   "qwen3":                    {llm_model_code: "qwen/qwen3-235b-a22b",               llm_provider: "openrouter", cents_input: 20},
 } as const
 
-export const MODEL_CHOICES = Object.keys(MODEL_DETAILS)
+export type LlmModelsDiff = keyof typeof MODELS
 
-export type LlmModel = keyof typeof MODEL_DETAILS
+const MODEL_CHOICES = Object.keys(MODELS)
 
-export const MODEL_DEFAULT: LlmModel = "gpt-4.1-mini"
+const MODEL_DEFAULT: LlmModelsDiff = "gpt-4.1-mini"
 
-export function get_model_details(llm_model_name: LlmModel): LlmModelDetails {
+export function get_choices(): Array<string> {
+  return MODEL_CHOICES
+}
+
+export function get_default(): LlmModelsDiff {
+  return MODEL_DEFAULT
+}
+
+export function get_model_details(llm_model_name: LlmModelsDiff): LlmModelDetails {
   if (!MODEL_CHOICES.includes(llm_model_name)) {
     lib_abort.with_error("Invalid LLM model name")
   }
 
-  return MODEL_DETAILS[llm_model_name]
+  return MODELS[llm_model_name]
 }

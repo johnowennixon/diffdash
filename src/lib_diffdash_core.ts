@@ -111,7 +111,7 @@ async function phase_status(config: DiffDashConfig, git: SimpleGit): Promise<voi
 async function phase_commit(config: DiffDashConfig, git: SimpleGit): Promise<void> {
   lib_tell.action("Generating the commit message")
 
-  const {llm_config, auto_commit} = config
+  const {llm_config, auto_commit, disable_commit} = config
 
   const diffstat = await lib_git_simple_staging.get_staged_diffstat(git)
   const diff = await lib_git_simple_staging.get_staged_diff(git)
@@ -123,6 +123,10 @@ async function phase_commit(config: DiffDashConfig, git: SimpleGit): Promise<voi
   })
 
   lib_git_message_ui.display_message(commit_message)
+
+  if (disable_commit) {
+    return
+  }
 
   if (auto_commit) {
     lib_tell.action("Auto-committing changes")
@@ -139,9 +143,9 @@ async function phase_commit(config: DiffDashConfig, git: SimpleGit): Promise<voi
 }
 
 async function phase_push(config: DiffDashConfig, git: SimpleGit): Promise<void> {
-  const {auto_push, disable_push, no_verify} = config
+  const {auto_push, disable_commit, disable_push, no_verify} = config
 
-  if (disable_push) {
+  if (disable_push || disable_commit) {
     return
   }
 
