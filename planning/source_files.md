@@ -65,8 +65,14 @@ Interfaces with Large Language Model APIs for conversational AI functionality. P
 #### lib_llm_config.ts
 Manages configuration settings for integrating with Large Language Model providers (OpenAI, Anthropic, Google Gemini, and OpenRouter). Provides structured configuration objects for API endpoints, authentication, and model parameters. Implements validation and normalization of LLM configuration options.
 
+#### lib_llm_model.ts
+Manages LLM model details, availability, and access across different providers. Defines interfaces for model details and access patterns with functions to find models by name and check availability based on API keys. Provides utilities for obtaining model access information with fallback mechanisms between direct provider access and OpenRouter.
+
 #### lib_llm_models_diff.ts
 Defines and manages the available LLM models for the DiffDash tool. Provides a mapping of model names to their implementation details including provider, model code, and cost information. Exports functions for retrieving model details and type definitions for LLM models.
+
+#### lib_llm_provider.ts
+Provides utilities for working with different LLM providers including Anthropic, Google, OpenAI, and OpenRouter. Exports functions to retrieve provider information, access API keys from environment variables, and create AI SDK language model instances. Serves as a central point for provider-specific operations and standardizes provider interfaces.
 
 #### lib_package_details.ts
 Extracts and exports package information from package.json. Provides constants for the program name and version for use throughout the application.
@@ -99,3 +105,6 @@ Manages configuration settings for the DiffDash commit message generation tool. 
 
 #### lib_diffdash_core.ts
 Implements the core application flow for the DiffDash tool with the main sequence of operations. Orchestrates repository validation, staged changes detection, status display, message generation, and commit creation in a logical workflow. Provides a detailed listing of files staged for commit with clear categorization of new, modified, renamed, and deleted files. Provides user confirmation prompts at key decision points and handles optional push operations after commit.
+
+#### lib_diffdash_generate.ts
+Handles the generation and preview of commit messages using Large Language Models. Provides functionality to generate messages using either a single specified model or all available models in parallel for comparison. Coordinates the retrieval of staged changes, message generation, and display of results to the user with appropriate formatting.

@@ -36,7 +36,7 @@
   +------------------+     +---------------------+     +------------------+
   |                  |     |                     |     |                  |
   | Message          +<--->+ LLM Integration     +<--->+ User Interaction |
-  | Validation       |     | (API Communication)  |     | (Confirmation)   |
+  | Validation       |     | (API Communication) |     | (Confirmation)   |
   |                  |     |                     |     |                  |
   +------------------+     +---------------------+     +------------------+
   ```
