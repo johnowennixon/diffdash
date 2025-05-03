@@ -9,6 +9,7 @@ export default {}
 // biome-ignore format: keep on one line
 const MODELS = {
   "claude-3.5-haiku":         {llm_model_code: "claude-3-5-haiku-latest",            llm_provider: "anthropic",  cents_input: 80},
+  "deepseek-v3":              {llm_model_code: "deepseek/deepseek-chat-v3-0324",     llm_provider: "openrouter", cents_input: 27},
   "gemini-2.0-flash":         {llm_model_code: "gemini-2.0-flash",                   llm_provider: "google",     cents_input: 10},
   "gemini-2.5-flash-preview": {llm_model_code: "google/gemini-2.5-flash-preview",    llm_provider: "openrouter", cents_input: 15},
   "glm-4-32b":                {llm_model_code: "thudm/glm-4-32b",                    llm_provider: "openrouter", cents_input: 24},
