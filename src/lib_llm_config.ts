@@ -12,6 +12,18 @@ export default {}
 
 export type LlmProvider = "anthropic" | "google" | "openai" | "openrouter"
 
+export type LlmModelFull = {
+  llm_provider: LlmProvider | null
+  llm_model_code_direct: string | null
+  llm_model_code_openrouter: string | null
+  cents_input: number
+}
+
+export interface LlmModelAccess {
+  llm_model_code: string
+  llm_provider: LlmProvider
+}
+
 export interface LlmConfig {
   llm_model_name: string
   llm_model_code: string
@@ -19,13 +31,7 @@ export interface LlmConfig {
   llm_api_key: string
 }
 
-export interface LlmModelDetails {
-  llm_model_code: string
-  llm_provider: LlmProvider
-  cents_input: number
-}
-
-export type LlmGetDetails = (llm_model_name: string) => LlmModelDetails
+export type LlmGetAccess = (llm_model_name: string) => LlmModelAccess
 
 export function get_llm_provider_via(llm_provider: LlmProvider): string {
   switch (llm_provider) {
@@ -42,19 +48,25 @@ export function get_llm_provider_via(llm_provider: LlmProvider): string {
   }
 }
 
-export function get_llm_api_key(llm_provider: LlmProvider): string {
+export function get_llm_api_key_env(llm_provider: LlmProvider): string {
   switch (llm_provider) {
     case "anthropic":
-      return lib_env.get_abort("ANTHROPIC_API_KEY")
+      return "ANTHROPIC_API_KEY"
     case "google":
-      return lib_env.get_abort("GEMINI_API_KEY")
+      return "GEMINI_API_KEY"
     case "openai":
-      return lib_env.get_abort("OPENAI_API_KEY")
+      return "OPENAI_API_KEY"
     case "openrouter":
-      return lib_env.get_abort("OPENROUTER_API_KEY")
+      return "OPENROUTER_API_KEY"
     default:
       lib_abort.with_error("Unknown LLM provider")
   }
+}
+
+export function get_llm_api_key(llm_provider: LlmProvider): string | null {
+  const env = get_llm_api_key_env(llm_provider)
+
+  return lib_env.get(env)
 }
 
 export function get_ai_sdk_language_model({
@@ -76,11 +88,15 @@ export function get_ai_sdk_language_model({
   }
 }
 
-export function get_llm_config(llm_model_name: string, get_details: LlmGetDetails): LlmConfig {
+export function get_llm_config(llm_model_name: string, get_details: LlmGetAccess): LlmConfig {
   const llm_model_details = get_details(llm_model_name)
   const llm_model_code = llm_model_details.llm_model_code
   const llm_provider = llm_model_details.llm_provider
   const llm_api_key = get_llm_api_key(llm_provider)
+
+  if (llm_api_key === null) {
+    lib_abort.with_error("Please set an environment variable for the LLM API key")
+  }
 
   return {
     llm_model_name,
