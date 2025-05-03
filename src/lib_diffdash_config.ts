@@ -28,6 +28,7 @@ export const arg_schema = {
   disable_push: a.arg_boolean({help: "disable pushing changes (takes priority over --auto-push)"}),
   disable_status: a.arg_boolean({help: "disable displaying the status of staged files before commit"}),
 
+  all_models: a.arg_boolean({help: "use all available LLM models to generate messages (implies --disable-commit)"}),
   no_verify: a.arg_boolean({help: "bypass git hooks with --no-verify flag when pushing"}),
 
   debug_llm_inputs: a.arg_boolean({help: "debug prompts sent to the LLM"}),
@@ -45,6 +46,7 @@ export interface DiffDashConfig {
   disable_commit: boolean
   disable_status: boolean
   disable_push: boolean
+  all_models: boolean
   no_verify: boolean
 }
 
@@ -60,6 +62,7 @@ export function process_config(): DiffDashConfig {
     disable_commit,
     disable_status,
     disable_push,
+    all_models,
     debug_llm_inputs,
     debug_llm_outputs,
     no_verify,
@@ -70,15 +73,19 @@ export function process_config(): DiffDashConfig {
 
   const llm_config = lib_llm_config.get_llm_config(llm_model, lib_llm_models_diff.get_model_details)
 
+  // If all_models is true, disable_commit should also be true
+  const effective_disable_commit = all_models ? true : disable_commit
+
   const config: DiffDashConfig = {
     llm_config,
     auto_add,
     auto_commit,
     auto_push,
     disable_add,
-    disable_commit,
+    disable_commit: effective_disable_commit,
     disable_status,
     disable_push,
+    all_models,
     no_verify,
   }
 
