@@ -27,6 +27,21 @@ export interface LlmModelDetails {
 
 export type LlmGetDetails = (llm_model_name: string) => LlmModelDetails
 
+export function get_llm_provider_via(llm_provider: LlmProvider): string {
+  switch (llm_provider) {
+    case "openrouter":
+      return "via OpenRouter"
+
+    case "anthropic":
+    case "google":
+    case "openai":
+      return "direct"
+
+    default:
+      lib_abort.with_error("Unknown LLM provider")
+  }
+}
+
 export function get_llm_api_key(llm_provider: LlmProvider): string {
   switch (llm_provider) {
     case "anthropic":
@@ -61,8 +76,7 @@ export function get_ai_sdk_language_model({
   }
 }
 
-export function get_llm_config(llm_model: string, get_details: LlmGetDetails): LlmConfig {
-  const llm_model_name = llm_model
+export function get_llm_config(llm_model_name: string, get_details: LlmGetDetails): LlmConfig {
   const llm_model_details = get_details(llm_model_name)
   const llm_model_code = llm_model_details.llm_model_code
   const llm_provider = llm_model_details.llm_provider
@@ -76,6 +90,14 @@ export function get_llm_config(llm_model: string, get_details: LlmGetDetails): L
   }
 }
 
-export function show_llm_config({llm_config}: {llm_config: LlmConfig}): void {
-  lib_tell.info(`Using LLM ${llm_config.llm_model_name} via ${llm_config.llm_provider}`)
+export function get_llm_model_via(llm_config: LlmConfig): string {
+  const {llm_model_name, llm_provider} = llm_config
+
+  return `${llm_model_name} (${get_llm_provider_via(llm_provider)})`
+}
+
+export function show_llm_config(llm_config: LlmConfig): void {
+  const model_via = get_llm_model_via(llm_config)
+
+  lib_tell.info(`Using LLM ${model_via}`)
 }

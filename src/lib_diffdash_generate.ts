@@ -5,6 +5,7 @@ import type {DiffDashConfig} from "./lib_diffdash_config.js"
 import * as lib_git_message_generator from "./lib_git_message_generator.js"
 import * as lib_git_message_ui from "./lib_git_message_ui.js"
 import * as lib_git_simple_staging from "./lib_git_simple_staging.js"
+import * as lib_llm_config from "./lib_llm_config.js"
 import * as lib_llm_models_diff from "./lib_llm_models_diff.js"
 import * as lib_tell from "./lib_tell.js"
 
@@ -21,11 +22,7 @@ export async function generate_and_preview({config, git}: {config: DiffDashConfi
 
     // Create an array of promises for parallel execution
     const message_promises = all_llm_configs.map((llm_config) =>
-      lib_git_message_generator.generate_message({
-        llm_config,
-        diffstat,
-        diff,
-      }),
+      lib_git_message_generator.generate_message({llm_config, diffstat, diff}),
     )
 
     // Wait for all messages to be generated in parallel
@@ -36,7 +33,7 @@ export async function generate_and_preview({config, git}: {config: DiffDashConfi
       const commit_message = all_messages[index]
 
       if (commit_message) {
-        lib_tell.info("Commit message from " + llm_config.llm_model_name + " via " + llm_config.llm_provider + ":")
+        lib_tell.info(`Commit message from ${lib_llm_config.get_llm_model_via(llm_config)}:`)
         lib_git_message_ui.display_message(commit_message)
       }
     }
@@ -44,15 +41,11 @@ export async function generate_and_preview({config, git}: {config: DiffDashConfi
     return EMPTY
   }
 
-  const {llm_model_name, llm_provider} = config.llm_config
+  const {llm_config} = config
 
-  lib_tell.action(`Generating the commit message (using ${llm_model_name} via ${llm_provider})`)
+  lib_tell.action(`Generating the commit message using ${lib_llm_config.get_llm_model_via(llm_config)}`)
 
-  const commit_message = await lib_git_message_generator.generate_message({
-    llm_config: config.llm_config,
-    diffstat,
-    diff,
-  })
+  const commit_message = await lib_git_message_generator.generate_message({llm_config, diffstat, diff})
 
   lib_git_message_ui.display_message(commit_message)
 

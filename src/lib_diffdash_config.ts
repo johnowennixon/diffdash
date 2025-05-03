@@ -13,12 +13,6 @@ const llm_model_choices = lib_llm_models_diff.get_choices()
 const llm_model_default = lib_env.get_substitute("DIFFDASH_LLM_MODEL", lib_llm_models_diff.get_default())
 
 export const arg_schema = {
-  llm_model: a.arg_choice_default<LlmModelsDiff>({
-    help: `the LLM model to use (defaults to ${llm_model_default})`,
-    choices: llm_model_choices,
-    default: llm_model_default,
-  }),
-
   auto_add: a.arg_boolean({help: "automatically stage all changes without prompting"}),
   auto_commit: a.arg_boolean({help: "automatically commit changes without confirmation"}),
   auto_push: a.arg_boolean({help: "automatically push changes after commit without prompting"}),
@@ -28,8 +22,14 @@ export const arg_schema = {
   disable_push: a.arg_boolean({help: "disable pushing changes (takes priority over --auto-push)"}),
   disable_status: a.arg_boolean({help: "disable displaying the status of staged files before commit"}),
 
-  all_models: a.arg_boolean({help: "use all available LLM models to generate messages (implies --disable-commit)"}),
   no_verify: a.arg_boolean({help: "bypass git hooks with --no-verify flag when pushing"}),
+
+  all_models: a.arg_boolean({help: "use all available LLM models to generate messages (implies --disable-commit)"}),
+  llm_model: a.arg_choice_default<LlmModelsDiff>({
+    help: `the LLM model to use (defaults to ${llm_model_default})`,
+    choices: llm_model_choices,
+    default: llm_model_default,
+  }),
 
   debug_llm_inputs: a.arg_boolean({help: "debug prompts sent to the LLM"}),
   debug_llm_outputs: a.arg_boolean({help: "debug outputs received from the LLM"}),
@@ -38,7 +38,6 @@ export const arg_schema = {
 export const arg_parser = a.make_arg_parser(arg_schema, PROGRAM_NAME)
 
 export interface DiffDashConfig {
-  llm_config: LlmConfig
   auto_add: boolean
   auto_commit: boolean
   auto_push: boolean
@@ -46,15 +45,15 @@ export interface DiffDashConfig {
   disable_commit: boolean
   disable_status: boolean
   disable_push: boolean
-  all_models: boolean
   no_verify: boolean
+  all_models: boolean
+  llm_config: LlmConfig
 }
 
 export function process_config(): DiffDashConfig {
   const pa = arg_parser.parsed_args
 
   const {
-    llm_model,
     auto_add,
     auto_commit,
     auto_push,
@@ -62,10 +61,11 @@ export function process_config(): DiffDashConfig {
     disable_commit,
     disable_status,
     disable_push,
+    no_verify,
     all_models,
+    llm_model,
     debug_llm_inputs,
     debug_llm_outputs,
-    no_verify,
   } = pa
 
   lib_debug.channels.llm_inputs = debug_llm_inputs
@@ -77,7 +77,6 @@ export function process_config(): DiffDashConfig {
   const effective_disable_commit = all_models ? true : disable_commit
 
   const config: DiffDashConfig = {
-    llm_config,
     auto_add,
     auto_commit,
     auto_push,
@@ -85,8 +84,9 @@ export function process_config(): DiffDashConfig {
     disable_commit: effective_disable_commit,
     disable_status,
     disable_push,
-    all_models,
     no_verify,
+    all_models,
+    llm_config,
   }
 
   return config
