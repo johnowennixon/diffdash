@@ -33,10 +33,10 @@ export function get_default(): LlmModelsDiff {
   return MODEL_DEFAULT
 }
 
-export function get_model_details(llm_model_name: LlmModelsDiff): LlmModelDetails {
+export function get_model_details(llm_model_name: string): LlmModelDetails {
   if (!MODEL_CHOICES.includes(llm_model_name)) {
-    lib_abort.with_error("Invalid LLM model name")
+    lib_abort.with_error("Unknown LLM model name")
   }
 
-  return MODELS[llm_model_name]
+  return MODELS[llm_model_name as LlmModelsDiff]
 }

@@ -6,6 +6,7 @@ import * as lib_git_message_generator from "./lib_git_message_generator.js"
 import * as lib_git_message_ui from "./lib_git_message_ui.js"
 import * as lib_git_simple_open from "./lib_git_simple_open.js"
 import * as lib_git_simple_staging from "./lib_git_simple_staging.js"
+import * as lib_llm_config from "./lib_llm_config.js"
 import * as lib_readline_ui from "./lib_readline_ui.js"
 import * as lib_stdio from "./lib_stdio.js"
 import * as lib_tell from "./lib_tell.js"
@@ -109,12 +110,16 @@ async function phase_status(config: DiffDashConfig, git: SimpleGit): Promise<voi
 }
 
 async function phase_commit(config: DiffDashConfig, git: SimpleGit): Promise<void> {
-  lib_tell.action("Generating the commit message")
+  const diffstat = await lib_git_simple_staging.get_staged_diffstat(git)
+  const diff = await lib_git_simple_staging.get_staged_diff(git)
 
   const {llm_config, auto_commit, disable_commit} = config
 
-  const diffstat = await lib_git_simple_staging.get_staged_diffstat(git)
-  const diff = await lib_git_simple_staging.get_staged_diff(git)
+  const {llm_model_name, llm_provider} = llm_config
+
+  lib_tell.action(`Generating the commit message (using ${llm_model_name} via ${llm_provider})`)
+
+  lib_llm_config.show_llm_config({llm_config})
 
   const commit_message = await lib_git_message_generator.generate_message({
     llm_config,

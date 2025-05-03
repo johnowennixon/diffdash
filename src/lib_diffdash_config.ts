@@ -68,17 +68,7 @@ export function process_config(): DiffDashConfig {
   lib_debug.channels.llm_inputs = debug_llm_inputs
   lib_debug.channels.llm_outputs = debug_llm_outputs
 
-  const llm_model_name = llm_model
-  const llm_model_code = lib_llm_models_diff.get_model_details(llm_model_name).llm_model_code
-  const llm_provider = lib_llm_models_diff.get_model_details(llm_model_name).llm_provider
-  const llm_api_key = lib_llm_config.get_llm_api_key({llm_provider})
-
-  const llm_config: LlmConfig = {
-    llm_model_name,
-    llm_model_code,
-    llm_provider,
-    llm_api_key,
-  }
+  const llm_config = lib_llm_config.get_llm_config(llm_model, lib_llm_models_diff.get_model_details)
 
   const config: DiffDashConfig = {
     llm_config,
