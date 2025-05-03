@@ -2,8 +2,8 @@ import {generateText} from "ai"
 
 import {EMPTY} from "./lib_char.js"
 import * as lib_debug from "./lib_debug.js"
-import * as lib_llm_config from "./lib_llm_config.js"
 import type {LlmConfig} from "./lib_llm_config.js"
+import * as lib_llm_provider from "./lib_llm_provider.js"
 import * as lib_tell from "./lib_tell.js"
 import * as lib_tui_block from "./lib_tui_block.js"
 
@@ -28,7 +28,11 @@ export async function call_llm({
       lib_tui_block.string_block({teller: lib_tell.debug, content: user_prompt, title: "LLM USER PROMPT"})
     }
 
-    const ai_sdk_language_model = lib_llm_config.get_ai_sdk_language_model({llm_model_code, llm_provider, llm_api_key})
+    const ai_sdk_language_model = lib_llm_provider.get_ai_sdk_language_model({
+      llm_model_code,
+      llm_provider,
+      llm_api_key,
+    })
 
     const result = await generateText({
       model: ai_sdk_language_model,

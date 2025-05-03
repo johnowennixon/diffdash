@@ -16,7 +16,9 @@ export async function generate_and_preview({config, git}: {config: DiffDashConfi
   const diff = await lib_git_simple_staging.get_staged_diff(git)
 
   if (config.all_models) {
-    const all_llm_configs = lib_llm_models_diff.all_llm_configs()
+    const details = lib_llm_models_diff.get_details()
+
+    const all_llm_configs = lib_llm_config.all_llm_configs(details)
 
     lib_tell.action("Generating commit messages using all models in parallel")
 
