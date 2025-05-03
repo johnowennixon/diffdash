@@ -2,11 +2,9 @@ import type {SimpleGit} from "simple-git"
 
 import * as lib_abort from "./lib_abort.js"
 import type {DiffDashConfig} from "./lib_diffdash_config.js"
-import * as lib_git_message_generator from "./lib_git_message_generator.js"
-import * as lib_git_message_ui from "./lib_git_message_ui.js"
+import * as lib_diffdash_generate from "./lib_diffdash_generate.js"
 import * as lib_git_simple_open from "./lib_git_simple_open.js"
 import * as lib_git_simple_staging from "./lib_git_simple_staging.js"
-import * as lib_llm_config from "./lib_llm_config.js"
 import * as lib_readline_ui from "./lib_readline_ui.js"
 import * as lib_stdio from "./lib_stdio.js"
 import * as lib_tell from "./lib_tell.js"
@@ -22,7 +20,7 @@ async function phase_open(): Promise<SimpleGit> {
   return git
 }
 
-async function phase_add(config: DiffDashConfig, git: SimpleGit): Promise<void> {
+async function phase_add({config, git}: {config: DiffDashConfig; git: SimpleGit}): Promise<void> {
   const {auto_add, disable_add} = config
 
   const has_staged_changes = await lib_git_simple_staging.has_staged_changes(git)
@@ -55,7 +53,7 @@ async function phase_add(config: DiffDashConfig, git: SimpleGit): Promise<void> 
   lib_tell.success("All changed files added successfully")
 }
 
-async function phase_status(config: DiffDashConfig, git: SimpleGit): Promise<void> {
+async function phase_status({config, git}: {config: DiffDashConfig; git: SimpleGit}): Promise<void> {
   const {disable_status} = config
 
   if (disable_status) {
@@ -109,25 +107,10 @@ async function phase_status(config: DiffDashConfig, git: SimpleGit): Promise<voi
   }
 }
 
-async function phase_commit(config: DiffDashConfig, git: SimpleGit): Promise<void> {
-  const diffstat = await lib_git_simple_staging.get_staged_diffstat(git)
-  const diff = await lib_git_simple_staging.get_staged_diff(git)
+async function phase_commit({config, git}: {config: DiffDashConfig; git: SimpleGit}): Promise<void> {
+  const {auto_commit, disable_commit} = config
 
-  const {llm_config, auto_commit, disable_commit} = config
-
-  const {llm_model_name, llm_provider} = llm_config
-
-  lib_tell.action(`Generating the commit message (using ${llm_model_name} via ${llm_provider})`)
-
-  lib_llm_config.show_llm_config({llm_config})
-
-  const commit_message = await lib_git_message_generator.generate_message({
-    llm_config,
-    diffstat,
-    diff,
-  })
-
-  lib_git_message_ui.display_message(commit_message)
+  const commit_message = await lib_diffdash_generate.generate_and_preview({config, git})
 
   if (disable_commit) {
     return
@@ -147,7 +130,7 @@ async function phase_commit(config: DiffDashConfig, git: SimpleGit): Promise<voi
   lib_tell.success("Changes committed successfully")
 }
 
-async function phase_push(config: DiffDashConfig, git: SimpleGit): Promise<void> {
+async function phase_push({config, git}: {config: DiffDashConfig; git: SimpleGit}): Promise<void> {
   const {auto_push, disable_commit, disable_push, no_verify} = config
 
   if (disable_push || disable_commit) {
@@ -172,8 +155,8 @@ async function phase_push(config: DiffDashConfig, git: SimpleGit): Promise<void>
 export async function sequence_work(config: DiffDashConfig): Promise<void> {
   const git = await phase_open()
 
-  await phase_add(config, git)
-  await phase_status(config, git)
-  await phase_commit(config, git)
-  await phase_push(config, git)
+  await phase_add({config, git})
+  await phase_status({config, git})
+  await phase_commit({config, git})
+  await phase_push({config, git})
 }

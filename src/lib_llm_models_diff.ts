@@ -2,7 +2,8 @@
 /* eslint-disable @stylistic/no-multi-spaces */
 
 import * as lib_abort from "./lib_abort.js"
-import type {LlmModelDetails} from "./lib_llm_config.js"
+import * as lib_llm_config from "./lib_llm_config.js"
+import type {LlmConfig, LlmModelDetails} from "./lib_llm_config.js"
 
 export default {}
 
@@ -39,4 +40,8 @@ export function get_model_details(llm_model_name: string): LlmModelDetails {
   }
 
   return MODELS[llm_model_name as LlmModelsDiff]
+}
+
+export function all_llm_configs(): Array<LlmConfig> {
+  return MODEL_CHOICES.map((llm_model_name) => lib_llm_config.get_llm_config(llm_model_name, get_model_details))
 }
