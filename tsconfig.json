@@ -12,7 +12,7 @@
     "incremental": false,
     "isolatedModules": true,
     "lib": [
-      "es2023"
+      "ES2024"
     ],
     "module": "NodeNext",
     "moduleDetection": "force",
@@ -35,7 +35,7 @@
     "skipLibCheck": true,
     "sourceMap": false,
     "strict": true,
-    "target": "es2023",
+    "target": "ES2024",
     "typeRoots": [
       "./node_modules/@types"
     ],
