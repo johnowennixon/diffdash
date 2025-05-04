@@ -38,13 +38,13 @@ export function is_model_available(details: Array<LlmModelDetail>, llm_model_nam
   const {llm_provider, llm_model_code_direct, llm_model_code_openrouter} = detail
 
   if (llm_model_code_direct !== null && llm_provider !== null) {
-    if (lib_llm_provider.get_llm_api_key(llm_provider) !== null) {
+    if (lib_llm_provider.get_llm_api_key(llm_provider)) {
       return true
     }
   }
 
   if (llm_model_code_openrouter !== null) {
-    if (lib_llm_provider.get_llm_api_key("openrouter") !== null) {
+    if (lib_llm_provider.get_llm_api_key("openrouter")) {
       return true
     }
   }
@@ -59,14 +59,14 @@ export function get_model_access(details: Array<LlmModelDetail>, llm_model_name:
 
   if (llm_model_code_direct !== null && llm_provider !== null) {
     const llm_api_key = lib_llm_provider.get_llm_api_key(llm_provider)
-    if (llm_api_key !== null) {
+    if (llm_api_key) {
       return {llm_model_code: llm_model_code_direct, llm_provider, llm_api_key}
     }
   }
 
   if (llm_model_code_openrouter !== null) {
     const llm_api_key = lib_llm_provider.get_llm_api_key("openrouter")
-    if (llm_api_key !== null) {
+    if (llm_api_key) {
       return {llm_model_code: llm_model_code_openrouter, llm_provider: "openrouter", llm_api_key}
     }
   }
