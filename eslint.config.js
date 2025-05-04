@@ -232,6 +232,7 @@ const rules_unicorn = {
   "unicorn/no-useless-undefined": "off",
   "unicorn/prefer-code-point": "off",
   "unicorn/prefer-logical-operator-over-ternary": "off",
+  "unicorn/prefer-single-call": "off",
   "unicorn/prefer-spread": "off",
   "unicorn/prefer-string-replace-all": "off",
   "unicorn/prevent-abbreviations": "off",
@@ -261,6 +262,7 @@ const configs = [
       globals: {
         ...globals.nodeBuiltin,
         ...globals.es2023,
+        ...globals.jest,
       },
       parser: parser_typescript,
       parserOptions: {
