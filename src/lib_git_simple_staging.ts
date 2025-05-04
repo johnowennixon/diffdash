@@ -1,5 +1,6 @@
 import type {SimpleGit} from "simple-git"
 
+import {SPACE} from "./lib_char.js"
 import * as lib_tell from "./lib_tell.js"
 
 export default {}
@@ -7,13 +8,25 @@ export default {}
 export async function has_staged_changes(git: SimpleGit): Promise<boolean> {
   const status = await git.status()
 
-  return status.staged.length > 0 || status.renamed.length > 0
+  for (const file of status.files) {
+    if (file.index !== SPACE) {
+      return true
+    }
+  }
+
+  return false
 }
 
 export async function has_unstaged_changes(git: SimpleGit): Promise<boolean> {
   const status = await git.status()
 
-  return status.not_added.length > 0 || status.modified.length > 0 || status.deleted.length > 0
+  for (const file of status.files) {
+    if (file.working_dir !== SPACE) {
+      return true
+    }
+  }
+
+  return false
 }
 
 export async function stage_all_changes(git: SimpleGit): Promise<void> {

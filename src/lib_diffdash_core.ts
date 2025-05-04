@@ -71,45 +71,37 @@ async function phase_status({config, git}: {config: DiffDashConfig; git: SimpleG
 
   const status = await git.status()
 
-  // Get the maximum length of file paths for alignment
-  const all_files = [
-    ...status.created,
-    ...status.modified,
-    ...status.renamed.map((rename) => rename.to),
-    ...status.deleted,
+  const files_added = status.files.filter((file) => file.index === "A")
+  const files_deleted = status.files.filter((file) => file.index === "D")
+  const files_renamed = status.files.filter((file) => file.index === "R")
+  const files_modified = status.files.filter((file) => file.index === "M")
+
+  const files_staged = [
+    // All the possible staged index codes
+    ...files_added,
+    ...files_deleted,
+    ...files_renamed,
+    ...files_modified,
   ]
-  const max_length = Math.max(...all_files.map((file) => file.length), 10)
+  const max_length = Math.max(...files_staged.map((file) => file.path.length), 10)
 
-  // Display new files
-  if (status.created.length > 0) {
-    for (const file of status.created) {
-      lib_stdio.write_stdout_linefeed(`  ${lib_tui.justify_left(max_length, file)}  (new)`)
-    }
+  for (const file of files_added) {
+    lib_stdio.write_stdout_linefeed(`  ${lib_tui.justify_left(max_length, file.path)}  (added)`)
   }
 
-  // Display modified files
-  if (status.modified.length > 0) {
-    for (const file of status.modified) {
-      lib_stdio.write_stdout_linefeed(`  ${lib_tui.justify_left(max_length, file)}  (modified)`)
-    }
+  for (const file of files_modified) {
+    lib_stdio.write_stdout_linefeed(`  ${lib_tui.justify_left(max_length, file.path)}  (modified)`)
   }
 
-  // Display renamed files
-  if (status.renamed.length > 0) {
-    for (const rename of status.renamed) {
-      lib_stdio.write_stdout_linefeed(`  ${lib_tui.justify_left(max_length, rename.to)}  (renamed from ${rename.from})`)
-    }
+  for (const file of files_renamed) {
+    lib_stdio.write_stdout_linefeed(`  ${lib_tui.justify_left(max_length, file.path)}  (renamed from ${file.from})`)
   }
 
-  // Display deleted files
-  if (status.deleted.length > 0) {
-    for (const file of status.deleted) {
-      lib_stdio.write_stdout_linefeed(`  ${lib_tui.justify_left(max_length, file)}  (deleted)`)
-    }
+  for (const file of files_deleted) {
+    lib_stdio.write_stdout_linefeed(`  ${lib_tui.justify_left(max_length, file.path)}  (deleted)`)
   }
 
-  // If no files are staged (this shouldn't happen at this point, but just in case)
-  if (status.staged.length === 0) {
+  if (files_staged.length === 0) {
     lib_abort.with_warning("No files staged for commit")
   }
 }

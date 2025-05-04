@@ -21,9 +21,17 @@ export async function open_git_repo(repo_path: string = process.cwd()): Promise<
 }
 
 export async function check_git_repo_is_not_bare(git: SimpleGit): Promise<void> {
-  const is_bare = (await git.raw(["rev-parse", "--is-bare-repository"])) === "true"
+  const is_bare_repository: string = await git.raw(["rev-parse", "--is-bare-repository"])
 
-  if (is_bare) {
+  if (is_bare_repository === "true") {
     lib_abort.with_error("Cannot operate on a bare repository")
+  }
+}
+
+export async function check_git_repo_has_no_conflicts(git: SimpleGit): Promise<void> {
+  const status = await git.status()
+
+  if (status.conflicted.length > 0) {
+    lib_abort.with_error("Cannot operate on a repository with conflicts")
   }
 }
