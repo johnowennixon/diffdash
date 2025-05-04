@@ -4,7 +4,7 @@ import type {ArgumentGroup, ArgumentOptions, ArgumentParserOptions, Namespace} f
 import {DASH, EMPTY, PLUS, UNDERSCORE} from "./lib_char.js"
 import * as lib_debug from "./lib_debug.js"
 import type {StringPredicate} from "./lib_string_types.js"
-import type {Expand} from "./lib_typescript.js"
+import type {Expand} from "./lib_type_infer.js"
 
 type ArgInferKind = "string" | "integer" | "boolean" | "choice" | "list" | "meg"
 

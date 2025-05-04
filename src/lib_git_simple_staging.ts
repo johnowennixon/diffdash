@@ -9,7 +9,7 @@ export async function has_staged_changes(git: SimpleGit): Promise<boolean> {
   const status = await git.status()
 
   for (const file of status.files) {
-    if (file.index !== SPACE) {
+    if ("ADMR".includes(file.index)) {
       return true
     }
   }
