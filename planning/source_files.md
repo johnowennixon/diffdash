@@ -82,7 +82,7 @@ Interfaces with Large Language Model APIs for conversational AI functionality. P
 
 #### lib_llm_config.ts
 
-Manages configuration settings for integrating with Large Language Model providers (OpenAI, Anthropic, Google Gemini, and OpenRouter). Provides structured configuration objects for API endpoints, authentication, and model parameters. Implements validation and normalization of LLM configuration options.
+Manages configuration settings for integrating with Large Language Model providers. Provides structured configuration objects for API endpoints, authentication, and model parameters. Implements validation and normalization of LLM configuration options.
 
 #### lib_llm_model.ts
 
@@ -123,10 +123,6 @@ Implements text formatting utilities for terminal user interfaces. Provides func
 #### lib_tui_block.ts
 
 Implements text-based user interface components for displaying formatted blocks of text. Provides utilities for creating bordered text blocks with optional titles and custom widths. Includes text centering and padding functions for consistent terminal output formatting.
-
-#### lib_typescript.ts
-
-Contains TypeScript utility types for advanced type manipulations. Implements helper types like Expand for better type inference and display in editors.
 
 ### DiffDash Libraries
 
