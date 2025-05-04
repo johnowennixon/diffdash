@@ -1,6 +1,7 @@
 import type {SimpleGit} from "simple-git"
 
 import * as lib_abort from "./lib_abort.js"
+import * as lib_debug from "./lib_debug.js"
 import type {DiffDashConfig} from "./lib_diffdash_config.js"
 import * as lib_diffdash_generate from "./lib_diffdash_generate.js"
 import * as lib_git_simple_open from "./lib_git_simple_open.js"
@@ -22,6 +23,12 @@ async function phase_open(): Promise<SimpleGit> {
 
 async function phase_add({config, git}: {config: DiffDashConfig; git: SimpleGit}): Promise<void> {
   const {auto_add, disable_add} = config
+
+  if (lib_debug.channels.api) {
+    const status = await git.status()
+
+    lib_debug.inspect(status, "status")
+  }
 
   const has_staged_changes = await lib_git_simple_staging.has_staged_changes(git)
 
