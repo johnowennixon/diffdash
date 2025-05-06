@@ -3,11 +3,11 @@ import {EMPTY} from "./lib_char.js"
 export default {}
 
 const DEFAULT_MIN_LENGTH = 10
-const DEFAULT_MAX_LENGTH = 2000
+const DEFAULT_MAX_LENGTH = 4000
 
 export interface MessageValidationOptions {
-  min_length?: number | undefined
-  max_length?: number | undefined
+  min_length?: number
+  max_length?: number
 }
 
 export interface MessageValidationResult {
@@ -75,7 +75,7 @@ export interface GitMessageValidation {
   is_valid: boolean
   message: string
   original: string
-  replacement?: string | undefined
+  replacement: string | undefined
 }
 
 export function validate_git_message(message: string): GitMessageValidation {
