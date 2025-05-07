@@ -31,13 +31,13 @@ const DETAILS: Array<LlmModelDetail> = [
     llm_model_code_openrouter: "google/gemini-2.5-flash-preview",
     cents_input: 15,
   },
-  {
+  /* {
     llm_model_name: "glm-4-32b",
     llm_provider: null,
     llm_model_code_direct: null,
     llm_model_code_openrouter: "thudm/glm-4-32b",
     cents_input: 24,
-  },
+  }, */
   {
     llm_model_name: "gpt-4.1-mini",
     llm_provider: "openai",

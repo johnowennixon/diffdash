@@ -20,7 +20,7 @@ export async function generate_and_preview({config, git}: {config: DiffDashConfi
 
     const all_llm_configs = lib_llm_config.all_llm_configs(details)
 
-    lib_tell.action("Generating commit messages using all models in parallel")
+    lib_tell.action("Generating Git commit messages using all models in parallel")
 
     // Create an array of promises for parallel execution
     const message_promises = all_llm_configs.map((llm_config) =>
@@ -45,7 +45,7 @@ export async function generate_and_preview({config, git}: {config: DiffDashConfi
 
   const {llm_config} = config
 
-  lib_tell.action(`Generating the commit message using ${lib_llm_config.get_llm_model_via(llm_config)}`)
+  lib_tell.action(`Generating the commit message using LLM ${lib_llm_config.get_llm_model_via(llm_config)}`)
 
   const commit_message = await lib_git_message_generator.generate_message({llm_config, diffstat, diff})
 
