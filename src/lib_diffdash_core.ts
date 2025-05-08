@@ -23,7 +23,7 @@ async function phase_open(): Promise<SimpleGit> {
 async function phase_add({config, git}: {config: DiffDashConfig; git: SimpleGit}): Promise<void> {
   const {auto_add, disable_add} = config
 
-  if (lib_debug.channels.api) {
+  if (lib_debug.channels.git) {
     const status = await git.status()
 
     lib_debug.inspect(status, "status")

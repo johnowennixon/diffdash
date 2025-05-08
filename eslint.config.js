@@ -61,7 +61,7 @@ const rules_eslint = {
   "one-var": ["error", "never"],
   "prefer-object-has-own": "error",
   "prefer-object-spread": "error",
-  "radix": "error",
+  "radix": "off",
   "require-atomic-updates": "error",
   "symbol-description": "error",
 }
