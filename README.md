@@ -64,7 +64,10 @@ diffdash --disable-add --auto-commit --disable-push
 # Skip git hooks when pushing
 diffdash --no-verify
 
-# Specify model
+# Use the fallback LLM model
+diffdash --llm-fallback
+
+# Specify the LLM model
 diffdash --llm-model claude-3.5-sonnet
 
 # Debug options
