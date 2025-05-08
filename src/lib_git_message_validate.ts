@@ -1,4 +1,4 @@
-import {DOT, EMPTY, LF, SPACE} from "./lib_char.js"
+import {DASH, EMPTY, LF, SPACE} from "./lib_char.js"
 
 export default {}
 
@@ -25,7 +25,7 @@ export function validate_message(message: string): GitMessageValidationResult {
   if (!message || message.trim() === EMPTY) {
     return {
       valid: false,
-      reason: "Commit message is empty",
+      reason: "message is empty",
     }
   }
 
@@ -33,7 +33,7 @@ export function validate_message(message: string): GitMessageValidationResult {
   if (message.length < min_length) {
     return {
       valid: false,
-      reason: `Commit message is too short (minimum ${min_length} characters)`,
+      reason: `too short (minimum ${min_length} characters)`,
     }
   }
 
@@ -41,7 +41,7 @@ export function validate_message(message: string): GitMessageValidationResult {
   if (message.length > max_length) {
     return {
       valid: false,
-      reason: `Commit message is too long (maximum ${max_length} characters)`,
+      reason: `too long (maximum ${max_length} characters)`,
     }
   }
 
@@ -51,7 +51,7 @@ export function validate_message(message: string): GitMessageValidationResult {
   if (lines.length < 3) {
     return {
       valid: false,
-      reason: "Commit message needs to be at least 3 lines",
+      reason: "need at least 3 lines",
     }
   }
 
@@ -59,16 +59,16 @@ export function validate_message(message: string): GitMessageValidationResult {
   if (lines[1] && lines[1] !== EMPTY) {
     return {
       valid: false,
-      reason: "Commit message is missing a blank line after summary line",
+      reason: "missing blank line after summary line",
     }
   }
 
   // Check for bullet points
   for (const line of lines.slice(2)) {
-    if (!line.startsWith(DOT + SPACE)) {
+    if (!line.startsWith(DASH + SPACE)) {
       return {
         valid: false,
-        reason: "Commit message bullet points are malformed",
+        reason: "bullet points are malformed",
       }
     }
   }

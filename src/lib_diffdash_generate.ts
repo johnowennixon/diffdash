@@ -26,7 +26,7 @@ export async function generate_for_commit({config, git}: {config: DiffDashConfig
 
   const commit_message_with_footer = lib_diffdash_footer.add_footer({llm_response, llm_config})
 
-  lib_git_message_ui.display_message(commit_message_with_footer)
+  lib_git_message_ui.display_message({message: commit_message_with_footer, teller: lib_tell.normal})
 
   return commit_message_with_footer
 }
@@ -58,6 +58,6 @@ export async function generate_and_preview({config, git}: {config: DiffDashConfi
     const commit_message_with_footer = lib_diffdash_footer.add_footer({llm_response, llm_config})
 
     lib_tell.info(`Commit message from ${lib_llm_config.get_llm_model_via(llm_config)}:`)
-    lib_git_message_ui.display_message(commit_message_with_footer)
+    lib_git_message_ui.display_message({message: commit_message_with_footer, teller: lib_tell.normal})
   }
 }
