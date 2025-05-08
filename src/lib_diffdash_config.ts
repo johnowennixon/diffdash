@@ -11,6 +11,7 @@ export default {}
 const llm_model_details = lib_llm_models_diff.get_details()
 const llm_model_choices = lib_llm_model.get_choices(llm_model_details)
 const llm_model_default = lib_env.get_substitute("DIFFDASH_LLM_MODEL", lib_llm_models_diff.get_default_model_name())
+const llm_model_fallback = lib_llm_models_diff.get_fallback_model_name()
 
 export const arg_schema = {
   version: a.arg_boolean({help: "show program version information"}),
@@ -32,6 +33,7 @@ export const arg_schema = {
     choices: llm_model_choices,
     default: llm_model_default,
   }),
+  llm_fallback: a.arg_boolean({help: `use the fallback LLM model (${llm_model_fallback}`}),
 
   debug_llm_inputs: a.arg_boolean({help: "debug prompts sent to the LLM"}),
   debug_llm_outputs: a.arg_boolean({help: "debug outputs received from the LLM"}),
@@ -68,11 +70,14 @@ export function process_config(): DiffDashConfig {
     disable_push,
     no_verify,
     llm_model,
+    llm_fallback,
     debug_llm_inputs,
     debug_llm_outputs,
   } = pa
 
-  const llm_config = lib_llm_config.get_llm_config(lib_llm_models_diff.get_details(), llm_model)
+  const llm_model_details = lib_llm_models_diff.get_details()
+  const llm_model_name = llm_fallback ? llm_model_fallback : llm_model
+  const llm_config = lib_llm_config.get_llm_config(llm_model_details, llm_model_name)
 
   lib_debug.channels.llm_inputs = debug_llm_inputs
   lib_debug.channels.llm_outputs = debug_llm_outputs

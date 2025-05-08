@@ -18,12 +18,12 @@ export interface LlmModelAccess {
   llm_api_key: string
 }
 
-export function get_choices(details: Array<LlmModelDetail>): Array<string> {
-  return details.map((model) => model.llm_model_name)
+export function get_choices(llm_model_details: Array<LlmModelDetail>): Array<string> {
+  return llm_model_details.map((model) => model.llm_model_name)
 }
 
-export function find_model(details: Array<LlmModelDetail>, llm_model_name: string): LlmModelDetail {
-  for (const detail of details) {
+export function find_model(llm_model_details: Array<LlmModelDetail>, llm_model_name: string): LlmModelDetail {
+  for (const detail of llm_model_details) {
     if (detail.llm_model_name === llm_model_name) {
       return detail
     }
@@ -32,8 +32,8 @@ export function find_model(details: Array<LlmModelDetail>, llm_model_name: strin
   lib_abort.with_error(`Unknown model: ${llm_model_name}`)
 }
 
-export function is_model_available(details: Array<LlmModelDetail>, llm_model_name: string): boolean {
-  const detail = find_model(details, llm_model_name)
+export function is_model_available(llm_model_details: Array<LlmModelDetail>, llm_model_name: string): boolean {
+  const detail = find_model(llm_model_details, llm_model_name)
 
   const {llm_provider, llm_model_code_direct, llm_model_code_openrouter} = detail
 
@@ -52,8 +52,8 @@ export function is_model_available(details: Array<LlmModelDetail>, llm_model_nam
   return false
 }
 
-export function get_model_access(details: Array<LlmModelDetail>, llm_model_name: string): LlmModelAccess {
-  const detail = find_model(details, llm_model_name)
+export function get_model_access(llm_model_details: Array<LlmModelDetail>, llm_model_name: string): LlmModelAccess {
+  const detail = find_model(llm_model_details, llm_model_name)
 
   const {llm_provider, llm_model_code_direct, llm_model_code_openrouter} = detail
 
