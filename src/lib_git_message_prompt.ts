@@ -28,11 +28,12 @@ You must output in the following format - without any preamble or conclusion:
 * Then add around five bullet points (lines that start with a dash).
 * And nothing else.
 
-Each bullet point should be a single sentence explaining the key changes in more detail.
+Use the imperative mood and present tense.
 Please write in full sentences that start with a capital letter.
 Each sentence should be on its own line.
 Focus on why things were changed, not how or what.
 Don't assume the change is always an improvement - we all make mistakes.
+Each bullet point should be a single sentence explaining the key changes in more detail.
 If there are a lot of changes, you will need to summarize even more.
 Avoid comma-separated lists of more than five items in any sentence.
 Avoid making the bullet points just a list of similar things.
