@@ -1,4 +1,4 @@
-import {EMPTY, LF} from "./lib_char.js"
+import {DOT, EMPTY, LF, SPACE} from "./lib_char.js"
 
 export default {}
 
@@ -46,7 +46,7 @@ export function validate_message(message: string): GitMessageValidationResult {
   }
 
   // Check for missing blank line after summary
-  const lines = message.split(LF)
+  const lines = message.trim().split(LF)
 
   if (lines.length < 3) {
     return {
@@ -59,7 +59,17 @@ export function validate_message(message: string): GitMessageValidationResult {
   if (lines[1] && lines[1] !== EMPTY) {
     return {
       valid: false,
-      reason: "Missing blank line after summary",
+      reason: "Commit message is missing a blank line after summary line",
+    }
+  }
+
+  // Check for bullet points
+  for (const line of lines.slice(2)) {
+    if (!line.startsWith(DOT + SPACE)) {
+      return {
+        valid: false,
+        reason: "Commit message bullet points are malformed",
+      }
     }
   }
 
