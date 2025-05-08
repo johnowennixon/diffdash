@@ -28,18 +28,20 @@ export async function call_llm({
     llm_api_key,
   })
 
-  const max_tokens = lib_parse_number.parse_int_or_undefined(lib_env.get_empty("LIB_LLM_CHAT_MAX_TOKENS"))
-  const temperature = lib_parse_number.parse_float_or_undefined(lib_env.get_empty("LIB_LLM_CHAT_TEMPERATURE"))
-  const timeout = Number.parseInt(lib_env.get_substitute("LIB_LLM_CHAT_TIMEOUT", "30"))
+  const timeout = Number.parseInt(lib_env.get_substitute("lib_llm_chat_timeout", "30"))
+  const max_tokens = lib_parse_number.parse_int_or_undefined(lib_env.get_empty("lib_llm_chat_max_tokens"))
+  const temperature = lib_parse_number.parse_float_or_undefined(
+    lib_env.get_substitute("lib_llm_chat_temperature", "0.5"),
+  )
 
   // This is liable to throw an error
   const llm_result = await generateText({
     model: ai_sdk_language_model,
     system: system_prompt,
     prompt: user_prompt,
+    abortSignal: AbortSignal.timeout(timeout * 1000),
     maxTokens: max_tokens,
     temperature,
-    abortSignal: AbortSignal.timeout(timeout * 1000),
   })
 
   lib_debug.inspect_when(lib_debug.channels.llm_results, llm_result, "llm_result")
