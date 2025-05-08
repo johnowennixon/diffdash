@@ -1,5 +1,5 @@
 import * as lib_abort from "./lib_abort.js"
-import {EMPTY, LF} from "./lib_char.js"
+import {LF} from "./lib_char.js"
 import * as lib_datetime from "./lib_datetime.js"
 import * as lib_git_message_prompt from "./lib_git_message_prompt.js"
 import * as lib_git_message_validate from "./lib_git_message_validate.js"
@@ -7,7 +7,6 @@ import * as lib_llm_chat from "./lib_llm_chat.js"
 import type {LlmConfig} from "./lib_llm_config.js"
 import * as lib_llm_config from "./lib_llm_config.js"
 import {PROGRAM_NAME, PROGRAM_VERSION} from "./lib_package_details.js"
-import * as lib_tell from "./lib_tell.js"
 
 export default {}
 
@@ -35,12 +34,7 @@ export async function generate_message(details: GitMessageGenerateDetails): Prom
   const system_prompt = lib_git_message_prompt.get_system_prompt()
 
   // Create the user prompt
-  const user_prompt = lib_git_message_prompt.get_user_prompt({
-    diffstat,
-    diff,
-    original: EMPTY,
-    use_original: false,
-  })
+  const user_prompt = lib_git_message_prompt.get_user_prompt({diffstat, diff})
 
   // Try calling the LLM API to generate a message
   try {
@@ -50,16 +44,14 @@ export async function generate_message(details: GitMessageGenerateDetails): Prom
     const validation_result = lib_git_message_validate.validate_message(llm_response)
 
     if (!validation_result.valid) {
-      lib_tell.warning(`Generated message failed validation: ${validation_result.reason}`)
-
-      lib_abort.with_error("Unable to use the generated message")
+      lib_abort.with_error(`Generated commit message failed validation: ${validation_result.reason}`)
     }
 
     // Add a footer to the generated message
     return add_footer({body: llm_response, llm_config})
   } catch {
     lib_abort.with_error(
-      `Failed to generate the commit message using LLM ${lib_llm_config.get_llm_model_via(llm_config)}`,
+      `Failed to generate a commit message using LLM ${lib_llm_config.get_llm_model_via(llm_config)}`,
     )
   }
 }

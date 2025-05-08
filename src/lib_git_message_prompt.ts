@@ -7,8 +7,6 @@ const MAX_LENGTH = 120_000
 export interface GitMessagePromptDetails {
   diffstat: string
   diff: string
-  original: string
-  use_original: boolean
 }
 
 export function get_system_prompt(): string {
