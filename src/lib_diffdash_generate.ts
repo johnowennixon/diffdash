@@ -2,7 +2,7 @@ import type {SimpleGit} from "simple-git"
 
 import type {DiffDashConfig} from "./lib_diffdash_config.js"
 import * as lib_diffdash_footer from "./lib_diffdash_footer.js"
-import * as lib_git_message_generator from "./lib_git_message_generator.js"
+import * as lib_git_message_generate from "./lib_git_message_generate.js"
 import * as lib_git_message_ui from "./lib_git_message_ui.js"
 import * as lib_git_simple_staging from "./lib_git_simple_staging.js"
 import * as lib_llm_config from "./lib_llm_config.js"
@@ -20,7 +20,7 @@ export async function generate_for_commit({config, git}: {config: DiffDashConfig
 
   lib_tell.action(`Generating the commit message using LLM ${lib_llm_config.get_llm_model_via(llm_config)}`)
 
-  const generate_result = await lib_git_message_generator.generate_message({llm_config, diffstat, diff})
+  const generate_result = await lib_git_message_generate.generate_message({llm_config, diffstat, diff})
 
   const {llm_response} = generate_result
 
@@ -45,7 +45,7 @@ export async function generate_and_preview({config, git}: {config: DiffDashConfi
 
   // Create an array of promises for parallel execution
   const generate_result_promises = all_llm_configs.map((llm_config) =>
-    lib_git_message_generator.generate_message({llm_config, diffstat, diff}),
+    lib_git_message_generate.generate_message({llm_config, diffstat, diff}),
   )
 
   // Wait for all messages to be generated in parallel
