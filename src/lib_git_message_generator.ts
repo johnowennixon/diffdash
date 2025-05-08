@@ -52,12 +52,6 @@ export async function generate_message(details: GitMessageGenerateDetails): Prom
     if (!validation_result.valid) {
       lib_tell.warning(`Generated message failed validation: ${validation_result.reason}`)
 
-      if (validation_result.suggested_fix) {
-        lib_tell.info("Using suggested fix")
-        return add_footer({body: validation_result.suggested_fix, llm_config})
-      }
-
-      // If no fix is suggested, abort
       lib_abort.with_error("Unable to use the generated message")
     }
 
