@@ -33,7 +33,7 @@ export const arg_schema = {
     choices: llm_model_choices,
     default: llm_model_default,
   }),
-  llm_fallback: a.arg_boolean({help: `use the fallback LLM model (${llm_model_fallback}`}),
+  llm_fallback: a.arg_boolean({help: `use the fallback LLM model (${llm_model_fallback})`}),
 
   debug_llm_inputs: a.arg_boolean({help: "debug prompts sent to the LLM"}),
   debug_llm_outputs: a.arg_boolean({help: "debug outputs received from the LLM"}),
