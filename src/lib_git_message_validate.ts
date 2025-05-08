@@ -78,23 +78,3 @@ export function validate_message(message: string): GitMessageValidationResult {
     valid: true,
   }
 }
-
-/**
- * Legacy validation function for backward compatibility
- */
-export interface GitMessageValidation {
-  is_valid: boolean
-  message: string
-  original: string
-  replacement?: string
-}
-
-export function validate_git_message(message: string): GitMessageValidation {
-  const result = validate_message(message)
-
-  return {
-    is_valid: result.valid,
-    message: result.reason || "Valid commit message",
-    original: message,
-  }
-}
