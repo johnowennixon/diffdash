@@ -75,8 +75,8 @@ export function process_config(): DiffDashConfig {
     debug_llm_outputs,
   } = pa
 
-  const llm_model_details = lib_llm_models_diff.get_details()
   const llm_model_name = llm_fallback ? llm_model_fallback : llm_model
+  const llm_model_details = lib_llm_models_diff.get_details()
   const llm_config = lib_llm_config.get_llm_config(llm_model_details, llm_model_name)
 
   lib_debug.channels.llm_inputs = debug_llm_inputs
