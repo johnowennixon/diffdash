@@ -39,13 +39,6 @@ const DETAILS: Array<LlmModelDetail> = [
     cents_input: 0,
   },
   {
-    llm_model_name: "deepseek-r1-free",
-    llm_provider: null,
-    llm_model_code_direct: null,
-    llm_model_code_openrouter: "deepseek/deepseek-r1:free",
-    cents_input: 0,
-  },
-  {
     llm_model_name: "glm-4-32b-free",
     llm_provider: null,
     llm_model_code_direct: null,
