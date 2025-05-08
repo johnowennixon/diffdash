@@ -106,10 +106,14 @@ async function phase_status({config, git}: {config: DiffDashConfig; git: SimpleG
   }
 }
 
+async function phase_preview({config, git}: {config: DiffDashConfig; git: SimpleGit}): Promise<void> {
+  await lib_diffdash_generate.generate_and_preview({config, git})
+}
+
 async function phase_commit({config, git}: {config: DiffDashConfig; git: SimpleGit}): Promise<void> {
   const {auto_commit, disable_commit} = config
 
-  const commit_message = await lib_diffdash_generate.generate_and_preview({config, git})
+  const commit_message = await lib_diffdash_generate.generate_for_commit({config, git})
 
   if (disable_commit) {
     return
@@ -151,11 +155,19 @@ async function phase_push({config, git}: {config: DiffDashConfig; git: SimpleGit
   }
 }
 
-export async function sequence_work(config: DiffDashConfig): Promise<void> {
+export async function sequence_normal(config: DiffDashConfig): Promise<void> {
   const git = await phase_open()
 
   await phase_add({config, git})
   await phase_status({config, git})
   await phase_commit({config, git})
   await phase_push({config, git})
+}
+
+export async function sequence_preview(config: DiffDashConfig): Promise<void> {
+  const git = await phase_open()
+
+  await phase_add({config, git})
+  await phase_status({config, git})
+  await phase_preview({config, git})
 }
