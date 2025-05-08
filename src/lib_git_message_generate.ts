@@ -1,11 +1,8 @@
 import * as lib_abort from "./lib_abort.js"
 import * as lib_git_message_prompt from "./lib_git_message_prompt.js"
-import * as lib_git_message_ui from "./lib_git_message_ui.js"
-import * as lib_git_message_validate from "./lib_git_message_validate.js"
 import * as lib_llm_chat from "./lib_llm_chat.js"
 import type {LlmConfig} from "./lib_llm_config.js"
 import * as lib_llm_config from "./lib_llm_config.js"
-import * as lib_tell from "./lib_tell.js"
 
 export default {}
 
@@ -32,15 +29,6 @@ export async function generate_message(details: GitMessageGenerateDetails): Prom
   // Try calling the LLM API to generate a message
   try {
     const llm_response = await lib_llm_chat.call_llm({llm_config, system_prompt, user_prompt})
-
-    // Validate the generated message
-    const validation_result = lib_git_message_validate.validate_message(llm_response)
-
-    if (!validation_result.valid) {
-      lib_git_message_ui.display_message({message: llm_response, teller: lib_tell.warning})
-
-      lib_abort.with_error(`Generated commit message failed validation: ${validation_result.reason}`)
-    }
 
     // Return the result
     return {

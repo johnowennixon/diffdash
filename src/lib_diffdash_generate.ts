@@ -1,9 +1,10 @@
-import type {SimpleGit} from "simple-git"
-
+import * as lib_abort from "./lib_abort.js"
 import type {DiffDashConfig} from "./lib_diffdash_config.js"
 import * as lib_diffdash_footer from "./lib_diffdash_footer.js"
 import * as lib_git_message_generate from "./lib_git_message_generate.js"
 import * as lib_git_message_ui from "./lib_git_message_ui.js"
+import * as lib_git_message_validate from "./lib_git_message_validate.js"
+import type {SimpleGit} from "./lib_git_simple_open.js"
 import * as lib_git_simple_staging from "./lib_git_simple_staging.js"
 import * as lib_llm_config from "./lib_llm_config.js"
 import * as lib_llm_models_diff from "./lib_llm_models_diff.js"
@@ -18,11 +19,19 @@ export async function generate_for_commit({config, git}: {config: DiffDashConfig
 
   const {llm_config} = config
 
-  lib_tell.action(`Generating the commit message using LLM ${lib_llm_config.get_llm_model_via(llm_config)}`)
+  lib_tell.action(`Generating the Git commit message using LLM ${lib_llm_config.get_llm_model_via(llm_config)}`)
 
   const generate_result = await lib_git_message_generate.generate_message({llm_config, diffstat, diff})
 
   const {llm_response} = generate_result
+
+  const validation_result = lib_git_message_validate.validate_message(llm_response)
+
+  if (!validation_result.valid) {
+    lib_git_message_ui.display_message({message: llm_response, teller: lib_tell.warning})
+
+    lib_abort.with_error(`Generated commit message failed validation: ${validation_result.reason}`)
+  }
 
   const commit_message_with_footer = lib_diffdash_footer.add_footer({llm_response, llm_config})
 
@@ -57,7 +66,7 @@ export async function generate_and_preview({config, git}: {config: DiffDashConfi
 
     const commit_message_with_footer = lib_diffdash_footer.add_footer({llm_response, llm_config})
 
-    lib_tell.info(`Commit message from ${lib_llm_config.get_llm_model_via(llm_config)}:`)
+    lib_tell.info(`Git commit message from ${lib_llm_config.get_llm_model_via(llm_config)}:`)
     lib_git_message_ui.display_message({message: commit_message_with_footer, teller: lib_tell.normal})
   }
 }

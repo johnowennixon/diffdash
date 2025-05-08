@@ -1,10 +1,9 @@
-import type {SimpleGit} from "simple-git"
-
 import * as lib_abort from "./lib_abort.js"
 import * as lib_debug from "./lib_debug.js"
 import type {DiffDashConfig} from "./lib_diffdash_config.js"
 import * as lib_diffdash_generate from "./lib_diffdash_generate.js"
 import * as lib_git_simple_open from "./lib_git_simple_open.js"
+import type {SimpleGit} from "./lib_git_simple_open.js"
 import * as lib_git_simple_staging from "./lib_git_simple_staging.js"
 import * as lib_readline_ui from "./lib_readline_ui.js"
 import * as lib_stdio from "./lib_stdio.js"
