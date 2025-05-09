@@ -23,7 +23,7 @@ export const arg_schema = {
 
   disable_add: a.arg_boolean({help: "disable adding unstaged changes (takes priority over --auto-add)"}),
   disable_status: a.arg_boolean({help: "disable listing the staged files before commit"}),
-  disable_display: a.arg_boolean({help: "disable displaying the generated message"}),
+  disable_preview: a.arg_boolean({help: "disable previewing the generated message"}),
   disable_commit: a.arg_boolean({help: "disable committing changes after displaying the generated message"}),
   disable_push: a.arg_boolean({help: "disable pushing changes (takes priority over --auto-push)"}),
 
@@ -50,7 +50,7 @@ export interface DiffDashConfig {
   auto_push: boolean
   disable_add: boolean
   disable_commit: boolean
-  disable_display: boolean
+  disable_preview: boolean
   disable_status: boolean
   disable_push: boolean
   no_verify: boolean
@@ -68,7 +68,7 @@ export function process_config(): DiffDashConfig {
     auto_push,
     disable_add,
     disable_commit,
-    disable_display,
+    disable_preview,
     disable_status,
     disable_push,
     no_verify,
@@ -92,7 +92,7 @@ export function process_config(): DiffDashConfig {
     auto_push,
     disable_add,
     disable_commit,
-    disable_display,
+    disable_preview,
     disable_status,
     disable_push,
     no_verify,

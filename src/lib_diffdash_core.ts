@@ -111,11 +111,11 @@ async function phase_compare({config, git}: {config: DiffDashConfig; git: Simple
 }
 
 async function phase_commit({config, git}: {config: DiffDashConfig; git: SimpleGit}): Promise<void> {
-  const {auto_commit, disable_commit, disable_display} = config
+  const {auto_commit, disable_commit, disable_preview} = config
 
   const commit_message_with_footer = await lib_diffdash_generate.generate_for_commit({config, git})
 
-  if (!disable_display) {
+  if (!disable_preview) {
     lib_git_message_ui.display_message({message: commit_message_with_footer, teller: lib_tell.normal})
   }
 
