@@ -35,6 +35,7 @@ export const arg_schema = {
     default: llm_model_default,
   }),
   llm_fallback: a.arg_boolean({help: `use the fallback LLM model (${llm_model_fallback})`}),
+  llm_direct: a.arg_boolean({help: "prefer to access LLM direct rather than using an aggregator"}),
 
   debug_llm_inputs: a.arg_boolean({help: "debug prompts sent to the LLM"}),
   debug_llm_outputs: a.arg_boolean({help: "debug outputs received from the LLM"}),
@@ -74,12 +75,13 @@ export function process_config(): DiffDashConfig {
     no_verify,
     llm_model,
     llm_fallback,
+    llm_direct,
     debug_llm_inputs,
     debug_llm_outputs,
   } = pa
 
   const llm_model_name = llm_fallback ? llm_model_fallback : llm_model
-  const llm_config = lib_llm_config.get_llm_config(llm_model_details, llm_model_name)
+  const llm_config = lib_llm_config.get_llm_config({llm_model_details, llm_model_name, llm_direct})
 
   lib_debug.channels.llm_inputs = debug_llm_inputs
   lib_debug.channels.llm_outputs = debug_llm_outputs

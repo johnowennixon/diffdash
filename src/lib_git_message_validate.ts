@@ -56,7 +56,7 @@ export function validate_message(message: string): GitMessageValidationResult {
   }
 
   // Check for missing blank line after summary
-  if (lines[1] && lines[1] !== EMPTY) {
+  if (lines[1] && lines[1].trim() !== EMPTY) {
     return {
       valid: false,
       reason: "missing blank line after summary line",
@@ -65,7 +65,7 @@ export function validate_message(message: string): GitMessageValidationResult {
 
   // Check for bullet points
   for (const line of lines.slice(2)) {
-    if (!line.startsWith(DASH + SPACE) || !line.startsWith(ASTERISK + SPACE)) {
+    if (!line.startsWith(DASH + SPACE) && !line.startsWith(ASTERISK + SPACE)) {
       return {
         valid: false,
         reason: "bullet points are malformed",

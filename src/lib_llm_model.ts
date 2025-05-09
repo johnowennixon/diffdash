@@ -22,7 +22,10 @@ export function get_choices(llm_model_details: Array<LlmModelDetail>): Array<str
   return llm_model_details.map((model) => model.llm_model_name)
 }
 
-export function find_model(llm_model_details: Array<LlmModelDetail>, llm_model_name: string): LlmModelDetail {
+export function find_model({
+  llm_model_details,
+  llm_model_name,
+}: {llm_model_details: Array<LlmModelDetail>; llm_model_name: string}): LlmModelDetail {
   for (const detail of llm_model_details) {
     if (detail.llm_model_name === llm_model_name) {
       return detail
@@ -32,8 +35,11 @@ export function find_model(llm_model_details: Array<LlmModelDetail>, llm_model_n
   lib_abort.with_error(`Unknown model: ${llm_model_name}`)
 }
 
-export function is_model_available(llm_model_details: Array<LlmModelDetail>, llm_model_name: string): boolean {
-  const detail = find_model(llm_model_details, llm_model_name)
+export function is_model_available({
+  llm_model_details,
+  llm_model_name,
+}: {llm_model_details: Array<LlmModelDetail>; llm_model_name: string}): boolean {
+  const detail = find_model({llm_model_details, llm_model_name})
 
   const {llm_provider, llm_model_code_direct, llm_model_code_openrouter} = detail
 
@@ -52,15 +58,21 @@ export function is_model_available(llm_model_details: Array<LlmModelDetail>, llm
   return false
 }
 
-export function get_model_access(llm_model_details: Array<LlmModelDetail>, llm_model_name: string): LlmModelAccess {
-  const detail = find_model(llm_model_details, llm_model_name)
+export function get_model_access({
+  llm_model_details,
+  llm_model_name,
+  llm_direct,
+}: {llm_model_details: Array<LlmModelDetail>; llm_model_name: string; llm_direct: boolean}): LlmModelAccess {
+  const detail = find_model({llm_model_details, llm_model_name})
 
   const {llm_provider, llm_model_code_direct, llm_model_code_openrouter} = detail
 
-  if (llm_model_code_direct !== null && llm_provider !== null) {
-    const llm_api_key = lib_llm_provider.get_llm_api_key(llm_provider)
-    if (llm_api_key) {
-      return {llm_model_code: llm_model_code_direct, llm_provider, llm_api_key}
+  if (llm_direct) {
+    if (llm_model_code_direct !== null && llm_provider !== null) {
+      const llm_api_key = lib_llm_provider.get_llm_api_key(llm_provider)
+      if (llm_api_key) {
+        return {llm_model_code: llm_model_code_direct, llm_provider, llm_api_key}
+      }
     }
   }
 
@@ -68,6 +80,13 @@ export function get_model_access(llm_model_details: Array<LlmModelDetail>, llm_m
     const llm_api_key = lib_llm_provider.get_llm_api_key("openrouter")
     if (llm_api_key) {
       return {llm_model_code: llm_model_code_openrouter, llm_provider: "openrouter", llm_api_key}
+    }
+  }
+
+  if (llm_model_code_direct !== null && llm_provider !== null) {
+    const llm_api_key = lib_llm_provider.get_llm_api_key(llm_provider)
+    if (llm_api_key) {
+      return {llm_model_code: llm_model_code_direct, llm_provider, llm_api_key}
     }
   }
 
