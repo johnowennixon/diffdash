@@ -62,9 +62,14 @@ export async function generate_and_compare({config, git}: {config: DiffDashConfi
   for (const generate_result of all_generate_results) {
     const {llm_config, llm_response} = generate_result
 
+    lib_tell.info(`Git commit message from ${lib_llm_config.get_llm_model_via(llm_config)}:`)
+
+    const validation_result = lib_git_message_validate.validate_message(llm_response)
+
     const commit_message_with_footer = lib_diffdash_footer.add_footer({llm_response, llm_config})
 
-    lib_tell.info(`Git commit message from ${lib_llm_config.get_llm_model_via(llm_config)}:`)
-    lib_git_message_ui.display_message({message: commit_message_with_footer, teller: lib_tell.normal})
+    const teller = validation_result.valid ? lib_tell.normal : lib_tell.warning
+
+    lib_git_message_ui.display_message({message: commit_message_with_footer, teller})
   }
 }
