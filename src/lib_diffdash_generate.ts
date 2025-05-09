@@ -35,12 +35,10 @@ export async function generate_for_commit({config, git}: {config: DiffDashConfig
 
   const commit_message_with_footer = lib_diffdash_footer.add_footer({llm_response, llm_config})
 
-  lib_git_message_ui.display_message({message: commit_message_with_footer, teller: lib_tell.normal})
-
   return commit_message_with_footer
 }
 
-export async function generate_and_preview({config, git}: {config: DiffDashConfig; git: SimpleGit}): Promise<void> {
+export async function generate_and_compare({config, git}: {config: DiffDashConfig; git: SimpleGit}): Promise<void> {
   lib_unused.unused(config)
 
   const diffstat = await lib_git_simple_staging.get_staged_diffstat(git)

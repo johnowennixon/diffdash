@@ -2,6 +2,7 @@ import * as lib_abort from "./lib_abort.js"
 import * as lib_debug from "./lib_debug.js"
 import type {DiffDashConfig} from "./lib_diffdash_config.js"
 import * as lib_diffdash_generate from "./lib_diffdash_generate.js"
+import * as lib_git_message_ui from "./lib_git_message_ui.js"
 import * as lib_git_simple_open from "./lib_git_simple_open.js"
 import type {SimpleGit} from "./lib_git_simple_open.js"
 import * as lib_git_simple_staging from "./lib_git_simple_staging.js"
@@ -105,14 +106,18 @@ async function phase_status({config, git}: {config: DiffDashConfig; git: SimpleG
   }
 }
 
-async function phase_preview({config, git}: {config: DiffDashConfig; git: SimpleGit}): Promise<void> {
-  await lib_diffdash_generate.generate_and_preview({config, git})
+async function phase_compare({config, git}: {config: DiffDashConfig; git: SimpleGit}): Promise<void> {
+  await lib_diffdash_generate.generate_and_compare({config, git})
 }
 
 async function phase_commit({config, git}: {config: DiffDashConfig; git: SimpleGit}): Promise<void> {
-  const {auto_commit, disable_commit} = config
+  const {auto_commit, disable_commit, disable_display} = config
 
-  const commit_message = await lib_diffdash_generate.generate_for_commit({config, git})
+  const commit_message_with_footer = await lib_diffdash_generate.generate_for_commit({config, git})
+
+  if (!disable_display) {
+    lib_git_message_ui.display_message({message: commit_message_with_footer, teller: lib_tell.normal})
+  }
 
   if (disable_commit) {
     return
@@ -128,7 +133,7 @@ async function phase_commit({config, git}: {config: DiffDashConfig; git: SimpleG
     }
   }
 
-  await lib_git_simple_staging.create_commit(git, commit_message)
+  await lib_git_simple_staging.create_commit(git, commit_message_with_footer)
   lib_tell.success("Changes committed successfully")
 }
 
@@ -163,10 +168,10 @@ export async function sequence_normal(config: DiffDashConfig): Promise<void> {
   await phase_push({config, git})
 }
 
-export async function sequence_preview(config: DiffDashConfig): Promise<void> {
+export async function sequence_compare(config: DiffDashConfig): Promise<void> {
   const git = await phase_open()
 
   await phase_add({config, git})
   await phase_status({config, git})
-  await phase_preview({config, git})
+  await phase_compare({config, git})
 }

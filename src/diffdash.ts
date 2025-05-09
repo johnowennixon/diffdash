@@ -16,7 +16,7 @@ async function main(): Promise<void> {
 
   lib_tell.normal(`This is ${lib_ansi.italic("DiffDash")} - the fast AI Git commit tool`)
 
-  await (config.preview ? lib_diffdash_core.sequence_preview(config) : lib_diffdash_core.sequence_normal(config))
+  await (config.compare ? lib_diffdash_core.sequence_compare(config) : lib_diffdash_core.sequence_normal(config))
 
   lib_tell.okay()
 }

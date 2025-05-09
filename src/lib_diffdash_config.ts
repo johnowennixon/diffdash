@@ -15,16 +15,17 @@ const llm_model_fallback = lib_llm_models_diff.get_fallback_model_name()
 
 export const arg_schema = {
   version: a.arg_boolean({help: "show program version information"}),
-  preview: a.arg_boolean({help: "preview generated messages but do not commit"}),
+  compare: a.arg_boolean({help: "compare generated messages but do not commit"}),
 
   auto_add: a.arg_boolean({help: "automatically stage all changes without prompting"}),
   auto_commit: a.arg_boolean({help: "automatically commit changes without confirmation"}),
   auto_push: a.arg_boolean({help: "automatically push changes after commit without prompting"}),
 
   disable_add: a.arg_boolean({help: "disable adding unstaged changes (takes priority over --auto-add)"}),
+  disable_status: a.arg_boolean({help: "disable listing the staged files before commit"}),
+  disable_display: a.arg_boolean({help: "disable displaying the generated message"}),
   disable_commit: a.arg_boolean({help: "disable committing changes after displaying the generated message"}),
   disable_push: a.arg_boolean({help: "disable pushing changes (takes priority over --auto-push)"}),
-  disable_status: a.arg_boolean({help: "disable displaying the status of staged files before commit"}),
 
   no_verify: a.arg_boolean({help: "bypass git hooks with --no-verify flag when pushing"}),
 
@@ -43,12 +44,13 @@ export const arg_parser = a.make_arg_parser(arg_schema, "DiffDash - generate Git
 
 export interface DiffDashConfig {
   version: boolean
-  preview: boolean
+  compare: boolean
   auto_add: boolean
   auto_commit: boolean
   auto_push: boolean
   disable_add: boolean
   disable_commit: boolean
+  disable_display: boolean
   disable_status: boolean
   disable_push: boolean
   no_verify: boolean
@@ -60,12 +62,13 @@ export function process_config(): DiffDashConfig {
 
   const {
     version,
-    preview,
+    compare,
     auto_add,
     auto_commit,
     auto_push,
     disable_add,
     disable_commit,
+    disable_display,
     disable_status,
     disable_push,
     no_verify,
@@ -83,12 +86,13 @@ export function process_config(): DiffDashConfig {
 
   const config: DiffDashConfig = {
     version,
-    preview,
+    compare,
     auto_add,
     auto_commit,
     auto_push,
     disable_add,
     disable_commit,
+    disable_display,
     disable_status,
     disable_push,
     no_verify,
