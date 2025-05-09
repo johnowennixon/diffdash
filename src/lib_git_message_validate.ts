@@ -1,4 +1,4 @@
-import {DASH, EMPTY, LF, SPACE} from "./lib_char.js"
+import {ASTERISK, DASH, EMPTY, LF, SPACE} from "./lib_char.js"
 
 export default {}
 
@@ -65,7 +65,7 @@ export function validate_message(message: string): GitMessageValidationResult {
 
   // Check for bullet points
   for (const line of lines.slice(2)) {
-    if (!line.startsWith(DASH + SPACE)) {
+    if (!line.startsWith(DASH + SPACE) || !line.startsWith(ASTERISK + SPACE)) {
       return {
         valid: false,
         reason: "bullet points are malformed",
