@@ -56,6 +56,7 @@ export interface DiffDashConfig {
   disable_push: boolean
   no_verify: boolean
   llm_config: LlmConfig
+  all_llm_configs: Array<LlmConfig>
 }
 
 export function process_config(): DiffDashConfig {
@@ -82,6 +83,7 @@ export function process_config(): DiffDashConfig {
 
   const llm_model_name = llm_fallback ? llm_model_fallback : llm_model
   const llm_config = lib_llm_config.get_llm_config({llm_model_details, llm_model_name, llm_direct})
+  const all_llm_configs = lib_llm_config.all_llm_configs({llm_model_details, llm_direct})
 
   lib_debug.channels.llm_inputs = debug_llm_inputs
   lib_debug.channels.llm_outputs = debug_llm_outputs
@@ -99,6 +101,7 @@ export function process_config(): DiffDashConfig {
     disable_push,
     no_verify,
     llm_config,
+    all_llm_configs,
   }
 
   return config
