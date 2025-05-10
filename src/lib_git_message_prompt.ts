@@ -18,15 +18,15 @@ The user will send you a <diffstat> block, the output of a 'git diff --staged --
 The user will send you a <diff> block, the output of a 'git diff --staged' command.
 
 Some reminders of how diffs work:
-* Lines that start with a single plus sign have been added to the file.
-* Lines that start with a single minus sign have been removed from the file.
-* Lines that start with @@ indicate a jump to a different section of the file - you can not see the code in these gaps.
+- Lines that start with a single plus sign have been added to the file.
+- Lines that start with a single minus sign have been removed from the file.
+- Lines that start with @@ indicate a jump to a different section of the file - you can not see the code in these gaps.
 
 You must output in the following format - without any preamble or conclusion:
-* First line: a single sentence giving a concise summary of the changes written.
-* Leave a blank line after the first line.
-* Then add around five bullet points (lines that start with a dash).
-* And nothing else.
+- First line: a single sentence giving a concise summary of the changes written.
+- Second line: completely blank - not even any spaces.
+- Then add bullet points (lines that start with a dash).
+- And nothing else.
 
 Use the imperative mood and present tense.
 Please write in full sentences that start with a capital letter.
@@ -34,6 +34,8 @@ Each sentence should be on its own line.
 Focus on why things were changed, not how or what.
 Don't assume the change is always an improvement - we all make mistakes.
 Each bullet point should be a single sentence explaining the key changes in more detail.
+The number of bullet points should depend upon the complexity of the change.
+A simple change needs only two bullet points scaling up to a complex change with five bullet points.
 If there are a lot of changes, you will need to summarize even more.
 Avoid comma-separated lists of more than five items in any sentence.
 Avoid making the bullet points just a list of similar things.
@@ -54,10 +56,10 @@ export function get_user_prompt(details: GitMessagePromptDetails): string {
 
   const format_portion = `
 You must output in the following format - without any preamble or conclusion:
-* First line: A single sentence giving a concise summary of the changes written.
-* Leave a blank line after the first line.
-* Then add around five bullet points (lines that start with a dash).
-* And nothing else.
+- First line: A single sentence giving a concise summary of the changes written.
+- Second line: completely blank - not even any spaces.
+- Then add bullet points (lines that start with a dash).
+- And nothing else.
 `.trim()
 
   let result = EMPTY
