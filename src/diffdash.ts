@@ -3,6 +3,7 @@
 import * as lib_ansi from "./lib_ansi.js"
 import * as lib_diffdash_config from "./lib_diffdash_config.js"
 import * as lib_diffdash_core from "./lib_diffdash_core.js"
+import * as lib_error from "./lib_error.js"
 import {PROGRAM_NAME, PROGRAM_VERSION} from "./lib_package_details.js"
 import * as lib_tell from "./lib_tell.js"
 
@@ -22,7 +23,4 @@ async function main(): Promise<void> {
 }
 
 // eslint-disable-next-line unicorn/prefer-top-level-await
-main().catch((error) => {
-  lib_tell.error(`Unhandled error: ${error instanceof Error ? error.message : String(error)}`)
-  process.exit(1)
-})
+main().catch(lib_error.abort)
