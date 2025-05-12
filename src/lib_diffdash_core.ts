@@ -22,7 +22,7 @@ async function phase_open(): Promise<SimpleGit> {
 }
 
 async function phase_add({config, git}: {config: DiffDashConfig; git: SimpleGit}): Promise<void> {
-  const {auto_add, disable_add} = config
+  const {auto_add, disable_add, silent} = config
 
   if (lib_debug.channels.git) {
     const status = await git.status()
@@ -47,7 +47,9 @@ async function phase_add({config, git}: {config: DiffDashConfig; git: SimpleGit}
   }
 
   if (auto_add) {
-    lib_tell.action("Auto-adding changes")
+    if (!silent) {
+      lib_tell.action("Auto-adding changes")
+    }
   } else {
     const add_confirmed = await lib_readline_ui.confirm("No staged changes found - would you like to add all changes?")
 
@@ -57,13 +59,15 @@ async function phase_add({config, git}: {config: DiffDashConfig; git: SimpleGit}
   }
 
   await lib_git_simple_staging.stage_all_changes(git)
-  lib_tell.success("All changed files added successfully")
+  if (!silent) {
+    lib_tell.success("All changed files added successfully")
+  }
 }
 
 async function phase_status({config, git}: {config: DiffDashConfig; git: SimpleGit}): Promise<void> {
-  const {disable_status} = config
+  const {disable_status, silent} = config
 
-  if (disable_status) {
+  if (disable_status || silent) {
     return
   }
 
@@ -111,11 +115,11 @@ async function phase_compare({config, git}: {config: DiffDashConfig; git: Simple
 }
 
 async function phase_commit({config, git}: {config: DiffDashConfig; git: SimpleGit}): Promise<void> {
-  const {auto_commit, disable_commit, disable_preview} = config
+  const {auto_commit, disable_commit, disable_preview, silent} = config
 
   const commit_message_with_footer = await lib_diffdash_generate.generate_for_commit({config, git})
 
-  if (!disable_preview) {
+  if (!disable_preview && !silent) {
     lib_git_message_ui.display_message({message: commit_message_with_footer, teller: lib_tell.plain})
   }
 
@@ -124,7 +128,9 @@ async function phase_commit({config, git}: {config: DiffDashConfig; git: SimpleG
   }
 
   if (auto_commit) {
-    lib_tell.action("Auto-committing changes")
+    if (!silent) {
+      lib_tell.action("Auto-committing changes")
+    }
   } else {
     const commit_confirmed = await lib_readline_ui.confirm("Do you want to commit these changes?")
 
@@ -134,18 +140,22 @@ async function phase_commit({config, git}: {config: DiffDashConfig; git: SimpleG
   }
 
   await lib_git_simple_staging.create_commit(git, commit_message_with_footer)
-  lib_tell.success("Changes committed successfully")
+  if (!silent) {
+    lib_tell.success("Changes committed successfully")
+  }
 }
 
 async function phase_push({config, git}: {config: DiffDashConfig; git: SimpleGit}): Promise<void> {
-  const {auto_push, disable_commit, disable_push, no_verify} = config
+  const {auto_push, disable_commit, disable_push, no_verify, silent} = config
 
   if (disable_push || disable_commit) {
     return
   }
 
   if (auto_push) {
-    lib_tell.action("Auto-pushing changes")
+    if (!silent) {
+      lib_tell.action("Auto-pushing changes")
+    }
   } else {
     const push_confirmed = await lib_readline_ui.confirm("Do you want to push these changes?")
     if (!push_confirmed) {
@@ -153,8 +163,13 @@ async function phase_push({config, git}: {config: DiffDashConfig; git: SimpleGit
     }
   }
 
-  const push_success = await lib_git_simple_staging.push_to_remote(git, no_verify)
-  if (push_success) {
+  try {
+    await lib_git_simple_staging.push_to_remote(git, no_verify)
+  } catch (error) {
+    lib_abort.with_error(`Failed to push to remote: ${error instanceof Error ? error.message : String(error)}`)
+  }
+
+  if (!silent) {
     lib_tell.success("Changes pushed successfully")
   }
 }

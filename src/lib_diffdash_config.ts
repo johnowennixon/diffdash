@@ -27,6 +27,7 @@ export const arg_schema = {
   disable_commit: a.arg_boolean({help: "disable committing changes - exit after generating the message"}),
   disable_push: a.arg_boolean({help: "disable pushing changes - exit after making the commit"}),
 
+  silent: a.arg_boolean({help: "suppress all normal output - errors and aborts still display"}),
   no_verify: a.arg_boolean({help: "bypass git hooks when pushing to Git"}),
 
   llm_model: a.arg_choice_default<string>({
@@ -54,6 +55,7 @@ export interface DiffDashConfig {
   disable_preview: boolean
   disable_status: boolean
   disable_push: boolean
+  silent: boolean
   no_verify: boolean
   llm_config: LlmConfig
   all_llm_configs: Array<LlmConfig>
@@ -73,6 +75,7 @@ export function process_config(): DiffDashConfig {
     disable_preview,
     disable_status,
     disable_push,
+    silent,
     no_verify,
     llm_model,
     llm_fallback,
@@ -99,6 +102,7 @@ export function process_config(): DiffDashConfig {
     disable_preview,
     disable_status,
     disable_push,
+    silent,
     no_verify,
     llm_config,
     all_llm_configs,

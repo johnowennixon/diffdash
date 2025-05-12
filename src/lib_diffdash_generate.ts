@@ -12,9 +12,11 @@ import * as lib_tell from "./lib_tell.js"
 export default {}
 
 export async function generate_for_commit({config, git}: {config: DiffDashConfig; git: SimpleGit}): Promise<string> {
-  const {llm_config} = config
+  const {llm_config, silent} = config
 
-  lib_tell.action(`Generating the Git commit message using LLM ${lib_llm_config.get_llm_model_via(llm_config)}`)
+  if (!silent) {
+    lib_tell.action(`Generating the Git commit message using LLM ${lib_llm_config.get_llm_model_via(llm_config)}`)
+  }
 
   const diffstat = await lib_git_simple_staging.get_staged_diffstat(git)
   const diff = await lib_git_simple_staging.get_staged_diff(git)
@@ -37,9 +39,11 @@ export async function generate_for_commit({config, git}: {config: DiffDashConfig
 }
 
 export async function generate_and_compare({config, git}: {config: DiffDashConfig; git: SimpleGit}): Promise<void> {
-  const {all_llm_configs} = config
+  const {silent, all_llm_configs} = config
 
-  lib_tell.action("Generating Git commit messages using all models in parallel")
+  if (!silent) {
+    lib_tell.action("Generating Git commit messages using all models in parallel")
+  }
 
   const diffstat = await lib_git_simple_staging.get_staged_diffstat(git)
   const diff = await lib_git_simple_staging.get_staged_diff(git)
