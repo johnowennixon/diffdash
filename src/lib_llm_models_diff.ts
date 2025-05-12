@@ -9,6 +9,7 @@ const DETAILS: Array<LlmModelDetail> = [
     llm_model_code_direct: "gpt-4.1-mini",
     llm_model_code_openrouter: "openai/gpt-4.1-mini",
     cents_input: 40,
+    cents_output: 160,
   },
   {
     llm_model_name: "claude-3.5-haiku",
@@ -16,6 +17,23 @@ const DETAILS: Array<LlmModelDetail> = [
     llm_model_code_direct: "claude-3-5-haiku-latest",
     llm_model_code_openrouter: "anthropic/claude-3.5-haiku",
     cents_input: 80,
+    cents_output: 400,
+  },
+  {
+    llm_model_name: "deepseek-v3",
+    llm_provider: null,
+    llm_model_code_direct: null,
+    llm_model_code_openrouter: "deepseek/deepseek-chat-v3-0324",
+    cents_input: 30,
+    cents_output: 88,
+  },
+  {
+    llm_model_name: "mistral-medium-3",
+    llm_provider: null,
+    llm_model_code_direct: null,
+    llm_model_code_openrouter: "mistralai/mistral-medium-3",
+    cents_input: 40,
+    cents_output: 200,
   },
   {
     llm_model_name: "gemini-2.0-flash",
@@ -23,6 +41,7 @@ const DETAILS: Array<LlmModelDetail> = [
     llm_model_code_direct: "gemini-2.0-flash",
     llm_model_code_openrouter: "google/gemini-2.0-flash-001",
     cents_input: 10,
+    cents_output: 40,
   },
   {
     llm_model_name: "gemini-2.5-flash-preview",
@@ -30,20 +49,15 @@ const DETAILS: Array<LlmModelDetail> = [
     llm_model_code_direct: null,
     llm_model_code_openrouter: "google/gemini-2.5-flash-preview",
     cents_input: 15,
+    cents_output: 60,
   },
   {
-    llm_model_name: "deepseek-v3-free",
+    llm_model_name: "qwen3",
     llm_provider: null,
     llm_model_code_direct: null,
-    llm_model_code_openrouter: "deepseek/deepseek-chat-v3-0324:free",
-    cents_input: 0,
-  },
-  {
-    llm_model_name: "glm-4-32b-free",
-    llm_provider: null,
-    llm_model_code_direct: null,
-    llm_model_code_openrouter: "thudm/glm-4-32b:free",
-    cents_input: 0,
+    llm_model_code_openrouter: "qwen/qwen3-235b-a22b",
+    cents_input: 14,
+    cents_output: 200,
   },
   {
     llm_model_name: "grok-3-mini",
@@ -51,6 +65,15 @@ const DETAILS: Array<LlmModelDetail> = [
     llm_model_code_direct: null,
     llm_model_code_openrouter: "x-ai/grok-3-mini-beta",
     cents_input: 30,
+    cents_output: 50,
+  },
+  {
+    llm_model_name: "glm-4-32b-free",
+    llm_provider: null,
+    llm_model_code_direct: null,
+    llm_model_code_openrouter: "thudm/glm-4-32b:free",
+    cents_input: 0,
+    cents_output: 0,
   },
   {
     llm_model_name: "mercury-coder-small",
@@ -58,13 +81,7 @@ const DETAILS: Array<LlmModelDetail> = [
     llm_model_code_direct: null,
     llm_model_code_openrouter: "inception/mercury-coder-small-beta",
     cents_input: 25,
-  },
-  {
-    llm_model_name: "qwen3",
-    llm_provider: null,
-    llm_model_code_direct: null,
-    llm_model_code_openrouter: "qwen/qwen3-235b-a22b",
-    cents_input: 20,
+    cents_output: 100,
   },
 ]
 

@@ -10,6 +10,7 @@ export interface LlmModelDetail {
   llm_model_code_direct: string | null
   llm_model_code_openrouter: string | null
   cents_input: number
+  cents_output: number
 }
 
 export interface LlmModelAccess {
