@@ -6,10 +6,10 @@ import * as lib_git_message_ui from "./lib_git_message_ui.js"
 import * as lib_git_simple_open from "./lib_git_simple_open.js"
 import type {SimpleGit} from "./lib_git_simple_open.js"
 import * as lib_git_simple_staging from "./lib_git_simple_staging.js"
-import * as lib_readline_ui from "./lib_readline_ui.js"
 import * as lib_stdio from "./lib_stdio.js"
 import * as lib_tell from "./lib_tell.js"
 import * as lib_tui from "./lib_tui.js"
+import * as lib_tui_readline from "./lib_tui_readline.js"
 
 export default {}
 
@@ -51,7 +51,7 @@ async function phase_add({config, git}: {config: DiffDashConfig; git: SimpleGit}
       lib_tell.action("Auto-adding changes")
     }
   } else {
-    const add_confirmed = await lib_readline_ui.confirm("No staged changes found - would you like to add all changes?")
+    const add_confirmed = await lib_tui_readline.confirm("No staged changes found - would you like to add all changes?")
 
     if (!add_confirmed) {
       lib_abort.with_warning("Please add changes before creating a commit")
@@ -132,7 +132,7 @@ async function phase_commit({config, git}: {config: DiffDashConfig; git: SimpleG
       lib_tell.action("Auto-committing changes")
     }
   } else {
-    const commit_confirmed = await lib_readline_ui.confirm("Do you want to commit these changes?")
+    const commit_confirmed = await lib_tui_readline.confirm("Do you want to commit these changes?")
 
     if (!commit_confirmed) {
       lib_abort.with_warning("Commit cancelled by user")
@@ -157,7 +157,7 @@ async function phase_push({config, git}: {config: DiffDashConfig; git: SimpleGit
       lib_tell.action("Auto-pushing changes")
     }
   } else {
-    const push_confirmed = await lib_readline_ui.confirm("Do you want to push these changes?")
+    const push_confirmed = await lib_tui_readline.confirm("Do you want to push these changes?")
     if (!push_confirmed) {
       return
     }
