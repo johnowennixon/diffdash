@@ -18,7 +18,7 @@ export const green: AnsiColourizer = (message: string): string => ansis.greenBri
 export const cyan: AnsiColourizer = (message: string): string => ansis.cyanBright(message)
 export const blue: AnsiColourizer = (message: string): string => ansis.blueBright(message)
 export const magenta: AnsiColourizer = (message: string): string => ansis.magentaBright(message)
-export const grey: AnsiColourizer = (message: string): string => ansis.grey(message)
+export const grey: AnsiColourizer = (message: string): string => ansis.gray(message)
 
 export function colourizer_boolean(bool: boolean): AnsiColourizer {
   return bool ? green : red
