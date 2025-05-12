@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep:*)",
+      "Bash(pnpm run build)",
+      "Bash(pnpm run fix:biome)",
+      "Bash(pnpm run lint)"
+    ],
+    "deny": [
+      "sudo"
+    ]
+  }
+}
