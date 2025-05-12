@@ -17,17 +17,17 @@ export const arg_schema = {
   version: a.arg_boolean({help: "show program version information and exit"}),
   compare: a.arg_boolean({help: "compare the generated messages from all models - but do not commit"}),
 
-  auto_add: a.arg_boolean({help: "automatically stage all changes without prompting"}),
+  auto_add: a.arg_boolean({help: "automatically stage all changes without confirmation"}),
   auto_commit: a.arg_boolean({help: "automatically commit changes without confirmation"}),
-  auto_push: a.arg_boolean({help: "automatically push changes after commit without prompting"}),
+  auto_push: a.arg_boolean({help: "automatically push changes after commit without confirmation"}),
 
-  disable_add: a.arg_boolean({help: "disable adding unstaged changes (takes priority over --auto-add)"}),
-  disable_status: a.arg_boolean({help: "disable listing the staged files before commit"}),
+  disable_add: a.arg_boolean({help: "disable adding unstaged changes - exit if no changes staged"}),
+  disable_status: a.arg_boolean({help: "disable listing the staged files before generating a message"}),
   disable_preview: a.arg_boolean({help: "disable previewing the generated message"}),
-  disable_commit: a.arg_boolean({help: "disable committing changes after displaying the generated message"}),
-  disable_push: a.arg_boolean({help: "disable pushing changes (takes priority over --auto-push)"}),
+  disable_commit: a.arg_boolean({help: "disable committing changes - exit after generating the message"}),
+  disable_push: a.arg_boolean({help: "disable pushing changes - exit after making the commit"}),
 
-  no_verify: a.arg_boolean({help: "bypass git hooks with --no-verify flag when pushing"}),
+  no_verify: a.arg_boolean({help: "bypass git hooks when pushing to Git"}),
 
   llm_model: a.arg_choice_default<string>({
     help: `choose the LLM model by name (defaults to ${llm_model_default})`,
