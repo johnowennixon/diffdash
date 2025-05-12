@@ -4,13 +4,12 @@
   "description": "A command-line tool to generate Git commit messages using AI",
   "license": "0BSD",
   "author": "John Owen Nixon",
-  "private": true,
   "publishConfig": {
     "access": "restricted"
   },
   "repository": {
     "type": "git",
-    "url": "https://gitlab.com/johnowennixon-project/diffdash.git"
+    "url": "https://github.com/johnowennixon/diffdash.git"
   },
   "engines": {
     "node": ">=20"

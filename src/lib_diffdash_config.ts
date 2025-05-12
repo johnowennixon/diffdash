@@ -14,8 +14,8 @@ const llm_model_default = lib_env.get_substitute("DIFFDASH_LLM_MODEL", lib_llm_m
 const llm_model_fallback = lib_llm_models_diff.get_fallback_model_name()
 
 export const arg_schema = {
-  version: a.arg_boolean({help: "show program version information"}),
-  compare: a.arg_boolean({help: "compare generated messages but do not commit"}),
+  version: a.arg_boolean({help: "show program version information and exit"}),
+  compare: a.arg_boolean({help: "compare the generated messages from all models - but do not commit"}),
 
   auto_add: a.arg_boolean({help: "automatically stage all changes without prompting"}),
   auto_commit: a.arg_boolean({help: "automatically commit changes without confirmation"}),
@@ -30,12 +30,12 @@ export const arg_schema = {
   no_verify: a.arg_boolean({help: "bypass git hooks with --no-verify flag when pushing"}),
 
   llm_model: a.arg_choice_default<string>({
-    help: `the LLM model to use (defaults to ${llm_model_default})`,
+    help: `choose the LLM model by name (defaults to ${llm_model_default})`,
     choices: llm_model_choices,
     default: llm_model_default,
   }),
   llm_fallback: a.arg_boolean({help: `use the fallback LLM model (${llm_model_fallback})`}),
-  llm_direct: a.arg_boolean({help: "prefer to access LLM direct rather than using an aggregator"}),
+  llm_direct: a.arg_boolean({help: "prefer to access the LLM direct rather than using an aggregator"}),
 
   debug_llm_inputs: a.arg_boolean({help: "debug prompts sent to the LLM"}),
   debug_llm_outputs: a.arg_boolean({help: "debug outputs received from the LLM"}),
