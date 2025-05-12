@@ -1,4 +1,4 @@
-#!/usr/bin/env tsx
+#!/usr/bin/env node
 
 import * as lib_ansi from "./lib_ansi.js"
 import * as lib_diffdash_config from "./lib_diffdash_config.js"
