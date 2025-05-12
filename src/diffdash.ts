@@ -21,7 +21,8 @@ async function main(): Promise<void> {
   lib_tell.okay()
 }
 
-await main().catch((error) => {
+// eslint-disable-next-line unicorn/prefer-top-level-await
+main().catch((error) => {
   lib_tell.error(`Unhandled error: ${error instanceof Error ? error.message : String(error)}`)
   process.exit(1)
 })

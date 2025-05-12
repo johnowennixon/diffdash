@@ -44,6 +44,10 @@ Configuration for Biome, the JavaScript/TypeScript formatter and linter used in 
 
 This is the project memory for Claude (the AI assistant). It will be read when starting a coding session. Normally it just tells Claude to read the planning documents.
 
+### esbuild.config.js
+
+Configuration file for the esbuild bundler. Sets up the CLI entry point, bundles the application for Node.js, and outputs the result as a CommonJS module to the out directory. Keeps the build process simple and efficient.
+
 ### knip.json
 
 Configuration for Knip, a tool that identifies unused files, exports, and dependencies in TypeScript projects. Helps maintain a clean codebase by detecting dead code and unnecessary imports, improving maintainability and reducing bundle sizes.
