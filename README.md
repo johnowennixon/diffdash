@@ -6,11 +6,12 @@ A command-line tool to generate Git commit messages using AI.
 
 * Generates Git commit messages in natural English
 * Configuration using standard API provider environment variables
-* Select from a choice of LLM models (although the default works best)
-* Can compare messages generated from all the models in parallel
+* Optionally select from a choice of LLM models
+* Compare messages generated from all the models
 * Adds a footer to the generated commit messages
 * Options to disable or approve various stages of the process
 * Uses the Vercel AI SDK
+* Substantially written using AI coding (Claude Code)
 
 ## Installation from npmjs.com
 
@@ -37,7 +38,7 @@ npm link
 
 ## API Keys
 
-DiffDash requires at least one API keys for an LLM provider. These must be provided as environment variables:
+DiffDash requires at least one API keys for an LLM provider. These must be provided as environment variables.
 
 ```bash
 # For OpenRouter
@@ -80,6 +81,9 @@ diffdash --disable-status
 # Generate message and commit, but don't push or prompt to push
 diffdash --disable-push
 
+# Don't display the generated commit message
+diffdash --disable-preview
+
 # Generate message but don't commit (exit after displaying the message)
 diffdash --disable-commit
 
@@ -92,7 +96,7 @@ diffdash --no-verify
 # Use the fallback LLM model
 diffdash --llm-fallback
 
-# Specify the LLM model
+# Specify the LLM model by name
 diffdash --llm-model claude-3.5-sonnet
 
 # Debug options
@@ -107,16 +111,17 @@ All command-line arguments are optional.
 |--------|-------------|
 | `--version` | show program version information and exit |
 | `--compare` | compare the generated messages from all models - but do not commit |
-| `--auto-add` | automatically stage all changes without prompting |
+| `--auto-add` | automatically stage all changes without confirmation |
 | `--auto-commit` | automatically commit changes without confirmation |
-| `--auto-push` | automatically push changes after commit without prompting |
-| `--disable-add` | disable adding unstaged changes (takes priority over --auto-add) |
-| `--disable-status` | disable listing the staged files before commit |
-| `--disable-commit` | disable committing changes after displaying the generated message |
-| `--disable-push` | disable pushing changes (takes priority over --auto-push) |
-| `--no-verify` | bypass git hooks when pushing with the --no-verify flag |
+| `--auto-push` | automatically push changes after commit without confirmation |
+| `--disable-add` | disable adding unstaged changes - exit if no changes staged |
+| `--disable-status` | disable listing the staged files before generating a message |
+| `--disable-preview` | disable previewing the generated message|
+| `--disable-commit` | disable committing changes - exit after generating the message |
+| `--disable-push` | disable pushing changes - exit after making the commit |
+| `--no-verify` | bypass git hooks when pushing to Git |
 | `--llm-model` | choose the LLM model by name (the default is normally best) |
-| `--llm-fallback` | use the fallback LLM model |
+| `--llm-fallback` | use the fallback LLM model instead of the default |
 | `--llm-direct` | prefer to access the LLM direct rather than using an aggregator |
 | `--debug-llm-inputs` | show prompts sent to the LLM |
 | `--debug-llm-outputs` | show raw outputs from the LLM |
