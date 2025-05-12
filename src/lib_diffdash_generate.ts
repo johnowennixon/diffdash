@@ -62,7 +62,7 @@ export async function generate_and_compare({config, git}: {config: DiffDashConfi
 
     const commit_message_with_footer = lib_diffdash_footer.add_footer({llm_response, llm_config})
 
-    const teller = validation_result.valid ? lib_tell.normal : lib_tell.warning
+    const teller = validation_result.valid ? lib_tell.plain : lib_tell.warning
 
     lib_git_message_ui.display_message({message: commit_message_with_footer, teller})
   }

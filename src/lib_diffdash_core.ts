@@ -116,7 +116,7 @@ async function phase_commit({config, git}: {config: DiffDashConfig; git: SimpleG
   const commit_message_with_footer = await lib_diffdash_generate.generate_for_commit({config, git})
 
   if (!disable_preview) {
-    lib_git_message_ui.display_message({message: commit_message_with_footer, teller: lib_tell.normal})
+    lib_git_message_ui.display_message({message: commit_message_with_footer, teller: lib_tell.plain})
   }
 
   if (disable_commit) {

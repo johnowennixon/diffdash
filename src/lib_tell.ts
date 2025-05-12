@@ -18,7 +18,7 @@ export const nowhere: Teller = (_message: string) => {
   // intentionally empty
 }
 
-function generic(message: string, colourizer: AnsiColourizer): void {
+function generic(message: string, colourizer?: AnsiColourizer): void {
   while (message.endsWith(LF)) {
     message = message.slice(0, -1)
   }
@@ -31,12 +31,14 @@ function generic(message: string, colourizer: AnsiColourizer): void {
     text += SPACE
   }
 
-  text += colourizer(message)
+  if (colourizer) {
+    text += colourizer(message)
+  }
 
   lib_stdio.write_stderr_linefeed(text)
 }
 
-export const normal: Teller = (message: string): void => {
+export const plain: Teller = (message: string): void => {
   generic(message, lib_ansi.normal)
 }
 
@@ -65,7 +67,7 @@ export const debug: Teller = (message: string): void => {
 }
 
 export function blank(): void {
-  normal(EMPTY)
+  plain(EMPTY)
 }
 
 export function okay(): void {

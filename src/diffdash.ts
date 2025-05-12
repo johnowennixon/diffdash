@@ -10,11 +10,11 @@ async function main(): Promise<void> {
   const config = lib_diffdash_config.process_config()
 
   if (config.version) {
-    lib_tell.normal(`${PROGRAM_NAME} v${PROGRAM_VERSION}`)
+    lib_tell.plain(`${PROGRAM_NAME} v${PROGRAM_VERSION}`)
     process.exit(0)
   }
 
-  lib_tell.normal(`This is ${lib_ansi.italic("DiffDash")} - the fast AI Git commit tool`)
+  lib_tell.plain(`This is ${lib_ansi.italic("DiffDash")} - the fast AI Git commit tool`)
 
   await (config.compare ? lib_diffdash_core.sequence_compare(config) : lib_diffdash_core.sequence_normal(config))
 
