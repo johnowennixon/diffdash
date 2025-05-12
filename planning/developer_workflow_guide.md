@@ -60,7 +60,7 @@ All common Linux utilities are available including:
 
 * Use local library `lib_abort` to handle unrecoverable errors.
 * Use local library `lib_ansi` to format text with ANSI codes like bold and italic.
-* Use local library `lib_arg` for construct command-line arguments for subpocesses.
+* Use local library `lib_arg` for construct command-line arguments for subprocesses.
 * Use local library `lib_arg_infer` for parsing the supplied command-line arguments.
 * Use local library `lib_assert` to enforce types and invariants.
 * Use local library `lib_char` instead of hard-coding character strings.
