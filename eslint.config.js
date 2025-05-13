@@ -102,6 +102,7 @@ const rules_sonarjs = {
   "sonarjs/cognitive-complexity": "off",
   "sonarjs/no-alphabetical-sort": "off",
   "sonarjs/no-nested-conditional": "off",
+  "sonarjs/no-redundant-optional": "off",
   "sonarjs/no-selector-parameter": "off",
   "sonarjs/no-os-command-from-path": "off",
   "sonarjs/no-unused-vars": "off",
