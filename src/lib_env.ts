@@ -3,6 +3,8 @@ import {EMPTY} from "./lib_char.js"
 
 export default {}
 
+export const DOT_ENV = ".env"
+
 export type EnvRecord = Record<string, string>
 
 export function get(key: string): string | null {
@@ -24,4 +26,3 @@ export function get_abort(key: string): string {
 export function set(key: string, value: string): void {
   process.env[key] = value
 }
-export const DOT_ENV = ".env"
