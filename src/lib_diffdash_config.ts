@@ -43,7 +43,10 @@ export const arg_schema = {
   debug_llm_outputs: a.arg_boolean({help: "debug outputs received from the LLM"}),
 }
 
-export const arg_parser = a.make_arg_parser(arg_schema, "DiffDash - generate Git commit messages using AI")
+export const arg_parser = a.make_arg_parser({
+  arg_schema,
+  description: "DiffDash - generate Git commit messages using AI",
+})
 
 export interface DiffDashConfig {
   version: boolean

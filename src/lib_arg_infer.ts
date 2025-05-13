@@ -146,7 +146,11 @@ function omit<T, K extends keyof T>(obj: T, key_to_omit: K): Omit<T, K> {
   return rest
 }
 
-function add_args(arg_schema: ArgInferSchema, parser_group: ArgumentGroup, predicate?: ArgInferPredicate): void {
+function add_args({
+  arg_schema,
+  parser_group,
+  predicate,
+}: {arg_schema: ArgInferSchema; parser_group: ArgumentGroup; predicate?: ArgInferPredicate}): void {
   for (const key in arg_schema) {
     if (!Object.hasOwn(arg_schema, key)) {
       continue
@@ -187,7 +191,11 @@ function add_args(arg_schema: ArgInferSchema, parser_group: ArgumentGroup, predi
           const mutually_exclusive_group = parser_group.add_mutually_exclusive_group({
             required: arg.options.required === true,
           })
-          add_args(arg.value as ArgInferSchema, mutually_exclusive_group, arg.options.predicate)
+          add_args({
+            arg_schema: arg.value as ArgInferSchema,
+            parser_group: mutually_exclusive_group,
+            predicate: arg.options.predicate,
+          })
         }
         break
       default:
@@ -196,11 +204,11 @@ function add_args(arg_schema: ArgInferSchema, parser_group: ArgumentGroup, predi
   }
 }
 
-function recursive_parse_args<U extends ArgInferSchema>(
-  schema: U,
-  namespace: Namespace,
-  predicate?: ArgInferPredicate,
-): ArgInferParsedArgs<U> {
+function recursive_parse_args<U extends ArgInferSchema>({
+  schema,
+  namespace,
+  predicate,
+}: {schema: U; namespace: Namespace; predicate?: ArgInferPredicate}): ArgInferParsedArgs<U> {
   const result: Partial<ArgInferParsedArgs<U>> = {}
 
   for (const key in schema) {
@@ -221,11 +229,11 @@ function recursive_parse_args<U extends ArgInferSchema>(
 
     if (arg.kind === "meg") {
       const nested_schema = arg.value as ArgInferSchema
-      result[key] = recursive_parse_args(
-        nested_schema,
+      result[key] = recursive_parse_args({
+        schema: nested_schema,
         namespace,
-        arg.options.predicate,
-      ) as ArgInferParsedArgs<U>[Extract<keyof U, string>]
+        predicate: arg.options.predicate,
+      }) as ArgInferParsedArgs<U>[Extract<keyof U, string>]
     } else {
       result[key] = namespace[key] as ArgInferParsedArgs<U>[Extract<keyof U, string>]
     }
@@ -234,11 +242,11 @@ function recursive_parse_args<U extends ArgInferSchema>(
   return result as ArgInferParsedArgs<U>
 }
 
-function recursive_despatch_sync<U extends ArgInferSchema, T extends ArgInferSchema>(
-  schema: U,
-  namespace: Namespace,
-  parsed_args: ArgInferParsedArgs<T>,
-): void {
+function recursive_despatch_sync<U extends ArgInferSchema, T extends ArgInferSchema>({
+  schema,
+  namespace,
+  parsed_args,
+}: {schema: U; namespace: Namespace; parsed_args: ArgInferParsedArgs<T>}): void {
   for (const key in schema) {
     if (!Object.hasOwn(schema, key)) {
       continue
@@ -251,7 +259,7 @@ function recursive_despatch_sync<U extends ArgInferSchema, T extends ArgInferSch
 
     if (arg.kind === "meg") {
       const nested_schema = arg.value as ArgInferSchema
-      recursive_despatch_sync(nested_schema, namespace, parsed_args)
+      recursive_despatch_sync({schema: nested_schema, namespace, parsed_args})
     } else if (arg.kind === "boolean") {
       if (namespace[key] as boolean) {
         if (arg.command_sync) {
@@ -262,11 +270,11 @@ function recursive_despatch_sync<U extends ArgInferSchema, T extends ArgInferSch
   }
 }
 
-async function recursive_despatch_async<U extends ArgInferSchema, T extends ArgInferSchema>(
-  schema: U,
-  namespace: Namespace,
-  parsed_args: ArgInferParsedArgs<T>,
-): Promise<void> {
+async function recursive_despatch_async<U extends ArgInferSchema, T extends ArgInferSchema>({
+  schema,
+  namespace,
+  parsed_args,
+}: {schema: U; namespace: Namespace; parsed_args: ArgInferParsedArgs<T>}): Promise<void> {
   for (const key in schema) {
     if (!Object.hasOwn(schema, key)) {
       continue
@@ -279,7 +287,7 @@ async function recursive_despatch_async<U extends ArgInferSchema, T extends ArgI
 
     if (arg.kind === "meg") {
       const nested_schema = arg.value as ArgInferSchema
-      await recursive_despatch_async(nested_schema, namespace, parsed_args)
+      await recursive_despatch_async({schema: nested_schema, namespace, parsed_args})
     } else if (arg.kind === "boolean") {
       if (namespace[key] as boolean) {
         if (arg.command_async) {
@@ -290,10 +298,10 @@ async function recursive_despatch_async<U extends ArgInferSchema, T extends ArgI
   }
 }
 
-export function make_arg_parser<T extends ArgInferSchema>(
-  arg_schema: T,
-  description: string,
-): {
+export function make_arg_parser<T extends ArgInferSchema>({
+  arg_schema,
+  description,
+}: {arg_schema: T; description: string}): {
   parsed_args: ArgInferParsedArgs<T>
   despatch_sync: () => void
   despatch_async: () => Promise<void>
@@ -302,20 +310,20 @@ export function make_arg_parser<T extends ArgInferSchema>(
 
   const parser = new ArgumentParser(argument_parser_options)
 
-  add_args(arg_schema, parser)
+  add_args({arg_schema, parser_group: parser})
 
   const namespace = parser.parse_args() as Namespace
 
   lib_debug.inspect_when(lib_debug.channels.arg, namespace, "namespace")
 
-  const parsed_args = recursive_parse_args(arg_schema, namespace)
+  const parsed_args = recursive_parse_args({schema: arg_schema, namespace})
 
   function despatch_sync(): void {
-    recursive_despatch_sync(arg_schema, namespace, parsed_args)
+    recursive_despatch_sync({schema: arg_schema, namespace, parsed_args})
   }
 
   async function despatch_async(): Promise<void> {
-    await recursive_despatch_async(arg_schema, namespace, parsed_args)
+    await recursive_despatch_async({schema: arg_schema, namespace, parsed_args})
   }
 
   return {parsed_args, despatch_sync, despatch_async}
