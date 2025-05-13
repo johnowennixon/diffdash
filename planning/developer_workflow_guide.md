@@ -73,5 +73,5 @@ All common Linux utilities are available including:
 * Use local library `lib_stdio` to output raw text to console.
 * Use local library `lib_tell` to output message lines to console in standard colour styles.
 * Use local library `lib_text` to manipulate strings contains many lines of text.
-* Use local library `lib_tui` to format output for text user interfaces.
+* Use local library `lib_tui_*` to format output for text user interfaces.
 * There are many more local libraries - too numerous to list here.

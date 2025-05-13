@@ -8,7 +8,7 @@ import type {SimpleGit} from "./lib_git_simple_open.js"
 import * as lib_git_simple_staging from "./lib_git_simple_staging.js"
 import * as lib_stdio from "./lib_stdio.js"
 import * as lib_tell from "./lib_tell.js"
-import * as lib_tui from "./lib_tui.js"
+import * as lib_tui_justify from "./lib_tui_justify.js"
 import * as lib_tui_readline from "./lib_tui_readline.js"
 
 export default {}
@@ -90,19 +90,21 @@ async function phase_status({config, git}: {config: DiffDashConfig; git: SimpleG
   const max_length = Math.max(...files_staged.map((file) => file.path.length), 10)
 
   for (const file of files_added) {
-    lib_stdio.write_stdout_linefeed(`  ${lib_tui.justify_left(max_length, file.path)}  (added)`)
+    lib_stdio.write_stdout_linefeed(`  ${lib_tui_justify.justify_left(max_length, file.path)}  (added)`)
   }
 
   for (const file of files_modified) {
-    lib_stdio.write_stdout_linefeed(`  ${lib_tui.justify_left(max_length, file.path)}  (modified)`)
+    lib_stdio.write_stdout_linefeed(`  ${lib_tui_justify.justify_left(max_length, file.path)}  (modified)`)
   }
 
   for (const file of files_renamed) {
-    lib_stdio.write_stdout_linefeed(`  ${lib_tui.justify_left(max_length, file.path)}  (renamed from ${file.from})`)
+    lib_stdio.write_stdout_linefeed(
+      `  ${lib_tui_justify.justify_left(max_length, file.path)}  (renamed from ${file.from})`,
+    )
   }
 
   for (const file of files_deleted) {
-    lib_stdio.write_stdout_linefeed(`  ${lib_tui.justify_left(max_length, file.path)}  (deleted)`)
+    lib_stdio.write_stdout_linefeed(`  ${lib_tui_justify.justify_left(max_length, file.path)}  (deleted)`)
   }
 
   if (files_staged.length === 0) {

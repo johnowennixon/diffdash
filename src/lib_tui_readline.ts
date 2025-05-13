@@ -4,9 +4,6 @@ import * as lib_ansi from "./lib_ansi.js"
 
 export default {}
 
-/**
- * Simple confirmation prompt that returns a boolean
- */
 export async function confirm(message: string): Promise<boolean> {
   const query = lib_ansi.bold(lib_ansi.blue(`${message} [Y/n] `))
 

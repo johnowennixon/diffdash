@@ -1,6 +1,6 @@
 import {EQUALS, SPACE} from "./lib_char.js"
 import type {Teller} from "./lib_tell.js"
-import * as lib_tui from "./lib_tui.js"
+import * as lib_tui_justify from "./lib_tui_justify.js"
 
 export default {}
 
@@ -13,7 +13,7 @@ export function string_block({
 }: {teller: Teller; content: string; title?: string; pad_char?: string; width?: number}): void {
   const separator = pad_char.repeat(width)
 
-  const top_line = title ? lib_tui.justify_centre({line: SPACE + title + SPACE, width, pad_char}) : separator
+  const top_line = title ? lib_tui_justify.justify_centre({line: SPACE + title + SPACE, width, pad_char}) : separator
 
   teller(top_line)
   teller(content)
