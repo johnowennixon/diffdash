@@ -28,7 +28,8 @@ Try running these Bash commands:
 
 * to lint the code, run `pnpm run lint`
 * to build the code, run `pnpm run build`
-* to fix formatting issues, run `pnpm run fix:biome`
+* to fix formatting issues in source code, run `pnpm run fix:biome`
+* to fix formatting issues in markdown documents, run `pnpm run fix:markdownlint`
 
 ## Library Usage
 
