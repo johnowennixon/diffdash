@@ -74,13 +74,13 @@ export function is_model_available({
 export function get_model_access({
   llm_model_details,
   llm_model_name,
-  llm_direct,
-}: {llm_model_details: Array<LlmModelDetail>; llm_model_name: string; llm_direct: boolean}): LlmModelAccess {
+  llm_router,
+}: {llm_model_details: Array<LlmModelDetail>; llm_model_name: string; llm_router: boolean}): LlmModelAccess {
   const detail = find_model({llm_model_details, llm_model_name})
 
   const {llm_provider, llm_model_code_direct, llm_model_code_openrouter} = detail
 
-  if (llm_direct) {
+  if (!llm_router) {
     if (llm_model_code_direct !== null && llm_provider !== null) {
       const llm_api_key = lib_llm_provider.get_llm_api_key(llm_provider)
       if (llm_api_key) {

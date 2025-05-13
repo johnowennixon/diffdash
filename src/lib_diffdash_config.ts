@@ -36,8 +36,8 @@ export const arg_schema = {
     default: llm_model_default,
   }),
   llm_fallback: a.arg_boolean({help: `use the fallback LLM model (${llm_model_fallback})`}),
-  llm_direct: a.arg_boolean({help: "prefer to access the LLM direct rather than using an aggregator"}),
   llm_excludes: a.arg_string({help: "models to exclude from comparison (comma separated)"}),
+  llm_router: a.arg_boolean({help: "prefer to access the LLM via a router rather than direct"}),
 
   debug_llm_inputs: a.arg_boolean({help: "debug prompts sent to the LLM"}),
   debug_llm_outputs: a.arg_boolean({help: "debug outputs received from the LLM"}),
@@ -80,15 +80,15 @@ export function process_config(): DiffDashConfig {
     no_verify,
     llm_model,
     llm_fallback,
-    llm_direct,
     llm_excludes,
+    llm_router,
     debug_llm_inputs,
     debug_llm_outputs,
   } = pa
 
   const llm_model_name = llm_fallback ? llm_model_fallback : llm_model
-  const llm_config = lib_llm_config.get_llm_config({llm_model_details, llm_model_name, llm_direct})
-  const all_llm_configs = lib_llm_config.all_llm_configs({llm_model_details, llm_direct, llm_excludes})
+  const llm_config = lib_llm_config.get_llm_config({llm_model_details, llm_model_name, llm_router})
+  const all_llm_configs = lib_llm_config.all_llm_configs({llm_model_details, llm_router, llm_excludes})
 
   lib_debug.channels.llm_inputs = debug_llm_inputs
   lib_debug.channels.llm_outputs = debug_llm_outputs

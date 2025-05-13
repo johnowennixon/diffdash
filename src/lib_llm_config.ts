@@ -16,9 +16,9 @@ export interface LlmConfig {
 export function get_llm_config({
   llm_model_details,
   llm_model_name,
-  llm_direct,
-}: {llm_model_details: Array<LlmModelDetail>; llm_model_name: string; llm_direct: boolean}): LlmConfig {
-  const access = lib_llm_model.get_model_access({llm_model_details, llm_model_name, llm_direct})
+  llm_router,
+}: {llm_model_details: Array<LlmModelDetail>; llm_model_name: string; llm_router: boolean}): LlmConfig {
+  const access = lib_llm_model.get_model_access({llm_model_details, llm_model_name, llm_router})
 
   const llm_model_code = access.llm_model_code
   const llm_provider = access.llm_provider
@@ -34,16 +34,16 @@ export function get_llm_config({
 
 export function all_llm_configs({
   llm_model_details,
-  llm_direct,
+  llm_router,
   llm_excludes,
-}: {llm_model_details: Array<LlmModelDetail>; llm_direct: boolean; llm_excludes?: string}): Array<LlmConfig> {
+}: {llm_model_details: Array<LlmModelDetail>; llm_router: boolean; llm_excludes?: string}): Array<LlmConfig> {
   const choices = lib_llm_model.get_choices(llm_model_details)
 
   const available = choices.filter((llm_model_name) =>
     lib_llm_model.is_model_available({llm_model_details, llm_model_name, llm_excludes}),
   )
 
-  return available.map((llm_model_name) => get_llm_config({llm_model_details, llm_model_name, llm_direct}))
+  return available.map((llm_model_name) => get_llm_config({llm_model_details, llm_model_name, llm_router}))
 }
 
 export function get_llm_model_via(llm_config: LlmConfig): string {
