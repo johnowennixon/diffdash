@@ -68,12 +68,12 @@ const DETAILS: Array<LlmModelDetail> = [
     cents_output: 50,
   },
   {
-    llm_model_name: "glm-4-32b-free",
+    llm_model_name: "glm-4-32b",
     llm_provider: null,
     llm_model_code_direct: null,
-    llm_model_code_openrouter: "thudm/glm-4-32b:free",
-    cents_input: 0,
-    cents_output: 0,
+    llm_model_code_openrouter: "thudm/glm-4-32b",
+    cents_input: 24,
+    cents_output: 24,
   },
   {
     llm_model_name: "mercury-coder-small",

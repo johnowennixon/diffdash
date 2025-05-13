@@ -1,4 +1,5 @@
 import * as lib_abort from "./lib_abort.js"
+import {COMMA} from "./lib_char.js"
 import * as lib_llm_provider from "./lib_llm_provider.js"
 import type {LlmProvider} from "./lib_llm_provider.js"
 
@@ -39,7 +40,18 @@ export function find_model({
 export function is_model_available({
   llm_model_details,
   llm_model_name,
-}: {llm_model_details: Array<LlmModelDetail>; llm_model_name: string}): boolean {
+  llm_excludes,
+}: {llm_model_details: Array<LlmModelDetail>; llm_model_name: string; llm_excludes?: string}): boolean {
+  if (llm_excludes) {
+    const llm_excludes_array = llm_excludes.split(COMMA).map((exclude) => exclude.trim())
+
+    for (const llm_exclude of llm_excludes_array) {
+      if (llm_model_name.includes(llm_exclude)) {
+        return false
+      }
+    }
+  }
+
   const detail = find_model({llm_model_details, llm_model_name})
 
   const {llm_provider, llm_model_code_direct, llm_model_code_openrouter} = detail

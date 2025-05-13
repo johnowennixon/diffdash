@@ -123,6 +123,7 @@ All command-line arguments are optional.
 | `--llm-model` | choose the LLM model by name (the default is normally best) |
 | `--llm-fallback` | use the fallback LLM model instead of the default |
 | `--llm-direct` | prefer to access the LLM direct rather than using an aggregator |
+| `--llm-excludes` | models to exclude from comparison (comma separated) |
 | `--debug-llm-inputs` | show prompts sent to the LLM |
 | `--debug-llm-outputs` | show raw outputs from the LLM |
 

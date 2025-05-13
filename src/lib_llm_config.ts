@@ -35,11 +35,12 @@ export function get_llm_config({
 export function all_llm_configs({
   llm_model_details,
   llm_direct,
-}: {llm_model_details: Array<LlmModelDetail>; llm_direct: boolean}): Array<LlmConfig> {
+  llm_excludes,
+}: {llm_model_details: Array<LlmModelDetail>; llm_direct: boolean; llm_excludes?: string}): Array<LlmConfig> {
   const choices = lib_llm_model.get_choices(llm_model_details)
 
   const available = choices.filter((llm_model_name) =>
-    lib_llm_model.is_model_available({llm_model_details, llm_model_name}),
+    lib_llm_model.is_model_available({llm_model_details, llm_model_name, llm_excludes}),
   )
 
   return available.map((llm_model_name) => get_llm_config({llm_model_details, llm_model_name, llm_direct}))
