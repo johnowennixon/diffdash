@@ -11,14 +11,15 @@ export const enables = {
   timestamp: lib_enabled.from_env("TELL_TIMESTAMP"),
 }
 
+export type TellParams = {
+  silent?: boolean
+  message: string
+}
+
 export type Teller = (message: string) => void
 export type TellerPromise = (message: string) => Promise<void>
 
-export const nowhere: Teller = (_message: string) => {
-  // intentionally empty
-}
-
-function generic(message: string, colourizer?: AnsiColourizer): void {
+function generic({message, colourizer}: {message: string; colourizer?: AnsiColourizer}): void {
   while (message.endsWith(LF)) {
     message = message.slice(0, -1)
   }
@@ -38,32 +39,36 @@ function generic(message: string, colourizer?: AnsiColourizer): void {
   lib_stdio.write_stderr_linefeed(text)
 }
 
-export const plain: Teller = (message: string): void => {
-  generic(message, lib_ansi.normal)
+export function nowhere(_message: string): void {
+  // intentionally empty
 }
 
-export const error: Teller = (message: string): void => {
-  generic(message, lib_ansi.red)
+export function plain(message: string): void {
+  generic({message, colourizer: lib_ansi.normal})
 }
 
-export const warning: Teller = (message: string): void => {
-  generic(message, lib_ansi.yellow)
+export function error(message: string): void {
+  generic({message, colourizer: lib_ansi.red})
 }
 
-export const success: Teller = (message: string): void => {
-  generic(message, lib_ansi.green)
+export function warning(message: string): void {
+  generic({message, colourizer: lib_ansi.yellow})
 }
 
-export const info: Teller = (message: string): void => {
-  generic(message, lib_ansi.cyan)
+export function success(message: string): void {
+  generic({message, colourizer: lib_ansi.green})
 }
 
-export const action: Teller = (message: string): void => {
-  generic(message, lib_ansi.magenta)
+export function info(message: string): void {
+  generic({message, colourizer: lib_ansi.cyan})
 }
 
-export const debug: Teller = (message: string): void => {
-  generic(message, lib_ansi.grey)
+export function action(message: string): void {
+  generic({message, colourizer: lib_ansi.magenta})
+}
+
+export function debug(message: string): void {
+  generic({message, colourizer: lib_ansi.grey})
 }
 
 export function blank(): void {
