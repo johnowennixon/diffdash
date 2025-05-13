@@ -24,3 +24,4 @@ export function get_abort(key: string): string {
 export function set(key: string, value: string): void {
   process.env[key] = value
 }
+export const DOT_ENV = ".env"
