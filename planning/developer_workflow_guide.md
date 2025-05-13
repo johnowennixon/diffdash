@@ -11,7 +11,11 @@
 ## Installing Software
 
 * AI agents should not install NPM packages without asking.
-* AI agents should never attempt to install system packages - if they want this done, it should be done by a human.
+* AI agents must never attempt to install system packages - if you want this done, it should be done by a human.
+
+## Git Usage
+
+* AI agents should not try and use Git to commit software - let the humans do this.
 
 ## Task Completion
 
@@ -20,7 +24,7 @@ Before considering any change as complete, you must:
 * run a lint, and fix any errors
 * run a build, and fix any errors
 * run any tests if they exist
-* consider updating the files documentation
+* consider updating the README and other documentation
 
 ## Useful Bash snippets
 
@@ -35,8 +39,8 @@ Try running these Bash commands:
 
 * Prefer to use available libraries rather than writing code.
 * Prefer to use libraries that are locally available rather than importing external libraries.
-* Local libraries are shared between projects.
-* If you want to write a library, make it as general purpose as possible.
+* Local libraries are likely to shared between projects that you can not see.
+* If you want to write a new library, make it as general purpose as possible.
 * If you need to write a library that is only useful for this project, including this project's name in the filename.
 
 ## Fixing lint errors
@@ -52,10 +56,11 @@ All common Linux utilities are available including:
 * `comm` - compare two sorted files line by line.
 * `diff` - find differences between files.
 * `find` - find files which have matching characteristics.
-* `git` - examine the commit history.
+* `git` - examine the commit history and status of changes.
 * `grep` - find specific lines from files.
 * `pnpm` - for access to Node packages and scripts.
 * `sort` - sort a file or stream alphabetically.
+* `xargs` - run a command for each line of the input
 
 ## Available local libraries
 
@@ -69,6 +74,7 @@ All common Linux utilities are available including:
 * Use local library `lib_datetime` when processing timestamps.
 * Use local library `lib_debug` if you want to output a debug message.
 * Use local library `lib_env` to read environment variables.
+* Use local library `lib_file_glob` to build lists of files that match patterns.
 * Use local library `lib_file_io` if you need to read or write files.
 * Use local library `lib_file_path` as an alternative to Node's path library.
 * Use local library `lib_stdio` to output raw text to console.
