@@ -11,8 +11,27 @@ import * as lib_tell from "./lib_tell.js"
 
 export default {}
 
+/**
+ * Apply prefix and suffix to the summary line of a commit message
+ */
+function apply_prefix_and_suffix({message, prefix, suffix}: {message: string; prefix: string; suffix: string}): string {
+  if (!prefix && !suffix) {
+    return message
+  }
+
+  const lines = message.split("\n")
+  if (lines.length === 0) {
+    return message
+  }
+
+  const formatted_prefix = prefix ? `${prefix} ` : ""
+  const formatted_suffix = suffix ? ` ${suffix}` : ""
+  lines[0] = `${formatted_prefix}${lines[0]}${formatted_suffix}`
+  return lines.join("\n")
+}
+
 export async function generate_for_commit({config, git}: {config: DiffDashConfig; git: SimpleGit}): Promise<string> {
-  const {llm_config, silent} = config
+  const {llm_config, silent, add_prefix, add_suffix} = config
 
   if (!silent) {
     lib_tell.action(`Generating the Git commit message using LLM ${lib_llm_config.get_llm_model_via(llm_config)}`)
@@ -33,13 +52,16 @@ export async function generate_for_commit({config, git}: {config: DiffDashConfig
     lib_abort.with_error(`Generated commit message failed validation: ${validation_result.reason}`)
   }
 
-  const commit_message_with_footer = lib_diffdash_footer.add_footer({llm_response, llm_config})
+  // Apply prefix and suffix to the summary line if provided
+  const modified_response = apply_prefix_and_suffix({message: llm_response, prefix: add_prefix, suffix: add_suffix})
+
+  const commit_message_with_footer = lib_diffdash_footer.add_footer({llm_response: modified_response, llm_config})
 
   return commit_message_with_footer
 }
 
 export async function generate_and_compare({config, git}: {config: DiffDashConfig; git: SimpleGit}): Promise<void> {
-  const {silent, all_llm_configs} = config
+  const {silent, all_llm_configs, add_prefix, add_suffix} = config
 
   if (!silent) {
     lib_tell.action("Generating Git commit messages using all models in parallel")
@@ -64,7 +86,10 @@ export async function generate_and_compare({config, git}: {config: DiffDashConfi
 
     const validation_result = lib_git_message_validate.validate_message(llm_response)
 
-    const commit_message_with_footer = lib_diffdash_footer.add_footer({llm_response, llm_config})
+    // Apply prefix and suffix to the summary line if provided
+    const modified_response = apply_prefix_and_suffix({message: llm_response, prefix: add_prefix, suffix: add_suffix})
+
+    const commit_message_with_footer = lib_diffdash_footer.add_footer({llm_response: modified_response, llm_config})
 
     const teller = validation_result.valid ? lib_tell.plain : lib_tell.warning
 

@@ -93,6 +93,12 @@ diffdash --disable-add --auto-commit --disable-push
 # Skip git hooks when pushing
 diffdash --no-verify
 
+# Add a prefix to the commit message summary line
+diffdash --add-prefix "[FIX]"
+
+# Add a suffix to the commit message summary line
+diffdash --add-suffix "(closes #123)"
+
 # Use the fallback LLM model
 diffdash --llm-fallback
 
@@ -119,6 +125,8 @@ All command-line arguments are optional.
 | `--disable-preview` | disable previewing the generated message|
 | `--disable-commit` | disable committing changes - exit after generating the message |
 | `--disable-push` | disable pushing changes - exit after making the commit |
+| `--add-prefix` | add a prefix to the commit message summary line |
+| `--add-suffix` | add a suffix to the commit message summary line |
 | `--no-verify` | bypass git hooks when pushing to Git |
 | `--llm-model` | choose the LLM model by name (the default is normally best) |
 | `--llm-fallback` | use the fallback LLM model instead of the default |
