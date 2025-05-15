@@ -1,0 +1,3 @@
+--ignore-dir=is:out
+
+--ignore-file=ext:lock
