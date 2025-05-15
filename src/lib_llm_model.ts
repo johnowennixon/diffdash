@@ -12,6 +12,7 @@ export interface LlmModelDetail {
   llm_model_code_openrouter: string | null
   cents_input: number
   cents_output: number
+  has_structured_json: boolean
 }
 
 export interface LlmModelAccess {
