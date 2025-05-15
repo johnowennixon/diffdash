@@ -1,11 +1,14 @@
 import * as lib_abort from "./lib_abort.js"
 import * as lib_debug from "./lib_debug.js"
 import type {DiffDashConfig} from "./lib_diffdash_config.js"
-import * as lib_diffdash_generate from "./lib_diffdash_generate.js"
+import * as lib_diffdash_modify from "./lib_diffdash_modify.js"
+import * as lib_git_message_generate from "./lib_git_message_generate.js"
 import * as lib_git_message_ui from "./lib_git_message_ui.js"
+import * as lib_git_message_validate from "./lib_git_message_validate.js"
 import * as lib_git_simple_open from "./lib_git_simple_open.js"
 import type {SimpleGit} from "./lib_git_simple_open.js"
 import * as lib_git_simple_staging from "./lib_git_simple_staging.js"
+import * as lib_llm_config from "./lib_llm_config.js"
 import * as lib_stdio from "./lib_stdio.js"
 import * as lib_tell from "./lib_tell.js"
 import * as lib_tui_justify from "./lib_tui_justify.js"
@@ -113,16 +116,65 @@ async function phase_status({config, git}: {config: DiffDashConfig; git: SimpleG
 }
 
 async function phase_compare({config, git}: {config: DiffDashConfig; git: SimpleGit}): Promise<void> {
-  await lib_diffdash_generate.generate_and_compare({config, git})
+  const {silent} = config
+
+  if (!silent) {
+    lib_tell.action("Generating Git commit messages using all models in parallel")
+  }
+
+  const {all_llm_configs, add_prefix, add_suffix} = config
+
+  const diffstat = await lib_git_simple_staging.get_staged_diffstat(git)
+  const diff = await lib_git_simple_staging.get_staged_diff(git)
+
+  // Create an array of promises for parallel execution
+  const generate_result_promises = all_llm_configs.map((llm_config) =>
+    lib_git_message_generate.generate_message({llm_config, diffstat, diff}),
+  )
+
+  // Wait for all messages to be generated in parallel
+  const all_generate_results = await Promise.all(generate_result_promises)
+
+  // Display all generated messages
+  for (const generate_result of all_generate_results) {
+    const {llm_config} = generate_result
+
+    lib_tell.info(`Git commit message from ${lib_llm_config.get_llm_model_via(llm_config)}:`)
+
+    let message = generate_result.llm_response
+
+    const validation_result = lib_git_message_validate.get_valid(message)
+
+    const teller = validation_result.valid ? lib_tell.plain : lib_tell.warning
+
+    message = lib_diffdash_modify.add_prefix_or_suffix({message, add_prefix, add_suffix})
+    message = lib_diffdash_modify.add_footer({message, llm_config})
+
+    lib_git_message_ui.display_message({message, teller})
+  }
 }
 
 async function phase_commit({config, git}: {config: DiffDashConfig; git: SimpleGit}): Promise<void> {
-  const {auto_commit, disable_commit, disable_preview, silent} = config
+  const {add_prefix, add_suffix, auto_commit, disable_commit, disable_preview, silent, llm_config} = config
 
-  const commit_message_with_footer = await lib_diffdash_generate.generate_for_commit({config, git})
+  if (!silent) {
+    lib_tell.action(`Generating the Git commit message using LLM ${lib_llm_config.get_llm_model_via(llm_config)}`)
+  }
+
+  const diffstat = await lib_git_simple_staging.get_staged_diffstat(git)
+  const diff = await lib_git_simple_staging.get_staged_diff(git)
+
+  const generate_result = await lib_git_message_generate.generate_message({llm_config, diffstat, diff})
+
+  let message = generate_result.llm_response
+
+  lib_git_message_validate.check_valid(message)
+
+  message = lib_diffdash_modify.add_prefix_or_suffix({message, add_prefix, add_suffix})
+  message = lib_diffdash_modify.add_footer({message, llm_config})
 
   if (!disable_preview && !silent) {
-    lib_git_message_ui.display_message({message: commit_message_with_footer, teller: lib_tell.plain})
+    lib_git_message_ui.display_message({message, teller: lib_tell.plain})
   }
 
   if (disable_commit) {
@@ -141,7 +193,8 @@ async function phase_commit({config, git}: {config: DiffDashConfig; git: SimpleG
     }
   }
 
-  await lib_git_simple_staging.create_commit(git, commit_message_with_footer)
+  await lib_git_simple_staging.create_commit(git, message)
+
   if (!silent) {
     lib_tell.success("Changes committed successfully")
   }

@@ -1,4 +1,7 @@
+import * as lib_abort from "./lib_abort.js"
 import {ASTERISK, DASH, EMPTY, LF, SPACE} from "./lib_char.js"
+import * as lib_git_message_ui from "./lib_git_message_ui.js"
+import * as lib_tell from "./lib_tell.js"
 
 export default {}
 
@@ -17,7 +20,7 @@ type GitMessageValidationFailed = {
 
 export type GitMessageValidationResult = GitMessageValidationSucceeded | GitMessageValidationFailed
 
-export function validate_message(message: string): GitMessageValidationResult {
+export function get_valid(message: string): GitMessageValidationResult {
   const min_length = DEFAULT_MIN_LENGTH
   const max_length = DEFAULT_MAX_LENGTH
 
@@ -76,5 +79,15 @@ export function validate_message(message: string): GitMessageValidationResult {
   // Valid
   return {
     valid: true,
+  }
+}
+
+export function check_valid(message: string): void {
+  const validation_result = get_valid(message)
+
+  if (!validation_result.valid) {
+    lib_git_message_ui.display_message({message, teller: lib_tell.warning})
+
+    lib_abort.with_error(`Generated commit message failed validation: ${validation_result.reason}`)
   }
 }
