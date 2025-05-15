@@ -1,4 +1,5 @@
 import * as lib_abort from "./lib_abort.js"
+import {EMPTY, LF} from "./lib_char.js"
 import type {DiffDashConfig} from "./lib_diffdash_config.js"
 import * as lib_diffdash_footer from "./lib_diffdash_footer.js"
 import * as lib_git_message_generate from "./lib_git_message_generate.js"
@@ -11,23 +12,26 @@ import * as lib_tell from "./lib_tell.js"
 
 export default {}
 
-/**
- * Apply prefix and suffix to the summary line of a commit message
- */
-function apply_prefix_and_suffix({message, prefix, suffix}: {message: string; prefix: string; suffix: string}): string {
+function apply_prefix_and_suffix({
+  message,
+  prefix,
+  suffix,
+}: {message: string; prefix: string | undefined; suffix: string | undefined}): string {
   if (!prefix && !suffix) {
     return message
   }
 
-  const lines = message.split("\n")
+  const lines = message.split(LF)
   if (lines.length === 0) {
     return message
   }
 
-  const formatted_prefix = prefix ? `${prefix} ` : ""
-  const formatted_suffix = suffix ? ` ${suffix}` : ""
+  const formatted_prefix = prefix ? `${prefix} ` : EMPTY
+  const formatted_suffix = suffix ? ` ${suffix}` : EMPTY
+
   lines[0] = `${formatted_prefix}${lines[0]}${formatted_suffix}`
-  return lines.join("\n")
+
+  return lines.join(LF)
 }
 
 export async function generate_for_commit({config, git}: {config: DiffDashConfig; git: SimpleGit}): Promise<string> {
@@ -52,7 +56,6 @@ export async function generate_for_commit({config, git}: {config: DiffDashConfig
     lib_abort.with_error(`Generated commit message failed validation: ${validation_result.reason}`)
   }
 
-  // Apply prefix and suffix to the summary line if provided
   const modified_response = apply_prefix_and_suffix({message: llm_response, prefix: add_prefix, suffix: add_suffix})
 
   const commit_message_with_footer = lib_diffdash_footer.add_footer({llm_response: modified_response, llm_config})
@@ -86,7 +89,6 @@ export async function generate_and_compare({config, git}: {config: DiffDashConfi
 
     const validation_result = lib_git_message_validate.validate_message(llm_response)
 
-    // Apply prefix and suffix to the summary line if provided
     const modified_response = apply_prefix_and_suffix({message: llm_response, prefix: add_prefix, suffix: add_suffix})
 
     const commit_message_with_footer = lib_diffdash_footer.add_footer({llm_response: modified_response, llm_config})

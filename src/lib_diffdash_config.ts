@@ -17,6 +17,9 @@ export const arg_schema = {
   version: a.arg_boolean({help: "show program version information and exit"}),
   compare: a.arg_boolean({help: "compare the generated messages from all models - but do not commit"}),
 
+  add_prefix: a.arg_string({help: "add a prefix to the commit message summary line"}),
+  add_suffix: a.arg_string({help: "add a suffix to the commit message summary line"}),
+
   auto_add: a.arg_boolean({help: "automatically stage all changes without confirmation"}),
   auto_commit: a.arg_boolean({help: "automatically commit changes without confirmation"}),
   auto_push: a.arg_boolean({help: "automatically push changes after commit without confirmation"}),
@@ -27,18 +30,15 @@ export const arg_schema = {
   disable_commit: a.arg_boolean({help: "disable committing changes - exit after generating the message"}),
   disable_push: a.arg_boolean({help: "disable pushing changes - exit after making the commit"}),
 
-  add_prefix: a.arg_string({help: "add a prefix to the commit message summary line"}),
-  add_suffix: a.arg_string({help: "add a suffix to the commit message summary line"}),
-
   silent: a.arg_boolean({help: "suppress all normal output - errors and aborts still display"}),
   no_verify: a.arg_boolean({help: "bypass git hooks when pushing to Git"}),
 
   llm_model: a.arg_choice_default<string>({
-    help: `choose the LLM model by name (defaults to ${llm_model_default})`,
+    help: `choose the Large Language Model by name (defaults to ${llm_model_default})`,
     choices: llm_model_choices,
     default: llm_model_default,
   }),
-  llm_fallback: a.arg_boolean({help: `use the fallback LLM model (${llm_model_fallback})`}),
+  llm_fallback: a.arg_boolean({help: `use the fallback model (${llm_model_fallback})`}),
   llm_excludes: a.arg_string({help: "models to exclude from comparison (comma separated)"}),
   llm_router: a.arg_boolean({help: "prefer to access the LLM via a router rather than direct"}),
 
@@ -54,6 +54,8 @@ export const arg_parser = a.make_arg_parser({
 export interface DiffDashConfig {
   version: boolean
   compare: boolean
+  add_prefix: string | undefined
+  add_suffix: string | undefined
   auto_add: boolean
   auto_commit: boolean
   auto_push: boolean
@@ -64,8 +66,6 @@ export interface DiffDashConfig {
   disable_push: boolean
   silent: boolean
   no_verify: boolean
-  add_prefix: string
-  add_suffix: string
   llm_config: LlmConfig
   all_llm_configs: Array<LlmConfig>
 }
@@ -76,6 +76,8 @@ export function process_config(): DiffDashConfig {
   const {
     version,
     compare,
+    add_prefix,
+    add_suffix,
     auto_add,
     auto_commit,
     auto_push,
@@ -84,8 +86,6 @@ export function process_config(): DiffDashConfig {
     disable_preview,
     disable_status,
     disable_push,
-    add_prefix,
-    add_suffix,
     silent,
     no_verify,
     llm_model,
@@ -106,6 +106,8 @@ export function process_config(): DiffDashConfig {
   const config: DiffDashConfig = {
     version,
     compare,
+    add_prefix,
+    add_suffix,
     auto_add,
     auto_commit,
     auto_push,
@@ -116,8 +118,6 @@ export function process_config(): DiffDashConfig {
     disable_push,
     silent,
     no_verify,
-    add_prefix: add_prefix || "",
-    add_suffix: add_suffix || "",
     llm_config,
     all_llm_configs,
   }
