@@ -5,13 +5,15 @@ A command-line tool to generate Git commit messages using AI.
 ## Features
 
 * Generates Git commit messages in natural English
-* Configuration using standard API provider environment variables
 * Optionally select from a choice of LLM models
-* Compare messages generated from all the models
+* Able to add a prefix or suffix to the summary line
+* Compare messages generated from all configured models
+* Configuration using standard API provider environment variables
 * Adds a footer to the generated commit messages
 * Options to disable or approve various stages of the process
 * Uses the Vercel AI SDK
-* Substantially written using AI coding (Claude Code)
+* Uses structured JSON with compatible models
+* Substantially written using AI coding (Claude Code, Roo Code, & Amp)
 
 ## Installation from npmjs.com
 
@@ -117,6 +119,8 @@ All command-line arguments are optional.
 |--------|-------------|
 | `--version` | show program version information and exit |
 | `--compare` | compare the generated messages from all models - but do not commit |
+| `--add-prefix` | add a prefix to the commit message summary line |
+| `--add-suffix` | add a suffix to the commit message summary line |
 | `--auto-add` | automatically stage all changes without confirmation |
 | `--auto-commit` | automatically commit changes without confirmation |
 | `--auto-push` | automatically push changes after commit without confirmation |
@@ -125,15 +129,13 @@ All command-line arguments are optional.
 | `--disable-preview` | disable previewing the generated message|
 | `--disable-commit` | disable committing changes - exit after generating the message |
 | `--disable-push` | disable pushing changes - exit after making the commit |
-| `--add-prefix` | add a prefix to the commit message summary line |
-| `--add-suffix` | add a suffix to the commit message summary line |
 | `--no-verify` | bypass git hooks when pushing to Git |
 | `--llm-model` | choose the LLM model by name (the default is normally best) |
 | `--llm-fallback` | use the fallback LLM model instead of the default |
 | `--llm-excludes` | models to exclude from comparison (comma separated) |
 | `--llm-router` | prefer to access the LLM via a router rather than direct |
-| `--debug-llm-inputs` | show prompts sent to the LLM |
-| `--debug-llm-outputs` | show raw outputs from the LLM |
+| `--debug-llm-inputs` | show inputs (including all prompts) sent to the LLM |
+| `--debug-llm-outputs` | show outputs received from the LLM |
 
 ## Development
 

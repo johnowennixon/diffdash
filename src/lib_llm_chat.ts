@@ -41,14 +41,12 @@ export async function llm_generate_text({
     abortSignal: AbortSignal.timeout(timeout * 1000),
   }
 
-  lib_debug.inspect_when(lib_debug.channels.llm_inputs, llm_inputs, "llm_inputs")
+  lib_debug.inspect_when(lib_debug.channels.llm_inputs, llm_inputs, `llm_inputs (for ${llm_model_name})`)
 
   // This is liable to throw an error
   const llm_outputs = await generateText(llm_inputs)
 
-  lib_debug.tell_when(lib_debug.channels.llm_outputs, `llm_model_name = ${llm_model_name}`)
-  lib_debug.inspect_when(lib_debug.channels.llm_outputs, llm_outputs.finishReason, "llm_outputs.finishReason")
-  lib_debug.inspect_when(lib_debug.channels.llm_outputs, llm_outputs.text, "llm_outputs.text")
+  lib_debug.inspect_when(lib_debug.channels.llm_outputs, llm_outputs, `llm_outputs (for ${llm_model_name})`)
 
   return llm_outputs.text
 }
@@ -79,14 +77,12 @@ export async function llm_generate_object<T>({
     abortSignal: AbortSignal.timeout(timeout * 1000),
   }
 
-  lib_debug.inspect_when(lib_debug.channels.llm_inputs, llm_inputs, "llm_inputs")
+  lib_debug.inspect_when(lib_debug.channels.llm_inputs, llm_inputs, `llm_inputs (for ${llm_model_name})`)
 
   // This is liable to throw an error
   const llm_outputs = await generateObject<T>(llm_inputs)
 
-  lib_debug.tell_when(lib_debug.channels.llm_outputs, `llm_model_name = ${llm_model_name}`)
-  lib_debug.inspect_when(lib_debug.channels.llm_outputs, llm_outputs.finishReason, "llm_outputs.finishReason")
-  lib_debug.inspect_when(lib_debug.channels.llm_outputs, llm_outputs.object, "llm_outputs.object")
+  lib_debug.inspect_when(lib_debug.channels.llm_outputs, llm_outputs, `llm_outputs (for ${llm_model_name})`)
 
   return llm_outputs.object
 }

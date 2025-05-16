@@ -42,7 +42,7 @@ export const arg_schema = {
   llm_excludes: a.arg_string({help: "models to exclude from comparison (comma separated)"}),
   llm_router: a.arg_boolean({help: "prefer to access the LLM via a router rather than direct"}),
 
-  debug_llm_inputs: a.arg_boolean({help: "debug prompts sent to the LLM"}),
+  debug_llm_inputs: a.arg_boolean({help: "debug inputs (including all prompts) sent to the LLM"}),
   debug_llm_outputs: a.arg_boolean({help: "debug outputs received from the LLM"}),
 }
 
