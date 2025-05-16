@@ -4,75 +4,102 @@ export default {}
 
 const MAX_LENGTH = 100_000
 
-export interface GitMessagePromptDetails {
+export interface GitMessagePromptInputs {
   diffstat: string
   diff: string
 }
 
-export function get_system_prompt(): string {
-  const system_prompt = `
+const portion_role =
+  `
 Your role is to generate a Git commit message in conversational English.
 The user does not want Conventional Commits - the summary line must be a normal sentence.
+`.trim() + LF
 
+const portion_inputs =
+  `
 The user will send you a <diffstat> block, the output of a 'git diff --staged --stat' command.
 The user will send you a <diff> block, the output of a 'git diff --staged' command.
+`.trim() + LF
 
+const portion_reminders =
+  `
 Some reminders of how diffs work:
 - Lines that start with a single plus sign have been added to the file.
 - Lines that start with a single minus sign have been removed from the file.
 - Lines that start with @@ indicate a jump to a different section of the file - you can not see the code in these gaps.
+`.trim() + LF
 
+const portion_format_structured =
+  `
+You must output in the following format (this will be forced):
+- summary_line: a single sentence giving a concise summary of the changes.
+- extra_lines: additional sentences giving more information about the changes.
+`.trim() + LF
+
+const portion_format_unstructured =
+  `
 You must output in the following format - without any preamble or conclusion:
-- First line: a single sentence giving a concise summary of the changes written.
+- First line: a single sentence giving a concise summary of the changes.
 - Second line: completely blank - not even any spaces.
-- Then add bullet points (lines that start with a dash).
+- Then an unordered list (with a dash prefix) of additional sentences giving more information about the changes.
 - And nothing else.
+`.trim() + LF
 
-Use the imperative mood and present tense.
-Please write in full sentences that start with a capital letter.
-Each sentence should be on its own line.
-Focus on why things were changed, not how or what.
-Don't assume the change is always an improvement - we all make mistakes.
-Each bullet point should be a single sentence explaining the key changes in more detail.
-The number of bullet points should depend upon the complexity of the change.
-A simple change needs only two bullet points scaling up to a complex change with five bullet points.
-If there are a lot of changes, you will need to summarize even more.
-Avoid comma-separated lists of more than five items in any sentence.
-Avoid making the bullet points just a list of similar things.
-
-Everything you write will be checked for validity and then saved directly to Git - it will not be reviewed by a human.
-Therefore, you must just output the Git message itself without any introductory or concluding sections.
-`.trim()
-
-  return system_prompt
+function portion_format(has_structured_json: boolean): string {
+  return has_structured_json ? portion_format_structured : portion_format_unstructured
 }
 
-export function get_user_prompt(details: GitMessagePromptDetails): string {
-  const {diffstat, diff} = details
+const portion_instructions =
+  `
+Use the imperative mood and present tense.
+Please write in full sentences that start with a capital letter.
+Focus on why things were changed, not how or what.
+Be humble - you don't really know why the change was made.
+Don't assume the change is always an improvement - we all make mistakes.
+The number of additional sentences should depend upon the complexity of the change.
+A simple change needs only two additional sentences scaling up to a complex change with five additional sentences.
+If there are a lot of changes, you will need to summarize even more.
+Keep each sentence no longer than about twenty words.
+Avoid making the sentences just a list of similar things.
+`.trim() + LF
+
+const portion_final =
+  `
+Everything you write will be checked for validity and then saved directly to Git - it will not be reviewed by a human.
+Therefore, you must just output the Git message itself without any introductory or concluding sections.
+`.trim() + LF
+
+export function get_system_prompt(has_structured_json: boolean): string {
+  let system_prompt = EMPTY
+
+  system_prompt += portion_role + LF
+  system_prompt += portion_inputs + LF
+  system_prompt += portion_reminders + LF
+  system_prompt += portion_format(has_structured_json) + LF
+  system_prompt += portion_instructions + LF
+  system_prompt += portion_final + LF
+
+  return system_prompt.trim()
+}
+
+export function get_user_prompt(has_structured_json: boolean, inputs: GitMessagePromptInputs): string {
+  const {diffstat, diff} = inputs
 
   const truncate = diff.length > MAX_LENGTH
 
   const diff_truncated = truncate ? diff.slice(0, MAX_LENGTH) + LF : diff
 
-  const format_portion = `
-You must output in the following format - without any preamble or conclusion:
-- First line: A single sentence giving a concise summary of the changes written.
-- Second line: completely blank - not even any spaces.
-- Then add bullet points (lines that start with a dash).
-- And nothing else.
-`.trim()
+  let user_prompt = EMPTY
 
-  let result = EMPTY
+  user_prompt += "<diffstat>" + LF + diffstat + "</diffstat>" + LF + LF
 
-  result += "<diffstat>" + LF + diffstat + "</diffstat>" + LF + LF
-
-  result += "<diff>" + LF + diff_truncated + "</diff>" + LF + LF
+  user_prompt += "<diff>" + LF + diff_truncated + "</diff>" + LF + LF
 
   if (truncate) {
-    result += "Please note: the Diff above has been truncated" + LF + LF
+    user_prompt += "Please note: the Diff above has been truncated" + LF + LF
   }
 
-  result += format_portion + LF + LF
+  user_prompt += portion_format(has_structured_json) + LF
 
-  return result.trim()
+  return user_prompt.trim()
 }

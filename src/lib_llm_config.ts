@@ -8,6 +8,7 @@ export default {}
 
 export interface LlmConfig {
   llm_model_name: string
+  llm_model_detail: LlmModelDetail
   llm_model_code: string
   llm_provider: LlmProvider
   llm_api_key: string
@@ -18,18 +19,13 @@ export function get_llm_config({
   llm_model_name,
   llm_router,
 }: {llm_model_details: Array<LlmModelDetail>; llm_model_name: string; llm_router: boolean}): LlmConfig {
+  const llm_model_detail = lib_llm_model.find_model({llm_model_details, llm_model_name})
+
   const access = lib_llm_model.get_model_access({llm_model_details, llm_model_name, llm_router})
 
-  const llm_model_code = access.llm_model_code
-  const llm_provider = access.llm_provider
-  const llm_api_key = access.llm_api_key
+  const {llm_model_code, llm_provider, llm_api_key} = access
 
-  return {
-    llm_model_name,
-    llm_model_code,
-    llm_provider,
-    llm_api_key,
-  }
+  return {llm_model_name, llm_model_detail, llm_model_code, llm_provider, llm_api_key}
 }
 
 export function all_llm_configs({
