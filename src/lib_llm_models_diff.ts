@@ -77,7 +77,7 @@ const DETAILS = [
   },
 ] as const satisfies Array<LlmModelDetail>
 
-export type LlmModelNamesDiff = (typeof DETAILS)[number]["llm_model_name"]
+type LlmModelNamesDiff = (typeof DETAILS)[number]["llm_model_name"]
 
 export function get_details(): Array<LlmModelDetail> {
   return DETAILS
