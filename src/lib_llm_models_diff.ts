@@ -75,15 +75,6 @@ const DETAILS = [
     cents_output: 50,
     has_structured_json: true,
   },
-  {
-    llm_model_name: "glm-4-32b",
-    llm_provider: null,
-    llm_model_code_direct: null,
-    llm_model_code_openrouter: "thudm/glm-4-32b",
-    cents_input: 24,
-    cents_output: 24,
-    has_structured_json: false,
-  },
 ] as const satisfies Array<LlmModelDetail>
 
 export type LlmModelNamesDiff = (typeof DETAILS)[number]["llm_model_name"]
