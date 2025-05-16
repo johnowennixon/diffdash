@@ -127,9 +127,11 @@ async function phase_compare({config, git}: {config: DiffDashConfig; git: Simple
   const diffstat = await lib_git_simple_staging.get_staged_diffstat(git)
   const diff = await lib_git_simple_staging.get_staged_diff(git)
 
+  const inputs = {diffstat, diff}
+
   // Create an array of promises for parallel execution
   const generate_result_promises = all_llm_configs.map((llm_config) =>
-    lib_git_message_generate.generate_message({llm_config, diffstat, diff}),
+    lib_git_message_generate.generate_message({llm_config, inputs}),
   )
 
   // Wait for all messages to be generated in parallel
@@ -164,7 +166,9 @@ async function phase_commit({config, git}: {config: DiffDashConfig; git: SimpleG
   const diffstat = await lib_git_simple_staging.get_staged_diffstat(git)
   const diff = await lib_git_simple_staging.get_staged_diff(git)
 
-  const generate_result = await lib_git_message_generate.generate_message({llm_config, diffstat, diff})
+  const inputs = {diffstat, diff}
+
+  const generate_result = await lib_git_message_generate.generate_message({llm_config, inputs})
 
   let message = generate_result.llm_response
 

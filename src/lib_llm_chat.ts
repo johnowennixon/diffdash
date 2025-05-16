@@ -1,5 +1,5 @@
 import {generateObject, generateText} from "ai"
-import type {z, ZodType} from "zod"
+import type {ZodType, z} from "zod"
 
 import * as lib_debug from "./lib_debug.js"
 import * as lib_env from "./lib_env.js"
@@ -56,12 +56,12 @@ export async function llm_generate_text({
   return response_text
 }
 
-export async function llm_generate_object<S>({
+export async function llm_generate_object<S extends ZodType>({
   llm_config,
   user_prompt,
   system_prompt,
   schema,
-}: {llm_config: LlmConfig; user_prompt: string; system_prompt: string; schema: S extends ZodType<any, any, any>}): Promise<z.infer<S>> {
+}: {llm_config: LlmConfig; user_prompt: string; system_prompt: string; schema: S}): Promise<z.TypeOf<S>> {
   const {llm_provider, llm_model_code, llm_api_key} = llm_config
 
   if (lib_debug.channels.llm_inputs) {

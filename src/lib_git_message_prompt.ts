@@ -69,7 +69,7 @@ Everything you write will be checked for validity and then saved directly to Git
 Therefore, you must just output the Git message itself without any introductory or concluding sections.
 `.trim() + LF
 
-export function get_system_prompt(has_structured_json: boolean): string {
+export function get_system_prompt({has_structured_json}: {has_structured_json: boolean}): string {
   let system_prompt = EMPTY
 
   system_prompt += portion_role + LF
@@ -82,7 +82,10 @@ export function get_system_prompt(has_structured_json: boolean): string {
   return system_prompt.trim()
 }
 
-export function get_user_prompt(has_structured_json: boolean, inputs: GitMessagePromptInputs): string {
+export function get_user_prompt({
+  has_structured_json,
+  inputs,
+}: {has_structured_json: boolean; inputs: GitMessagePromptInputs}): string {
   const {diffstat, diff} = inputs
 
   const truncate = diff.length > MAX_LENGTH

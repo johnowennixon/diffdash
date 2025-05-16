@@ -19,11 +19,11 @@ export interface GitMessageGenerateResult {
   llm_response: string
 }
 
-async function generate_message_unstructured(
-  llm_config: LlmConfig,
-  system_prompt: string,
-  user_prompt: string,
-): Promise<GitMessageGenerateResult> {
+async function generate_message_unstructured({
+  llm_config,
+  system_prompt,
+  user_prompt,
+}: {llm_config: LlmConfig; system_prompt: string; user_prompt: string}): Promise<GitMessageGenerateResult> {
   // Try calling the LLM API to generate a message
   try {
     const llm_response = await lib_llm_chat.llm_generate_text({llm_config, system_prompt, user_prompt})
@@ -40,15 +40,22 @@ async function generate_message_unstructured(
   }
 }
 
-async function generate_message_structured(
-  llm_config: LlmConfig,
-  system_prompt: string,
-  user_prompt: string,
-): Promise<GitMessageGenerateResult> {
+async function generate_message_structured({
+  llm_config,
+  system_prompt,
+  user_prompt,
+}: {llm_config: LlmConfig; system_prompt: string; user_prompt: string}): Promise<GitMessageGenerateResult> {
   const schema = lib_git_message_schema.git_commit_message_schema
 
   try {
-    const llm_response = await lib_llm_chat.llm_generate_object({llm_config, system_prompt, user_prompt, schema})
+    const llm_response_structured = await lib_llm_chat.llm_generate_object({
+      llm_config,
+      system_prompt,
+      user_prompt,
+      schema,
+    })
+
+    const llm_response = lib_git_message_schema.format_git_commit_message(llm_response_structured)
 
     return {
       llm_config,
@@ -61,17 +68,17 @@ async function generate_message_structured(
   }
 }
 
-export async function generate_message(
-  llm_config: LlmConfig,
-  inputs: GitMessagePromptInputs,
-): Promise<GitMessageGenerateResult> {
+export async function generate_message({
+  llm_config,
+  inputs,
+}: {llm_config: LlmConfig; inputs: GitMessagePromptInputs}): Promise<GitMessageGenerateResult> {
   const {has_structured_json} = llm_config.llm_model_detail
 
-  const system_prompt = lib_git_message_prompt.get_system_prompt(has_structured_json)
+  const system_prompt = lib_git_message_prompt.get_system_prompt({has_structured_json})
 
-  const user_prompt = lib_git_message_prompt.get_user_prompt(has_structured_json, inputs)
+  const user_prompt = lib_git_message_prompt.get_user_prompt({has_structured_json, inputs})
 
   return has_structured_json
-    ? generate_message_structured(llm_config, system_prompt, user_prompt)
-    : generate_message_unstructured(llm_config, system_prompt, user_prompt)
+    ? generate_message_structured({llm_config, system_prompt, user_prompt})
+    : generate_message_unstructured({llm_config, system_prompt, user_prompt})
 }
