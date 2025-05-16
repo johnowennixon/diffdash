@@ -135,15 +135,21 @@ async function phase_compare({config, git}: {config: DiffDashConfig; git: Simple
   )
 
   // Wait for all messages to be generated in parallel
-  const all_generate_results = await Promise.all(generate_result_promises)
+  const all_generate_results = await Promise.allSettled(generate_result_promises)
 
   // Display all generated messages
-  for (const generate_result of all_generate_results) {
-    const {llm_config} = generate_result
+  for (const [index, generate_result] of all_generate_results.entries()) {
+    // biome-ignore lint/style/noNonNullAssertion: <explanation>
+    const llm_config = all_llm_configs[index]!
+
+    if (generate_result.status !== "fulfilled") {
+      lib_tell.warning(`Failed for LLM model ${lib_llm_config.get_llm_model_via(llm_config)}`)
+      continue
+    }
 
     lib_tell.info(`Git commit message from ${lib_llm_config.get_llm_model_via(llm_config)}:`)
 
-    let message = generate_result.llm_response_text
+    let message = generate_result.value
 
     const validation_result = lib_git_message_validate.get_valid(message)
 
@@ -168,9 +174,11 @@ async function phase_commit({config, git}: {config: DiffDashConfig; git: SimpleG
 
   const inputs = {diffstat, diff}
 
-  const generate_result = await lib_git_message_generate.generate_message({llm_config, inputs})
-
-  let message = generate_result.llm_response_text
+  let message = await lib_git_message_generate.generate_message({llm_config, inputs}).catch(() => {
+    lib_abort.with_error(
+      `Failed to generate a commit message using LLM ${lib_llm_config.get_llm_model_via(llm_config)}`,
+    )
+  })
 
   lib_git_message_validate.check_valid(message)
 
