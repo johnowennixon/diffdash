@@ -22,7 +22,7 @@ export async function llm_generate_text({
   user_prompt,
   system_prompt,
 }: {llm_config: LlmConfig; user_prompt: string; system_prompt: string}): Promise<string> {
-  const {llm_provider, llm_model_code, llm_api_key} = llm_config
+  const {llm_model_name, llm_provider, llm_model_code, llm_api_key} = llm_config
 
   const ai_sdk_language_model = lib_llm_provider.get_ai_sdk_language_model({
     llm_model_code,
@@ -46,7 +46,9 @@ export async function llm_generate_text({
   // This is liable to throw an error
   const llm_outputs = await generateText(llm_inputs)
 
-  lib_debug.inspect_when(lib_debug.channels.llm_outputs, llm_outputs, "llm_outputs")
+  lib_debug.tell_when(lib_debug.channels.llm_outputs, `llm_model_name = ${llm_model_name}`)
+  lib_debug.inspect_when(lib_debug.channels.llm_outputs, llm_outputs.finishReason, "llm_outputs.finishReason")
+  lib_debug.inspect_when(lib_debug.channels.llm_outputs, llm_outputs.text, "llm_outputs.text")
 
   return llm_outputs.text
 }
@@ -57,7 +59,7 @@ export async function llm_generate_object<T>({
   system_prompt,
   schema,
 }: {llm_config: LlmConfig; user_prompt: string; system_prompt: string; schema: ZodType<T>}): Promise<T> {
-  const {llm_provider, llm_model_code, llm_api_key} = llm_config
+  const {llm_model_name, llm_provider, llm_model_code, llm_api_key} = llm_config
 
   const ai_sdk_language_model = lib_llm_provider.get_ai_sdk_language_model({
     llm_model_code,
@@ -80,9 +82,11 @@ export async function llm_generate_object<T>({
   lib_debug.inspect_when(lib_debug.channels.llm_inputs, llm_inputs, "llm_inputs")
 
   // This is liable to throw an error
-  const llm_outputs = await generateObject(llm_inputs)
+  const llm_outputs = await generateObject<T>(llm_inputs)
 
-  lib_debug.inspect_when(lib_debug.channels.llm_outputs, llm_outputs, "llm_outputs")
+  lib_debug.tell_when(lib_debug.channels.llm_outputs, `llm_model_name = ${llm_model_name}`)
+  lib_debug.inspect_when(lib_debug.channels.llm_outputs, llm_outputs.finishReason, "llm_outputs.finishReason")
+  lib_debug.inspect_when(lib_debug.channels.llm_outputs, llm_outputs.object, "llm_outputs.object")
 
   return llm_outputs.object
 }
