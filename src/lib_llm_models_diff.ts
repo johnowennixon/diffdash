@@ -84,15 +84,6 @@ const DETAILS: Array<LlmModelDetail> = [
     cents_output: 24,
     has_structured_json: false,
   },
-  {
-    llm_model_name: "mercury-coder-small",
-    llm_provider: null,
-    llm_model_code_direct: null,
-    llm_model_code_openrouter: "inception/mercury-coder-small-beta",
-    cents_input: 25,
-    cents_output: 100,
-    has_structured_json: false,
-  },
 ]
 
 export function get_details(): Array<LlmModelDetail> {
