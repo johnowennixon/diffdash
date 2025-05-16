@@ -94,5 +94,6 @@ export async function llm_generate_object<S extends ZodType>({
 
   lib_debug.inspect_when(lib_debug.channels.llm_results, object, "llm_result_object")
 
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
   return object
 }
