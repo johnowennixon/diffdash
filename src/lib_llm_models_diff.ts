@@ -10,7 +10,7 @@ const DETAILS: Array<LlmModelDetail> = [
     llm_model_code_openrouter: "openai/gpt-4.1-mini",
     cents_input: 40,
     cents_output: 160,
-    has_structured_json: false,
+    has_structured_json: true,
   },
   {
     llm_model_name: "claude-3.5-haiku",

@@ -143,7 +143,7 @@ async function phase_compare({config, git}: {config: DiffDashConfig; git: Simple
 
     lib_tell.info(`Git commit message from ${lib_llm_config.get_llm_model_via(llm_config)}:`)
 
-    let message = generate_result.llm_response
+    let message = generate_result.llm_response_text
 
     const validation_result = lib_git_message_validate.get_valid(message)
 
@@ -170,7 +170,7 @@ async function phase_commit({config, git}: {config: DiffDashConfig; git: SimpleG
 
   const generate_result = await lib_git_message_generate.generate_message({llm_config, inputs})
 
-  let message = generate_result.llm_response
+  let message = generate_result.llm_response_text
 
   lib_git_message_validate.check_valid(message)
 
