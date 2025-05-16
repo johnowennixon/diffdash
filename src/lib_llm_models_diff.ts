@@ -2,7 +2,7 @@ import type {LlmModelDetail} from "./lib_llm_model.js"
 
 export default {}
 
-const DETAILS: Array<LlmModelDetail> = [
+const DETAILS = [
   {
     llm_model_name: "gpt-4.1-mini",
     llm_provider: "openai",
@@ -84,18 +84,18 @@ const DETAILS: Array<LlmModelDetail> = [
     cents_output: 24,
     has_structured_json: false,
   },
-]
+] as const satisfies Array<LlmModelDetail>
+
+export type LlmModelNamesDiff = (typeof DETAILS)[number]["llm_model_name"]
 
 export function get_details(): Array<LlmModelDetail> {
   return DETAILS
 }
 
-export function get_default_model_name(): string {
-  // Not type-checked but must be one of the above models
+export function get_default_model_name(): LlmModelNamesDiff {
   return "gpt-4.1-mini"
 }
 
-export function get_fallback_model_name(): string {
-  // Not type-checked but must be one of the above models
+export function get_fallback_model_name(): LlmModelNamesDiff {
   return "claude-3.5-haiku"
 }
