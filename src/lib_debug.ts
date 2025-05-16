@@ -1,3 +1,4 @@
+import * as lib_ansi from "./lib_ansi.js"
 import {EMPTY} from "./lib_char.js"
 import * as lib_enabled from "./lib_enabled.js"
 import * as lib_inspect from "./lib_inspect.js"
@@ -51,17 +52,21 @@ function init(): void {
 
 init()
 
+export function tell_when(when: boolean | undefined, message: string): void {
+  if (when !== undefined && when) {
+    lib_tell.debug(message)
+  }
+}
+
 export function inspect(obj: unknown, name: string | null = null): void {
   const prefix = name ? `${name}: ` : EMPTY
   const message = prefix + lib_inspect.obj_to_string(obj)
-  lib_stdio.write_stderr_linefeed(message)
+  lib_stdio.write_stderr_linefeed(lib_ansi.grey(message))
 }
 
 export function inspect_if(obj: unknown, name: string | null = null): void {
   if (obj !== undefined) {
-    const prefix = name ? `${name}: ` : EMPTY
-    const message = prefix + lib_inspect.obj_to_string(obj)
-    lib_stdio.write_stderr_linefeed(message)
+    inspect(obj, name)
   }
 }
 
