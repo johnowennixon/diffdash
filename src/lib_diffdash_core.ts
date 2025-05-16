@@ -1,4 +1,5 @@
 import * as lib_abort from "./lib_abort.js"
+import * as lib_assert from "./lib_assert.js"
 import * as lib_debug from "./lib_debug.js"
 import type {DiffDashConfig} from "./lib_diffdash_config.js"
 import * as lib_diffdash_modify from "./lib_diffdash_modify.js"
@@ -129,21 +130,17 @@ async function phase_compare({config, git}: {config: DiffDashConfig; git: Simple
 
   const inputs = {diffstat, diff}
 
-  // Create an array of promises for parallel execution
   const generate_result_promises = all_llm_configs.map((llm_config) =>
     lib_git_message_generate.generate_message({llm_config, inputs}),
   )
 
-  // Wait for all messages to be generated in parallel
   const all_generate_results = await Promise.allSettled(generate_result_promises)
 
-  // Display all generated messages
   for (const [index, generate_result] of all_generate_results.entries()) {
-    // biome-ignore lint/style/noNonNullAssertion: <explanation>
-    const llm_config = all_llm_configs[index]!
+    const llm_config = lib_assert.not_undefined(all_llm_configs[index])
 
     if (generate_result.status !== "fulfilled") {
-      lib_tell.warning(`Failed for LLM model ${lib_llm_config.get_llm_model_via(llm_config)}`)
+      lib_tell.warning(`Failed to generate a commit message using LLM ${lib_llm_config.get_llm_model_via(llm_config)}`)
       continue
     }
 
