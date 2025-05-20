@@ -6,12 +6,6 @@ import type {LlmConfig} from "./lib_llm_config.js"
 
 export default {}
 
-export interface GitMessageGenerateParams {
-  llm_config: LlmConfig
-  diffstat: string
-  diff: string
-}
-
 async function generate_message_unstructured({
   llm_config,
   system_prompt,

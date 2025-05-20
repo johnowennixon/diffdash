@@ -4,6 +4,7 @@ import * as lib_debug from "./lib_debug.js"
 import type {DiffDashConfig} from "./lib_diffdash_config.js"
 import * as lib_diffdash_modify from "./lib_diffdash_modify.js"
 import * as lib_git_message_generate from "./lib_git_message_generate.js"
+import type {GitMessagePromptInputs} from "./lib_git_message_prompt.js"
 import * as lib_git_message_ui from "./lib_git_message_ui.js"
 import * as lib_git_message_validate from "./lib_git_message_validate.js"
 import * as lib_git_simple_open from "./lib_git_simple_open.js"
@@ -128,7 +129,7 @@ async function phase_compare({config, git}: {config: DiffDashConfig; git: Simple
   const diffstat = await lib_git_simple_staging.get_staged_diffstat(git)
   const diff = await lib_git_simple_staging.get_staged_diff(git)
 
-  const inputs = {diffstat, diff}
+  const inputs: GitMessagePromptInputs = {diffstat, diff}
 
   const generate_result_promises = all_llm_configs.map((llm_config) =>
     lib_git_message_generate.generate_message({llm_config, inputs}),
@@ -169,7 +170,7 @@ async function phase_commit({config, git}: {config: DiffDashConfig; git: SimpleG
   const diffstat = await lib_git_simple_staging.get_staged_diffstat(git)
   const diff = await lib_git_simple_staging.get_staged_diff(git)
 
-  const inputs = {diffstat, diff}
+  const inputs: GitMessagePromptInputs = {diffstat, diff}
 
   let message = await lib_git_message_generate.generate_message({llm_config, inputs}).catch(() => {
     lib_abort.with_error(
