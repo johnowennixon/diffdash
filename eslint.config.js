@@ -117,7 +117,7 @@ const rules_sonarjs = {
 }
 
 const rules_stylistic = {
-  ...plugin_stylistic.configs["recommended-flat"].rules,
+  ...plugin_stylistic.configs.recommended.rules,
 
   "@stylistic/arrow-parens": "off",
   "@stylistic/block-spacing": "off",
@@ -243,7 +243,7 @@ const rules_unicorn = {
 const configs = [
   {
     name: "local/ignores",
-    ignores: ["**/dist"],
+    ignores: ["**/dist", "**/out"],
   },
 
   ...typescript_eslint.configs.recommendedTypeChecked,
