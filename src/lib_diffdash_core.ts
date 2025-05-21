@@ -1,5 +1,5 @@
 import * as lib_abort from "./lib_abort.js"
-import * as lib_assert from "./lib_assert.js"
+import * as lib_assert_defined from "./lib_assert_defined.js"
 import * as lib_debug from "./lib_debug.js"
 import type {DiffDashConfig} from "./lib_diffdash_config.js"
 import * as lib_diffdash_modify from "./lib_diffdash_modify.js"
@@ -138,7 +138,7 @@ async function phase_compare({config, git}: {config: DiffDashConfig; git: Simple
   const all_generate_results = await Promise.allSettled(generate_result_promises)
 
   for (const [index, generate_result] of all_generate_results.entries()) {
-    const llm_config = lib_assert.not_undefined(all_llm_configs[index])
+    const llm_config = lib_assert_defined.is_defined(all_llm_configs[index])
 
     if (generate_result.status !== "fulfilled") {
       lib_tell.warning(`Failed to generate a commit message using LLM ${lib_llm_config.get_llm_model_via(llm_config)}`)
