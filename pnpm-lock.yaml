@@ -32,6 +32,9 @@ importers:
       simple-git:
         specifier: 3.27.0
         version: 3.27.0
+      tiktoken:
+        specifier: 1.0.21
+        version: 1.0.21
       zod:
         specifier: 3.25.7
         version: 3.25.7
@@ -1933,6 +1936,9 @@ packages:
   throttleit@2.1.0:
     resolution: {integrity: sha512-nt6AMGKW1p/70DF/hGBdJB57B8Tspmbp5gfJ8ilhLnt7kkr2ye7hzD6NVG8GGErk2HWF34igrL2CXmNIkzKqKw==}
     engines: {node: '>=18'}
+
+  tiktoken@1.0.21:
+    resolution: {integrity: sha512-/kqtlepLMptX0OgbYD9aMYbM7EFrMZCL7EoHM8Psmg2FuhXoo/bH64KqOiZGGwa6oS9TPdSEDKBnV2LuB8+5vQ==}
 
   tinyglobby@0.2.13:
     resolution: {integrity: sha512-mEwzpUgrLySlveBwEVDMKk5B57bhLPYovRfPAXD5gA/98Opn0rCDj3GtLwFvCvH5RK9uPCExUROW5NjDwvqkxw==}
@@ -4078,6 +4084,8 @@ snapshots:
       use-sync-external-store: 1.5.0(react@19.1.0)
 
   throttleit@2.1.0: {}
+
+  tiktoken@1.0.21: {}
 
   tinyglobby@0.2.13:
     dependencies:

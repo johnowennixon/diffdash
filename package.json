@@ -42,6 +42,7 @@
     "ansis": "4.0.0",
     "argparse": "2.0.1",
     "simple-git": "3.27.0",
+    "tiktoken": "1.0.21",
     "zod": "3.25.7"
   },
   "devDependencies": {
