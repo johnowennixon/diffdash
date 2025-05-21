@@ -67,15 +67,6 @@ const DETAILS = [
     has_structured_json: true,
   },
   {
-    llm_model_name: "gemini-2.5-flash-preview",
-    llm_provider: null,
-    llm_model_code_direct: null,
-    llm_model_code_openrouter: "google/gemini-2.5-flash-preview",
-    cents_input: 15,
-    cents_output: 60,
-    has_structured_json: true,
-  },
-  {
     llm_model_name: "qwen3",
     llm_provider: null,
     llm_model_code_direct: null,
