@@ -45,8 +45,8 @@ const DETAILS = [
   },
   {
     llm_model_name: "deepseek-v3",
-    llm_provider: null,
-    llm_model_code_direct: null,
+    llm_provider: "deepseek",
+    llm_model_code_direct: "deepseek-chat",
     llm_model_code_openrouter: "deepseek/deepseek-chat-v3-0324",
     context_window: 64_000,
     cents_input: 30,
