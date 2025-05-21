@@ -2,8 +2,6 @@ import {EMPTY, LF} from "./lib_char.js"
 
 export default {}
 
-const MAX_LENGTH = 100_000
-
 export interface GitMessagePromptInputs {
   diffstat: string
   diff: string
@@ -85,12 +83,13 @@ export function get_system_prompt({has_structured_json}: {has_structured_json: b
 export function get_user_prompt({
   has_structured_json,
   inputs,
-}: {has_structured_json: boolean; inputs: GitMessagePromptInputs}): string {
+  max_length,
+}: {has_structured_json: boolean; inputs: GitMessagePromptInputs; max_length: number}): string {
   const {diffstat, diff} = inputs
 
-  const truncate = diff.length > MAX_LENGTH
+  const truncate = diffstat.length + diff.length > max_length
 
-  const diff_truncated = truncate ? diff.slice(0, MAX_LENGTH) + LF : diff
+  const diff_truncated = truncate ? diff.slice(0, max_length - diffstat.length) + LF : diff
 
   let user_prompt = EMPTY
 
