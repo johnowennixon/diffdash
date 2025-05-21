@@ -52,6 +52,9 @@ export OPENAI_API_KEY=your-api-key
 # For Anthropic
 export ANTHROPIC_API_KEY=your-api-key
 
+# For DeepSeek
+export DEEPSEEK_API_KEY=your-api-key
+
 # For Google Gemini
 export GEMINI_API_KEY=your-api-key
 ```

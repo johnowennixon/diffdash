@@ -98,7 +98,7 @@ Defines and manages the available LLM models for the DiffDash tool. Provides a m
 
 #### lib_llm_provider.ts
 
-Provides utilities for working with different LLM providers including Anthropic, Google, OpenAI, and OpenRouter. Exports functions to retrieve provider information, access API keys from environment variables, and create AI SDK language model instances. Serves as a central point for provider-specific operations and standardizes provider interfaces.
+Provides utilities for working with different LLM providers including Anthropic, DeepSeek, Google, OpenAI, and OpenRouter. Exports functions to retrieve provider information, access API keys from environment variables, and create AI SDK language model instances. Serves as a central point for provider-specific operations and standardizes provider interfaces.
 
 #### lib_package_details.ts
 

@@ -162,7 +162,7 @@
 
 * **External Interfaces:**
   * **Git Interface:** Communicates with Git repositories through the simple-git library.
-  * **LLM Provider APIs:** Interfaces with OpenAI, Anthropic, Google Gemini, and OpenRouter through the Vercel AI SDK.
+  * **LLM Provider APIs:** Interfaces with OpenAI, Anthropic, DeepSeek, Google Gemini, and OpenRouter through the Vercel AI SDK.
   * **Environment Variables:** Reads API keys and other configuration from environment variables.
 
 * **User Interface:**
@@ -197,11 +197,11 @@
   |  |                                       |  |  |       | APIs          |
   |  |  Local Git Repository                 |  |  +------>+  - OpenAI     |
   |  |                                       |  |          |  - Anthropic  |
-  |  +------------------+--------------------+  |          |  - Google     |
+  |  +------------------+--------------------+  |          |  - DeepSeek   |
+  |                     |                       |          |  - Google     |
   |                     |                       |          |  - OpenRouter |
-  |                     |                       |          |               |
-  |  +------------------v--------------------+  |          +---------------+
-  |  |                                       |  |
+  |  +------------------v--------------------+  |          |               |
+  |  |                                       |  |          +---------------+
   |  |  Remote Git Repository (Optional)     |  |
   |  |                                       |  |
   |  +---------------------------------------+  |
