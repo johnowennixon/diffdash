@@ -24,6 +24,10 @@ Manages ANSI escape sequences for terminal text formatting and colors. Provides 
 
 Implements advanced type inference for command-line arguments using TypeScript's type system. Provides automatic type derivation from function signatures for strongly-typed CLI interfaces. Creates a declarative pattern for defining command arguments with proper TypeScript typing.
 
+#### lib_assert_defined.ts
+
+Provides utility functions for ensuring values are defined before use. Implements a type-safe assertion function that throws a descriptive error when an undefined value is encountered. Helps prevent runtime errors from undefined values propagating through the application.
+
 #### lib_char.ts
 
 Defines constants for frequently used character literals to maintain consistency across the codebase. Provides named references for special characters, whitespace, and punctuation marks. Implements character classification functions for identifying character types and properties.
@@ -59,6 +63,10 @@ Handles the generation of Git commit messages using Large Language Models. Coord
 #### lib_git_message_prompt.ts
 
 Constructs prompts for LLM-based Git commit message generation. Exports functions to create system and user prompts incorporating Git diff information, original messages, and custom instructions for LLM-based message generation.
+
+#### lib_git_message_schema.ts
+
+Defines the structure and formatting rules for Git commit messages using Zod schema validation. Implements a standardized message format with a summary line and optional detailed explanation lines. Provides utility functions to format compliant commit messages with proper spacing and bullet points.
 
 #### lib_git_message_ui.ts
 
@@ -99,6 +107,10 @@ Defines and manages the available LLM models for the DiffDash tool. Provides a m
 #### lib_llm_provider.ts
 
 Provides utilities for working with different LLM providers including Anthropic, DeepSeek, Google, OpenAI, and OpenRouter. Exports functions to retrieve provider information, access API keys from environment variables, and create AI SDK language model instances. Serves as a central point for provider-specific operations and standardizes provider interfaces.
+
+#### lib_llm_tokens.ts
+
+Provides utilities for estimating token counts in text sent to large language models. Implements model-specific token counting for accurate cost estimation and context length management. Uses the tiktoken library for OpenAI models and fallback estimation methods for other providers.
 
 #### lib_package_details.ts
 
@@ -149,6 +161,10 @@ Manages configuration settings for the DiffDash commit message generation tool. 
 #### lib_diffdash_core.ts
 
 Implements the core application flow for the DiffDash tool with the main sequence of operations. Orchestrates repository validation, staged changes detection, status display, message generation, and commit creation in a logical workflow. Provides a detailed listing of files staged for commit with clear categorization of new, modified, renamed, and deleted files. Provides user confirmation prompts at key decision points and handles optional push operations after commit.
+
+#### lib_diffdash_modify.ts
+
+Provides utilities for modifying Git commit messages with prefixes, suffixes, and standardized footers. Implements functions to add text to the beginning or end of the first line of a commit message. Includes functionality to append a footer with timestamp, program name, version, and LLM model information.
 
 #### lib_diffdash_footer.ts
 
