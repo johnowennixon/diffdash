@@ -44,7 +44,7 @@
     "argparse": "2.0.1",
     "simple-git": "3.27.0",
     "tiktoken": "1.0.21",
-    "zod": "3.25.17"
+    "zod": "3.25.20"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
@@ -62,7 +62,7 @@
     "eslint-plugin-sonarjs": "3.0.2",
     "eslint-plugin-unicorn": "59.0.1",
     "globals": "16.1.0",
-    "knip": "5.57.0",
+    "knip": "5.57.1",
     "markdownlint-cli2": "0.18.1",
     "npm-run-all2": "8.0.3",
     "rimraf": "6.0.1",
