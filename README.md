@@ -40,7 +40,7 @@ npm link
 
 ## API Keys
 
-DiffDash requires at least one API keys for an LLM provider. These must be provided as environment variables.
+DiffDash requires at least one API key for an LLM provider. These must be provided as environment variables.
 
 ```bash
 # For OpenRouter

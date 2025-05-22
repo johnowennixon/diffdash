@@ -55,7 +55,7 @@ The primary users of DiffDash shall be software developers who:
 
 DiffDash shall operate in:
 
-* Node.js runtime environment (v22+)
+* Node.js runtime environment (v20+)
 * Command-line terminal environments on major operating systems (Linux, macOS, Windows)
 * Git repositories (local and connected to remote repositories)
 
@@ -182,7 +182,7 @@ As agreed by stakeholders:
 
 ### 7.2 Technical
 
-* The system shall be compatible with Node.js v18 and above
+* The system shall be compatible with Node.js v20 and above
 * The system shall run on standard command-line terminals
 * The system shall work with Git version 2.0 and above
 

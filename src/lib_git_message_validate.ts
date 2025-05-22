@@ -48,7 +48,7 @@ export function get_valid(message: string): GitMessageValidationResult {
     }
   }
 
-  // Check for missing blank line after summary
+  // Check that there is at least one bullet point
   const lines = message.trim().split(LF)
 
   if (lines.length < 3) {
