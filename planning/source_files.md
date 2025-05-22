@@ -58,7 +58,7 @@ Manages file path operations with cross-platform compatibility and normalization
 
 #### lib_git_message_generate.ts
 
-Handles the generation of Git commit messages using Large Language Models. Coordinates prompt creation, LLM API calls, message validation, and footer addition for a seamless message generation process. Provides utilities to format and enhance the generated message for optimal commit history.
+Generates Git commit messages using Large Language Models with structured prompts about code changes. Coordinates the creation of system and user prompts with diffstat and diff information. Handles API communication with LLM providers and returns formatted commit message responses.
 
 #### lib_git_message_prompt.ts
 
@@ -138,7 +138,7 @@ Implements text-based user interface components for displaying formatted blocks 
 
 #### lib_tui_justify.ts
 
-Provides text justification utilities for aligning text in terminal interfaces. Implements functions for left, right, center, and zero-padded justification with customizable width. Includes optional truncation with ellipsis for handling text that exceeds specified width.
+Provides text justification utilities for terminal user interfaces with left, right, and center alignment options. Implements padding and truncation with customizable behavior for complex text layouts. Includes special handling for zero-padded numeric displays.
 
 #### lib_tui_readline.ts
 
@@ -150,7 +150,7 @@ Provides text truncation utilities for handling long strings in terminal interfa
 
 #### lib_type_infer.ts
 
-Provides advanced TypeScript utility types for type inference and manipulation. Implements the Expand type for expanding complex type structures and InferLowercasePropertiesFromStringArray for converting string arrays to object property types.
+Contains TypeScript utility types for advanced type manipulations. Implements helper types like Expand for better type inference and display in editors.
 
 ### DiffDash Libraries
 
