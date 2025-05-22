@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import * as lib_ansi from "./lib_ansi.js"
+import {blue, italic, red} from "./lib_ansi.js"
 import * as lib_diffdash_config from "./lib_diffdash_config.js"
 import * as lib_diffdash_core from "./lib_diffdash_core.js"
 import * as lib_error from "./lib_error.js"
@@ -18,7 +18,8 @@ async function main(): Promise<void> {
   }
 
   if (!silent) {
-    lib_tell.plain(`This is ${lib_ansi.italic("DiffDash")} - the fast AI Git commit tool`)
+    const diffdash = italic(blue("Diff") + red("Dash"))
+    lib_tell.plain(`This is ${diffdash} - the fast AI Git commit tool`)
   }
 
   await (config.compare ? lib_diffdash_core.sequence_compare(config) : lib_diffdash_core.sequence_normal(config))
