@@ -10,7 +10,7 @@ A command-line tool to generate Git commit messages using AI.
 * Compare messages generated from all configured models
 * Configuration using standard API provider environment variables
 * Adds a footer to the generated commit messages
-* Options to disable or approve various stages of the process
+* Options to disable or auto-approve various stages of the process
 * Uses the Vercel AI SDK
 * Uses structured JSON with compatible models
 * Substantially written using AI coding (Claude Code, Roo Code, & Amp)
@@ -139,6 +139,16 @@ All command-line arguments are optional.
 | `--llm-router` | prefer to access the LLM via a router rather than direct |
 | `--debug-llm-inputs` | show inputs (including all prompts) sent to the LLM |
 | `--debug-llm-outputs` | show outputs received from the LLM |
+
+## Files containing secrets
+
+Files containing secrets should probably not be in Git. But if they are, you can add an entry to a `.gitattributes` file with value `-diff` to prevent them being viewable by a Git diff. This will prevent DiffDash from sending any contents to the LLM. For example:
+
+```text
+# This is file .gitattributes
+
+.env  -diff
+```
 
 ## Development
 
