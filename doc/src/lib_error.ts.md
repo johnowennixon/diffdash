@@ -1,0 +1,1 @@
+Provides error handling utilities for different error scenarios. Implements functions to ignore errors, log errors to the console, and abort program execution with error messages. Ensures consistent error handling behavior across the application.

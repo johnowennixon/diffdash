@@ -1,0 +1,1 @@
+Manages LLM model details, availability, and access across different providers. Defines interfaces for model details and access patterns with functions to find models by name and check availability based on API keys. Provides utilities for obtaining model access information with fallback mechanisms between direct provider access and OpenRouter.

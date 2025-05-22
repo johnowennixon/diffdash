@@ -1,0 +1,1 @@
+Provides utilities for estimating token counts for text sent to language models. Implements model-specific token counting using tiktoken library for supported models. Falls back to character-based estimation for models without specific tokenizers.

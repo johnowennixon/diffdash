@@ -1,0 +1,1 @@
+Main entry point for the DiffDash tool. Orchestrates the process of configuring the application, validating the Git repository, analyzing staged changes, generating commit messages, and obtaining user confirmation before committing changes.

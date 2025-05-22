@@ -1,0 +1,1 @@
+Constructs prompts for LLM-based Git commit message generation. Exports functions to create system and user prompts incorporating Git diff information, original messages, and custom instructions for LLM-based message generation.

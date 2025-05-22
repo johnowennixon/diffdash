@@ -1,0 +1,1 @@
+Creates interactive command-line prompts for user input. Implements a confirm function that prompts users with yes/no questions and returns boolean results based on user responses. Uses ANSI formatting for improved readability.

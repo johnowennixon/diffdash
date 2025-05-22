@@ -1,0 +1,1 @@
+Provides user-facing message display utilities with formatted output and color support. Implements functions for displaying informational, warning, error, and success messages. Offers utilities for structured output presentation with consistent styling.

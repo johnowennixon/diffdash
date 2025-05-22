@@ -1,0 +1,1 @@
+Generates Git commit messages using Large Language Models with structured prompts about code changes. Coordinates the creation of system and user prompts with diffstat and diff information. Handles API communication with LLM providers and returns formatted commit message responses.

@@ -1,0 +1,1 @@
+Provides functions for handling unrecoverable errors with graceful termination. Implements a standard pattern for displaying error messages to users before exiting the program. Ensures consistent error handling across the codebase with functions that can be used for different severity levels.

@@ -1,0 +1,1 @@
+Implements debugging utilities for capturing and displaying diagnostic information. Provides functions for conditional debugging output with severity levels and source identification. Includes tools for performance monitoring and measuring execution time of operations.

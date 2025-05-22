@@ -1,0 +1,1 @@
+Provides utilities for working with different LLM providers including Anthropic, DeepSeek, Google, OpenAI, and OpenRouter. Exports functions to retrieve provider information, access API keys from environment variables, and create AI SDK language model instances. Serves as a central point for provider-specific operations and standardizes provider interfaces.

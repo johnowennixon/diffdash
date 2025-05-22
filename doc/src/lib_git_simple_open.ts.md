@@ -1,0 +1,1 @@
+Provides functions for opening and validating Git repositories. Implements repository path resolution, existence checking, and validation against bare repositories. Exports the SimpleGit type for use throughout the codebase.

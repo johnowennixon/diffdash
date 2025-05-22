@@ -1,0 +1,1 @@
+Interfaces with Large Language Model APIs for conversational AI functionality. Provides a unified interface for sending messages to different LLM providers. Implements message history management and context handling for maintaining conversation state.

@@ -1,0 +1,1 @@
+Provides type definitions for string-related operations and data structures. Defines utility types such as StringMap, StringPredicate, StringReplacer, and StringObject for consistent string manipulation throughout the codebase. Serves as a centralized location for all string-related TypeScript type definitions.

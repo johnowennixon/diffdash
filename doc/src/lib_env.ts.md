@@ -1,0 +1,1 @@
+Provides utilities for working with environment variables in a type-safe manner. Implements functions for retrieving environment variables with fallbacks, empty defaults, or aborting when missing. Includes type definitions for environment records and methods for setting environment values.

@@ -1,0 +1,1 @@
+Defines a catalog of available LLM models with their provider details and pricing information. Provides functions to retrieve the complete list of supported models and the default model name. Maintains a centralized registry of model specifications for both direct API access and OpenRouter integration.

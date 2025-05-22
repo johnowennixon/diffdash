@@ -1,0 +1,1 @@
+Implements feature flags and conditional enablement with configurable toggle mechanisms. Provides utilities for enabling or disabling functionality based on environment, configuration, or runtime conditions. Includes hierarchical feature flag inheritance and override capabilities.

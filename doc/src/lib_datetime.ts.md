@@ -1,0 +1,1 @@
+Provides comprehensive date and time manipulation utilities with timezone awareness. Implements functions for parsing, formatting, and comparing datetime values with proper locale support. Offers tools for handling time durations, intervals, and date calculations.

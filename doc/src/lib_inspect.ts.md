@@ -1,0 +1,1 @@
+Enhances object inspection and pretty printing for debugging and logging purposes. Provides customizable object serialization with depth control and circular reference handling. Implements colorized output formatting for different data types and structures.

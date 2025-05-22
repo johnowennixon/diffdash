@@ -1,0 +1,1 @@
+Implements user interface components for displaying Git commit messages with proper formatting. Provides functions to present commit messages in a visually appealing format with consistent styling. Utilizes the text block display utilities for terminal output.

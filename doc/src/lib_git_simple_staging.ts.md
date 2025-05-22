@@ -1,0 +1,1 @@
+Provides utilities for working with Git staged changes in a repository. Implements functions to check for staged and unstaged changes, generate diffstat summaries, and retrieve detailed diffs of staged files. Includes functionality for staging all changes and committing staged.
