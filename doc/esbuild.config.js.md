@@ -1,0 +1,1 @@
+This is the esbuild configuration file that defines how to build the DiffDash application from TypeScript source code. It bundles the main entry point `src/diffdash.ts` into a single CommonJS file `out/diffdash.cjs` that can run on Node.js. The configuration specifies the target platform as Node.js and outputs a bundled file suitable for distribution.
