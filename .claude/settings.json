@@ -1,9 +1,12 @@
 {
   "permissions": {
     "allow": [
+      "Bash(docbot)",
+      "Bash(find:*)",
       "Bash(grep:*)",
       "Bash(pnpm run build)",
       "Bash(pnpm run fix:biome)",
+      "Bash(pnpm run fix:markdownlint)",
       "Bash(pnpm run lint)"
     ],
     "deny": [
