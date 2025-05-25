@@ -7,7 +7,7 @@
       "Bash(pnpm run build)",
       "Bash(pnpm run fix:biome)",
       "Bash(pnpm run fix:markdownlint)",
-      "Bash(pnpm run lint)"
+      "Bash(pnpm run lint)",
       "Bash(pnpm run lint:eslint)",
       "Bash(rg:*)"
     ],
