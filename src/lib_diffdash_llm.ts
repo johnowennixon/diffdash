@@ -15,7 +15,7 @@ const model_name_options: Array<LlmModelName> = [
   "gpt-4o-mini",
   "grok-3-mini",
   "mistral-medium-3",
-  "qwen3",
+  "qwen3-235b-a22b",
 ]
 
 export const llm_model_details = lib_llm_model.get_model_details({llm_model_names: model_name_options})
