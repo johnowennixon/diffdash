@@ -15,6 +15,7 @@ export const channels = {
   child_output: false,
   cleanup: false,
   cloudflare: false,
+  config: false,
   data: false,
   detail: false,
   forwarding: false,
