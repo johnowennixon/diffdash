@@ -8,7 +8,7 @@ import {PROGRAM_NAME, PROGRAM_VERSION} from "./lib_package_details.js"
 import * as lib_tell from "./lib_tell.js"
 
 async function main(): Promise<void> {
-  const config = lib_diffdash_config.process_config()
+  const config = lib_diffdash_config.get_config()
 
   const {version, silent} = config
 
