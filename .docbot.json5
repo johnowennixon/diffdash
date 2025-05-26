@@ -1,0 +1,8 @@
+{
+  "source": ".",
+  "doc": "./doc",
+  "copy": "~/jet",
+  "files": {
+    "include": ["src/**"],
+  }
+}
