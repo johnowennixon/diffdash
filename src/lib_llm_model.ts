@@ -1,6 +1,4 @@
 import * as lib_abort from "./lib_abort.js"
-import {COMMA} from "./lib_char.js"
-import * as lib_llm_provider from "./lib_llm_provider.js"
 import type {LlmProvider} from "./lib_llm_provider.js"
 
 export default {}
@@ -16,17 +14,110 @@ export interface LlmModelDetail {
   has_structured_json: boolean
 }
 
-export interface LlmModelAccess {
-  llm_model_code: string
-  llm_provider: LlmProvider
-  llm_api_key: string
+const MODEL_DETAILS = [
+  {
+    llm_model_name: "gpt-4.1-mini",
+    llm_provider: "openai",
+    llm_model_code_direct: "gpt-4.1-mini",
+    llm_model_code_openrouter: "openai/gpt-4.1-mini",
+    context_window: 1_047_576,
+    cents_input: 40,
+    cents_output: 160,
+    has_structured_json: true,
+  },
+  {
+    llm_model_name: "gpt-4o-mini",
+    llm_provider: "openai",
+    llm_model_code_direct: "gpt-4o-mini",
+    llm_model_code_openrouter: "openai/gpt-4o-mini",
+    context_window: 128_000,
+    cents_input: 15,
+    cents_output: 60,
+    has_structured_json: true,
+  },
+  {
+    llm_model_name: "gpt-4.1-nano",
+    llm_provider: "openai",
+    llm_model_code_direct: "gpt-4.1-nano",
+    llm_model_code_openrouter: "openai/gpt-4.1-nano",
+    context_window: 1_047_576,
+    cents_input: 10,
+    cents_output: 40,
+    has_structured_json: true,
+  },
+  {
+    llm_model_name: "claude-3.5-haiku",
+    llm_provider: "anthropic",
+    llm_model_code_direct: "claude-3-5-haiku-latest",
+    llm_model_code_openrouter: "anthropic/claude-3.5-haiku",
+    context_window: 200_000,
+    cents_input: 80,
+    cents_output: 400,
+    has_structured_json: true,
+  },
+  {
+    llm_model_name: "deepseek-v3",
+    llm_provider: "deepseek",
+    llm_model_code_direct: "deepseek-chat",
+    llm_model_code_openrouter: "deepseek/deepseek-chat-v3-0324",
+    context_window: 64_000,
+    cents_input: 30,
+    cents_output: 88,
+    has_structured_json: true,
+  },
+  {
+    llm_model_name: "mistral-medium-3",
+    llm_provider: null,
+    llm_model_code_direct: null,
+    llm_model_code_openrouter: "mistralai/mistral-medium-3",
+    context_window: 131_072,
+    cents_input: 40,
+    cents_output: 200,
+    has_structured_json: true,
+  },
+  {
+    llm_model_name: "gemini-2.0-flash",
+    llm_provider: "google",
+    llm_model_code_direct: "gemini-2.0-flash",
+    llm_model_code_openrouter: "google/gemini-2.0-flash-001",
+    context_window: 1_048_576,
+    cents_input: 10,
+    cents_output: 40,
+    has_structured_json: true,
+  },
+  {
+    llm_model_name: "qwen3",
+    llm_provider: null,
+    llm_model_code_direct: null,
+    llm_model_code_openrouter: "qwen/qwen3-235b-a22b",
+    context_window: 32_000,
+    cents_input: 14,
+    cents_output: 200,
+    has_structured_json: true,
+  },
+  {
+    llm_model_name: "grok-3-mini",
+    llm_provider: null,
+    llm_model_code_direct: null,
+    llm_model_code_openrouter: "x-ai/grok-3-mini-beta",
+    context_window: 131_072,
+    cents_input: 30,
+    cents_output: 50,
+    has_structured_json: true,
+  },
+] as const satisfies Array<LlmModelDetail>
+
+export type LlmModelName = (typeof MODEL_DETAILS)[number]["llm_model_name"]
+
+export function get_model_details({llm_model_names}: {llm_model_names: Array<LlmModelName>}): Array<LlmModelDetail> {
+  return MODEL_DETAILS.filter((detail) => llm_model_names.includes(detail.llm_model_name))
 }
 
-export function get_choices(llm_model_details: Array<LlmModelDetail>): Array<string> {
+export function get_model_choices(llm_model_details: Array<LlmModelDetail>): Array<string> {
   return llm_model_details.map((model) => model.llm_model_name)
 }
 
-export function find_model({
+export function find_model_detail({
   llm_model_details,
   llm_model_name,
 }: {llm_model_details: Array<LlmModelDetail>; llm_model_name: string}): LlmModelDetail {
@@ -37,80 +128,4 @@ export function find_model({
   }
 
   lib_abort.with_error(`Unknown model: ${llm_model_name}`)
-}
-
-export function is_model_available({
-  llm_model_details,
-  llm_model_name,
-  llm_excludes,
-}: {llm_model_details: Array<LlmModelDetail>; llm_model_name: string; llm_excludes?: string}): boolean {
-  if (llm_excludes) {
-    const llm_excludes_array = llm_excludes.split(COMMA).map((exclude) => exclude.trim())
-
-    for (const llm_exclude of llm_excludes_array) {
-      if (llm_model_name.includes(llm_exclude)) {
-        return false
-      }
-    }
-  }
-
-  const detail = find_model({llm_model_details, llm_model_name})
-
-  const {llm_provider, llm_model_code_direct, llm_model_code_openrouter} = detail
-
-  if (llm_model_code_direct !== null && llm_provider !== null) {
-    if (lib_llm_provider.get_llm_api_key(llm_provider)) {
-      return true
-    }
-  }
-
-  if (llm_model_code_openrouter !== null) {
-    if (lib_llm_provider.get_llm_api_key("openrouter")) {
-      return true
-    }
-  }
-
-  return false
-}
-
-export function get_model_access({
-  llm_model_details,
-  llm_model_name,
-  llm_router,
-}: {llm_model_details: Array<LlmModelDetail>; llm_model_name: string; llm_router: boolean}): LlmModelAccess {
-  const detail = find_model({llm_model_details, llm_model_name})
-
-  const {llm_provider, llm_model_code_direct, llm_model_code_openrouter} = detail
-
-  if (!llm_router) {
-    if (llm_model_code_direct !== null && llm_provider !== null) {
-      const llm_api_key = lib_llm_provider.get_llm_api_key(llm_provider)
-      if (llm_api_key) {
-        return {llm_model_code: llm_model_code_direct, llm_provider, llm_api_key}
-      }
-    }
-  }
-
-  if (llm_model_code_openrouter !== null) {
-    const llm_api_key = lib_llm_provider.get_llm_api_key("openrouter")
-    if (llm_api_key) {
-      return {llm_model_code: llm_model_code_openrouter, llm_provider: "openrouter", llm_api_key}
-    }
-  }
-
-  if (llm_model_code_direct !== null && llm_provider !== null) {
-    const llm_api_key = lib_llm_provider.get_llm_api_key(llm_provider)
-    if (llm_api_key) {
-      return {llm_model_code: llm_model_code_direct, llm_provider, llm_api_key}
-    }
-  }
-
-  const env_openrouter = lib_llm_provider.get_llm_api_key_env("openrouter")
-
-  if (llm_provider !== null) {
-    const env_provider = lib_llm_provider.get_llm_api_key_env(llm_provider)
-    lib_abort.with_error(`Please set environment variable ${env_openrouter} or ${env_provider}`)
-  }
-
-  lib_abort.with_error(`Please set environment variable ${env_openrouter}`)
 }

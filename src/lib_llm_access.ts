@@ -1,0 +1,90 @@
+import * as lib_abort from "./lib_abort.js"
+import {COMMA} from "./lib_char.js"
+import {find_model_detail} from "./lib_llm_model.js"
+import type {LlmModelDetail} from "./lib_llm_model.js"
+import * as lib_llm_provider from "./lib_llm_provider.js"
+import type {LlmProvider} from "./lib_llm_provider.js"
+
+export default {}
+
+export interface LlmAccess {
+  llm_model_code: string
+  llm_provider: LlmProvider
+  llm_api_key: string
+}
+
+export function is_model_available({
+  llm_model_details,
+  llm_model_name,
+  llm_excludes,
+}: {llm_model_details: Array<LlmModelDetail>; llm_model_name: string; llm_excludes?: string}): boolean {
+  if (llm_excludes) {
+    const llm_excludes_array = llm_excludes.split(COMMA).map((exclude) => exclude.trim())
+
+    for (const llm_exclude of llm_excludes_array) {
+      if (llm_model_name.includes(llm_exclude)) {
+        return false
+      }
+    }
+  }
+
+  const detail = find_model_detail({llm_model_details, llm_model_name})
+
+  const {llm_provider, llm_model_code_direct, llm_model_code_openrouter} = detail
+
+  if (llm_model_code_direct !== null && llm_provider !== null) {
+    if (lib_llm_provider.get_llm_api_key(llm_provider)) {
+      return true
+    }
+  }
+
+  if (llm_model_code_openrouter !== null) {
+    if (lib_llm_provider.get_llm_api_key("openrouter")) {
+      return true
+    }
+  }
+
+  return false
+}
+
+export function get_model_access({
+  llm_model_details,
+  llm_model_name,
+  llm_router,
+}: {llm_model_details: Array<LlmModelDetail>; llm_model_name: string; llm_router: boolean}): LlmAccess {
+  const detail = find_model_detail({llm_model_details, llm_model_name})
+
+  const {llm_provider, llm_model_code_direct, llm_model_code_openrouter} = detail
+
+  if (!llm_router) {
+    if (llm_model_code_direct !== null && llm_provider !== null) {
+      const llm_api_key = lib_llm_provider.get_llm_api_key(llm_provider)
+      if (llm_api_key) {
+        return {llm_model_code: llm_model_code_direct, llm_provider, llm_api_key}
+      }
+    }
+  }
+
+  if (llm_model_code_openrouter !== null) {
+    const llm_api_key = lib_llm_provider.get_llm_api_key("openrouter")
+    if (llm_api_key) {
+      return {llm_model_code: llm_model_code_openrouter, llm_provider: "openrouter", llm_api_key}
+    }
+  }
+
+  if (llm_model_code_direct !== null && llm_provider !== null) {
+    const llm_api_key = lib_llm_provider.get_llm_api_key(llm_provider)
+    if (llm_api_key) {
+      return {llm_model_code: llm_model_code_direct, llm_provider, llm_api_key}
+    }
+  }
+
+  const env_openrouter = lib_llm_provider.get_llm_api_key_env("openrouter")
+
+  if (llm_provider !== null) {
+    const env_provider = lib_llm_provider.get_llm_api_key_env(llm_provider)
+    lib_abort.with_error(`Please set environment variable ${env_openrouter} or ${env_provider}`)
+  }
+
+  lib_abort.with_error(`Please set environment variable ${env_openrouter}`)
+}

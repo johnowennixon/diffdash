@@ -1,5 +1,6 @@
-import type {LlmModelDetail} from "./lib_llm_model.js"
+import * as lib_llm_access from "./lib_llm_access.js"
 import * as lib_llm_model from "./lib_llm_model.js"
+import type {LlmModelDetail} from "./lib_llm_model.js"
 import * as lib_llm_provider from "./lib_llm_provider.js"
 import type {LlmProvider} from "./lib_llm_provider.js"
 import * as lib_tell from "./lib_tell.js"
@@ -19,9 +20,9 @@ export function get_llm_config({
   llm_model_name,
   llm_router,
 }: {llm_model_details: Array<LlmModelDetail>; llm_model_name: string; llm_router: boolean}): LlmConfig {
-  const llm_model_detail = lib_llm_model.find_model({llm_model_details, llm_model_name})
+  const llm_model_detail = lib_llm_model.find_model_detail({llm_model_details, llm_model_name})
 
-  const access = lib_llm_model.get_model_access({llm_model_details, llm_model_name, llm_router})
+  const access = lib_llm_access.get_model_access({llm_model_details, llm_model_name, llm_router})
 
   const {llm_model_code, llm_provider, llm_api_key} = access
 
@@ -33,10 +34,10 @@ export function all_llm_configs({
   llm_router,
   llm_excludes,
 }: {llm_model_details: Array<LlmModelDetail>; llm_router: boolean; llm_excludes?: string}): Array<LlmConfig> {
-  const choices = lib_llm_model.get_choices(llm_model_details)
+  const choices = lib_llm_model.get_model_choices(llm_model_details)
 
   const available = choices.filter((llm_model_name) =>
-    lib_llm_model.is_model_available({llm_model_details, llm_model_name, llm_excludes}),
+    lib_llm_access.is_model_available({llm_model_details, llm_model_name, llm_excludes}),
   )
 
   return available.map((llm_model_name) => get_llm_config({llm_model_details, llm_model_name, llm_router}))

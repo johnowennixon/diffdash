@@ -1,17 +1,10 @@
 import * as a from "./lib_arg_infer.js"
 import * as lib_debug from "./lib_debug.js"
-import * as lib_env from "./lib_env.js"
+import {llm_model_choices, llm_model_default, llm_model_details, llm_model_fallback} from "./lib_diffdash_llm.js"
 import type {LlmConfig} from "./lib_llm_config.js"
 import * as lib_llm_config from "./lib_llm_config.js"
-import * as lib_llm_model from "./lib_llm_model.js"
-import * as lib_llm_models_diff from "./lib_llm_models_diff.js"
 
 export default {}
-
-const llm_model_details = lib_llm_models_diff.get_details()
-const llm_model_choices = lib_llm_model.get_choices(llm_model_details)
-const llm_model_default = lib_env.get_substitute("DIFFDASH_LLM_MODEL", lib_llm_models_diff.get_default_model_name())
-const llm_model_fallback = lib_llm_models_diff.get_fallback_model_name()
 
 export const arg_schema = {
   version: a.arg_boolean({help: "show program version information and exit"}),
