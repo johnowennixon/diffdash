@@ -10,8 +10,8 @@ export const arg_schema = {
   version: a.arg_boolean({help: "show program version information and exit"}),
   compare: a.arg_boolean({help: "compare the generated messages from all models - but do not commit"}),
 
-  add_prefix: a.arg_string({help: "add a prefix to the commit message summary line"}),
-  add_suffix: a.arg_string({help: "add a suffix to the commit message summary line"}),
+  add_prefix: a.arg_string({help: "add a prefix to the commit message summary line", metavar: "PREFIX"}),
+  add_suffix: a.arg_string({help: "add a suffix to the commit message summary line", metavar: "SUFFIX"}),
 
   auto_add: a.arg_boolean({help: "automatically stage all changes without confirmation"}),
   auto_commit: a.arg_boolean({help: "automatically commit changes without confirmation"}),
@@ -32,7 +32,7 @@ export const arg_schema = {
     default: llm_model_default,
   }),
   llm_fallback: a.arg_boolean({help: `use the fallback model (${llm_model_fallback})`}),
-  llm_excludes: a.arg_string({help: "models to exclude from comparison (comma separated)"}),
+  llm_excludes: a.arg_string({help: "models to exclude from comparison (comma separated)", metavar: "MODELS"}),
   llm_router: a.arg_boolean({help: "prefer to access the LLM via a router rather than direct"}),
 
   debug_llm_inputs: a.arg_boolean({help: "debug inputs (including all prompts) sent to the LLM"}),
