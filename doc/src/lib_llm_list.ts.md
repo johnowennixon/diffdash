@@ -1,0 +1,1 @@
+Provides a way to display details about language models in a formatted table. Shows the model name, context window size, and input/output costs. Formats the data neatly for easy reading on the command line.

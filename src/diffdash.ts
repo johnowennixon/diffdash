@@ -5,7 +5,7 @@ import * as lib_diffdash_config from "./lib_diffdash_config.js"
 import * as lib_diffdash_core from "./lib_diffdash_core.js"
 import {llm_model_details} from "./lib_diffdash_llm.js"
 import * as lib_error from "./lib_error.js"
-import * as lib_llm_model from "./lib_llm_model.js"
+import * as lib_llm_list from "./lib_llm_list.js"
 import {PROGRAM_NAME, PROGRAM_VERSION} from "./lib_package_details.js"
 import * as lib_tell from "./lib_tell.js"
 
@@ -25,7 +25,7 @@ async function main(): Promise<void> {
   }
 
   if (llm_list) {
-    lib_llm_model.display_models({llm_model_details})
+    lib_llm_list.list_models({llm_model_details})
     process.exit(0)
   }
 
