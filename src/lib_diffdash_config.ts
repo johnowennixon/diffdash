@@ -77,5 +77,7 @@ export function get_config(): DiffDashConfig {
     all_llm_configs,
   }
 
+  lib_debug.inspect_when(lib_debug.channels.config, config, "config")
+
   return config
 }
