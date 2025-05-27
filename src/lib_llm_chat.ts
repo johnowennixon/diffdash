@@ -1,4 +1,5 @@
 import {generateObject, generateText} from "ai"
+import type {ToolSet} from "ai"
 import type {ZodType} from "zod"
 
 import * as lib_debug from "./lib_debug.js"
@@ -19,9 +20,19 @@ function get_llm_parameters(): {max_tokens: number | undefined; temperature: num
 
 export async function llm_generate_text({
   llm_config,
-  user_prompt,
   system_prompt,
-}: {llm_config: LlmConfig; user_prompt: string; system_prompt: string}): Promise<string> {
+  user_prompt,
+  tools,
+  max_steps,
+  min_steps,
+}: {
+  llm_config: LlmConfig
+  system_prompt: string
+  user_prompt: string
+  tools?: ToolSet
+  max_steps?: number
+  min_steps?: number
+}): Promise<string> {
   const {llm_model_name, llm_provider, llm_model_code, llm_api_key} = llm_config
 
   const ai_sdk_language_model = lib_llm_provider.get_ai_sdk_language_model({
@@ -36,6 +47,8 @@ export async function llm_generate_text({
     model: ai_sdk_language_model,
     system: system_prompt,
     prompt: user_prompt,
+    tools,
+    maxSteps: max_steps,
     maxTokens: max_tokens,
     temperature,
     abortSignal: AbortSignal.timeout(timeout * 1000),
@@ -47,6 +60,14 @@ export async function llm_generate_text({
   const llm_outputs = await generateText(llm_inputs)
 
   lib_debug.inspect_when(lib_debug.channels.llm_outputs, llm_outputs, `llm_outputs (for ${llm_model_name})`)
+
+  if (min_steps !== undefined && llm_outputs.steps.length < min_steps) {
+    throw new Error("Too few steps taken")
+  }
+
+  if (max_steps !== undefined && llm_outputs.steps.length === max_steps) {
+    throw new Error("Too many steps taken")
+  }
 
   return llm_outputs.text
 }

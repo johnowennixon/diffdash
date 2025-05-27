@@ -28,8 +28,8 @@ const MODEL_DETAILS = [
   {
     llm_model_name: "claude-sonnet-4",
     llm_provider: "anthropic",
-    llm_model_code_direct: "claude-sonnet-4",
-    llm_model_code_openrouter: "anthropic/claude-sonnet-3",
+    llm_model_code_direct: null,
+    llm_model_code_openrouter: "anthropic/claude-sonnet-4",
     context_window: 200_000,
     cents_input: 300,
     cents_output: 1500,
@@ -56,6 +56,16 @@ const MODEL_DETAILS = [
     has_structured_json: true,
   },
   {
+    llm_model_name: "devstral-small",
+    llm_provider: null,
+    llm_model_code_direct: null,
+    llm_model_code_openrouter: "mistralai/devstral-small",
+    context_window: 128_000,
+    cents_input: 7,
+    cents_output: 10,
+    has_structured_json: true,
+  },
+  {
     llm_model_name: "gemini-2.0-flash",
     llm_provider: "google",
     llm_model_code_direct: "gemini-2.0-flash",
@@ -67,7 +77,7 @@ const MODEL_DETAILS = [
   },
   {
     llm_model_name: "gemini-2.5-flash-preview",
-    llm_provider: null,
+    llm_provider: "google",
     llm_model_code_direct: "gemini-2.5-flash-preview-05-20",
     llm_model_code_openrouter: "google/gemini-2.5-flash-preview",
     context_window: 1_048_576,
