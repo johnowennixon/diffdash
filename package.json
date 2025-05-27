@@ -25,7 +25,7 @@
     "build": "echo 'Building with esbuild' && rimraf out && node esbuild.config.js",
     "fix:biome": "echo 'Fixing with Biome' && biome check --write",
     "fix:markdownlint": "echo 'Fixing with markdownlint' && markdownlint-cli2 '**/*.md' --fix",
-    "lint": "run-s -ls lint:biome lint:knip lint:markdownlint lint:tsc",
+    "lint": "run-s -ls lint:biome lint:tsc lint:knip lint:markdownlint",
     "lint:biome": "echo 'Linting with Biome' && biome check",
     "lint:eslint": "echo 'Linting with ESLint' && eslint",
     "lint:knip": "echo 'Linting with Knip' && knip",
