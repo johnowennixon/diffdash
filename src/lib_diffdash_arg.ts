@@ -23,6 +23,7 @@ export const arg_schema = {
   silent: a.arg_boolean({help: "suppress all normal output - errors and aborts still display"}),
   no_verify: a.arg_boolean({help: "bypass git hooks when pushing to Git"}),
 
+  llm_list: a.arg_boolean({help: "display a list of available Large Language Models"}),
   llm_model: a.arg_choice_default<string>({
     help: `choose the Large Language Model by name (defaults to ${llm_model_default})`,
     choices: llm_model_choices,

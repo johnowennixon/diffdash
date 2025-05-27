@@ -21,6 +21,7 @@ export interface DiffDashConfig {
   disable_push: boolean
   silent: boolean
   no_verify: boolean
+  llm_list: boolean
   llm_config: LlmConfig
   all_llm_configs: Array<LlmConfig>
 }
@@ -43,6 +44,7 @@ export function get_config(): DiffDashConfig {
     disable_push,
     silent,
     no_verify,
+    llm_list,
     llm_model,
     llm_fallback,
     llm_excludes,
@@ -73,6 +75,7 @@ export function get_config(): DiffDashConfig {
     disable_push,
     silent,
     no_verify,
+    llm_list,
     llm_config,
     all_llm_configs,
   }
