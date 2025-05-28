@@ -29,7 +29,7 @@ const MODEL_DETAILS = [
     llm_model_name: "claude-3.7-sonnet",
     llm_provider: "anthropic",
     llm_model_code_direct: "claude-3-7-sonnet-20250219",
-    llm_model_code_openrouter: "claude-3.7-sonnet",
+    llm_model_code_openrouter: "anthropic/claude-3.7-sonnet",
     context_window: 200_000,
     cents_input: 300,
     cents_output: 1500,

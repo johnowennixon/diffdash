@@ -26,6 +26,7 @@ export const channels = {
   llm_inputs: false,
   llm_outputs: false,
   llm_tokens: false,
+  llm_tools: false,
   node: false,
   path: false,
   kubectl: false,
