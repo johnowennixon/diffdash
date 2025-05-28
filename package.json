@@ -25,11 +25,13 @@
     "build": "echo 'Building with esbuild' && rimraf out && node esbuild.config.js",
     "fix:biome": "echo 'Fixing with Biome' && biome check --write",
     "fix:markdownlint": "echo 'Fixing with markdownlint' && markdownlint-cli2 '**/*.md' --fix",
-    "lint": "run-s -ls lint:biome lint:tsc lint:knip lint:markdownlint",
+    "fix:oxlint": "echo 'Fixing with oxlint' && oxlint --fix",
+    "lint": "run-s -ls lint:oxlint lint:biome lint:tsc lint:knip lint:markdownlint",
     "lint:biome": "echo 'Linting with Biome' && biome check",
     "lint:eslint": "echo 'Linting with ESLint' && eslint",
     "lint:knip": "echo 'Linting with Knip' && knip",
     "lint:markdownlint": "echo 'Linting with markdownlint' && markdownlint-cli2 '**/*.md'",
+    "lint:oxlint": "echo 'Linting with oxlint' && oxlint",
     "lint:tsc": "echo 'Linting with tsc' && tsc --noEmit --erasableSyntaxOnly --libReplacement false",
     "test": "run-s -ls lint build"
   },
@@ -66,6 +68,7 @@
     "knip": "5.58.1",
     "markdownlint-cli2": "0.18.1",
     "npm-run-all2": "8.0.4",
+    "oxlint": "0.16.12",
     "rimraf": "6.0.1",
     "typescript": "5.8.3",
     "typescript-eslint": "8.33.0"
