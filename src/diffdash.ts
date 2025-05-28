@@ -12,7 +12,7 @@ import * as lib_tell from "./lib_tell.js"
 async function main(): Promise<void> {
   const config = lib_diffdash_config.get_config()
 
-  const {version, silent, llm_list} = config
+  const {version, compare, silent, llm_list} = config
 
   if (version) {
     lib_tell.plain(`${PROGRAM_NAME} v${PROGRAM_VERSION}`)
@@ -29,7 +29,12 @@ async function main(): Promise<void> {
     process.exit(0)
   }
 
-  await (config.compare ? lib_diffdash_core.sequence_compare(config) : lib_diffdash_core.sequence_normal(config))
+  // eslint-disable-next-line unicorn/prefer-ternary
+  if (compare) {
+    await lib_diffdash_core.sequence_compare(config)
+  } else {
+    await lib_diffdash_core.sequence_normal(config)
+  }
 
   if (!silent) {
     lib_tell.okay()

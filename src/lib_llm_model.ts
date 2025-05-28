@@ -28,7 +28,7 @@ const MODEL_DETAILS = [
   {
     llm_model_name: "claude-3.7-sonnet",
     llm_provider: "anthropic",
-    llm_model_code_direct: "claude-3.7-sonnet",
+    llm_model_code_direct: "claude-3-7-sonnet-20250219",
     llm_model_code_openrouter: "claude-3.7-sonnet",
     context_window: 200_000,
     cents_input: 300,
@@ -38,7 +38,7 @@ const MODEL_DETAILS = [
   {
     llm_model_name: "claude-sonnet-4",
     llm_provider: "anthropic",
-    llm_model_code_direct: null,
+    llm_model_code_direct: "claude-4-sonnet-20250514",
     llm_model_code_openrouter: "anthropic/claude-sonnet-4",
     context_window: 200_000,
     cents_input: 300,
@@ -99,7 +99,7 @@ const MODEL_DETAILS = [
     llm_model_name: "gemini-2.5-flash-preview",
     llm_provider: "google",
     llm_model_code_direct: "gemini-2.5-flash-preview-05-20",
-    llm_model_code_openrouter: "google/gemini-2.5-flash-preview",
+    llm_model_code_openrouter: "google/gemini-2.5-flash-preview-05-20",
     context_window: 1_048_576,
     cents_input: 15,
     cents_output: 60,
@@ -108,11 +108,11 @@ const MODEL_DETAILS = [
   {
     llm_model_name: "gemini-2.5-pro-preview",
     llm_provider: "google",
-    llm_model_code_direct: "gemini-2.5-pro-preview-05-20",
-    llm_model_code_openrouter: "google/gemini-2.5-pro-preview-03-25",
+    llm_model_code_direct: null, // doesn't have a free quota tier
+    llm_model_code_openrouter: "google/gemini-2.5-pro-preview",
     context_window: 1_048_576,
-    cents_input: 15,
-    cents_output: 60,
+    cents_input: 125,
+    cents_output: 1000,
     has_structured_json: true,
   },
   {
