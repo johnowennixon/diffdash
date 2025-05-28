@@ -14,7 +14,7 @@ function get_llm_parameters(): {max_tokens: number | undefined; temperature: num
   return {
     max_tokens: lib_parse_number.parse_int_or_undefined(lib_env.get_empty("lib_llm_chat_max_tokens")),
     temperature: lib_parse_number.parse_float_or_undefined(lib_env.get_substitute("lib_llm_chat_temperature", "0.5")),
-    timeout: Number.parseInt(lib_env.get_substitute("lib_llm_chat_timeout", "30")),
+    timeout: lib_parse_number.parse_int(lib_env.get_substitute("lib_llm_chat_timeout", "30")),
   }
 }
 
