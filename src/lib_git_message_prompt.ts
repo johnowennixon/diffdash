@@ -51,14 +51,16 @@ const portion_instructions =
   `
 Use the imperative mood and present tense.
 Please write in full sentences that start with a capital letter.
+Write prose rather than making lists.
+Keep each sentence no longer than about twenty words.
 Focus on why things were changed, not how or what.
+Things that are being added are more relevant than things that are being deleted.
+Code changes are more important than documentation changes.
 Be humble - you don't really know why the change was made.
-Don't assume the change is always an improvement - we all make mistakes.
+Don't assume the change is always an improvement - it might be making things worse.
 The number of additional sentences should depend upon the complexity of the change.
 A simple change needs only two additional sentences scaling up to a complex change with five additional sentences.
 If there are a lot of changes, you will need to summarize even more.
-Keep each sentence no longer than about twenty words.
-Avoid making the sentences just a list of similar things.
 `.trim() + LF
 
 const portion_final =
