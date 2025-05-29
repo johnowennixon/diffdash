@@ -40,8 +40,8 @@ export async function get_staged_diff(git: SimpleGit): Promise<string> {
   return await git.diff(["--cached"])
 }
 
-export async function create_commit(git: SimpleGit, message: string): Promise<void> {
-  await git.commit(message)
+export async function create_commit(git: SimpleGit, git_message: string): Promise<void> {
+  await git.commit(git_message)
 }
 
 export async function push_to_remote(git: SimpleGit, no_verify = false): Promise<void> {

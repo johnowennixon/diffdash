@@ -20,12 +20,12 @@ type GitMessageValidationFailed = {
 
 export type GitMessageValidationResult = GitMessageValidationSucceeded | GitMessageValidationFailed
 
-export function get_valid(message: string): GitMessageValidationResult {
+export function get_valid(git_message: string): GitMessageValidationResult {
   const min_length = DEFAULT_MIN_LENGTH
   const max_length = DEFAULT_MAX_LENGTH
 
   // Check for empty message
-  if (!message || message.trim() === EMPTY) {
+  if (!git_message || git_message.trim() === EMPTY) {
     return {
       valid: false,
       reason: "message is empty",
@@ -33,7 +33,7 @@ export function get_valid(message: string): GitMessageValidationResult {
   }
 
   // Check if message is too short
-  if (message.length < min_length) {
+  if (git_message.length < min_length) {
     return {
       valid: false,
       reason: `too short (minimum ${min_length} characters)`,
@@ -41,7 +41,7 @@ export function get_valid(message: string): GitMessageValidationResult {
   }
 
   // Check if message is too long
-  if (message.length > max_length) {
+  if (git_message.length > max_length) {
     return {
       valid: false,
       reason: `too long (maximum ${max_length} characters)`,
@@ -49,7 +49,7 @@ export function get_valid(message: string): GitMessageValidationResult {
   }
 
   // Check that there is at least one bullet point
-  const lines = message.trim().split(LF)
+  const lines = git_message.trim().split(LF)
 
   if (lines.length < 3) {
     return {
@@ -82,11 +82,11 @@ export function get_valid(message: string): GitMessageValidationResult {
   }
 }
 
-export function check_valid(message: string): void {
-  const validation_result = get_valid(message)
+export function check_valid(git_message: string): void {
+  const validation_result = get_valid(git_message)
 
   if (!validation_result.valid) {
-    lib_git_message_ui.display_message({message, teller: lib_tell.warning})
+    lib_git_message_ui.display_message({git_message, teller: lib_tell.warning})
 
     lib_abort.with_error(`Generated commit message failed validation: ${validation_result.reason}`)
   }

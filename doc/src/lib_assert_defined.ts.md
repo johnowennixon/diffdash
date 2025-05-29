@@ -1,1 +1,0 @@
-Provides utility functions for ensuring values are defined before use. Implements a type-safe assertion function that throws a descriptive error when an undefined value is encountered. Helps prevent runtime errors from undefined values propagating through the application.

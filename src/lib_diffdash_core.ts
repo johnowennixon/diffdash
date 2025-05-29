@@ -1,9 +1,9 @@
 import * as lib_abort from "./lib_abort.js"
-import * as lib_assert_defined from "./lib_assert_defined.js"
 import * as lib_debug from "./lib_debug.js"
 import type {DiffDashConfig} from "./lib_diffdash_config.js"
 import * as lib_diffdash_modify from "./lib_diffdash_modify.js"
-import * as lib_git_message_generate from "./lib_git_message_generate.js"
+import {generate_message_result} from "./lib_git_message_generate.js"
+import type {GitMessageGenerateResult} from "./lib_git_message_generate.js"
 import type {GitMessagePromptInputs} from "./lib_git_message_prompt.js"
 import * as lib_git_message_ui from "./lib_git_message_ui.js"
 import * as lib_git_message_validate from "./lib_git_message_validate.js"
@@ -131,40 +131,45 @@ async function phase_compare({config, git}: {config: DiffDashConfig; git: Simple
 
   const inputs: GitMessagePromptInputs = {diffstat, diff}
 
-  const generate_result_promises = all_llm_configs.map((llm_config) =>
-    lib_git_message_generate.generate_message({llm_config, inputs}),
-  )
+  const result_promises = all_llm_configs.map((llm_config) => generate_message_result({llm_config, inputs}))
 
-  const all_generate_results = await Promise.allSettled(generate_result_promises)
+  const all_results: Array<GitMessageGenerateResult> = await Promise.all(result_promises)
 
-  for (const [index, generate_result] of all_generate_results.entries()) {
-    const llm_config = lib_assert_defined.is_defined(all_llm_configs[index])
+  for (const result of all_results) {
+    const {llm_config, seconds, error_message} = result
+    let {git_message} = result
 
-    if (generate_result.status !== "fulfilled") {
-      lib_tell.warning(`Failed to generate a commit message using LLM ${lib_llm_config.get_llm_model_via(llm_config)}`)
+    const model_via = lib_llm_config.get_llm_model_via(llm_config)
+
+    if (error_message) {
+      lib_tell.warning(`Failed to generate a Git commit message in ${seconds} seconds using ${model_via}`)
       continue
     }
 
-    lib_tell.info(`Git commit message from ${lib_llm_config.get_llm_model_via(llm_config)}:`)
+    if (!git_message) {
+      continue
+    }
 
-    let message = generate_result.value
+    lib_tell.info(`Git commit message in ${seconds} seconds using ${model_via}:`)
 
-    const validation_result = lib_git_message_validate.get_valid(message)
+    const validation_result = lib_git_message_validate.get_valid(git_message)
 
     const teller = validation_result.valid ? lib_tell.plain : lib_tell.warning
 
-    message = lib_diffdash_modify.add_prefix_or_suffix({message, add_prefix, add_suffix})
-    message = lib_diffdash_modify.add_footer({message, llm_config})
+    git_message = lib_diffdash_modify.add_prefix_or_suffix({git_message, add_prefix, add_suffix})
+    git_message = lib_diffdash_modify.add_footer({git_message, llm_config})
 
-    lib_git_message_ui.display_message({message, teller})
+    lib_git_message_ui.display_message({git_message, teller})
   }
 }
 
 async function phase_commit({config, git}: {config: DiffDashConfig; git: SimpleGit}): Promise<void> {
   const {add_prefix, add_suffix, auto_commit, disable_commit, disable_preview, silent, llm_config} = config
 
+  const model_via = lib_llm_config.get_llm_model_via(llm_config)
+
   if (!silent) {
-    lib_tell.action(`Generating the Git commit message using LLM ${lib_llm_config.get_llm_model_via(llm_config)}`)
+    lib_tell.action(`Generating the Git commit message using ${model_via}`)
   }
 
   const diffstat = await lib_git_simple_staging.get_staged_diffstat(git)
@@ -172,19 +177,25 @@ async function phase_commit({config, git}: {config: DiffDashConfig; git: SimpleG
 
   const inputs: GitMessagePromptInputs = {diffstat, diff}
 
-  let message = await lib_git_message_generate.generate_message({llm_config, inputs}).catch(() => {
-    lib_abort.with_error(
-      `Failed to generate a commit message using LLM ${lib_llm_config.get_llm_model_via(llm_config)}`,
-    )
-  })
+  const result: GitMessageGenerateResult = await generate_message_result({llm_config, inputs})
 
-  lib_git_message_validate.check_valid(message)
+  if (result.error_message) {
+    lib_abort.with_error(`Failed to generate a commit message using ${model_via}`)
+  }
 
-  message = lib_diffdash_modify.add_prefix_or_suffix({message, add_prefix, add_suffix})
-  message = lib_diffdash_modify.add_footer({message, llm_config})
+  let {git_message} = result
+
+  if (!git_message) {
+    return
+  }
+
+  lib_git_message_validate.check_valid(git_message)
+
+  git_message = lib_diffdash_modify.add_prefix_or_suffix({git_message, add_prefix, add_suffix})
+  git_message = lib_diffdash_modify.add_footer({git_message, llm_config})
 
   if (!disable_preview && !silent) {
-    lib_git_message_ui.display_message({message, teller: lib_tell.plain})
+    lib_git_message_ui.display_message({git_message, teller: lib_tell.plain})
   }
 
   if (disable_commit) {
@@ -203,7 +214,7 @@ async function phase_commit({config, git}: {config: DiffDashConfig; git: SimpleG
     }
   }
 
-  await lib_git_simple_staging.create_commit(git, message)
+  await lib_git_simple_staging.create_commit(git, git_message)
 
   if (!silent) {
     lib_tell.success("Changes committed successfully")

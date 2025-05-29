@@ -1,0 +1,1 @@
+Provides precise time measurement capabilities for tracking elapsed durations. Measures intervals with nanosecond precision using Node.js's high-resolution timer. Offers multiple ways to retrieve the elapsed time in different units including seconds and milliseconds.
