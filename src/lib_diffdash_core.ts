@@ -2,6 +2,7 @@ import * as lib_abort from "./lib_abort.js"
 import * as lib_debug from "./lib_debug.js"
 import type {DiffDashConfig} from "./lib_diffdash_config.js"
 import * as lib_diffdash_modify from "./lib_diffdash_modify.js"
+import * as lib_error from "./lib_error.js"
 import {generate_message_result} from "./lib_git_message_generate.js"
 import type {GitMessageGenerateResult} from "./lib_git_message_generate.js"
 import type {GitMessagePromptInputs} from "./lib_git_message_prompt.js"
@@ -136,13 +137,13 @@ async function phase_compare({config, git}: {config: DiffDashConfig; git: Simple
   const all_results: Array<GitMessageGenerateResult> = await Promise.all(result_promises)
 
   for (const result of all_results) {
-    const {llm_config, seconds, error_message} = result
+    const {llm_config, seconds, error_text} = result
     let {git_message} = result
 
     const model_via = lib_llm_config.get_llm_model_via(llm_config)
 
-    if (error_message) {
-      lib_tell.warning(`Failed to generate a Git commit message in ${seconds} seconds using ${model_via}`)
+    if (error_text) {
+      lib_tell.warning(`Failed to generate a commit message in ${seconds} seconds using ${model_via}: ${error_text}`)
       continue
     }
 
@@ -179,11 +180,12 @@ async function phase_commit({config, git}: {config: DiffDashConfig; git: SimpleG
 
   const result: GitMessageGenerateResult = await generate_message_result({llm_config, inputs})
 
-  if (result.error_message) {
-    lib_abort.with_error(`Failed to generate a commit message using ${model_via}`)
-  }
-
+  const {error_text} = result
   let {git_message} = result
+
+  if (error_text) {
+    lib_abort.with_error(`Failed to generate a commit message using ${model_via}: ${error_text}`)
+  }
 
   if (!git_message) {
     return
@@ -242,7 +244,7 @@ async function phase_push({config, git}: {config: DiffDashConfig; git: SimpleGit
   try {
     await lib_git_simple_staging.push_to_remote(git, no_verify)
   } catch (error) {
-    lib_abort.with_error(`Failed to push to remote: ${error instanceof Error ? error.message : String(error)}`)
+    lib_abort.with_error(`Failed to push to remote: ${lib_error.get_error_text(error)}`)
   }
 
   if (!silent) {

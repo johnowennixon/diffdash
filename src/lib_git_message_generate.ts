@@ -1,4 +1,5 @@
 import {Duration} from "./lib_duration.js"
+import * as lib_error from "./lib_error.js"
 import * as lib_git_message_prompt from "./lib_git_message_prompt.js"
 import type {GitMessagePromptInputs} from "./lib_git_message_prompt.js"
 import * as lib_git_message_schema from "./lib_git_message_schema.js"
@@ -12,14 +13,14 @@ type GitMessageGenerateSucceeded = {
   llm_config: LlmConfig
   seconds: number
   git_message: string
-  error_message: null
+  error_text: null
 }
 
 type GitMessageGenerateFailed = {
   llm_config: LlmConfig
   seconds: number
   git_message: string | null
-  error_message: string | null
+  error_text: string | null
 }
 
 export type GitMessageGenerateResult = GitMessageGenerateSucceeded | GitMessageGenerateFailed
@@ -91,12 +92,12 @@ export async function generate_message_result({
     duration.stop()
     const seconds = duration.seconds_rounded()
 
-    return {llm_config, seconds, git_message, error_message: null}
+    return {llm_config, seconds, git_message, error_text: null}
   } catch (error) {
     duration.stop()
     const seconds = duration.seconds_rounded()
 
-    const error_message = error instanceof Error ? error.message : String(error)
-    return {llm_config, seconds, git_message: null, error_message}
+    const error_text = lib_error.get_error_text(error)
+    return {llm_config, seconds, git_message: null, error_text}
   }
 }
