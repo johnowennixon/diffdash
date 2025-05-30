@@ -5,7 +5,7 @@ import {PROGRAM_NAME, PROGRAM_VERSION} from "./lib_package_details.js"
 
 export default {}
 
-export function diffdash_modify_add_prefix_or_suffix({
+export function diffdash_add_prefix_or_suffix({
   git_message,
   add_prefix,
   add_suffix,
@@ -27,10 +27,7 @@ export function diffdash_modify_add_prefix_or_suffix({
   return lines.join(LF)
 }
 
-export function diffdash_modify_add_footer({
-  git_message,
-  llm_config,
-}: {git_message: string; llm_config: LlmConfig}): string {
+export function diffdash_add_footer({git_message, llm_config}: {git_message: string; llm_config: LlmConfig}): string {
   const {llm_model_name} = llm_config
 
   const timestamp = datetime_format_local_iso_ymd_hms(new Date())

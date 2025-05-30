@@ -1,7 +1,7 @@
 import {abort_with_error, abort_with_warning} from "./lib_abort.js"
 import {debug_channels, debug_inspect} from "./lib_debug.js"
+import {diffdash_add_footer, diffdash_add_prefix_or_suffix} from "./lib_diffdash_add.js"
 import type {DiffDashConfig} from "./lib_diffdash_config.js"
-import {diffdash_modify_add_footer, diffdash_modify_add_prefix_or_suffix} from "./lib_diffdash_modify.js"
 import {error_get_text} from "./lib_error.js"
 import {git_message_generate_result} from "./lib_git_message_generate.js"
 import type {GitMessageGenerateResult} from "./lib_git_message_generate.js"
@@ -163,8 +163,8 @@ async function phase_compare({config, git}: {config: DiffDashConfig; git: Simple
 
     const teller = validation_result.valid ? tell_plain : tell_warning
 
-    git_message = diffdash_modify_add_prefix_or_suffix({git_message, add_prefix, add_suffix})
-    git_message = diffdash_modify_add_footer({git_message, llm_config})
+    git_message = diffdash_add_prefix_or_suffix({git_message, add_prefix, add_suffix})
+    git_message = diffdash_add_footer({git_message, llm_config})
 
     git_message_display({git_message, teller})
   }
@@ -199,8 +199,8 @@ async function phase_commit({config, git}: {config: DiffDashConfig; git: SimpleG
 
   git_message_validate_check(git_message)
 
-  git_message = diffdash_modify_add_prefix_or_suffix({git_message, add_prefix, add_suffix})
-  git_message = diffdash_modify_add_footer({git_message, llm_config})
+  git_message = diffdash_add_prefix_or_suffix({git_message, add_prefix, add_suffix})
+  git_message = diffdash_add_footer({git_message, llm_config})
 
   if (!disable_preview && !silent) {
     git_message_display({git_message, teller: tell_plain})
