@@ -2,7 +2,7 @@ import {ansi_grey} from "./lib_ansi.js"
 import {EMPTY} from "./lib_char.js"
 import {enabled_from_env} from "./lib_enabled.js"
 import {inspect_obj_to_string} from "./lib_inspect.js"
-import {write_stderr_linefeed} from "./lib_stdio.js"
+import {stdio_write_stderr_linefeed} from "./lib_stdio.js"
 import {tell_debug} from "./lib_tell.js"
 
 export default {}
@@ -64,7 +64,7 @@ export function debug_tell_when(when: boolean | undefined, message: string): voi
 export function debug_inspect(obj: unknown, name: string | null = null): void {
   const prefix = name ? `${name}: ` : EMPTY
   const message = prefix + inspect_obj_to_string(obj)
-  write_stderr_linefeed(ansi_grey(message))
+  stdio_write_stderr_linefeed(ansi_grey(message))
 }
 
 export function debug_inspect_if(obj: unknown, name: string | null = null): void {

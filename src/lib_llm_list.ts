@@ -1,7 +1,7 @@
 import {DOLLAR} from "./lib_char.js"
 import {CliTable} from "./lib_cli_table.js"
 import type {LlmModelDetail} from "./lib_llm_model.js"
-import {write_stdout_linefeed} from "./lib_stdio.js"
+import {stdio_write_stdout_linefeed} from "./lib_stdio.js"
 import {tui_justify_right} from "./lib_tui_justify.js"
 
 export default {}
@@ -24,5 +24,5 @@ export function llm_list_models({llm_model_details}: {llm_model_details: Array<L
     table.push(row)
   }
 
-  write_stdout_linefeed(table.toString())
+  stdio_write_stdout_linefeed(table.toString())
 }

@@ -4,34 +4,34 @@ import {LF} from "./lib_char.js"
 
 export default {}
 
-export function get_tty_available_stdout(): boolean {
+export function stdio_tty_get_available_stdout(): boolean {
   return process.stdout.isTTY === true
 }
 
-export function get_tty_available_stderr(): boolean {
+export function stdio_tty_get_available_stderr(): boolean {
   return process.stderr.isTTY === true
 }
 
-export function get_tty_columns_stdout(): number | undefined {
+export function stdio_tty_get_columns_stdout(): number | undefined {
   return process.stdout.columns
 }
 
-export function get_tty_columns_stderr(): number | undefined {
+export function stdio_tty_get_columns_stderr(): number | undefined {
   return process.stderr.columns
 }
 
-export function write_stdout(message: string): void {
+export function stdio_write_stdout(message: string): void {
   fs.writeSync(1, message)
 }
 
-export function write_stdout_linefeed(message: string): void {
-  write_stdout(message + LF)
+export function stdio_write_stdout_linefeed(message: string): void {
+  stdio_write_stdout(message + LF)
 }
 
-export function write_stderr(message: string): void {
+export function stdio_write_stderr(message: string): void {
   fs.writeSync(2, message)
 }
 
-export function write_stderr_linefeed(message: string): void {
-  write_stderr(message + LF)
+export function stdio_write_stderr_linefeed(message: string): void {
+  stdio_write_stderr(message + LF)
 }

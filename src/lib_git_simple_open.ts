@@ -1,14 +1,14 @@
 import {type SimpleGit, simpleGit} from "simple-git"
 
 import {abort_with_error} from "./lib_abort.js"
-import {path_absolute} from "./lib_file_path.js"
+import {file_path_absolute} from "./lib_file_path.js"
 
 export default {}
 
 export type {SimpleGit} from "simple-git"
 
 export async function git_simple_open_git_repo(repo_path: string = process.cwd()): Promise<SimpleGit> {
-  const resolved_path = path_absolute(repo_path)
+  const resolved_path = file_path_absolute(repo_path)
 
   const git = simpleGit(resolved_path)
 
