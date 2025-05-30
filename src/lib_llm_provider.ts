@@ -24,7 +24,7 @@ export function get_llm_provider_via(llm_provider: LlmProvider): string {
       return "direct"
 
     default:
-      lib_abort.with_error("Unknown LLM provider")
+      lib_abort.abort_with_error("Unknown LLM provider")
   }
 }
 
@@ -41,14 +41,14 @@ export function get_llm_api_key_env(llm_provider: LlmProvider): string {
     case "openrouter":
       return "OPENROUTER_API_KEY"
     default:
-      lib_abort.with_error("Unknown LLM provider")
+      lib_abort.abort_with_error("Unknown LLM provider")
   }
 }
 
 export function get_llm_api_key(llm_provider: LlmProvider): string | null {
   const env = get_llm_api_key_env(llm_provider)
 
-  return lib_env.get(env)
+  return lib_env.env_get(env)
 }
 
 export function get_ai_sdk_language_model({
@@ -68,6 +68,6 @@ export function get_ai_sdk_language_model({
     case "openrouter":
       return createOpenRouter({apiKey: llm_api_key})(llm_model_code)
     default:
-      lib_abort.with_error("Unknown LLM provider")
+      lib_abort.abort_with_error("Unknown LLM provider")
   }
 }

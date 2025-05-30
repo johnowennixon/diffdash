@@ -6,7 +6,7 @@ import * as lib_tui_justify from "./lib_tui_justify.js"
 
 export default {}
 
-export function list_models({llm_model_details}: {llm_model_details: Array<LlmModelDetail>}): void {
+export function llm_list_models({llm_model_details}: {llm_model_details: Array<LlmModelDetail>}): void {
   const headings = ["NAME", "CONTEXT", "INPUT", "OUTPUT"]
 
   const table = new CliTable({headings})
@@ -15,9 +15,9 @@ export function list_models({llm_model_details}: {llm_model_details: Array<LlmMo
     const {llm_model_name, context_window, cents_input, cents_output} = detail
 
     const tui_name = llm_model_name
-    const tui_context = lib_tui_justify.justify_right(7, context_window.toString())
-    const tui_input = lib_tui_justify.justify_right(6, DOLLAR + (cents_input / 100).toFixed(2))
-    const tui_output = lib_tui_justify.justify_right(6, DOLLAR + (cents_output / 100).toFixed(2))
+    const tui_context = lib_tui_justify.tui_justify_right(7, context_window.toString())
+    const tui_input = lib_tui_justify.tui_justify_right(6, DOLLAR + (cents_input / 100).toFixed(2))
+    const tui_output = lib_tui_justify.tui_justify_right(6, DOLLAR + (cents_output / 100).toFixed(2))
 
     const row = [tui_name, tui_context, tui_input, tui_output]
 

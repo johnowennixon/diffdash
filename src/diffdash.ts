@@ -1,45 +1,45 @@
 #!/usr/bin/env node
 
-import {blue, italic, red} from "./lib_ansi.js"
-import * as lib_diffdash_config from "./lib_diffdash_config.js"
-import * as lib_diffdash_core from "./lib_diffdash_core.js"
-import {llm_model_details} from "./lib_diffdash_llm.js"
-import * as lib_error from "./lib_error.js"
-import * as lib_llm_list from "./lib_llm_list.js"
+import {ansi_blue, ansi_italic, ansi_red} from "./lib_ansi.js"
+import {diffdash_config_get} from "./lib_diffdash_config.js"
+import {diffdash_llm_model_details} from "./lib_diffdash_llm.js"
+import {diffdash_sequence_compare, diffdash_sequence_normal} from "./lib_diffdash_sequence.js"
+import {error_abort} from "./lib_error.js"
+import {llm_list_models} from "./lib_llm_list.js"
 import {PROGRAM_NAME, PROGRAM_VERSION} from "./lib_package_details.js"
-import * as lib_tell from "./lib_tell.js"
+import {tell_okay, tell_plain} from "./lib_tell.js"
 
 async function main(): Promise<void> {
-  const config = lib_diffdash_config.get_config()
+  const config = diffdash_config_get()
 
   const {version, compare, silent, llm_list} = config
 
   if (version) {
-    lib_tell.plain(`${PROGRAM_NAME} v${PROGRAM_VERSION}`)
+    tell_plain(`${PROGRAM_NAME} v${PROGRAM_VERSION}`)
     process.exit(0)
   }
 
   if (!silent) {
-    const diffdash = italic(blue("Diff") + red("Dash"))
-    lib_tell.plain(`This is ${diffdash} - the fast AI Git commit tool`)
+    const diffdash = ansi_italic(ansi_blue("Diff") + ansi_red("Dash"))
+    tell_plain(`This is ${diffdash} - the fast AI Git commit tool`)
   }
 
   if (llm_list) {
-    lib_llm_list.list_models({llm_model_details})
+    llm_list_models({llm_model_details: diffdash_llm_model_details})
     process.exit(0)
   }
 
   // eslint-disable-next-line unicorn/prefer-ternary
   if (compare) {
-    await lib_diffdash_core.sequence_compare(config)
+    await diffdash_sequence_compare(config)
   } else {
-    await lib_diffdash_core.sequence_normal(config)
+    await diffdash_sequence_normal(config)
   }
 
   if (!silent) {
-    lib_tell.okay()
+    tell_okay()
   }
 }
 
 // eslint-disable-next-line unicorn/prefer-top-level-await
-main().catch(lib_error.abort)
+main().catch(error_abort)

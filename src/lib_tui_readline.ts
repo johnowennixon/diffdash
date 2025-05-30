@@ -4,8 +4,8 @@ import * as lib_ansi from "./lib_ansi.js"
 
 export default {}
 
-export async function confirm(message: string): Promise<boolean> {
-  const query = lib_ansi.bold(lib_ansi.blue(`${message} [Y/n] `))
+export async function tui_readline_confirm(message: string): Promise<boolean> {
+  const query = lib_ansi.ansi_bold(lib_ansi.ansi_blue(`${message} [Y/n] `))
 
   const rl = readline.createInterface({
     input: process.stdin,

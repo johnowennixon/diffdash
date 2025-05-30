@@ -1,17 +1,17 @@
 import {DIGIT_0, SPACE} from "./lib_char.js"
-import {truncate_ellipsis, truncate_plain} from "./lib_tui_truncate.js"
+import {tui_truncate_ellipsis, tui_truncate_plain} from "./lib_tui_truncate.js"
 
 export default {}
 
-export function justify_left(n: number, s: string, ellipsis = false, truncate = false): string {
+export function tui_justify_left(n: number, s: string, ellipsis = false, truncate = false): string {
   let justified = s
 
   if (ellipsis) {
-    justified = truncate_ellipsis(n, justified)
+    justified = tui_truncate_ellipsis(n, justified)
   }
 
   if (truncate) {
-    justified = truncate_plain(n, justified)
+    justified = tui_truncate_plain(n, justified)
   }
 
   justified = justified.padEnd(n)
@@ -19,11 +19,11 @@ export function justify_left(n: number, s: string, ellipsis = false, truncate = 
   return justified
 }
 
-export function justify_right(n: number, s: string): string {
+export function tui_justify_right(n: number, s: string): string {
   return s.padStart(n)
 }
 
-export function justify_centre({
+export function tui_justify_centre({
   line,
   width,
   pad_char = SPACE,
@@ -39,6 +39,6 @@ export function justify_centre({
   return pad_char.repeat(left_pad) + line + pad_char.repeat(right_pad)
 }
 
-export function justify_zero(n: number, s: string): string {
+export function tui_justify_zero(n: number, s: string): string {
   return s.padStart(n, DIGIT_0)
 }

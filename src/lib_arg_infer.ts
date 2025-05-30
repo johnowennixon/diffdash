@@ -4,7 +4,7 @@ import type {ArgumentGroup, ArgumentOptions, ArgumentParserOptions, Namespace} f
 import {DASH, EMPTY, PLUS, UNDERSCORE} from "./lib_char.js"
 import * as lib_debug from "./lib_debug.js"
 import type {StringPredicate} from "./lib_string_types.js"
-import type {Expand} from "./lib_type_infer.js"
+import type {TypeInferExpand} from "./lib_type_infer.js"
 
 type ArgInferKind = "string" | "integer" | "boolean" | "choice" | "list" | "meg"
 
@@ -139,7 +139,7 @@ type ArgInferParsedArgsOld<T extends ArgInferSchema> = {
                     : never
 }
 
-export type ArgInferParsedArgs<T extends ArgInferSchema> = Expand<ArgInferParsedArgsOld<T>>
+export type ArgInferParsedArgs<T extends ArgInferSchema> = TypeInferExpand<ArgInferParsedArgsOld<T>>
 
 function omit<T, K extends keyof T>(obj: T, key_to_omit: K): Omit<T, K> {
   const {[key_to_omit]: _, ...rest} = obj
@@ -314,7 +314,7 @@ export function make_arg_parser<T extends ArgInferSchema>({
 
   const namespace = parser.parse_args() as Namespace
 
-  lib_debug.inspect_when(lib_debug.channels.arg, namespace, "namespace")
+  lib_debug.debug_inspect_when(lib_debug.debug_channels.arg, namespace, "namespace")
 
   const parsed_args = recursive_parse_args({schema: arg_schema, namespace})
 

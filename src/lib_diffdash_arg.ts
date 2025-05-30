@@ -1,9 +1,13 @@
 import * as a from "./lib_arg_infer.js"
-import {llm_model_choices, llm_model_default, llm_model_fallback} from "./lib_diffdash_llm.js"
+import {
+  diffdash_llm_model_choices,
+  diffdash_llm_model_default,
+  diffdash_llm_model_fallback,
+} from "./lib_diffdash_llm.js"
 
 export default {}
 
-export const arg_schema = {
+export const diffdash_arg_schema = {
   version: a.arg_boolean({help: "show program version information and exit"}),
   compare: a.arg_boolean({help: "compare the generated messages from all models - but do not commit"}),
 
@@ -25,11 +29,11 @@ export const arg_schema = {
 
   llm_list: a.arg_boolean({help: "display a list of available Large Language Models"}),
   llm_model: a.arg_choice_default<string>({
-    help: `choose the Large Language Model by name (defaults to ${llm_model_default})`,
-    choices: llm_model_choices,
-    default: llm_model_default,
+    help: `choose the Large Language Model by name (defaults to ${diffdash_llm_model_default})`,
+    choices: diffdash_llm_model_choices,
+    default: diffdash_llm_model_default,
   }),
-  llm_fallback: a.arg_boolean({help: `use the fallback model (${llm_model_fallback})`}),
+  llm_fallback: a.arg_boolean({help: `use the fallback model (${diffdash_llm_model_fallback})`}),
   llm_excludes: a.arg_string({help: "models to exclude from comparison (comma separated)", metavar: "MODELS"}),
   llm_router: a.arg_boolean({help: "prefer to access the LLM via a router rather than direct"}),
 
@@ -37,7 +41,7 @@ export const arg_schema = {
   debug_llm_outputs: a.arg_boolean({help: "debug outputs received from the LLM"}),
 }
 
-export const arg_parser = a.make_arg_parser({
-  arg_schema,
+export const diffdash_arg_parser = a.make_arg_parser({
+  arg_schema: diffdash_arg_schema,
   description: "DiffDash - generate Git commit messages using AI",
 })

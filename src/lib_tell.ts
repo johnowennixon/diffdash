@@ -8,7 +8,8 @@ import * as lib_stdio from "./lib_stdio.js"
 export default {}
 
 export const enables = {
-  timestamp: lib_enabled.from_env("TELL_TIMESTAMP"),
+  timestamp: lib_enabled.enabled_from_env("TELL_TIMESTAMP"),
+  okay: lib_enabled.enabled_from_env("TELL_OKAY", {default: true}),
 }
 
 export type TellParams = {
@@ -19,7 +20,7 @@ export type TellParams = {
 export type Teller = (message: string) => void
 export type TellerPromise = (message: string) => Promise<void>
 
-function generic({message, colourizer}: {message: string; colourizer?: AnsiColourizer}): void {
+function tell_generic({message, colourizer}: {message: string; colourizer?: AnsiColourizer}): void {
   while (message.endsWith(LF)) {
     message = message.slice(0, -1)
   }
@@ -27,8 +28,8 @@ function generic({message, colourizer}: {message: string; colourizer?: AnsiColou
   let text = EMPTY
 
   if (enables.timestamp) {
-    const now_local_ymdthms = lib_datetime.format_local_iso_ymdthms(lib_datetime.now())
-    text += lib_ansi.grey(now_local_ymdthms)
+    const now_local_ymdthms = lib_datetime.datetime_format_local_iso_ymdthms(lib_datetime.datetime_now())
+    text += lib_ansi.ansi_grey(now_local_ymdthms)
     text += SPACE
   }
 
@@ -39,42 +40,44 @@ function generic({message, colourizer}: {message: string; colourizer?: AnsiColou
   lib_stdio.write_stderr_linefeed(text)
 }
 
-export function nowhere(_message: string): void {
+export function tell_nowhere(_message: string): void {
   // intentionally empty
 }
 
-export function plain(message: string): void {
-  generic({message, colourizer: lib_ansi.normal})
+export function tell_plain(message: string): void {
+  tell_generic({message, colourizer: lib_ansi.ansi_normal})
 }
 
-export function error(message: string): void {
-  generic({message, colourizer: lib_ansi.red})
+export function tell_error(message: string): void {
+  tell_generic({message, colourizer: lib_ansi.ansi_red})
 }
 
-export function warning(message: string): void {
-  generic({message, colourizer: lib_ansi.yellow})
+export function tell_warning(message: string): void {
+  tell_generic({message, colourizer: lib_ansi.ansi_yellow})
 }
 
-export function success(message: string): void {
-  generic({message, colourizer: lib_ansi.green})
+export function tell_success(message: string): void {
+  tell_generic({message, colourizer: lib_ansi.ansi_green})
 }
 
-export function info(message: string): void {
-  generic({message, colourizer: lib_ansi.cyan})
+export function tell_info(message: string): void {
+  tell_generic({message, colourizer: lib_ansi.ansi_cyan})
 }
 
-export function action(message: string): void {
-  generic({message, colourizer: lib_ansi.magenta})
+export function tell_action(message: string): void {
+  tell_generic({message, colourizer: lib_ansi.ansi_magenta})
 }
 
-export function debug(message: string): void {
-  generic({message, colourizer: lib_ansi.grey})
+export function tell_debug(message: string): void {
+  tell_generic({message, colourizer: lib_ansi.ansi_grey})
 }
 
-export function blank(): void {
-  plain(EMPTY)
+export function tell_blank(): void {
+  tell_plain(EMPTY)
 }
 
-export function okay(): void {
-  success("Okay")
+export function tell_okay(): void {
+  if (enables.okay) {
+    tell_success("Okay")
+  }
 }

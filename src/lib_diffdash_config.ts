@@ -1,6 +1,6 @@
 import * as lib_debug from "./lib_debug.js"
-import {arg_parser} from "./lib_diffdash_arg.js"
-import {llm_model_details, llm_model_fallback} from "./lib_diffdash_llm.js"
+import {diffdash_arg_parser} from "./lib_diffdash_arg.js"
+import {diffdash_llm_model_details, diffdash_llm_model_fallback} from "./lib_diffdash_llm.js"
 import type {LlmConfig} from "./lib_llm_config.js"
 import * as lib_llm_config from "./lib_llm_config.js"
 
@@ -26,8 +26,8 @@ export interface DiffDashConfig {
   all_llm_configs: Array<LlmConfig>
 }
 
-export function get_config(): DiffDashConfig {
-  const pa = arg_parser.parsed_args
+export function diffdash_config_get(): DiffDashConfig {
+  const pa = diffdash_arg_parser.parsed_args
 
   const {
     version,
@@ -53,12 +53,20 @@ export function get_config(): DiffDashConfig {
     debug_llm_outputs,
   } = pa
 
-  const llm_model_name = llm_fallback ? llm_model_fallback : llm_model
-  const llm_config = lib_llm_config.get_llm_config({llm_model_details, llm_model_name, llm_router})
-  const all_llm_configs = lib_llm_config.all_llm_configs({llm_model_details, llm_router, llm_excludes})
+  const llm_model_name = llm_fallback ? diffdash_llm_model_fallback : llm_model
+  const llm_config = lib_llm_config.get_llm_config({
+    llm_model_details: diffdash_llm_model_details,
+    llm_model_name,
+    llm_router,
+  })
+  const all_llm_configs = lib_llm_config.all_llm_configs({
+    llm_model_details: diffdash_llm_model_details,
+    llm_router,
+    llm_excludes,
+  })
 
-  lib_debug.channels.llm_inputs = debug_llm_inputs
-  lib_debug.channels.llm_outputs = debug_llm_outputs
+  lib_debug.debug_channels.llm_inputs = debug_llm_inputs
+  lib_debug.debug_channels.llm_outputs = debug_llm_outputs
 
   const config: DiffDashConfig = {
     version,
@@ -80,7 +88,7 @@ export function get_config(): DiffDashConfig {
     all_llm_configs,
   }
 
-  lib_debug.inspect_when(lib_debug.channels.config, config, "config")
+  lib_debug.debug_inspect_when(lib_debug.debug_channels.config, config, "config")
 
   return config
 }

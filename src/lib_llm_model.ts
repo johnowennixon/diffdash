@@ -317,5 +317,5 @@ export function find_model_detail({
     }
   }
 
-  lib_abort.with_error(`Unknown model: ${llm_model_name}`)
+  lib_abort.abort_with_error(`Unknown model: ${llm_model_name}`)
 }

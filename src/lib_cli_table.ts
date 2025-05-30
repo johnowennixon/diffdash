@@ -12,7 +12,7 @@ export class CliTable {
     const constructor_options: cli_table3.TableConstructorOptions = {style: {head: []}}
 
     if (headings) {
-      constructor_options.head = headings.map((heading) => lib_ansi.bold(heading))
+      constructor_options.head = headings.map((heading) => lib_ansi.ansi_bold(heading))
     }
 
     this.table = new cli_table3(constructor_options)

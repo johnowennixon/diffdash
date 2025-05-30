@@ -12,9 +12,11 @@ export default {}
 
 function get_llm_parameters(): {max_tokens: number | undefined; temperature: number | undefined; timeout: number} {
   return {
-    max_tokens: lib_parse_number.parse_int_or_undefined(lib_env.get_empty("lib_llm_chat_max_tokens")),
-    temperature: lib_parse_number.parse_float_or_undefined(lib_env.get_substitute("lib_llm_chat_temperature", "0.5")),
-    timeout: lib_parse_number.parse_int(lib_env.get_substitute("lib_llm_chat_timeout", "60")),
+    max_tokens: lib_parse_number.parse_int_or_undefined(lib_env.env_get_empty("lib_llm_chat_max_tokens")),
+    temperature: lib_parse_number.parse_float_or_undefined(
+      lib_env.env_get_substitute("lib_llm_chat_temperature", "0.5"),
+    ),
+    timeout: lib_parse_number.parse_int(lib_env.env_get_substitute("lib_llm_chat_timeout", "60")),
   }
 }
 
@@ -54,12 +56,12 @@ export async function llm_generate_text({
     abortSignal: AbortSignal.timeout(timeout * 1000),
   }
 
-  lib_debug.inspect_when(lib_debug.channels.llm_inputs, llm_inputs, `llm_inputs (for ${llm_model_name})`)
+  lib_debug.debug_inspect_when(lib_debug.debug_channels.llm_inputs, llm_inputs, `llm_inputs (for ${llm_model_name})`)
 
   // This is liable to throw an error
   const llm_outputs = await generateText(llm_inputs)
 
-  lib_debug.inspect_when(lib_debug.channels.llm_outputs, llm_outputs, `llm_outputs (for ${llm_model_name})`)
+  lib_debug.debug_inspect_when(lib_debug.debug_channels.llm_outputs, llm_outputs, `llm_outputs (for ${llm_model_name})`)
 
   if (min_steps !== undefined && llm_outputs.steps.length < min_steps) {
     throw new Error("Too few steps taken")
@@ -98,12 +100,12 @@ export async function llm_generate_object<T>({
     abortSignal: AbortSignal.timeout(timeout * 1000),
   }
 
-  lib_debug.inspect_when(lib_debug.channels.llm_inputs, llm_inputs, `llm_inputs (for ${llm_model_name})`)
+  lib_debug.debug_inspect_when(lib_debug.debug_channels.llm_inputs, llm_inputs, `llm_inputs (for ${llm_model_name})`)
 
   // This is liable to throw an error
   const llm_outputs = await generateObject<T>(llm_inputs)
 
-  lib_debug.inspect_when(lib_debug.channels.llm_outputs, llm_outputs, `llm_outputs (for ${llm_model_name})`)
+  lib_debug.debug_inspect_when(lib_debug.debug_channels.llm_outputs, llm_outputs, `llm_outputs (for ${llm_model_name})`)
 
   return llm_outputs.object
 }

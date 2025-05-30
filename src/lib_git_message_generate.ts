@@ -63,18 +63,19 @@ export async function generate_message_string({
   const system_prompt = lib_git_message_prompt.get_system_prompt({has_structured_json})
 
   // Estimate remaining prompt length
-  const user_tokens = context_window - lib_llm_tokens.count_tokens_estimated({llm_config, text: system_prompt}) - 1000
+  const user_tokens =
+    context_window - lib_llm_tokens.count_llm_tokens_estimated({llm_config, text: system_prompt}) - 1000
   const user_length = user_tokens * 3
 
   const user_prompt = lib_git_message_prompt.get_user_prompt({has_structured_json, inputs, max_length: user_length})
 
-  lib_llm_tokens.debug_token_usage({name: "Inputs", llm_config, text: system_prompt + user_prompt})
+  lib_llm_tokens.debug_llm_tokens_usage({name: "Inputs", llm_config, text: system_prompt + user_prompt})
 
   const llm_response_text = has_structured_json
     ? await generate_message_structured({llm_config, system_prompt, user_prompt})
     : await generate_message_unstructured({llm_config, system_prompt, user_prompt})
 
-  lib_llm_tokens.debug_token_usage({name: "Outputs", llm_config, text: llm_response_text})
+  lib_llm_tokens.debug_llm_tokens_usage({name: "Outputs", llm_config, text: llm_response_text})
 
   return llm_response_text
 }
@@ -97,7 +98,7 @@ export async function generate_message_result({
     duration.stop()
     const seconds = duration.seconds_rounded()
 
-    const error_text = lib_error.get_error_text(error)
+    const error_text = lib_error.error_get_text(error)
     return {llm_config, seconds, git_message: null, error_text}
   }
 }

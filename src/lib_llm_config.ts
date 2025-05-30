@@ -52,5 +52,5 @@ export function get_llm_model_via(llm_config: LlmConfig): string {
 export function show_llm_config(llm_config: LlmConfig): void {
   const model_via = get_llm_model_via(llm_config)
 
-  lib_tell.info(`Using LLM ${model_via}`)
+  lib_tell.tell_info(`Using LLM ${model_via}`)
 }

@@ -30,10 +30,10 @@ async function phase_open(): Promise<SimpleGit> {
 async function phase_add({config, git}: {config: DiffDashConfig; git: SimpleGit}): Promise<void> {
   const {auto_add, disable_add, silent} = config
 
-  if (lib_debug.channels.git) {
+  if (lib_debug.debug_channels.git) {
     const status = await git.status()
 
-    lib_debug.inspect(status, "status")
+    lib_debug.debug_inspect(status, "status")
   }
 
   const has_staged_changes = await lib_git_simple_staging.has_staged_changes(git)
@@ -45,28 +45,30 @@ async function phase_add({config, git}: {config: DiffDashConfig; git: SimpleGit}
   const has_unstaged_changes = await lib_git_simple_staging.has_unstaged_changes(git)
 
   if (!has_unstaged_changes) {
-    lib_abort.with_warning("No changes found in the repository - there is nothing to commit")
+    lib_abort.abort_with_warning("No changes found in the repository - there is nothing to commit")
   }
 
   if (disable_add) {
-    lib_abort.with_warning("No staged changes found and adding changes is disabled")
+    lib_abort.abort_with_warning("No staged changes found and adding changes is disabled")
   }
 
   if (auto_add) {
     if (!silent) {
-      lib_tell.action("Auto-adding changes")
+      lib_tell.tell_action("Auto-adding changes")
     }
   } else {
-    const add_confirmed = await lib_tui_readline.confirm("No staged changes found - would you like to add all changes?")
+    const add_confirmed = await lib_tui_readline.tui_readline_confirm(
+      "No staged changes found - would you like to add all changes?",
+    )
 
     if (!add_confirmed) {
-      lib_abort.with_warning("Please add changes before creating a commit")
+      lib_abort.abort_with_warning("Please add changes before creating a commit")
     }
   }
 
   await lib_git_simple_staging.stage_all_changes(git)
   if (!silent) {
-    lib_tell.success("All changed files added successfully")
+    lib_tell.tell_success("All changed files added successfully")
   }
 }
 
@@ -77,7 +79,7 @@ async function phase_status({config, git}: {config: DiffDashConfig; git: SimpleG
     return
   }
 
-  lib_tell.info("Files staged for commit:")
+  lib_tell.tell_info("Files staged for commit:")
 
   const status = await git.status()
 
@@ -96,25 +98,25 @@ async function phase_status({config, git}: {config: DiffDashConfig; git: SimpleG
   const max_length = Math.max(...files_staged.map((file) => file.path.length), 10)
 
   for (const file of files_added) {
-    lib_stdio.write_stdout_linefeed(`  ${lib_tui_justify.justify_left(max_length, file.path)}  (added)`)
+    lib_stdio.write_stdout_linefeed(`  ${lib_tui_justify.tui_justify_left(max_length, file.path)}  (added)`)
   }
 
   for (const file of files_modified) {
-    lib_stdio.write_stdout_linefeed(`  ${lib_tui_justify.justify_left(max_length, file.path)}  (modified)`)
+    lib_stdio.write_stdout_linefeed(`  ${lib_tui_justify.tui_justify_left(max_length, file.path)}  (modified)`)
   }
 
   for (const file of files_renamed) {
     lib_stdio.write_stdout_linefeed(
-      `  ${lib_tui_justify.justify_left(max_length, file.path)}  (renamed from ${file.from})`,
+      `  ${lib_tui_justify.tui_justify_left(max_length, file.path)}  (renamed from ${file.from})`,
     )
   }
 
   for (const file of files_deleted) {
-    lib_stdio.write_stdout_linefeed(`  ${lib_tui_justify.justify_left(max_length, file.path)}  (deleted)`)
+    lib_stdio.write_stdout_linefeed(`  ${lib_tui_justify.tui_justify_left(max_length, file.path)}  (deleted)`)
   }
 
   if (files_staged.length === 0) {
-    lib_abort.with_warning("No files staged for commit")
+    lib_abort.abort_with_warning("No files staged for commit")
   }
 }
 
@@ -122,7 +124,7 @@ async function phase_compare({config, git}: {config: DiffDashConfig; git: Simple
   const {silent} = config
 
   if (!silent) {
-    lib_tell.action("Generating Git commit messages using all models in parallel")
+    lib_tell.tell_action("Generating Git commit messages using all models in parallel")
   }
 
   const {all_llm_configs, add_prefix, add_suffix} = config
@@ -143,7 +145,9 @@ async function phase_compare({config, git}: {config: DiffDashConfig; git: Simple
     const model_via = lib_llm_config.get_llm_model_via(llm_config)
 
     if (error_text) {
-      lib_tell.warning(`Failed to generate a commit message in ${seconds} seconds using ${model_via}: ${error_text}`)
+      lib_tell.tell_warning(
+        `Failed to generate a commit message in ${seconds} seconds using ${model_via}: ${error_text}`,
+      )
       continue
     }
 
@@ -151,14 +155,14 @@ async function phase_compare({config, git}: {config: DiffDashConfig; git: Simple
       continue
     }
 
-    lib_tell.info(`Git commit message in ${seconds} seconds using ${model_via}:`)
+    lib_tell.tell_info(`Git commit message in ${seconds} seconds using ${model_via}:`)
 
     const validation_result = lib_git_message_validate.get_valid(git_message)
 
-    const teller = validation_result.valid ? lib_tell.plain : lib_tell.warning
+    const teller = validation_result.valid ? lib_tell.tell_plain : lib_tell.tell_warning
 
-    git_message = lib_diffdash_modify.add_prefix_or_suffix({git_message, add_prefix, add_suffix})
-    git_message = lib_diffdash_modify.add_footer({git_message, llm_config})
+    git_message = lib_diffdash_modify.diffdash_modify_add_prefix_or_suffix({git_message, add_prefix, add_suffix})
+    git_message = lib_diffdash_modify.diffdash_modify_add_footer({git_message, llm_config})
 
     lib_git_message_ui.display_message({git_message, teller})
   }
@@ -170,7 +174,7 @@ async function phase_commit({config, git}: {config: DiffDashConfig; git: SimpleG
   const model_via = lib_llm_config.get_llm_model_via(llm_config)
 
   if (!silent) {
-    lib_tell.action(`Generating the Git commit message using ${model_via}`)
+    lib_tell.tell_action(`Generating the Git commit message using ${model_via}`)
   }
 
   const diffstat = await lib_git_simple_staging.get_staged_diffstat(git)
@@ -184,7 +188,7 @@ async function phase_commit({config, git}: {config: DiffDashConfig; git: SimpleG
   let {git_message} = result
 
   if (error_text) {
-    lib_abort.with_error(`Failed to generate a commit message using ${model_via}: ${error_text}`)
+    lib_abort.abort_with_error(`Failed to generate a commit message using ${model_via}: ${error_text}`)
   }
 
   if (!git_message) {
@@ -193,11 +197,11 @@ async function phase_commit({config, git}: {config: DiffDashConfig; git: SimpleG
 
   lib_git_message_validate.check_valid(git_message)
 
-  git_message = lib_diffdash_modify.add_prefix_or_suffix({git_message, add_prefix, add_suffix})
-  git_message = lib_diffdash_modify.add_footer({git_message, llm_config})
+  git_message = lib_diffdash_modify.diffdash_modify_add_prefix_or_suffix({git_message, add_prefix, add_suffix})
+  git_message = lib_diffdash_modify.diffdash_modify_add_footer({git_message, llm_config})
 
   if (!disable_preview && !silent) {
-    lib_git_message_ui.display_message({git_message, teller: lib_tell.plain})
+    lib_git_message_ui.display_message({git_message, teller: lib_tell.tell_plain})
   }
 
   if (disable_commit) {
@@ -206,20 +210,20 @@ async function phase_commit({config, git}: {config: DiffDashConfig; git: SimpleG
 
   if (auto_commit) {
     if (!silent) {
-      lib_tell.action("Auto-committing changes")
+      lib_tell.tell_action("Auto-committing changes")
     }
   } else {
-    const commit_confirmed = await lib_tui_readline.confirm("Do you want to commit these changes?")
+    const commit_confirmed = await lib_tui_readline.tui_readline_confirm("Do you want to commit these changes?")
 
     if (!commit_confirmed) {
-      lib_abort.with_warning("Commit cancelled by user")
+      lib_abort.abort_with_warning("Commit cancelled by user")
     }
   }
 
   await lib_git_simple_staging.create_commit(git, git_message)
 
   if (!silent) {
-    lib_tell.success("Changes committed successfully")
+    lib_tell.tell_success("Changes committed successfully")
   }
 }
 
@@ -232,10 +236,10 @@ async function phase_push({config, git}: {config: DiffDashConfig; git: SimpleGit
 
   if (auto_push) {
     if (!silent) {
-      lib_tell.action("Auto-pushing changes")
+      lib_tell.tell_action("Auto-pushing changes")
     }
   } else {
-    const push_confirmed = await lib_tui_readline.confirm("Do you want to push these changes?")
+    const push_confirmed = await lib_tui_readline.tui_readline_confirm("Do you want to push these changes?")
     if (!push_confirmed) {
       return
     }
@@ -244,15 +248,15 @@ async function phase_push({config, git}: {config: DiffDashConfig; git: SimpleGit
   try {
     await lib_git_simple_staging.push_to_remote(git, no_verify)
   } catch (error) {
-    lib_abort.with_error(`Failed to push to remote: ${lib_error.get_error_text(error)}`)
+    lib_abort.abort_with_error(`Failed to push to remote: ${lib_error.error_get_text(error)}`)
   }
 
   if (!silent) {
-    lib_tell.success("Changes pushed successfully")
+    lib_tell.tell_success("Changes pushed successfully")
   }
 }
 
-export async function sequence_normal(config: DiffDashConfig): Promise<void> {
+export async function diffdash_sequence_normal(config: DiffDashConfig): Promise<void> {
   const git = await phase_open()
 
   await phase_add({config, git})
@@ -261,7 +265,7 @@ export async function sequence_normal(config: DiffDashConfig): Promise<void> {
   await phase_push({config, git})
 }
 
-export async function sequence_compare(config: DiffDashConfig): Promise<void> {
+export async function diffdash_sequence_compare(config: DiffDashConfig): Promise<void> {
   const git = await phase_open()
 
   await phase_add({config, git})

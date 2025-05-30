@@ -83,8 +83,8 @@ export function get_model_access({
 
   if (llm_provider !== null) {
     const env_provider = lib_llm_provider.get_llm_api_key_env(llm_provider)
-    lib_abort.with_error(`Please set environment variable ${env_openrouter} or ${env_provider}`)
+    lib_abort.abort_with_error(`Please set environment variable ${env_openrouter} or ${env_provider}`)
   }
 
-  lib_abort.with_error(`Please set environment variable ${env_openrouter}`)
+  lib_abort.abort_with_error(`Please set environment variable ${env_openrouter}`)
 }

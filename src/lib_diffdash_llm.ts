@@ -23,7 +23,7 @@ const model_name_options: Array<LlmModelName> = [
   "qwen3-235b-a22b",
 ]
 
-export const llm_model_details = lib_llm_model.get_model_details({llm_model_names: model_name_options})
-export const llm_model_choices = lib_llm_model.get_model_choices(llm_model_details)
-export const llm_model_default = lib_env.get_substitute("DIFFDASH_LLM_MODEL", model_name_default)
-export const llm_model_fallback = model_name_fallback
+export const diffdash_llm_model_details = lib_llm_model.get_model_details({llm_model_names: model_name_options})
+export const diffdash_llm_model_choices = lib_llm_model.get_model_choices(diffdash_llm_model_details)
+export const diffdash_llm_model_default = lib_env.env_get_substitute("DIFFDASH_LLM_MODEL", model_name_default)
+export const diffdash_llm_model_fallback = model_name_fallback

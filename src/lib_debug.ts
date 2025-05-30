@@ -7,7 +7,7 @@ import * as lib_tell from "./lib_tell.js"
 
 export default {}
 
-export const channels = {
+export const debug_channels = {
   api: false,
   arg: false,
   backups: false,
@@ -36,45 +36,45 @@ export const channels = {
   sql: false,
 }
 
-type DebugChannel = keyof typeof channels
+type DebugChannel = keyof typeof debug_channels
 
-export function enable_if(channel: DebugChannel, enabled: boolean): void {
-  if (enabled && !channels[channel]) {
-    channels[channel] = true
-    lib_tell.debug(`Debugging enabled for ‘${channel}’`)
+export function debug_enable_if(channel: DebugChannel, enabled: boolean): void {
+  if (enabled && !debug_channels[channel]) {
+    debug_channels[channel] = true
+    lib_tell.tell_debug(`Debugging enabled for ‘${channel}’`)
   }
 }
 
-function init(): void {
-  for (const channel in channels) {
-    if (lib_enabled.from_env(`lib_debug_${channel}`)) {
-      enable_if(channel as DebugChannel, true)
+function debug_init(): void {
+  for (const channel in debug_channels) {
+    if (lib_enabled.enabled_from_env(`lib_debug_${channel}`)) {
+      debug_enable_if(channel as DebugChannel, true)
     }
   }
 }
 
-init()
+debug_init()
 
-export function tell_when(when: boolean | undefined, message: string): void {
+export function debug_tell_when(when: boolean | undefined, message: string): void {
   if (when !== undefined && when) {
-    lib_tell.debug(message)
+    lib_tell.tell_debug(message)
   }
 }
 
-export function inspect(obj: unknown, name: string | null = null): void {
+export function debug_inspect(obj: unknown, name: string | null = null): void {
   const prefix = name ? `${name}: ` : EMPTY
-  const message = prefix + lib_inspect.obj_to_string(obj)
-  lib_stdio.write_stderr_linefeed(lib_ansi.grey(message))
+  const message = prefix + lib_inspect.inspect_obj_to_string(obj)
+  lib_stdio.write_stderr_linefeed(lib_ansi.ansi_grey(message))
 }
 
-export function inspect_if(obj: unknown, name: string | null = null): void {
+export function debug_inspect_if(obj: unknown, name: string | null = null): void {
   if (obj !== undefined) {
-    inspect(obj, name)
+    debug_inspect(obj, name)
   }
 }
 
-export function inspect_when(when: boolean | undefined, obj: unknown, name: string | null = null): void {
+export function debug_inspect_when(when: boolean | undefined, obj: unknown, name: string | null = null): void {
   if (when !== undefined && when) {
-    inspect(obj, name)
+    debug_inspect(obj, name)
   }
 }

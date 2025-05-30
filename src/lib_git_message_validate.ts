@@ -86,8 +86,8 @@ export function check_valid(git_message: string): void {
   const validation_result = get_valid(git_message)
 
   if (!validation_result.valid) {
-    lib_git_message_ui.display_message({git_message, teller: lib_tell.warning})
+    lib_git_message_ui.display_message({git_message, teller: lib_tell.tell_warning})
 
-    lib_abort.with_error(`Generated commit message failed validation: ${validation_result.reason}`)
+    lib_abort.abort_with_error(`Generated commit message failed validation: ${validation_result.reason}`)
   }
 }
