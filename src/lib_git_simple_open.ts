@@ -7,7 +7,7 @@ export default {}
 
 export type {SimpleGit} from "simple-git"
 
-export async function open_git_repo(repo_path: string = process.cwd()): Promise<SimpleGit> {
+export async function git_simple_open_git_repo(repo_path: string = process.cwd()): Promise<SimpleGit> {
   const resolved_path = lib_file_path.path_absolute(repo_path)
 
   const git = simpleGit(resolved_path)
@@ -20,7 +20,7 @@ export async function open_git_repo(repo_path: string = process.cwd()): Promise<
   return git
 }
 
-export async function check_git_repo_is_not_bare(git: SimpleGit): Promise<void> {
+export async function git_simple_open_check_not_bare(git: SimpleGit): Promise<void> {
   const is_bare_repository: string = await git.raw(["rev-parse", "--is-bare-repository"])
 
   if (is_bare_repository === "true") {
@@ -28,7 +28,7 @@ export async function check_git_repo_is_not_bare(git: SimpleGit): Promise<void> 
   }
 }
 
-export async function check_git_repo_has_no_conflicts(git: SimpleGit): Promise<void> {
+export async function git_simple_open_check_no_conflicts(git: SimpleGit): Promise<void> {
   const status = await git.status()
 
   if (status.conflicted.length > 0) {

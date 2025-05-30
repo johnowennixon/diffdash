@@ -3,7 +3,7 @@ import * as lib_debug from "./lib_debug.js"
 import type {DiffDashConfig} from "./lib_diffdash_config.js"
 import * as lib_diffdash_modify from "./lib_diffdash_modify.js"
 import * as lib_error from "./lib_error.js"
-import {generate_message_result} from "./lib_git_message_generate.js"
+import {git_message_generate_result} from "./lib_git_message_generate.js"
 import type {GitMessageGenerateResult} from "./lib_git_message_generate.js"
 import type {GitMessagePromptInputs} from "./lib_git_message_prompt.js"
 import * as lib_git_message_ui from "./lib_git_message_ui.js"
@@ -20,9 +20,9 @@ import * as lib_tui_readline from "./lib_tui_readline.js"
 export default {}
 
 async function phase_open(): Promise<SimpleGit> {
-  const git = await lib_git_simple_open.open_git_repo()
+  const git = await lib_git_simple_open.git_simple_open_git_repo()
 
-  await lib_git_simple_open.check_git_repo_is_not_bare(git)
+  await lib_git_simple_open.git_simple_open_check_not_bare(git)
 
   return git
 }
@@ -36,13 +36,13 @@ async function phase_add({config, git}: {config: DiffDashConfig; git: SimpleGit}
     lib_debug.debug_inspect(status, "status")
   }
 
-  const has_staged_changes = await lib_git_simple_staging.has_staged_changes(git)
+  const has_staged_changes = await lib_git_simple_staging.git_simple_staging_has_staged_changes(git)
 
   if (has_staged_changes) {
     return
   }
 
-  const has_unstaged_changes = await lib_git_simple_staging.has_unstaged_changes(git)
+  const has_unstaged_changes = await lib_git_simple_staging.git_simple_staging_has_unstaged_changes(git)
 
   if (!has_unstaged_changes) {
     lib_abort.abort_with_warning("No changes found in the repository - there is nothing to commit")
@@ -66,7 +66,7 @@ async function phase_add({config, git}: {config: DiffDashConfig; git: SimpleGit}
     }
   }
 
-  await lib_git_simple_staging.stage_all_changes(git)
+  await lib_git_simple_staging.git_simple_staging_stage_all_changes(git)
   if (!silent) {
     lib_tell.tell_success("All changed files added successfully")
   }
@@ -129,12 +129,12 @@ async function phase_compare({config, git}: {config: DiffDashConfig; git: Simple
 
   const {all_llm_configs, add_prefix, add_suffix} = config
 
-  const diffstat = await lib_git_simple_staging.get_staged_diffstat(git)
-  const diff = await lib_git_simple_staging.get_staged_diff(git)
+  const diffstat = await lib_git_simple_staging.git_simple_staging_get_staged_diffstat(git)
+  const diff = await lib_git_simple_staging.git_simple_staging_get_staged_diff(git)
 
   const inputs: GitMessagePromptInputs = {diffstat, diff}
 
-  const result_promises = all_llm_configs.map((llm_config) => generate_message_result({llm_config, inputs}))
+  const result_promises = all_llm_configs.map((llm_config) => git_message_generate_result({llm_config, inputs}))
 
   const all_results: Array<GitMessageGenerateResult> = await Promise.all(result_promises)
 
@@ -157,14 +157,14 @@ async function phase_compare({config, git}: {config: DiffDashConfig; git: Simple
 
     lib_tell.tell_info(`Git commit message in ${seconds} seconds using ${model_via}:`)
 
-    const validation_result = lib_git_message_validate.get_valid(git_message)
+    const validation_result = lib_git_message_validate.git_message_validate_get_result(git_message)
 
     const teller = validation_result.valid ? lib_tell.tell_plain : lib_tell.tell_warning
 
     git_message = lib_diffdash_modify.diffdash_modify_add_prefix_or_suffix({git_message, add_prefix, add_suffix})
     git_message = lib_diffdash_modify.diffdash_modify_add_footer({git_message, llm_config})
 
-    lib_git_message_ui.display_message({git_message, teller})
+    lib_git_message_ui.git_message_display({git_message, teller})
   }
 }
 
@@ -177,12 +177,12 @@ async function phase_commit({config, git}: {config: DiffDashConfig; git: SimpleG
     lib_tell.tell_action(`Generating the Git commit message using ${model_via}`)
   }
 
-  const diffstat = await lib_git_simple_staging.get_staged_diffstat(git)
-  const diff = await lib_git_simple_staging.get_staged_diff(git)
+  const diffstat = await lib_git_simple_staging.git_simple_staging_get_staged_diffstat(git)
+  const diff = await lib_git_simple_staging.git_simple_staging_get_staged_diff(git)
 
   const inputs: GitMessagePromptInputs = {diffstat, diff}
 
-  const result: GitMessageGenerateResult = await generate_message_result({llm_config, inputs})
+  const result: GitMessageGenerateResult = await git_message_generate_result({llm_config, inputs})
 
   const {error_text} = result
   let {git_message} = result
@@ -195,13 +195,13 @@ async function phase_commit({config, git}: {config: DiffDashConfig; git: SimpleG
     return
   }
 
-  lib_git_message_validate.check_valid(git_message)
+  lib_git_message_validate.git_message_validate_check(git_message)
 
   git_message = lib_diffdash_modify.diffdash_modify_add_prefix_or_suffix({git_message, add_prefix, add_suffix})
   git_message = lib_diffdash_modify.diffdash_modify_add_footer({git_message, llm_config})
 
   if (!disable_preview && !silent) {
-    lib_git_message_ui.display_message({git_message, teller: lib_tell.tell_plain})
+    lib_git_message_ui.git_message_display({git_message, teller: lib_tell.tell_plain})
   }
 
   if (disable_commit) {
@@ -220,7 +220,7 @@ async function phase_commit({config, git}: {config: DiffDashConfig; git: SimpleG
     }
   }
 
-  await lib_git_simple_staging.create_commit(git, git_message)
+  await lib_git_simple_staging.git_simple_staging_create_commit(git, git_message)
 
   if (!silent) {
     lib_tell.tell_success("Changes committed successfully")
@@ -246,7 +246,7 @@ async function phase_push({config, git}: {config: DiffDashConfig; git: SimpleGit
   }
 
   try {
-    await lib_git_simple_staging.push_to_remote(git, no_verify)
+    await lib_git_simple_staging.git_simple_staging_push_to_remote(git, no_verify)
   } catch (error) {
     lib_abort.abort_with_error(`Failed to push to remote: ${lib_error.error_get_text(error)}`)
   }
