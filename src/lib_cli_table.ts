@@ -1,6 +1,6 @@
 import cli_table3 from "cli-table3"
 
-import * as lib_ansi from "./lib_ansi.js"
+import {ansi_bold} from "./lib_ansi.js"
 
 export default {}
 
@@ -12,7 +12,7 @@ export class CliTable {
     const constructor_options: cli_table3.TableConstructorOptions = {style: {head: []}}
 
     if (headings) {
-      constructor_options.head = headings.map((heading) => lib_ansi.ansi_bold(heading))
+      constructor_options.head = headings.map((heading) => ansi_bold(heading))
     }
 
     this.table = new cli_table3(constructor_options)

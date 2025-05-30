@@ -2,7 +2,7 @@ import {ArgumentParser} from "argparse"
 import type {ArgumentGroup, ArgumentOptions, ArgumentParserOptions, Namespace} from "argparse"
 
 import {DASH, EMPTY, PLUS, UNDERSCORE} from "./lib_char.js"
-import * as lib_debug from "./lib_debug.js"
+import {debug_channels, debug_inspect_when} from "./lib_debug.js"
 import type {StringPredicate} from "./lib_string_types.js"
 import type {TypeInferExpand} from "./lib_type_infer.js"
 
@@ -314,7 +314,7 @@ export function make_arg_parser<T extends ArgInferSchema>({
 
   const namespace = parser.parse_args() as Namespace
 
-  lib_debug.debug_inspect_when(lib_debug.debug_channels.arg, namespace, "namespace")
+  debug_inspect_when(debug_channels.arg, namespace, "namespace")
 
   const parsed_args = recursive_parse_args({schema: arg_schema, namespace})
 

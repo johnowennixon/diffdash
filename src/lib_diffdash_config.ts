@@ -1,8 +1,8 @@
-import * as lib_debug from "./lib_debug.js"
+import {debug_channels, debug_inspect_when} from "./lib_debug.js"
 import {diffdash_arg_parser} from "./lib_diffdash_arg.js"
 import {diffdash_llm_model_details, diffdash_llm_model_fallback} from "./lib_diffdash_llm.js"
 import type {LlmConfig} from "./lib_llm_config.js"
-import * as lib_llm_config from "./lib_llm_config.js"
+import {llm_config_get, llm_config_get_all} from "./lib_llm_config.js"
 
 export default {}
 
@@ -54,19 +54,19 @@ export function diffdash_config_get(): DiffDashConfig {
   } = pa
 
   const llm_model_name = llm_fallback ? diffdash_llm_model_fallback : llm_model
-  const llm_config = lib_llm_config.llm_config_get({
+  const llm_config = llm_config_get({
     llm_model_details: diffdash_llm_model_details,
     llm_model_name,
     llm_router,
   })
-  const all_llm_configs = lib_llm_config.llm_config_get_all({
+  const all_llm_configs = llm_config_get_all({
     llm_model_details: diffdash_llm_model_details,
     llm_router,
     llm_excludes,
   })
 
-  lib_debug.debug_channels.llm_inputs = debug_llm_inputs
-  lib_debug.debug_channels.llm_outputs = debug_llm_outputs
+  debug_channels.llm_inputs = debug_llm_inputs
+  debug_channels.llm_outputs = debug_llm_outputs
 
   const config: DiffDashConfig = {
     version,
@@ -88,7 +88,7 @@ export function diffdash_config_get(): DiffDashConfig {
     all_llm_configs,
   }
 
-  lib_debug.debug_inspect_when(lib_debug.debug_channels.config, config, "config")
+  debug_inspect_when(debug_channels.config, config, "config")
 
   return config
 }

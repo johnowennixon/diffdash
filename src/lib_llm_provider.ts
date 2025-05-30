@@ -5,8 +5,8 @@ import {createOpenAI} from "@ai-sdk/openai"
 import {createOpenRouter} from "@openrouter/ai-sdk-provider"
 import type {LanguageModelV1} from "ai"
 
-import * as lib_abort from "./lib_abort.js"
-import * as lib_env from "./lib_env.js"
+import {abort_with_error} from "./lib_abort.js"
+import {env_get} from "./lib_env.js"
 
 export default {}
 
@@ -24,7 +24,7 @@ export function llm_provider_get_via(llm_provider: LlmProvider): string {
       return "direct"
 
     default:
-      lib_abort.abort_with_error("Unknown LLM provider")
+      abort_with_error("Unknown LLM provider")
   }
 }
 
@@ -41,14 +41,14 @@ export function llm_provider_get_api_key_env(llm_provider: LlmProvider): string 
     case "openrouter":
       return "OPENROUTER_API_KEY"
     default:
-      lib_abort.abort_with_error("Unknown LLM provider")
+      abort_with_error("Unknown LLM provider")
   }
 }
 
 export function llm_provider_get_api_key(llm_provider: LlmProvider): string | null {
   const env = llm_provider_get_api_key_env(llm_provider)
 
-  return lib_env.env_get(env)
+  return env_get(env)
 }
 
 export function llm_provider_get_ai_sdk_language_model({
@@ -68,6 +68,6 @@ export function llm_provider_get_ai_sdk_language_model({
     case "openrouter":
       return createOpenRouter({apiKey: llm_api_key})(llm_model_code)
     default:
-      lib_abort.abort_with_error("Unknown LLM provider")
+      abort_with_error("Unknown LLM provider")
   }
 }

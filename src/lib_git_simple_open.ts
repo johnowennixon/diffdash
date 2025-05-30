@@ -1,20 +1,20 @@
 import {type SimpleGit, simpleGit} from "simple-git"
 
-import * as lib_abort from "./lib_abort.js"
-import * as lib_file_path from "./lib_file_path.js"
+import {abort_with_error} from "./lib_abort.js"
+import {path_absolute} from "./lib_file_path.js"
 
 export default {}
 
 export type {SimpleGit} from "simple-git"
 
 export async function git_simple_open_git_repo(repo_path: string = process.cwd()): Promise<SimpleGit> {
-  const resolved_path = lib_file_path.path_absolute(repo_path)
+  const resolved_path = path_absolute(repo_path)
 
   const git = simpleGit(resolved_path)
 
   const is_repo = await git.checkIsRepo()
   if (!is_repo) {
-    lib_abort.abort_with_error("This directory is not in a git repository")
+    abort_with_error("This directory is not in a git repository")
   }
 
   return git
@@ -24,7 +24,7 @@ export async function git_simple_open_check_not_bare(git: SimpleGit): Promise<vo
   const is_bare_repository: string = await git.raw(["rev-parse", "--is-bare-repository"])
 
   if (is_bare_repository === "true") {
-    lib_abort.abort_with_error("Cannot operate on a bare repository")
+    abort_with_error("Cannot operate on a bare repository")
   }
 }
 
@@ -32,6 +32,6 @@ export async function git_simple_open_check_no_conflicts(git: SimpleGit): Promis
   const status = await git.status()
 
   if (status.conflicted.length > 0) {
-    lib_abort.abort_with_error("Cannot operate on a repository with conflicts")
+    abort_with_error("Cannot operate on a repository with conflicts")
   }
 }

@@ -1,4 +1,4 @@
-import * as lib_abort from "./lib_abort.js"
+import {abort_with_error} from "./lib_abort.js"
 
 export default {}
 
@@ -16,7 +16,7 @@ export class Duration {
 
   nanoseconds(): number {
     if (this.hrtime_start === undefined || this.hrtime_stop === undefined) {
-      lib_abort.abort_with_error("Duration uninitialized")
+      abort_with_error("Duration uninitialized")
     }
 
     return Number(this.hrtime_stop - this.hrtime_start)

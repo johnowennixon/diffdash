@@ -1,7 +1,7 @@
-import * as lib_abort from "./lib_abort.js"
+import {abort_with_error} from "./lib_abort.js"
 import {ASTERISK, DASH, EMPTY, LF, SPACE} from "./lib_char.js"
-import * as lib_git_message_ui from "./lib_git_message_ui.js"
-import * as lib_tell from "./lib_tell.js"
+import {git_message_display} from "./lib_git_message_ui.js"
+import {tell_warning} from "./lib_tell.js"
 
 export default {}
 
@@ -86,8 +86,8 @@ export function git_message_validate_check(git_message: string): void {
   const validation_result = git_message_validate_get_result(git_message)
 
   if (!validation_result.valid) {
-    lib_git_message_ui.git_message_display({git_message, teller: lib_tell.tell_warning})
+    git_message_display({git_message, teller: tell_warning})
 
-    lib_abort.abort_with_error(`Generated commit message failed validation: ${validation_result.reason}`)
+    abort_with_error(`Generated commit message failed validation: ${validation_result.reason}`)
   }
 }

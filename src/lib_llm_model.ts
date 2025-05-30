@@ -1,4 +1,4 @@
-import * as lib_abort from "./lib_abort.js"
+import {abort_with_error} from "./lib_abort.js"
 import type {LlmProvider} from "./lib_llm_provider.js"
 
 export default {}
@@ -319,5 +319,5 @@ export function llm_model_find_detail({
     }
   }
 
-  lib_abort.abort_with_error(`Unknown model: ${llm_model_name}`)
+  abort_with_error(`Unknown model: ${llm_model_name}`)
 }

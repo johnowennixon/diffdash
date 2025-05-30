@@ -1,6 +1,6 @@
-import * as lib_env from "./lib_env.js"
-import * as lib_llm_model from "./lib_llm_model.js"
+import {env_get_substitute} from "./lib_env.js"
 import type {LlmModelName} from "./lib_llm_model.js"
+import {llm_model_get_choices, llm_model_get_details} from "./lib_llm_model.js"
 
 export default {}
 
@@ -23,7 +23,7 @@ const model_name_options: Array<LlmModelName> = [
   "qwen3-235b-a22b",
 ]
 
-export const diffdash_llm_model_details = lib_llm_model.llm_model_get_details({llm_model_names: model_name_options})
-export const diffdash_llm_model_choices = lib_llm_model.llm_model_get_choices(diffdash_llm_model_details)
-export const diffdash_llm_model_default = lib_env.env_get_substitute("DIFFDASH_LLM_MODEL", model_name_default)
+export const diffdash_llm_model_details = llm_model_get_details({llm_model_names: model_name_options})
+export const diffdash_llm_model_choices = llm_model_get_choices(diffdash_llm_model_details)
+export const diffdash_llm_model_default = env_get_substitute("DIFFDASH_LLM_MODEL", model_name_default)
 export const diffdash_llm_model_fallback = model_name_fallback

@@ -1,4 +1,4 @@
-import * as lib_abort from "./lib_abort.js"
+import {abort_with_error} from "./lib_abort.js"
 import {EMPTY} from "./lib_char.js"
 
 export default {}
@@ -20,7 +20,7 @@ export function env_get_empty(key: string): string {
 }
 
 export function env_get_abort(key: string): string {
-  return env_get(key) ?? lib_abort.abort_with_error(`Unable to find environment key: ${key}`)
+  return env_get(key) ?? abort_with_error(`Unable to find environment key: ${key}`)
 }
 
 export function env_set(key: string, value: string): void {

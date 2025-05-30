@@ -1,15 +1,15 @@
-import * as lib_ansi from "./lib_ansi.js"
 import type {AnsiColourizer} from "./lib_ansi.js"
+import {ansi_cyan, ansi_green, ansi_grey, ansi_magenta, ansi_normal, ansi_red, ansi_yellow} from "./lib_ansi.js"
 import {EMPTY, LF, SPACE} from "./lib_char.js"
-import * as lib_datetime from "./lib_datetime.js"
-import * as lib_enabled from "./lib_enabled.js"
-import * as lib_stdio from "./lib_stdio.js"
+import {datetime_format_local_iso_ymdthms, datetime_now} from "./lib_datetime.js"
+import {enabled_from_env} from "./lib_enabled.js"
+import {write_stderr_linefeed} from "./lib_stdio.js"
 
 export default {}
 
 export const enables = {
-  timestamp: lib_enabled.enabled_from_env("TELL_TIMESTAMP"),
-  okay: lib_enabled.enabled_from_env("TELL_OKAY", {default: true}),
+  timestamp: enabled_from_env("TELL_TIMESTAMP"),
+  okay: enabled_from_env("TELL_OKAY", {default: true}),
 }
 
 export type TellParams = {
@@ -28,8 +28,8 @@ function tell_generic({message, colourizer}: {message: string; colourizer?: Ansi
   let text = EMPTY
 
   if (enables.timestamp) {
-    const now_local_ymdthms = lib_datetime.datetime_format_local_iso_ymdthms(lib_datetime.datetime_now())
-    text += lib_ansi.ansi_grey(now_local_ymdthms)
+    const now_local_ymdthms = datetime_format_local_iso_ymdthms(datetime_now())
+    text += ansi_grey(now_local_ymdthms)
     text += SPACE
   }
 
@@ -37,7 +37,7 @@ function tell_generic({message, colourizer}: {message: string; colourizer?: Ansi
     text += colourizer(message)
   }
 
-  lib_stdio.write_stderr_linefeed(text)
+  write_stderr_linefeed(text)
 }
 
 export function tell_nowhere(_message: string): void {
@@ -45,31 +45,31 @@ export function tell_nowhere(_message: string): void {
 }
 
 export function tell_plain(message: string): void {
-  tell_generic({message, colourizer: lib_ansi.ansi_normal})
+  tell_generic({message, colourizer: ansi_normal})
 }
 
 export function tell_error(message: string): void {
-  tell_generic({message, colourizer: lib_ansi.ansi_red})
+  tell_generic({message, colourizer: ansi_red})
 }
 
 export function tell_warning(message: string): void {
-  tell_generic({message, colourizer: lib_ansi.ansi_yellow})
+  tell_generic({message, colourizer: ansi_yellow})
 }
 
 export function tell_success(message: string): void {
-  tell_generic({message, colourizer: lib_ansi.ansi_green})
+  tell_generic({message, colourizer: ansi_green})
 }
 
 export function tell_info(message: string): void {
-  tell_generic({message, colourizer: lib_ansi.ansi_cyan})
+  tell_generic({message, colourizer: ansi_cyan})
 }
 
 export function tell_action(message: string): void {
-  tell_generic({message, colourizer: lib_ansi.ansi_magenta})
+  tell_generic({message, colourizer: ansi_magenta})
 }
 
 export function tell_debug(message: string): void {
-  tell_generic({message, colourizer: lib_ansi.ansi_grey})
+  tell_generic({message, colourizer: ansi_grey})
 }
 
 export function tell_blank(): void {

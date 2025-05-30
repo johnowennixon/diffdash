@@ -1,9 +1,9 @@
-import * as lib_ansi from "./lib_ansi.js"
+import {ansi_grey} from "./lib_ansi.js"
 import {EMPTY} from "./lib_char.js"
-import * as lib_enabled from "./lib_enabled.js"
-import * as lib_inspect from "./lib_inspect.js"
-import * as lib_stdio from "./lib_stdio.js"
-import * as lib_tell from "./lib_tell.js"
+import {enabled_from_env} from "./lib_enabled.js"
+import {inspect_obj_to_string} from "./lib_inspect.js"
+import {write_stderr_linefeed} from "./lib_stdio.js"
+import {tell_debug} from "./lib_tell.js"
 
 export default {}
 
@@ -41,13 +41,13 @@ type DebugChannel = keyof typeof debug_channels
 export function debug_enable_if(channel: DebugChannel, enabled: boolean): void {
   if (enabled && !debug_channels[channel]) {
     debug_channels[channel] = true
-    lib_tell.tell_debug(`Debugging enabled for ‘${channel}’`)
+    tell_debug(`Debugging enabled for ‘${channel}’`)
   }
 }
 
 function debug_init(): void {
   for (const channel in debug_channels) {
-    if (lib_enabled.enabled_from_env(`lib_debug_${channel}`)) {
+    if (enabled_from_env(`lib_debug_${channel}`)) {
       debug_enable_if(channel as DebugChannel, true)
     }
   }
@@ -57,14 +57,14 @@ debug_init()
 
 export function debug_tell_when(when: boolean | undefined, message: string): void {
   if (when !== undefined && when) {
-    lib_tell.tell_debug(message)
+    tell_debug(message)
   }
 }
 
 export function debug_inspect(obj: unknown, name: string | null = null): void {
   const prefix = name ? `${name}: ` : EMPTY
-  const message = prefix + lib_inspect.inspect_obj_to_string(obj)
-  lib_stdio.write_stderr_linefeed(lib_ansi.ansi_grey(message))
+  const message = prefix + inspect_obj_to_string(obj)
+  write_stderr_linefeed(ansi_grey(message))
 }
 
 export function debug_inspect_if(obj: unknown, name: string | null = null): void {

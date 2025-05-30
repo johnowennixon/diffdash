@@ -1,4 +1,4 @@
-import * as lib_abort from "./lib_abort.js"
+import {abort_with_error} from "./lib_abort.js"
 
 export default {}
 
@@ -16,5 +16,5 @@ export function error_get_text(error: unknown): string {
 
 export function error_abort(error: Error): void {
   const message = `Unhandled error: ${error_get_text(error)}`
-  lib_abort.abort_with_error(message)
+  abort_with_error(message)
 }

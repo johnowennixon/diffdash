@@ -1,13 +1,13 @@
-import * as readline from "node:readline"
+import {createInterface} from "node:readline"
 
-import * as lib_ansi from "./lib_ansi.js"
+import {ansi_blue, ansi_bold} from "./lib_ansi.js"
 
 export default {}
 
 export async function tui_readline_confirm(message: string): Promise<boolean> {
-  const query = lib_ansi.ansi_bold(lib_ansi.ansi_blue(`${message} [Y/n] `))
+  const query = ansi_bold(ansi_blue(`${message} [Y/n] `))
 
-  const rl = readline.createInterface({
+  const rl = createInterface({
     input: process.stdin,
     output: process.stdout,
   })
