@@ -15,12 +15,12 @@ export interface LlmConfig {
   llm_api_key: string
 }
 
-export function get_llm_config({
+export function llm_config_get({
   llm_model_details,
   llm_model_name,
   llm_router,
 }: {llm_model_details: Array<LlmModelDetail>; llm_model_name: string; llm_router: boolean}): LlmConfig {
-  const llm_model_detail = lib_llm_model.find_model_detail({llm_model_details, llm_model_name})
+  const llm_model_detail = lib_llm_model.llm_model_find_detail({llm_model_details, llm_model_name})
 
   const access = lib_llm_access.get_model_access({llm_model_details, llm_model_name, llm_router})
 
@@ -29,28 +29,28 @@ export function get_llm_config({
   return {llm_model_name, llm_model_detail, llm_model_code, llm_provider, llm_api_key}
 }
 
-export function all_llm_configs({
+export function llm_config_get_all({
   llm_model_details,
   llm_router,
   llm_excludes,
 }: {llm_model_details: Array<LlmModelDetail>; llm_router: boolean; llm_excludes?: string}): Array<LlmConfig> {
-  const choices = lib_llm_model.get_model_choices(llm_model_details)
+  const choices = lib_llm_model.llm_model_get_choices(llm_model_details)
 
   const available = choices.filter((llm_model_name) =>
     lib_llm_access.is_model_available({llm_model_details, llm_model_name, llm_excludes}),
   )
 
-  return available.map((llm_model_name) => get_llm_config({llm_model_details, llm_model_name, llm_router}))
+  return available.map((llm_model_name) => llm_config_get({llm_model_details, llm_model_name, llm_router}))
 }
 
-export function get_llm_model_via(llm_config: LlmConfig): string {
+export function llm_config_get_model_via(llm_config: LlmConfig): string {
   const {llm_model_name, llm_provider} = llm_config
 
-  return `${llm_model_name} (${lib_llm_provider.get_llm_provider_via(llm_provider)})`
+  return `${llm_model_name} (${lib_llm_provider.llm_provider_get_via(llm_provider)})`
 }
 
-export function show_llm_config(llm_config: LlmConfig): void {
-  const model_via = get_llm_model_via(llm_config)
+export function llm_config_show(llm_config: LlmConfig): void {
+  const model_via = llm_config_get_model_via(llm_config)
 
   lib_tell.tell_info(`Using LLM ${model_via}`)
 }

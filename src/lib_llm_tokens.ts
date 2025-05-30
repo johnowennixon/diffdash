@@ -6,7 +6,7 @@ import * as lib_tell from "./lib_tell.js"
 
 export default {}
 
-export function count_llm_tokens_estimated({llm_config, text}: {llm_config: LlmConfig; text: string}): number {
+export function llm_tokens_count_estimated({llm_config, text}: {llm_config: LlmConfig; text: string}): number {
   const {llm_model_detail} = llm_config
 
   const {llm_model_code_direct} = llm_model_detail
@@ -22,7 +22,7 @@ export function count_llm_tokens_estimated({llm_config, text}: {llm_config: LlmC
   }
 }
 
-export function debug_llm_tokens_usage({
+export function llm_tokens_debug_usage({
   name,
   llm_config,
   text,
@@ -31,7 +31,7 @@ export function debug_llm_tokens_usage({
     const {llm_model_name} = llm_config
 
     const length = text.length
-    const tokens = count_llm_tokens_estimated({llm_config, text})
+    const tokens = llm_tokens_count_estimated({llm_config, text})
     const ratio = Math.round((length / tokens) * 100) / 100
 
     lib_tell.tell_debug(`${name}: length=${length}, tokens=${tokens}, ratio=${ratio}, model=${llm_model_name}`)

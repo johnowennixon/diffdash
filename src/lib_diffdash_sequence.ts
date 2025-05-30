@@ -142,7 +142,7 @@ async function phase_compare({config, git}: {config: DiffDashConfig; git: Simple
     const {llm_config, seconds, error_text} = result
     let {git_message} = result
 
-    const model_via = lib_llm_config.get_llm_model_via(llm_config)
+    const model_via = lib_llm_config.llm_config_get_model_via(llm_config)
 
     if (error_text) {
       lib_tell.tell_warning(
@@ -171,7 +171,7 @@ async function phase_compare({config, git}: {config: DiffDashConfig; git: Simple
 async function phase_commit({config, git}: {config: DiffDashConfig; git: SimpleGit}): Promise<void> {
   const {add_prefix, add_suffix, auto_commit, disable_commit, disable_preview, silent, llm_config} = config
 
-  const model_via = lib_llm_config.get_llm_model_via(llm_config)
+  const model_via = lib_llm_config.llm_config_get_model_via(llm_config)
 
   if (!silent) {
     lib_tell.tell_action(`Generating the Git commit message using ${model_via}`)

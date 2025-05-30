@@ -12,7 +12,7 @@ export default {}
 
 export type LlmProvider = "anthropic" | "deepseek" | "google" | "openai" | "openrouter"
 
-export function get_llm_provider_via(llm_provider: LlmProvider): string {
+export function llm_provider_get_via(llm_provider: LlmProvider): string {
   switch (llm_provider) {
     case "openrouter":
       return "via OpenRouter"
@@ -28,7 +28,7 @@ export function get_llm_provider_via(llm_provider: LlmProvider): string {
   }
 }
 
-export function get_llm_api_key_env(llm_provider: LlmProvider): string {
+export function llm_provider_get_api_key_env(llm_provider: LlmProvider): string {
   switch (llm_provider) {
     case "anthropic":
       return "ANTHROPIC_API_KEY"
@@ -45,13 +45,13 @@ export function get_llm_api_key_env(llm_provider: LlmProvider): string {
   }
 }
 
-export function get_llm_api_key(llm_provider: LlmProvider): string | null {
-  const env = get_llm_api_key_env(llm_provider)
+export function llm_provider_get_api_key(llm_provider: LlmProvider): string | null {
+  const env = llm_provider_get_api_key_env(llm_provider)
 
   return lib_env.env_get(env)
 }
 
-export function get_ai_sdk_language_model({
+export function llm_provider_get_ai_sdk_language_model({
   llm_model_code,
   llm_provider,
   llm_api_key,

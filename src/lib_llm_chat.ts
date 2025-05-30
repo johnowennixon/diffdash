@@ -37,7 +37,7 @@ export async function llm_generate_text({
 }): Promise<string> {
   const {llm_model_name, llm_provider, llm_model_code, llm_api_key} = llm_config
 
-  const ai_sdk_language_model = lib_llm_provider.get_ai_sdk_language_model({
+  const ai_sdk_language_model = lib_llm_provider.llm_provider_get_ai_sdk_language_model({
     llm_model_code,
     llm_provider,
     llm_api_key,
@@ -82,7 +82,7 @@ export async function llm_generate_object<T>({
 }: {llm_config: LlmConfig; user_prompt: string; system_prompt: string; schema: ZodType<T>}): Promise<T> {
   const {llm_model_name, llm_provider, llm_model_code, llm_api_key} = llm_config
 
-  const ai_sdk_language_model = lib_llm_provider.get_ai_sdk_language_model({
+  const ai_sdk_language_model = lib_llm_provider.llm_provider_get_ai_sdk_language_model({
     llm_model_code,
     llm_provider,
     llm_api_key,

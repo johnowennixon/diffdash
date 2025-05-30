@@ -54,12 +54,12 @@ export function diffdash_config_get(): DiffDashConfig {
   } = pa
 
   const llm_model_name = llm_fallback ? diffdash_llm_model_fallback : llm_model
-  const llm_config = lib_llm_config.get_llm_config({
+  const llm_config = lib_llm_config.llm_config_get({
     llm_model_details: diffdash_llm_model_details,
     llm_model_name,
     llm_router,
   })
-  const all_llm_configs = lib_llm_config.all_llm_configs({
+  const all_llm_configs = lib_llm_config.llm_config_get_all({
     llm_model_details: diffdash_llm_model_details,
     llm_router,
     llm_excludes,

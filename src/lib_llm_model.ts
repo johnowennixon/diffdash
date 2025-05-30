@@ -14,7 +14,7 @@ export interface LlmModelDetail {
   has_structured_json: boolean
 }
 
-const MODEL_DETAILS = [
+const LLM_MODEL_DETAILS = [
   {
     llm_model_name: "claude-3.5-haiku",
     llm_provider: "anthropic",
@@ -297,17 +297,19 @@ const MODEL_DETAILS = [
   },
 ] as const satisfies Array<LlmModelDetail>
 
-export type LlmModelName = (typeof MODEL_DETAILS)[number]["llm_model_name"]
+export type LlmModelName = (typeof LLM_MODEL_DETAILS)[number]["llm_model_name"]
 
-export function get_model_details({llm_model_names}: {llm_model_names: Array<LlmModelName>}): Array<LlmModelDetail> {
-  return MODEL_DETAILS.filter((detail) => llm_model_names.includes(detail.llm_model_name))
+export function llm_model_get_details({
+  llm_model_names,
+}: {llm_model_names: Array<LlmModelName>}): Array<LlmModelDetail> {
+  return LLM_MODEL_DETAILS.filter((detail) => llm_model_names.includes(detail.llm_model_name))
 }
 
-export function get_model_choices(llm_model_details: Array<LlmModelDetail>): Array<string> {
+export function llm_model_get_choices(llm_model_details: Array<LlmModelDetail>): Array<string> {
   return llm_model_details.map((model) => model.llm_model_name)
 }
 
-export function find_model_detail({
+export function llm_model_find_detail({
   llm_model_details,
   llm_model_name,
 }: {llm_model_details: Array<LlmModelDetail>; llm_model_name: string}): LlmModelDetail {
