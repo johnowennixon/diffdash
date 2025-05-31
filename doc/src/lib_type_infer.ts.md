@@ -1,1 +1,1 @@
-Contains TypeScript utility types for advanced type manipulations. Implements helper types like Expand for better type inference and display in editors.
+Infers and expands types for objects, ensuring all properties are explicitly included. Handles lowercase conversion for string array properties, mapping them to lowercase keys. Provides utility types for working with dynamic or inferred data structures.

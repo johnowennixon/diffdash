@@ -1,1 +1,1 @@
-Implements debugging utilities for capturing and displaying diagnostic information. Provides functions for conditional debugging output with severity levels and source identification. Includes tools for performance monitoring and measuring execution time of operations.
+Provides a way to manage and control debugging channels for different parts of an application. Allows enabling or disabling specific debug channels based on environment variables. Offers functions to inspect and log objects with optional names and conditional checks.

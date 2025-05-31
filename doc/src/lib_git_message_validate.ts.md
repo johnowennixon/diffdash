@@ -1,1 +1,1 @@
-Validates Git commit messages against quality and formatting criteria. Checks for issues like empty messages, excessive length, or insufficient content. Returns validation results with explanations and suggested replacements for invalid messages.
+Checks if a Git commit message meets specific formatting rules. Ensures the message is not too short or too long and follows a structured format with bullet points. Reports validation failures with clear reasons for rejection.

@@ -1,1 +1,1 @@
-Implements text-based user interface components for displaying formatted blocks of text. Provides utilities for creating bordered text blocks with optional titles and custom widths. Includes text centering and padding functions for consistent terminal output formatting.
+Creates a bordered block of text with optional title and padding. Centers the title if provided and surrounds the content with separator lines. Uses a simple layout to make the content stand out visually.

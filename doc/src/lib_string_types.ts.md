@@ -1,1 +1,1 @@
-Provides type definitions for string-related operations and data structures. Defines utility types such as StringMap, StringPredicate, StringReplacer, and StringObject for consistent string manipulation throughout the codebase. Serves as a centralized location for all string-related TypeScript type definitions.
+Defines types for working with strings in various ways. Includes types for maps, predicates, replacers, and objects that use strings. Focuses on string manipulation and storage without implementing specific logic.

@@ -1,1 +1,1 @@
-Creates interactive command-line prompts for user input. Implements a confirm function that prompts users with yes/no questions and returns boolean results based on user responses. Uses ANSI formatting for improved readability.
+Provides a way to ask for user confirmation in a terminal with a yes-or-no prompt. Formats the question in bold blue text for better visibility. Waits for the user's input and returns true for affirmative answers or false otherwise.

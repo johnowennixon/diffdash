@@ -1,1 +1,1 @@
-Interfaces with Large Language Model APIs for conversational AI functionality. Provides a unified interface for sending messages to different LLM providers. Implements message history management and context handling for maintaining conversation state.
+Provides tools for interacting with language models to generate text or structured data. Handles configuration like timeouts, temperature, and token limits for model inputs. Supports debugging by logging inputs and outputs during the process.

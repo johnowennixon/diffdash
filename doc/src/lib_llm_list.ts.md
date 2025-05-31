@@ -1,1 +1,1 @@
-Provides a way to display details about language models in a formatted table. Shows the model name, context window size, and input/output costs. Formats the data neatly for easy reading on the command line.
+Displays a formatted table of language model details including names, context sizes, and costs. Formats the data with right-aligned numbers and currency symbols for clarity. Outputs the table to the standard output for easy viewing.

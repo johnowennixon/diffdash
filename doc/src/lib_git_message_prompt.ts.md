@@ -1,1 +1,1 @@
-Constructs prompts for LLM-based Git commit message generation. Exports functions to create system and user prompts incorporating Git diff information, original messages, and custom instructions for LLM-based message generation.
+Provides prompts for generating Git commit messages in a conversational style. Formats the output as either structured JSON or unstructured text based on user preference. Includes reminders about Git diff syntax and guidelines for writing clear, concise messages.

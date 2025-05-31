@@ -1,1 +1,1 @@
-Provides utility functions for parsing string values into numbers with proper handling of undefined values. Implements functions for converting strings to integers or floating-point numbers with fallbacks for empty or undefined inputs.
+Converts strings to numbers or undefined if the input is empty or undefined. Handles both integers and floating-point values. Provides simple parsing with no additional formatting or validation.

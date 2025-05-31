@@ -1,1 +1,1 @@
-Provides utilities for modifying Git commit messages with prefixes, suffixes, and standardized footers. Implements functions to add text to the beginning or end of the first line of a commit message. Includes functionality to append a footer with timestamp, program name, version, and LLM model information.
+Provides a way to modify Git commit messages by adding prefixes or suffixes to the first line. Adds a footer with details like the program name, version, timestamp, and model used. Works with plain text messages and ensures proper formatting with line breaks.

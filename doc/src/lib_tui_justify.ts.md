@@ -1,1 +1,1 @@
-Provides text justification utilities for terminal user interfaces with left, right, and center alignment options. Implements padding and truncation with customizable behavior for complex text layouts. Includes special handling for zero-padded numeric displays.
+Aligns text to the left, right, or center within a given width, optionally truncating or adding ellipsis. Pads text with spaces or zeros to fit the specified length. Centers text by evenly distributing padding on both sides.

@@ -1,1 +1,1 @@
-Provides text truncation utilities for handling long strings in terminal interfaces. Implements functions for plain truncation and truncation with ellipsis to indicate that text has been cut off. Ensures consistent handling of text that exceeds available display space.
+Trims strings to a given length, either plainly or with an ellipsis. Handles cases where truncation is not needed or disabled. Uses a space and ellipsis for truncated text when specified.

@@ -1,1 +1,1 @@
-Manages ANSI escape sequences for terminal text formatting and colors. Provides constants and functions for applying text styles like bold, italic, and colored output. Implements terminal capability detection to ensure compatibility across different environments.
+Provides tools to add colors and styles to text in the terminal. Offers functions to make text bold, dim, italic, or colored in various shades. Also includes a way to remove ANSI color codes from text.

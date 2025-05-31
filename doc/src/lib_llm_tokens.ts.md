@@ -1,1 +1,1 @@
-Provides utilities for estimating token counts for text sent to language models. Implements model-specific token counting using tiktoken library for supported models. Falls back to character-based estimation for models without specific tokenizers.
+Provides a way to estimate token counts for text based on the LLM model being used. Uses different methods for specific models like GPT variants and falls back to a simple length-based estimate otherwise. Also includes a debug utility to log token usage details when enabled.

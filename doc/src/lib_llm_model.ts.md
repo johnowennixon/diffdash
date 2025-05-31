@@ -1,1 +1,1 @@
-Defines a catalog of available LLM models with their provider details and pricing information. Provides functions to filter the list of supported models by name. Maintains a centralized registry of model specifications for both direct API access and OpenRouter integration.
+Provides details about various language models, including their names, providers, and costs. Lists models with specific attributes like context window size and support for structured JSON. Offers functions to filter and retrieve model details based on given criteria.

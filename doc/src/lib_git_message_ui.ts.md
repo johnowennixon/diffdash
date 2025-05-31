@@ -1,1 +1,1 @@
-Implements user interface components for displaying Git commit messages with proper formatting. Provides functions to present commit messages in a visually appealing format with consistent styling. Utilizes the text block display utilities for terminal output.
+Displays Git commit messages in a formatted block with optional titles and separators. Uses a helper to center titles and pad lines for visual clarity. Relies on an external function to output the formatted content.

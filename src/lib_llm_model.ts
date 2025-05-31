@@ -61,8 +61,8 @@ const LLM_MODEL_DETAILS = [
     llm_model_code_direct: "deepseek-chat",
     llm_model_code_openrouter: "deepseek/deepseek-chat-v3-0324",
     context_window: 64_000,
-    cents_input: 30,
-    cents_output: 88,
+    cents_input: 27,
+    cents_output: 110,
     has_structured_json: true,
   },
   {
@@ -71,8 +71,8 @@ const LLM_MODEL_DETAILS = [
     llm_model_code_direct: "deepseek-reasoner",
     llm_model_code_openrouter: "deepseek/deepseek-r1-0528",
     context_window: 163_840,
-    cents_input: 50,
-    cents_output: 218,
+    cents_input: 55,
+    cents_output: 219,
     has_structured_json: true,
   },
   {

@@ -1,1 +1,1 @@
-Defines constants for frequently used character literals to maintain consistency across the codebase. Provides named references for special characters, whitespace, and punctuation marks. Implements character classification functions for identifying character types and properties.
+Defines common characters and symbols as constants for easy reuse. Includes control characters, punctuation, digits, and special symbols. Useful for avoiding magic strings in code.

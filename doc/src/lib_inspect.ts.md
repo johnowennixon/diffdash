@@ -1,1 +1,1 @@
-Enhances object inspection and pretty printing for debugging and logging purposes. Provides customizable object serialization with depth control and circular reference handling. Implements colorized output formatting for different data types and structures.
+Provides a way to convert objects into formatted strings for inspection. Uses Node.js's built-in inspection tool with customizable depth and colors. Helps debug complex objects by showing their structure clearly.

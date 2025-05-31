@@ -1,1 +1,1 @@
-Defines the structure and formatting rules for Git commit messages using Zod schema validation. Implements a standardized message format with a summary line and optional detailed explanation lines. Provides utility functions to format compliant commit messages with proper spacing and bullet points.
+Provides a way to structure and validate Git commit messages. Defines a schema for a summary line and additional details. Formats the message with proper spacing and bullet points for extra lines.

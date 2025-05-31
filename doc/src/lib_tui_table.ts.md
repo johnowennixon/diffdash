@@ -1,1 +1,1 @@
-Generates formatted tabular output for displaying data in command-line interfaces. Provides customizable table styling with borders, alignment, and cell formatting options. Implements automatic column width calculation based on content and terminal width.
+Creates formatted tables for terminal output with optional bold headings. Adds rows to the table and converts it to a string for display. Uses a third-party library for table styling and formatting.

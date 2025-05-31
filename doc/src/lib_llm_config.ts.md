@@ -1,1 +1,1 @@
-Manages configuration settings for integrating with Large Language Model providers. Provides structured configuration objects for API endpoints, authentication, and model parameters. Implements validation and normalization of LLM configuration options.
+Provides configuration details for language models, including model names, provider information, and API keys. Helps retrieve and manage model configurations based on available choices and access rules. Also includes utilities to display model details in a user-friendly format.

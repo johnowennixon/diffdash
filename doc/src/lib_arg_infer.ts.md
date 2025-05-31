@@ -1,1 +1,1 @@
-Implements advanced type inference for command-line arguments using TypeScript's type system. Provides automatic type derivation from function signatures for strongly-typed CLI interfaces. Creates a declarative pattern for defining command arguments with proper TypeScript typing.
+Provides tools for defining and parsing command-line arguments with support for various types like strings, numbers, and choices. Handles nested argument structures and optional or required fields. Includes functions to execute commands based on parsed arguments.

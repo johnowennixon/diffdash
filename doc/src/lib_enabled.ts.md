@@ -1,1 +1,1 @@
-Implements feature flags and conditional enablement with configurable toggle mechanisms. Provides utilities for enabling or disabling functionality based on environment, configuration, or runtime conditions. Includes hierarchical feature flag inheritance and override capabilities.
+Converts string values like \"0\", \"1\", \"true\", or \"false\" into a boolean, with a fallback option. Handles environment variables by checking their string values against common boolean representations. Ignores case and supports custom defaults for missing or invalid inputs.

@@ -1,1 +1,1 @@
-Provides functions for opening and validating Git repositories. Implements repository path resolution, existence checking, and validation against bare repositories. Exports the SimpleGit type for use throughout the codebase.
+Provides tools for working with git repositories in a simple way. Checks if a directory is a valid git repository and ensures it is not bare or has conflicts. Uses helper functions to handle errors and resolve file paths.

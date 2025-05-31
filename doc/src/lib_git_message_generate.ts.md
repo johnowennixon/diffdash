@@ -1,1 +1,1 @@
-Generates Git commit messages using Large Language Models with structured prompts about code changes. Coordinates the creation of system and user prompts with diffstat and diff information. Handles API communication with LLM providers and returns formatted commit message responses.
+Generates Git commit messages using a language model, either in structured or unstructured format. Handles errors and tracks the time taken for the process. Returns the generated message or an error if something goes wrong.

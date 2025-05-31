@@ -1,1 +1,1 @@
-Provides user-facing message display utilities with formatted output and color support. Implements functions for displaying informational, warning, error, and success messages. Offers utilities for structured output presentation with consistent styling.
+Provides colored output for messages with optional timestamps. Supports different message types like errors, warnings, and success notifications. Silently ignores messages if configured or outputs them to standard error.

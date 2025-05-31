@@ -1,1 +1,1 @@
-Provides comprehensive date and time manipulation utilities with timezone awareness. Implements functions for parsing, formatting, and comparing datetime values with proper locale support. Offers tools for handling time durations, intervals, and date calculations.
+Provides functions to work with dates and times in various formats. Handles parsing, formatting, and adjusting dates for local or UTC time. Supports converting timestamps and ISO strings into readable or compact representations.

@@ -1,1 +1,1 @@
-Main entry point for the DiffDash tool. Orchestrates the process of configuring the application, validating the Git repository, analyzing staged changes, generating commit messages, and obtaining user confirmation before committing changes.
+Provides a command-line interface for managing Git commits with AI assistance. Handles version checks, model listings, and sequence comparisons. Formats output with colored text and silent mode options.

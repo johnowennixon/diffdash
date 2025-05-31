@@ -1,1 +1,1 @@
-Manages standard input/output streams with utilities for reading, writing, and redirecting content. Provides functions for working with stdin, stdout, and stderr with proper encoding handling. Implements TTY detection and special character handling for terminal interaction.
+Provides utilities for interacting with standard output and error streams in a terminal. Checks if the streams are available and retrieves their column widths. Writes messages to the streams with optional line feeds.
