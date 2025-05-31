@@ -23,6 +23,9 @@ importers:
       '@openrouter/ai-sdk-provider':
         specifier: 0.5.0
         version: 0.5.0(zod@3.25.32)
+      '@requesty/ai-sdk':
+        specifier: 0.0.4
+        version: 0.0.4(zod@3.25.32)
       ai:
         specifier: 4.3.16
         version: 4.3.16(react@19.1.0)(zod@3.25.32)
@@ -608,6 +611,18 @@ packages:
     resolution: {integrity: sha512-Ae1fx7wmAcMVqzS8rLINaFRpAdh29QzHh133bEYMHzfWBYyK/hLu9g4GLwC/lEIVQu9884b8qutGfdOk6Qia3w==}
     cpu: [x64]
     os: [win32]
+
+  '@requesty/ai-sdk@0.0.3':
+    resolution: {integrity: sha512-S3TcHJI6Dm5Z8XvayY+poEI128NJ5ya1vuBcQlu0OOMCtUqYImBk5GzZMm6rMAD9+c9rAGcZIRI16HFXvU6Tog==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      zod: ^3.0.0
+
+  '@requesty/ai-sdk@0.0.4':
+    resolution: {integrity: sha512-2B11uRuOj1Ki8tC7/32XgQTVjnDbHUJNoMhsqJe5fKxlf8VCHifPqZd6SDNFxSCUehSB6ngAkpabARjEz9ogzw==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      zod: ^3.0.0
 
   '@sindresorhus/merge-streams@2.3.0':
     resolution: {integrity: sha512-LtoMMhxAlorcGhmFYI+LhPgbPZCkgP6ra1YL604EeF6U98pLlQ3iWIGMdWSC+vWmPBWBNgmDBAhnAobLROJmwg==}
@@ -2551,6 +2566,19 @@ snapshots:
 
   '@oxlint/win32-x64@0.16.12':
     optional: true
+
+  '@requesty/ai-sdk@0.0.3(zod@3.25.32)':
+    dependencies:
+      '@ai-sdk/provider': 1.0.9
+      '@ai-sdk/provider-utils': 2.1.10(zod@3.25.32)
+      zod: 3.25.32
+
+  '@requesty/ai-sdk@0.0.4(zod@3.25.32)':
+    dependencies:
+      '@ai-sdk/provider': 1.0.9
+      '@ai-sdk/provider-utils': 2.1.10(zod@3.25.32)
+      '@requesty/ai-sdk': 0.0.3(zod@3.25.32)
+      zod: 3.25.32
 
   '@sindresorhus/merge-streams@2.3.0': {}
 
