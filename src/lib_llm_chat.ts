@@ -26,6 +26,7 @@ function llm_chat_get_parameters(): LlmChatParameters {
 
 export async function llm_chat_generate_text({
   llm_config,
+  headers,
   system_prompt,
   user_prompt,
   tools,
@@ -33,6 +34,7 @@ export async function llm_chat_generate_text({
   min_steps,
 }: {
   llm_config: LlmConfig
+  headers?: Record<string, string | undefined>
   system_prompt: string
   user_prompt: string
   tools?: ToolSet
@@ -54,6 +56,7 @@ export async function llm_chat_generate_text({
     system: system_prompt,
     prompt: user_prompt,
     tools,
+    headers,
     maxSteps: max_steps,
     maxTokens: max_tokens,
     temperature,
