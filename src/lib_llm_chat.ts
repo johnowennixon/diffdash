@@ -19,7 +19,7 @@ type LlmChatParameters = {
 function llm_chat_get_parameters(): LlmChatParameters {
   return {
     max_tokens: parse_int_or_undefined(env_get_empty("lib_llm_chat_max_tokens")),
-    temperature: parse_float_or_undefined(env_get_substitute("lib_llm_chat_temperature", "0.5")),
+    temperature: parse_float_or_undefined(env_get_substitute("lib_llm_chat_temperature", "0.6")),
     timeout: parse_int(env_get_substitute("lib_llm_chat_timeout", "60")),
   }
 }
