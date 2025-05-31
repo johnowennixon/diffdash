@@ -56,7 +56,7 @@ const LLM_MODEL_DETAILS = [
     has_structured_json: true,
   },
   {
-    llm_model_name: "deepseek-v3-0324",
+    llm_model_name: "deepseek-v3",
     llm_provider: "deepseek",
     llm_model_code_direct: "deepseek-chat",
     llm_model_code_openrouter: "deepseek/deepseek-chat-v3-0324",
@@ -67,16 +67,6 @@ const LLM_MODEL_DETAILS = [
   },
   {
     llm_model_name: "deepseek-r1",
-    llm_provider: "deepseek",
-    llm_model_code_direct: null,
-    llm_model_code_openrouter: "deepseek/deepseek-r1",
-    context_window: 163_840,
-    cents_input: 45,
-    cents_output: 218,
-    has_structured_json: true,
-  },
-  {
-    llm_model_name: "deepseek-r1-0528",
     llm_provider: "deepseek",
     llm_model_code_direct: "deepseek-reasoner",
     llm_model_code_openrouter: "deepseek/deepseek-r1-0528",
@@ -106,7 +96,7 @@ const LLM_MODEL_DETAILS = [
     has_structured_json: true,
   },
   {
-    llm_model_name: "gemini-2.5-flash-preview-05-20",
+    llm_model_name: "gemini-2.5-flash-preview",
     llm_provider: "google",
     llm_model_code_direct: "gemini-2.5-flash-preview-05-20",
     llm_model_code_openrouter: "google/gemini-2.5-flash-preview-05-20",

@@ -1,6 +1,6 @@
 import {env_get_substitute} from "./lib_env.js"
-import type {LlmModelName} from "./lib_llm_model.js"
 import {llm_model_get_choices, llm_model_get_details} from "./lib_llm_model.js"
+import type {LlmModelName} from "./lib_llm_model.js"
 
 export default {}
 
@@ -8,11 +8,11 @@ const model_name_default: LlmModelName = "gpt-4.1-mini"
 const model_name_fallback: LlmModelName = "claude-3.5-haiku"
 const model_name_options: Array<LlmModelName> = [
   "claude-3.5-haiku",
-  "deepseek-v3-0324",
+  "deepseek-v3",
   "deepseek-r1",
   "devstral-small",
   "gemini-2.0-flash",
-  "gemini-2.5-flash-preview-05-20",
+  "gemini-2.5-flash-preview",
   // "glm-4-32b", // failing
   "gpt-4.1-mini", // the best
   "gpt-4.1-nano",
