@@ -13,7 +13,7 @@ export interface LlmAccess {
   llm_api_key: string
 }
 
-export function is_model_available({
+export function llm_access_available({
   llm_model_details,
   llm_model_name,
   llm_excludes,
@@ -47,7 +47,7 @@ export function is_model_available({
   return false
 }
 
-export function get_model_access({
+export function llm_access_get({
   llm_model_details,
   llm_model_name,
   llm_router,

@@ -10,7 +10,13 @@ import {parse_float_or_undefined, parse_int, parse_int_or_undefined} from "./lib
 
 export default {}
 
-function get_llm_parameters(): {max_tokens: number | undefined; temperature: number | undefined; timeout: number} {
+type LlmChatParameters = {
+  max_tokens: number | undefined
+  temperature: number | undefined
+  timeout: number
+}
+
+function llm_chat_get_parameters(): LlmChatParameters {
   return {
     max_tokens: parse_int_or_undefined(env_get_empty("lib_llm_chat_max_tokens")),
     temperature: parse_float_or_undefined(env_get_substitute("lib_llm_chat_temperature", "0.5")),
@@ -18,7 +24,7 @@ function get_llm_parameters(): {max_tokens: number | undefined; temperature: num
   }
 }
 
-export async function llm_generate_text({
+export async function llm_chat_generate_text({
   llm_config,
   system_prompt,
   user_prompt,
@@ -41,7 +47,7 @@ export async function llm_generate_text({
     llm_api_key,
   })
 
-  const {max_tokens, temperature, timeout} = get_llm_parameters()
+  const {max_tokens, temperature, timeout} = llm_chat_get_parameters()
 
   const llm_inputs = {
     model: ai_sdk_language_model,
@@ -72,7 +78,7 @@ export async function llm_generate_text({
   return llm_outputs.text
 }
 
-export async function llm_generate_object<T>({
+export async function llm_chat_generate_object<T>({
   llm_config,
   user_prompt,
   system_prompt,
@@ -86,7 +92,7 @@ export async function llm_generate_object<T>({
     llm_api_key,
   })
 
-  const {max_tokens, temperature, timeout} = get_llm_parameters()
+  const {max_tokens, temperature, timeout} = llm_chat_get_parameters()
 
   const llm_inputs = {
     model: ai_sdk_language_model,

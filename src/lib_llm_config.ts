@@ -1,4 +1,4 @@
-import {get_model_access, is_model_available} from "./lib_llm_access.js"
+import {llm_access_available, llm_access_get} from "./lib_llm_access.js"
 import type {LlmModelDetail} from "./lib_llm_model.js"
 import {llm_model_find_detail, llm_model_get_choices} from "./lib_llm_model.js"
 import type {LlmProvider} from "./lib_llm_provider.js"
@@ -22,7 +22,7 @@ export function llm_config_get({
 }: {llm_model_details: Array<LlmModelDetail>; llm_model_name: string; llm_router: boolean}): LlmConfig {
   const llm_model_detail = llm_model_find_detail({llm_model_details, llm_model_name})
 
-  const access = get_model_access({llm_model_details, llm_model_name, llm_router})
+  const access = llm_access_get({llm_model_details, llm_model_name, llm_router})
 
   const {llm_model_code, llm_provider, llm_api_key} = access
 
@@ -37,7 +37,7 @@ export function llm_config_get_all({
   const choices = llm_model_get_choices(llm_model_details)
 
   const available = choices.filter((llm_model_name) =>
-    is_model_available({llm_model_details, llm_model_name, llm_excludes}),
+    llm_access_available({llm_model_details, llm_model_name, llm_excludes}),
   )
 
   return available.map((llm_model_name) => llm_config_get({llm_model_details, llm_model_name, llm_router}))

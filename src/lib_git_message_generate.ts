@@ -3,7 +3,7 @@ import {error_get_text} from "./lib_error.js"
 import type {GitMessagePromptInputs} from "./lib_git_message_prompt.js"
 import {git_message_get_system_prompt, git_message_get_user_prompt} from "./lib_git_message_prompt.js"
 import {git_message_schema, git_message_schema_format} from "./lib_git_message_schema.js"
-import {llm_generate_object, llm_generate_text} from "./lib_llm_chat.js"
+import {llm_chat_generate_object, llm_chat_generate_text} from "./lib_llm_chat.js"
 import type {LlmConfig} from "./lib_llm_config.js"
 import {llm_tokens_count_estimated, llm_tokens_debug_usage} from "./lib_llm_tokens.js"
 
@@ -30,7 +30,7 @@ async function git_message_generate_unstructured({
   system_prompt,
   user_prompt,
 }: {llm_config: LlmConfig; system_prompt: string; user_prompt: string}): Promise<string> {
-  const llm_response_text = await llm_generate_text({llm_config, system_prompt, user_prompt})
+  const llm_response_text = await llm_chat_generate_text({llm_config, system_prompt, user_prompt})
 
   return llm_response_text
 }
@@ -42,7 +42,7 @@ async function git_message_generate_structured({
 }: {llm_config: LlmConfig; system_prompt: string; user_prompt: string}): Promise<string> {
   const schema = git_message_schema
 
-  const llm_response_structured = await llm_generate_object({
+  const llm_response_structured = await llm_chat_generate_object({
     llm_config,
     system_prompt,
     user_prompt,
