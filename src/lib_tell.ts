@@ -3,7 +3,7 @@ import {ansi_cyan, ansi_green, ansi_grey, ansi_magenta, ansi_normal, ansi_red, a
 import {EMPTY, LF, SPACE} from "./lib_char.js"
 import {datetime_format_local_iso_ymdthms, datetime_now} from "./lib_datetime.js"
 import {enabled_from_env} from "./lib_enabled.js"
-import {stdio_write_stderr_linefeed} from "./lib_stdio.js"
+import {stdio_write_stderr_linefeed} from "./lib_stdio_write.js"
 
 export default {}
 

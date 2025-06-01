@@ -1,5 +1,5 @@
 import {ansi_red, ansi_yellow} from "./lib_ansi.js"
-import {stdio_write_stderr_linefeed} from "./lib_stdio.js"
+import {stdio_write_stderr_linefeed} from "./lib_stdio_write.js"
 
 export default {}
 
