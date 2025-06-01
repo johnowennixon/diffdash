@@ -1,3 +1,5 @@
+export default {}
+
 export const DIGIT_0 = "0"
 export const DIGIT_1 = "1"
 export const DIGIT_2 = "2"
