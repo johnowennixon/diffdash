@@ -6,7 +6,7 @@ import {diffdash_llm_model_details} from "./lib_diffdash_llm.js"
 import {diffdash_sequence_compare, diffdash_sequence_normal} from "./lib_diffdash_sequence.js"
 import {error_abort} from "./lib_error.js"
 import {llm_list_models} from "./lib_llm_list.js"
-import {PROGRAM_NAME, PROGRAM_VERSION} from "./lib_package_details.js"
+import {PACKAGE_NAME, PACKAGE_VERSION} from "./lib_package.js"
 import {tell_okay, tell_plain} from "./lib_tell.js"
 
 async function main(): Promise<void> {
@@ -15,7 +15,7 @@ async function main(): Promise<void> {
   const {version, compare, silent, llm_list} = config
 
   if (version) {
-    tell_plain(`${PROGRAM_NAME} v${PROGRAM_VERSION}`)
+    tell_plain(`${PACKAGE_NAME} v${PACKAGE_VERSION}`)
     process.exit(0)
   }
 
