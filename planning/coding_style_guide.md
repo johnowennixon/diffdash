@@ -152,7 +152,7 @@ Many of these coding style rules are enforced using linters and other tools.
 
 ### Characters
 
-* Character literals (e.g. `"$"`) should be retrieved from `lib_char` instead of hardcoding - that includes the empty string.
+* Character literals (e.g. `"$"`) should be retrieved one of the `lib_char_*` libraries instead of hardcoding - that includes the empty string.
 
 ### User Messages
 

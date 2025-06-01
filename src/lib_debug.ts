@@ -9,11 +9,11 @@ export default {}
 
 export const debug_channels = {
   api: false,
-  arg: false,
   backups: false,
   child_input: false,
   child_output: false,
   cleanup: false,
+  cli: false,
   cloudflare: false,
   config: false,
   data: false,

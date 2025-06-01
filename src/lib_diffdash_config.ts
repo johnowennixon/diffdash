@@ -1,5 +1,5 @@
 import {debug_channels, debug_inspect_when} from "./lib_debug.js"
-import {diffdash_arg_parser} from "./lib_diffdash_arg.js"
+import {diffdash_cli_parser} from "./lib_diffdash_cli.js"
 import {diffdash_llm_model_details, diffdash_llm_model_fallback} from "./lib_diffdash_llm.js"
 import type {LlmConfig} from "./lib_llm_config.js"
 import {llm_config_get, llm_config_get_all} from "./lib_llm_config.js"
@@ -27,7 +27,7 @@ export interface DiffDashConfig {
 }
 
 export function diffdash_config_get(): DiffDashConfig {
-  const pa = diffdash_arg_parser.parsed_args
+  const pa = diffdash_cli_parser.parsed_args
 
   const {
     version,

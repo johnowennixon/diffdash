@@ -66,19 +66,19 @@ All common Linux utilities are available including:
 
 * Use local library `lib_abort` to handle unrecoverable errors.
 * Use local library `lib_ansi` to format text with ANSI codes like bold and italic.
-* Use local library `lib_arg` for construct command-line arguments for subprocesses.
-* Use local library `lib_arg_infer` for parsing the supplied command-line arguments.
-* Use local library `lib_assert` to enforce types and invariants.
-* Use local library `lib_char` instead of hard-coding character strings.
+* Use local library `lib_arg_push` for construct command-line arguments for subprocesses.
+* Use local libraries `lib_assert_*` to enforce types and invariants.
+* Use local libraries `lib_char_*` instead of hard-coding character strings.
 * Use local library `lib_child` to spawn subprocess commands.
+* Use local library `lib_cli` for parsing the supplied command-line arguments.
 * Use local library `lib_datetime` when processing timestamps.
 * Use local library `lib_debug` if you want to output a debug message.
 * Use local library `lib_env` to read environment variables.
 * Use local library `lib_file_glob` to build lists of files that match patterns.
 * Use local library `lib_file_io` if you need to read or write files.
 * Use local library `lib_file_path` as an alternative to Node's path library.
-* Use local library `lib_stdio` to output raw text to console.
+* Use local library `lib_stdio_write` to output raw text to console.
 * Use local library `lib_tell` to output message lines to console in standard colour styles.
 * Use local library `lib_text` to manipulate strings contains many lines of text.
-* Use local library `lib_tui_*` to format output for text user interfaces.
+* Use local libraries `lib_tui_*` to format output for text user interfaces.
 * There are many more local libraries - too numerous to list here.
