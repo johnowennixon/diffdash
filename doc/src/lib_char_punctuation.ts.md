@@ -1,0 +1,1 @@
+Provides named constants for common punctuation and special characters. Makes code more readable by replacing literal character use with descriptive variable names. Helps prevent typos and improves maintainability when working with special characters in string operations.

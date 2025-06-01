@@ -1,4 +1,5 @@
-import {EMPTY, LF} from "./lib_char.js"
+import {LF} from "./lib_char_control.js"
+import {EMPTY} from "./lib_char_empty.js"
 import {datetime_format_local_iso_ymd_hms} from "./lib_datetime.js"
 import type {LlmConfig} from "./lib_llm_config.js"
 import {PROGRAM_NAME, PROGRAM_VERSION} from "./lib_package_details.js"

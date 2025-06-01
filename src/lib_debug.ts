@@ -1,5 +1,5 @@
 import {ansi_grey} from "./lib_ansi.js"
-import {EMPTY} from "./lib_char.js"
+import {EMPTY} from "./lib_char_empty.js"
 import {enabled_from_env} from "./lib_enabled.js"
 import {inspect_obj_to_string} from "./lib_inspect.js"
 import {stdio_write_stderr_linefeed} from "./lib_stdio_write.js"

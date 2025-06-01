@@ -1,5 +1,5 @@
 import {abort_with_error} from "./lib_abort.js"
-import {COMMA} from "./lib_char.js"
+import {COMMA} from "./lib_char_punctuation.js"
 import {llm_model_find_detail} from "./lib_llm_model.js"
 import type {LlmModelDetail} from "./lib_llm_model.js"
 import type {LlmProvider} from "./lib_llm_provider.js"

@@ -1,0 +1,1 @@
+Defines common character control codes for text processing. Exports constants for special characters like backspace, carriage return, escape, and line feed. Can be imported by other modules needing standardized character representations.

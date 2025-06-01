@@ -1,4 +1,4 @@
-import {ELLIPSIS, SPACE} from "./lib_char.js"
+import {ELLIPSIS, SPACE} from "./lib_char_punctuation.js"
 
 export default {}
 

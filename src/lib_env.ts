@@ -1,5 +1,5 @@
 import {abort_with_error} from "./lib_abort.js"
-import {EMPTY} from "./lib_char.js"
+import {EMPTY} from "./lib_char_empty.js"
 
 export default {}
 

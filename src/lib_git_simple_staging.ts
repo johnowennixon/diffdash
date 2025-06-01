@@ -1,6 +1,6 @@
 import type {SimpleGit} from "simple-git"
 
-import {SPACE} from "./lib_char.js"
+import {SPACE} from "./lib_char_punctuation.js"
 
 export default {}
 

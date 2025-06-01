@@ -1,6 +1,6 @@
 import {writeSync} from "node:fs"
 
-import {LF} from "./lib_char.js"
+import {LF} from "./lib_char_control.js"
 
 export default {}
 

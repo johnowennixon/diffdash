@@ -1,4 +1,4 @@
-import {EMPTY} from "./lib_char.js"
+import {EMPTY} from "./lib_char_empty.js"
 
 export default {}
 

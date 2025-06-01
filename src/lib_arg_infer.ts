@@ -1,7 +1,8 @@
 import {ArgumentParser} from "argparse"
 import type {ArgumentGroup, ArgumentOptions, ArgumentParserOptions, Namespace} from "argparse"
 
-import {DASH, EMPTY, PLUS, UNDERSCORE} from "./lib_char.js"
+import {EMPTY} from "./lib_char_empty.js"
+import {DASH, PLUS, UNDERSCORE} from "./lib_char_punctuation.js"
 import {debug_channels, debug_inspect_when} from "./lib_debug.js"
 import type {StringPredicate} from "./lib_string_types.js"
 import type {TypeInferExpand} from "./lib_type_infer.js"

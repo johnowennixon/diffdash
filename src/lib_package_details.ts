@@ -1,6 +1,6 @@
 import package_json from "../package.json" with {type: "json"}
 
-import {EMPTY} from "./lib_char.js"
+import {EMPTY} from "./lib_char_empty.js"
 
 export default {}
 

@@ -1,6 +1,7 @@
 import {z} from "zod"
 
-import {EMPTY, LF} from "./lib_char.js"
+import {LF} from "./lib_char_control.js"
+import {EMPTY} from "./lib_char_empty.js"
 
 export default {}
 

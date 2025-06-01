@@ -1,17 +1,3 @@
-export default {}
-
-export const EMPTY = ""
-
-export const BS = "\b"
-export const CR = "\r"
-export const ESC = "\u001B"
-export const FF = "\f"
-export const LF = "\n"
-export const NUL = "\0"
-export const SP = " "
-export const TAB = "\t"
-export const VT = "\v"
-
 export const AMPERSAND = "&"
 export const APOSTROPHE = "'"
 export const ASTERISK = "*"
@@ -49,21 +35,3 @@ export const SQUARE_LEFT = "["
 export const SQUARE_RIGHT = "]"
 export const TILDE = "~"
 export const UNDERSCORE = "_"
-
-export const DIGIT_0 = "0"
-export const DIGIT_1 = "1"
-export const DIGIT_2 = "2"
-export const DIGIT_3 = "3"
-export const DIGIT_4 = "4"
-export const DIGIT_5 = "5"
-export const DIGIT_6 = "6"
-export const DIGIT_7 = "7"
-export const DIGIT_8 = "8"
-export const DIGIT_9 = "9"
-
-export const LEFT_DOUBLE_QUOTATION_MARK = "“"
-export const LEFT_SINGLE_QUOTATION_MARK = "‘"
-export const RIGHT_DOUBLE_QUOTATION_MARK = "”"
-export const RIGHT_SINGLE_QUOTATION_MARK = "’"
-
-export const BOX_DRAWINGS_HEAVY_HORIZONTAL = "\u2501"

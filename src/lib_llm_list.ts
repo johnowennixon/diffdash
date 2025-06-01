@@ -1,4 +1,4 @@
-import {DOLLAR} from "./lib_char.js"
+import {DOLLAR} from "./lib_char_punctuation.js"
 import type {LlmModelDetail} from "./lib_llm_model.js"
 import {stdio_write_stdout_linefeed} from "./lib_stdio_write.js"
 import {tui_justify_right} from "./lib_tui_justify.js"

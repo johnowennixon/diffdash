@@ -1,4 +1,5 @@
-import {COLON, DASH, EMPTY, SPACE} from "./lib_char.js"
+import {EMPTY} from "./lib_char_empty.js"
+import {COLON, DASH, SPACE} from "./lib_char_punctuation.js"
 
 export default {}
 

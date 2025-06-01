@@ -1,0 +1,1 @@
+Provides string representations of the digits from 0 to 9 as named constants. Makes code more readable by allowing developers to reference digit characters by name instead of using string literals. Helps maintain consistency when working with digit characters throughout an application.

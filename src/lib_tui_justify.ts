@@ -1,4 +1,5 @@
-import {DIGIT_0, SPACE} from "./lib_char.js"
+import {DIGIT_0} from "./lib_char_digit.js"
+import {SPACE} from "./lib_char_punctuation.js"
 import {tui_truncate_ellipsis, tui_truncate_plain} from "./lib_tui_truncate.js"
 
 export default {}

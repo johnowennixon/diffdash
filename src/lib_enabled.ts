@@ -1,4 +1,4 @@
-import {DIGIT_0, DIGIT_1} from "./lib_char.js"
+import {DIGIT_0, DIGIT_1} from "./lib_char_digit.js"
 
 export default {}
 

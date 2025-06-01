@@ -1,4 +1,4 @@
-import {EQUALS, SPACE} from "./lib_char.js"
+import {EQUALS, SPACE} from "./lib_char_punctuation.js"
 import type {Teller} from "./lib_tell.js"
 import {tui_justify_centre} from "./lib_tui_justify.js"
 
