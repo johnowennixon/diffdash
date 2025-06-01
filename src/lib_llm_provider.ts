@@ -15,17 +15,17 @@ export type LlmProvider = "anthropic" | "deepseek" | "google" | "openai" | "requ
 
 export function llm_provider_get_via(llm_provider: LlmProvider): string {
   switch (llm_provider) {
-    case "openrouter":
-      return "via OpenRouter"
-
-    case "requesty":
-      return "via Requesty"
-
     case "anthropic":
     case "deepseek":
     case "google":
     case "openai":
       return "direct"
+
+    case "requesty":
+      return "via Requesty"
+
+    case "openrouter":
+      return "via OpenRouter"
 
     default:
       abort_with_error("Unknown LLM provider")

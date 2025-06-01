@@ -43,12 +43,6 @@ npm link
 DiffDash requires at least one API key for an LLM provider. These must be provided as environment variables.
 
 ```bash
-# For OpenRouter
-export OPENROUTER_API_KEY=your-api-key
-
-# For OpenAI
-export OPENAI_API_KEY=your-api-key
-
 # For Anthropic
 export ANTHROPIC_API_KEY=your-api-key
 
@@ -57,6 +51,15 @@ export DEEPSEEK_API_KEY=your-api-key
 
 # For Google Gemini
 export GEMINI_API_KEY=your-api-key
+
+# For OpenAI
+export OPENAI_API_KEY=your-api-key
+
+# For Requesty
+export REQUESTY_API_KEY=your-api-key
+
+# For OpenRouter
+export OPENROUTER_API_KEY=your-api-key
 ```
 
 ## Usage
@@ -133,6 +136,7 @@ All command-line arguments are optional.
 | `--disable-commit` | disable committing changes - exit after generating the message |
 | `--disable-push` | disable pushing changes - exit after making the commit |
 | `--no-verify` | bypass git hooks when pushing to Git |
+| `--llm-list` | display a list of available Large Language Models |
 | `--llm-model` | choose the LLM model by name (the default is normally best) |
 | `--llm-fallback` | use the fallback LLM model instead of the default |
 | `--llm-excludes` | models to exclude from comparison (comma separated) |
