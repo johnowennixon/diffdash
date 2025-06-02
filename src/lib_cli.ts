@@ -7,6 +7,8 @@ import {debug_channels, debug_inspect_when} from "./lib_debug.js"
 import type {StringPredicate} from "./lib_string_types.js"
 import type {TypeInferExpand} from "./lib_type_infer.js"
 
+export default {}
+
 type CliKind = "string" | "integer" | "boolean" | "choice" | "list" | "meg"
 
 type CliPredicate = StringPredicate
