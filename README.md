@@ -117,12 +117,13 @@ All command-line arguments are optional.
 | `--disable-push` | disable pushing changes - exit after making the commit |
 | `--push-no-verify` | bypass git hooks when pushing to Git |
 | `--push-force` | apply force when pushing to Git |
+| `--llm-list` | display a list of available Large Language Models and exit |
 | `--llm-compare` | compare the generated messages from all models - but do not commit |
 | `--llm-router` | prefer to access the LLM via a router rather than direct |
 | `--llm-fallback` | use the fallback LLM model instead of the default |
 | `--llm-model MODEL` | choose the LLM model by name (the default is normally best) |
 | `--llm-excludes MODELS` | models to exclude from comparison (comma separated) |
-| `--llm-list` | display a list of available Large Language Models and exit |
+| `--silent` | suppress all normal output - errors and aborts still display |
 | `--debug-llm-inputs` | show inputs (including all prompts) sent to the LLM |
 | `--debug-llm-outputs` | show outputs received from the LLM |
 
