@@ -25,15 +25,15 @@ const diffdash_cli_schema = {
   silent: cli_boolean({help: "suppress all normal output - errors and aborts still display"}),
   no_verify: cli_boolean({help: "bypass git hooks when pushing to Git"}),
 
-  llm_list: cli_boolean({help: "display a list of available Large Language Models"}),
+  llm_router: cli_boolean({help: "prefer to access the LLM via a router rather than direct"}),
+  llm_fallback: cli_boolean({help: `use the fallback model (${diffdash_llm_model_fallback})`}),
   llm_model: cli_choice_default<string>({
     help: `choose the Large Language Model by name (defaults to ${diffdash_llm_model_default})`,
     choices: diffdash_llm_model_choices,
     default: diffdash_llm_model_default,
   }),
-  llm_fallback: cli_boolean({help: `use the fallback model (${diffdash_llm_model_fallback})`}),
   llm_excludes: cli_string({help: "models to exclude from comparison (comma separated)", metavar: "MODELS"}),
-  llm_router: cli_boolean({help: "prefer to access the LLM via a router rather than direct"}),
+  llm_list: cli_boolean({help: "display a list of available Large Language Models and exit"}),
 
   debug_llm_inputs: cli_boolean({help: "debug inputs (including all prompts) sent to the LLM"}),
   debug_llm_outputs: cli_boolean({help: "debug outputs received from the LLM"}),
