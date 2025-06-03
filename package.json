@@ -23,6 +23,7 @@
   },
   "scripts": {
     "build": "echo 'Building with esbuild' && rimraf out && node esbuild.config.js",
+    "fix": "run-s -ls fix:biome fix:markdownlint",
     "fix:biome": "echo 'Fixing with Biome' && biome check --write",
     "fix:markdownlint": "echo 'Fixing with markdownlint' && markdownlint-cli2 '**/*.md' --fix",
     "fix:oxlint": "echo 'Fixing with oxlint' && oxlint --fix",
