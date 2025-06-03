@@ -2,7 +2,7 @@ import {abort_with_error} from "./lib_abort.js"
 import {LF} from "./lib_char_control.js"
 import {EMPTY} from "./lib_char_empty.js"
 import {ASTERISK, DASH, SPACE} from "./lib_char_punctuation.js"
-import {git_message_display} from "./lib_git_message_ui.js"
+import {git_message_display} from "./lib_git_message_display.js"
 import {tell_warning} from "./lib_tell.js"
 
 const DEFAULT_MIN_LENGTH = 40
