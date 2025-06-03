@@ -3,6 +3,9 @@ import {diffdash_cli_parser} from "./lib_diffdash_cli.js"
 import {diffdash_llm_model_details, diffdash_llm_model_fallback} from "./lib_diffdash_llm.js"
 import type {LlmConfig} from "./lib_llm_config.js"
 import {llm_config_get, llm_config_get_all} from "./lib_llm_config.js"
+import {llm_list_models} from "./lib_llm_list.js"
+import {PACKAGE_NAME, PACKAGE_VERSION} from "./lib_package.js"
+import {tell_plain} from "./lib_tell.js"
 
 export interface DiffDashConfig {
   version: boolean
@@ -50,6 +53,16 @@ export function diffdash_config_get(): DiffDashConfig {
     debug_llm_inputs,
     debug_llm_outputs,
   } = pa
+
+  if (version) {
+    tell_plain(`${PACKAGE_NAME} v${PACKAGE_VERSION}`)
+    process.exit(0)
+  }
+
+  if (llm_list) {
+    llm_list_models({llm_model_details: diffdash_llm_model_details})
+    process.exit(0)
+  }
 
   const llm_model_name = llm_fallback ? diffdash_llm_model_fallback : llm_model
   const llm_config = llm_config_get({
