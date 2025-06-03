@@ -4,8 +4,6 @@ import {datetime_format_local_iso_ymd_hms} from "./lib_datetime.js"
 import type {LlmConfig} from "./lib_llm_config.js"
 import {PACKAGE_NAME, PACKAGE_VERSION} from "./lib_package.js"
 
-export default {}
-
 export function diffdash_add_prefix_or_suffix({
   git_message,
   add_prefix,

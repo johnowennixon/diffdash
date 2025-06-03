@@ -4,8 +4,6 @@ import {stdio_write_stdout_linefeed} from "./lib_stdio_write.js"
 import {tui_justify_right} from "./lib_tui_justify.js"
 import {TuiTable} from "./lib_tui_table.js"
 
-export default {}
-
 export function llm_list_models({llm_model_details}: {llm_model_details: Array<LlmModelDetail>}): void {
   const headings = ["NAME", "CONTEXT", "INPUT", "OUTPUT"]
 

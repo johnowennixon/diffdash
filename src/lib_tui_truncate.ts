@@ -1,7 +1,5 @@
 import {ELLIPSIS, SPACE} from "./lib_char_punctuation.js"
 
-export default {}
-
 export function tui_truncate_plain(n: number, s: string, truncate = true): string {
   return truncate ? s.slice(0, n) : s
 }

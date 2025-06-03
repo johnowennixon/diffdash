@@ -1,5 +1,3 @@
-export default {}
-
 export const AMPERSAND = "&"
 export const APOSTROPHE = "'"
 export const ASTERISK = "*"

@@ -8,8 +8,6 @@ import type {LlmConfig} from "./lib_llm_config.js"
 import {llm_provider_get_ai_sdk_language_model} from "./lib_llm_provider.js"
 import {parse_float_or_undefined, parse_int, parse_int_or_undefined} from "./lib_parse_number.js"
 
-export default {}
-
 type LlmChatParameters = {
   max_tokens: number | undefined
   temperature: number | undefined

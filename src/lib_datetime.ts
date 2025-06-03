@@ -1,8 +1,6 @@
 import {EMPTY} from "./lib_char_empty.js"
 import {COLON, DASH, SPACE} from "./lib_char_punctuation.js"
 
-export default {}
-
 export function datetime_now(): Date {
   return new Date()
 }

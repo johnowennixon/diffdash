@@ -2,8 +2,6 @@ import cli_table3 from "cli-table3"
 
 import {ansi_bold} from "./lib_ansi.js"
 
-export default {}
-
 export class TuiTable {
   table: cli_table3.Table
   count = 0

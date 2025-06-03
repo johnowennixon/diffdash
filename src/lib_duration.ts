@@ -1,7 +1,5 @@
 import {abort_with_error} from "./lib_abort.js"
 
-export default {}
-
 export class Duration {
   hrtime_start?: bigint
   hrtime_stop?: bigint

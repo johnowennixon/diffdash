@@ -7,8 +7,6 @@ import {llm_chat_generate_object, llm_chat_generate_text} from "./lib_llm_chat.j
 import type {LlmConfig} from "./lib_llm_config.js"
 import {llm_tokens_count_estimated, llm_tokens_debug_usage} from "./lib_llm_tokens.js"
 
-export default {}
-
 type GitMessageGenerateSucceeded = {
   llm_config: LlmConfig
   seconds: number

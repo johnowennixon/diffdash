@@ -5,8 +5,6 @@ import {ASTERISK, DASH, SPACE} from "./lib_char_punctuation.js"
 import {git_message_display} from "./lib_git_message_ui.js"
 import {tell_warning} from "./lib_tell.js"
 
-export default {}
-
 const DEFAULT_MIN_LENGTH = 40
 const DEFAULT_MAX_LENGTH = 4000
 

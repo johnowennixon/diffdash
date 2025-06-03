@@ -1,8 +1,6 @@
 import {abort_with_error} from "./lib_abort.js"
 import {EMPTY} from "./lib_char_empty.js"
 
-export default {}
-
 export const DOT_ENV = ".env"
 
 export type EnvRecord = Record<string, string>

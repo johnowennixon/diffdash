@@ -1,7 +1,5 @@
 import path from "node:path"
 
-export default {}
-
 export function file_path_delimiter(): string {
   return path.delimiter
 }

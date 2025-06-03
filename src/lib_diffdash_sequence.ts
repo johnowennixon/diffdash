@@ -25,8 +25,6 @@ import {tell_action, tell_info, tell_plain, tell_success, tell_warning} from "./
 import {tui_justify_left} from "./lib_tui_justify.js"
 import {tui_readline_confirm} from "./lib_tui_readline.js"
 
-export default {}
-
 async function phase_open(): Promise<SimpleGit> {
   const git = await git_simple_open_git_repo()
 

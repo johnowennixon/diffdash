@@ -2,8 +2,6 @@ import {DIGIT_0} from "./lib_char_digit.js"
 import {SPACE} from "./lib_char_punctuation.js"
 import {tui_truncate_ellipsis, tui_truncate_plain} from "./lib_tui_truncate.js"
 
-export default {}
-
 export function tui_justify_left(n: number, s: string, ellipsis = false, truncate = false): string {
   let justified = s
 

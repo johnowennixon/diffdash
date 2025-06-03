@@ -1,7 +1,5 @@
 import {DIGIT_0, DIGIT_1} from "./lib_char_digit.js"
 
-export default {}
-
 export function enabled_from_string(value: string | undefined | null, options?: {default?: boolean}): boolean {
   const fallback = options?.default ?? false
 

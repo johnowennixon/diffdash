@@ -4,8 +4,6 @@ import {debug_channels} from "./lib_debug.js"
 import type {LlmConfig} from "./lib_llm_config.js"
 import {tell_debug} from "./lib_tell.js"
 
-export default {}
-
 export function llm_tokens_count_estimated({llm_config, text}: {llm_config: LlmConfig; text: string}): number {
   const {llm_model_detail} = llm_config
 

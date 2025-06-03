@@ -2,8 +2,6 @@ import {createInterface} from "node:readline"
 
 import {ansi_blue, ansi_bold} from "./lib_ansi.js"
 
-export default {}
-
 export async function tui_readline_confirm(message: string): Promise<boolean> {
   const query = ansi_bold(ansi_blue(`${message} [Y/n] `))
 

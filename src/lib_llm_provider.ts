@@ -9,8 +9,6 @@ import type {LanguageModelV1} from "ai"
 import {abort_with_error} from "./lib_abort.js"
 import {env_get} from "./lib_env.js"
 
-export default {}
-
 export type LlmProvider = "anthropic" | "deepseek" | "google" | "openai" | "requesty" | "openrouter"
 
 export function llm_provider_get_via(llm_provider: LlmProvider): string {

@@ -1,8 +1,6 @@
 import {abort_with_error} from "./lib_abort.js"
 import type {LlmProvider} from "./lib_llm_provider.js"
 
-export default {}
-
 export interface LlmModelDetail {
   llm_model_name: string
   llm_provider: LlmProvider | null

@@ -1,7 +1,5 @@
 import {EMPTY} from "./lib_char_empty.js"
 
-export default {}
-
 export function parse_int(input: string): number {
   return Number.parseInt(input, 10)
 }

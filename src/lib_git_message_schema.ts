@@ -3,8 +3,6 @@ import {z} from "zod"
 import {LF} from "./lib_char_control.js"
 import {EMPTY} from "./lib_char_empty.js"
 
-export default {}
-
 export const git_message_schema = z.object({
   summary_line: z.string().describe("A single sentence giving a concise summary of the changes."),
   extra_lines: z

@@ -1,5 +1,3 @@
-export default {}
-
 export type StringMap = Map<string, string>
 
 export type StringPredicate = (s: string) => boolean

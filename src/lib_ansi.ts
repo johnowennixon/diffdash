@@ -2,8 +2,6 @@ import ansis from "ansis"
 
 import {EMPTY} from "./lib_char_empty.js"
 
-export default {}
-
 export type AnsiColourizer = (message: string) => string
 
 export const ansi_normal: AnsiColourizer = (message: string): string => message

@@ -2,8 +2,6 @@ import {writeSync} from "node:fs"
 
 import {LF} from "./lib_char_control.js"
 
-export default {}
-
 export function stdio_write_stdout(message: string): void {
   writeSync(1, message)
 }

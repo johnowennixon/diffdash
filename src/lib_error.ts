@@ -1,7 +1,5 @@
 import {abort_with_error} from "./lib_abort.js"
 
-export default {}
-
 export function error_ignore(_error: Error): void {
   /* intentionally left empty */
 }

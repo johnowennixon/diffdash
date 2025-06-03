@@ -2,8 +2,6 @@ import type {SimpleGit} from "simple-git"
 
 import {SPACE} from "./lib_char_punctuation.js"
 
-export default {}
-
 export async function git_simple_staging_has_staged_changes(git: SimpleGit): Promise<boolean> {
   const status = await git.status()
 

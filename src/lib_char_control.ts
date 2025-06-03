@@ -1,5 +1,3 @@
-export default {}
-
 export const BS = "\b"
 export const CR = "\r"
 export const ESC = "\u001B"

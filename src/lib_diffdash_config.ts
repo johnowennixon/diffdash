@@ -4,8 +4,6 @@ import {diffdash_llm_model_details, diffdash_llm_model_fallback} from "./lib_dif
 import type {LlmConfig} from "./lib_llm_config.js"
 import {llm_config_get, llm_config_get_all} from "./lib_llm_config.js"
 
-export default {}
-
 export interface DiffDashConfig {
   version: boolean
   compare: boolean
