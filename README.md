@@ -91,7 +91,7 @@ diffdash --compare
 diffdash --llm-fallback
 
 # Specify the LLM model by name
-diffdash --llm-model claude-3.5-sonnet
+diffdash --llm-model claude-3.5-haiku
 
 # Debug options
 diffdash --debug-llm-inputs --debug-llm-outputs
@@ -115,8 +115,9 @@ All command-line arguments are optional.
 | `--disable-preview` | disable previewing the generated message|
 | `--disable-commit` | disable committing changes - exit after generating the message |
 | `--disable-push` | disable pushing changes - exit after making the commit |
-| `--no-verify` | bypass git hooks when pushing to Git |
-| `--compare` | compare the generated messages from all models - but do not commit |
+| `--push-no-verify` | bypass git hooks when pushing to Git |
+| `--push-force` | apply force when pushing to Git |
+| `--llm-compare` | compare the generated messages from all models - but do not commit |
 | `--llm-router` | prefer to access the LLM via a router rather than direct |
 | `--llm-fallback` | use the fallback LLM model instead of the default |
 | `--llm-model MODEL` | choose the LLM model by name (the default is normally best) |

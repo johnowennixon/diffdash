@@ -42,11 +42,18 @@ export async function git_simple_staging_create_commit(git: SimpleGit, git_messa
   await git.commit(git_message)
 }
 
-export async function git_simple_staging_push_to_remote(git: SimpleGit, no_verify = false): Promise<void> {
+export async function git_simple_staging_push_to_remote({
+  git,
+  no_verify = false,
+  force = false,
+}: {git: SimpleGit; no_verify?: boolean; force?: boolean}): Promise<void> {
   const push_args = ["--follow-tags"]
 
   if (no_verify) {
     push_args.push("--no-verify")
+  }
+  if (force) {
+    push_args.push("--force")
   }
 
   await git.push(push_args)

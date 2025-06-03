@@ -8,7 +8,6 @@ import {PACKAGE_NAME, PACKAGE_VERSION} from "./lib_package.js"
 import {tell_plain} from "./lib_tell.js"
 
 export interface DiffDashConfig {
-  compare: boolean
   add_prefix: string | undefined
   add_suffix: string | undefined
   auto_add: boolean
@@ -19,10 +18,12 @@ export interface DiffDashConfig {
   disable_preview: boolean
   disable_status: boolean
   disable_push: boolean
-  silent: boolean
-  no_verify: boolean
+  push_no_verify: boolean
+  push_force: boolean
+  llm_compare: boolean
   llm_config: LlmConfig
   all_llm_configs: Array<LlmConfig>
+  silent: boolean
 }
 
 export function diffdash_config_get(): DiffDashConfig {
@@ -30,7 +31,6 @@ export function diffdash_config_get(): DiffDashConfig {
 
   const {
     version,
-    compare,
     add_prefix,
     add_suffix,
     auto_add,
@@ -41,13 +41,15 @@ export function diffdash_config_get(): DiffDashConfig {
     disable_preview,
     disable_status,
     disable_push,
-    silent,
-    no_verify,
+    push_no_verify,
+    push_force,
+    llm_list,
+    llm_compare,
     llm_router,
     llm_fallback,
     llm_model,
     llm_excludes,
-    llm_list,
+    silent,
     debug_llm_inputs,
     debug_llm_outputs,
   } = pa
@@ -78,7 +80,6 @@ export function diffdash_config_get(): DiffDashConfig {
   debug_channels.llm_outputs = debug_llm_outputs
 
   const config: DiffDashConfig = {
-    compare,
     add_prefix,
     add_suffix,
     auto_add,
@@ -89,10 +90,12 @@ export function diffdash_config_get(): DiffDashConfig {
     disable_preview,
     disable_status,
     disable_push,
-    silent,
-    no_verify,
+    push_no_verify,
+    push_force,
+    llm_compare,
     llm_config,
     all_llm_configs,
+    silent,
   }
 
   debug_inspect_when(debug_channels.config, config, "config")

@@ -9,7 +9,7 @@ import {tell_okay, tell_plain} from "./lib_tell.js"
 async function main(): Promise<void> {
   const config = diffdash_config_get()
 
-  const {compare, silent} = config
+  const {llm_compare, silent} = config
 
   if (!silent) {
     const diffdash = ansi_italic(ansi_blue("Diff") + ansi_red("Dash"))
@@ -17,7 +17,7 @@ async function main(): Promise<void> {
   }
 
   // eslint-disable-next-line unicorn/prefer-ternary
-  if (compare) {
+  if (llm_compare) {
     await diffdash_sequence_compare(config)
   } else {
     await diffdash_sequence_normal(config)

@@ -228,7 +228,7 @@ async function phase_commit({config, git}: {config: DiffDashConfig; git: SimpleG
 }
 
 async function phase_push({config, git}: {config: DiffDashConfig; git: SimpleGit}): Promise<void> {
-  const {auto_push, disable_commit, disable_push, no_verify, silent} = config
+  const {auto_push, disable_commit, disable_push, push_no_verify, push_force, silent} = config
 
   if (disable_push || disable_commit) {
     return
@@ -246,7 +246,7 @@ async function phase_push({config, git}: {config: DiffDashConfig; git: SimpleGit
   }
 
   try {
-    await git_simple_staging_push_to_remote(git, no_verify)
+    await git_simple_staging_push_to_remote({git, no_verify: push_no_verify, force: push_force})
   } catch (error) {
     abort_with_error(`Failed to push to remote: ${error_get_text(error)}`)
   }
