@@ -1,0 +1,1 @@
+export const BOX_DRAWINGS_HEAVY_HORIZONTAL = "\u2501"

@@ -1,0 +1,1 @@
+Provides a constant for the Unicode heavy horizontal box drawing character. The character can be used to create visual dividers or borders in text-based interfaces. This single constant is part of what appears to be a collection of box-drawing characters for text formatting.

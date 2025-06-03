@@ -1,4 +1,5 @@
-import {EQUALS, SPACE} from "./lib_char_punctuation.js"
+import {BOX_DRAWINGS_HEAVY_HORIZONTAL} from "./lib_char_box.js"
+import {SPACE} from "./lib_char_punctuation.js"
 import type {TellSync} from "./lib_tell.js"
 import {tui_justify_centre} from "./lib_tui_justify.js"
 
@@ -6,7 +7,7 @@ export function tui_block_string({
   teller,
   content,
   title,
-  pad_char = EQUALS,
+  pad_char = BOX_DRAWINGS_HEAVY_HORIZONTAL,
   width = 120,
 }: {teller: TellSync; content: string; title?: string; pad_char?: string; width?: number}): void {
   const separator = pad_char.repeat(width)
