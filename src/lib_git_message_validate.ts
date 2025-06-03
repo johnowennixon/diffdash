@@ -24,7 +24,6 @@ export function git_message_validate_get_result(git_message: string): GitMessage
   const min_length = DEFAULT_MIN_LENGTH
   const max_length = DEFAULT_MAX_LENGTH
 
-  // Check for empty message
   if (!git_message || git_message.trim() === EMPTY) {
     return {
       valid: false,
@@ -32,7 +31,6 @@ export function git_message_validate_get_result(git_message: string): GitMessage
     }
   }
 
-  // Check if message is too short
   if (git_message.length < min_length) {
     return {
       valid: false,
@@ -40,7 +38,6 @@ export function git_message_validate_get_result(git_message: string): GitMessage
     }
   }
 
-  // Check if message is too long
   if (git_message.length > max_length) {
     return {
       valid: false,
@@ -48,7 +45,6 @@ export function git_message_validate_get_result(git_message: string): GitMessage
     }
   }
 
-  // Check that there is at least one bullet point
   const lines = git_message.trim().split(LF)
 
   if (lines.length < 3) {
@@ -58,7 +54,6 @@ export function git_message_validate_get_result(git_message: string): GitMessage
     }
   }
 
-  // Check for missing blank line after summary
   if (lines[1] && lines[1].trim() !== EMPTY) {
     return {
       valid: false,
@@ -66,7 +61,6 @@ export function git_message_validate_get_result(git_message: string): GitMessage
     }
   }
 
-  // Check for bullet points
   for (const line of lines.slice(2)) {
     if (!line.startsWith(DASH + SPACE) && !line.startsWith(ASTERISK + SPACE)) {
       return {
@@ -76,7 +70,6 @@ export function git_message_validate_get_result(git_message: string): GitMessage
     }
   }
 
-  // Valid
   return {
     valid: true,
   }

@@ -5,7 +5,7 @@ import {
   diffdash_llm_model_fallback,
 } from "./lib_diffdash_llm.js"
 
-export const diffdash_cli_schema = {
+const diffdash_cli_schema = {
   version: cli_boolean({help: "show program version information and exit"}),
   compare: cli_boolean({help: "compare the generated messages from all models - but do not commit"}),
 
