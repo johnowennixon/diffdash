@@ -3,7 +3,7 @@ export default {}
 export const AMPERSAND = "&"
 export const APOSTROPHE = "'"
 export const ASTERISK = "*"
-export const AT = "@"
+export const AT_SIGN = "@"
 export const BACKSLASH = "\\"
 export const BACKTICK = "`"
 export const CARET = "^"
