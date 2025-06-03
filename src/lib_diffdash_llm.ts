@@ -11,7 +11,6 @@ const model_name_options: Array<LlmModelName> = [
   "devstral-small",
   "gemini-2.0-flash",
   "gemini-2.5-flash-preview",
-  // "glm-4-32b", // failing
   "gpt-4.1-mini", // the best
   "gpt-4.1-nano",
   "gpt-4o-mini",
