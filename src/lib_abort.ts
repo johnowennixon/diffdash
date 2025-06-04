@@ -6,8 +6,10 @@ export function abort_exit(): never {
 }
 
 export function abort_with_warning(message: string): never {
-  process.stdout.clearLine(0)
-  process.stdout.cursorTo(0)
+  if (process.stdout.isTTY) {
+    process.stdout.clearLine(0)
+    process.stdout.cursorTo(0)
+  }
 
   stdio_write_stderr_linefeed(ansi_yellow(message))
 
@@ -15,8 +17,10 @@ export function abort_with_warning(message: string): never {
 }
 
 export function abort_with_error(message: string): never {
-  process.stdout.clearLine(0)
-  process.stdout.cursorTo(0)
+  if (process.stdout.isTTY) {
+    process.stdout.clearLine(0)
+    process.stdout.cursorTo(0)
+  }
 
   stdio_write_stderr_linefeed(ansi_red(message))
 
