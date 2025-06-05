@@ -117,7 +117,7 @@ const LLM_MODEL_DETAILS = [
     llm_model_name: "gemini-2.5-pro-preview",
     llm_provider: "google",
     llm_model_code_direct: null, // doesn't have a free quota tier
-    llm_model_code_requesty: "google/gemini-2.5-pro-preview-05-06",
+    llm_model_code_requesty: "google/gemini-2.5-pro-preview-06-05",
     llm_model_code_openrouter: "google/gemini-2.5-pro-preview",
     context_window: 1_048_576,
     cents_input: 125,
