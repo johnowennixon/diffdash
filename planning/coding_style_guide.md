@@ -60,12 +60,12 @@ Many of these coding style rules are enforced using linters and other tools.
 ### Functions and Methods
 
 * Use snake_case for function and method names.
-* Names should be verbs or verb phrases that clearly indicate the action (e.g., `calculate_total`, `get_user_by_id`, `send_message`).
+* Names of functions should start with the words in the module file name. The remainder should be verbs or verb phrases that clearly indicate the action (e.g., `calculate_total`, `get_user_by_id`, `send_message`).
 
 ### Classes, Interfaces and other Types
 
 * Use PascalCase for names of types and classes.
-* Names should be nouns or noun phrases representing the object or concept the class models (e.g., `UserProfile`, `ShoppingCart`).
+* Names of types should start with the words in the module file name. The remainder should be nouns or noun phrases representing the object or concept the class models (e.g., `DebugChannel`, `EnvRecord`, `MessageResult`).
 
 ### Enums
 
@@ -125,7 +125,7 @@ Many of these coding style rules are enforced using linters and other tools.
   3. Local module imports
 * Groups of imports should be separated by blank line.
 * Imports should be sorted alphabetically (on the imported filename) within each group.
-* Prefer to import whole namespaces - except for types and constants.
+* Prefer named imports. As much as possible, avoid default imports and wildcard imports.
 
 ## Programming Paradigm
 
@@ -152,7 +152,7 @@ Many of these coding style rules are enforced using linters and other tools.
 
 ### Characters
 
-* Character literals (e.g. `"$"`) should be retrieved one of the `lib_char_*` libraries instead of hardcoding - that includes the empty string.
+* Character literals (e.g. `"$"`) should be retrieved one of the `lib_char_*` libraries instead of hardcoding. This includes the empty string.
 
 ### User Messages
 
