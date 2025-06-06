@@ -102,6 +102,7 @@ Many of these coding style rules are enforced using linters and other tools.
 
 * We use TypeScript in strict mode.
 * The `any` type is banned - both explicit and implicit.
+* Prefer type aliases to interfaces.
 * If you use a type exported by another module, import the type itself instead of using a property of a namespace import.
 * Types must be imported with a `type` keyword.
 
