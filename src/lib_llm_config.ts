@@ -5,7 +5,7 @@ import type {LlmProvider} from "./lib_llm_provider.js"
 import {llm_provider_get_via} from "./lib_llm_provider.js"
 import {tell_info} from "./lib_tell.js"
 
-export interface LlmConfig {
+export type LlmConfig = {
   llm_model_name: string
   llm_model_detail: LlmModelDetail
   llm_model_code: string

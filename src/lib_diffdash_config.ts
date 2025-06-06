@@ -7,7 +7,7 @@ import {llm_list_models} from "./lib_llm_list.js"
 import {PACKAGE_NAME, PACKAGE_VERSION} from "./lib_package.js"
 import {tell_plain} from "./lib_tell.js"
 
-export interface DiffDashConfig {
+export type DiffDashConfig = {
   add_prefix: string | undefined
   add_suffix: string | undefined
   auto_add: boolean

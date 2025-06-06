@@ -5,7 +5,7 @@ import type {LlmModelDetail} from "./lib_llm_model.js"
 import type {LlmProvider} from "./lib_llm_provider.js"
 import {llm_provider_get_api_key, llm_provider_get_api_key_env} from "./lib_llm_provider.js"
 
-export interface LlmAccess {
+export type LlmAccess = {
   llm_model_code: string
   llm_provider: LlmProvider
   llm_api_key: string

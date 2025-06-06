@@ -1,7 +1,7 @@
 import {LF} from "./lib_char_control.js"
 import {EMPTY} from "./lib_char_empty.js"
 
-export interface GitMessagePromptInputs {
+export type GitMessagePromptInputs = {
   diffstat: string
   diff: string
 }
