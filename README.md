@@ -129,7 +129,7 @@ All command-line arguments are optional.
 
 ## Files containing secrets
 
-Files containing secrets should probably not be in Git. But if they are, you can add an entry to a `.gitattributes` file with value `-diff` to prevent them being viewable by a Git diff. This will prevent DiffDash from sending any contents to the LLM. For example:
+Files containing secrets should not be in Git. But if they are, you can add an entry to a `.gitattributes` file with value `-diff` to prevent them being viewable by a Git diff. This will prevent DiffDash from sending any contents to the LLM. For example:
 
 ```text
 # This is file .gitattributes
