@@ -10,7 +10,11 @@ export function llm_tokens_debug_usage({
   name,
   llm_config,
   text,
-}: {name: string; llm_config: LlmConfig; text: string}): void {
+}: {
+  name: string
+  llm_config: LlmConfig
+  text: string
+}): void {
   if (debug_channels.llm_tokens) {
     const {llm_model_name} = llm_config
 

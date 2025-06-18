@@ -1,7 +1,7 @@
 import {abort_with_error} from "./lib_abort.js"
 import {COMMA} from "./lib_char_punctuation.js"
-import {llm_model_find_detail} from "./lib_llm_model.js"
 import type {LlmModelDetail} from "./lib_llm_model.js"
+import {llm_model_find_detail} from "./lib_llm_model.js"
 import type {LlmProvider} from "./lib_llm_provider.js"
 import {llm_provider_get_api_key, llm_provider_get_api_key_env} from "./lib_llm_provider.js"
 
@@ -15,7 +15,11 @@ export function llm_access_available({
   llm_model_details,
   llm_model_name,
   llm_excludes,
-}: {llm_model_details: Array<LlmModelDetail>; llm_model_name: string; llm_excludes?: string}): boolean {
+}: {
+  llm_model_details: Array<LlmModelDetail>
+  llm_model_name: string
+  llm_excludes?: string
+}): boolean {
   if (llm_excludes) {
     const llm_excludes_array = llm_excludes.split(COMMA).map((exclude) => exclude.trim())
 
@@ -55,7 +59,11 @@ export function llm_access_get({
   llm_model_details,
   llm_model_name,
   llm_router,
-}: {llm_model_details: Array<LlmModelDetail>; llm_model_name: string; llm_router: boolean}): LlmAccess {
+}: {
+  llm_model_details: Array<LlmModelDetail>
+  llm_model_name: string
+  llm_router: boolean
+}): LlmAccess {
   const detail = llm_model_find_detail({llm_model_details, llm_model_name})
 
   const {llm_provider, llm_model_code_direct, llm_model_code_requesty, llm_model_code_openrouter} = detail

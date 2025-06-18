@@ -1,5 +1,5 @@
-import {ArgumentParser} from "argparse"
 import type {ArgumentGroup, ArgumentOptions, ArgumentParserOptions, Namespace} from "argparse"
+import {ArgumentParser} from "argparse"
 
 import {EMPTY} from "./lib_char_empty.js"
 import {DASH, PLUS, UNDERSCORE} from "./lib_char_punctuation.js"
@@ -148,7 +148,11 @@ function cli_add_keys({
   cli_schema,
   parser_group,
   predicate,
-}: {cli_schema: CliSchema; parser_group: ArgumentGroup; predicate?: CliPredicate}): void {
+}: {
+  cli_schema: CliSchema
+  parser_group: ArgumentGroup
+  predicate?: CliPredicate
+}): void {
   for (const key in cli_schema) {
     if (!Object.hasOwn(cli_schema, key)) {
       continue
@@ -206,7 +210,11 @@ function cli_recursive_parse<U extends CliSchema>({
   schema,
   namespace,
   predicate,
-}: {schema: U; namespace: Namespace; predicate?: CliPredicate}): CliParsedArgs<U> {
+}: {
+  schema: U
+  namespace: Namespace
+  predicate?: CliPredicate
+}): CliParsedArgs<U> {
   const result: Partial<CliParsedArgs<U>> = {}
 
   for (const key in schema) {
@@ -244,7 +252,11 @@ function cli_recursive_despatch_sync<U extends CliSchema, T extends CliSchema>({
   schema,
   namespace,
   parsed_args,
-}: {schema: U; namespace: Namespace; parsed_args: CliParsedArgs<T>}): void {
+}: {
+  schema: U
+  namespace: Namespace
+  parsed_args: CliParsedArgs<T>
+}): void {
   for (const key in schema) {
     if (!Object.hasOwn(schema, key)) {
       continue
@@ -272,7 +284,11 @@ async function cli_recursive_despatch_async<U extends CliSchema, T extends CliSc
   schema,
   namespace,
   parsed_args,
-}: {schema: U; namespace: Namespace; parsed_args: CliParsedArgs<T>}): Promise<void> {
+}: {
+  schema: U
+  namespace: Namespace
+  parsed_args: CliParsedArgs<T>
+}): Promise<void> {
   for (const key in schema) {
     if (!Object.hasOwn(schema, key)) {
       continue
@@ -299,7 +315,10 @@ async function cli_recursive_despatch_async<U extends CliSchema, T extends CliSc
 export function cli_make_parser<T extends CliSchema>({
   cli_schema,
   description,
-}: {cli_schema: T; description: string}): {
+}: {
+  cli_schema: T
+  description: string
+}): {
   parsed_args: CliParsedArgs<T>
   despatch_sync: () => void
   despatch_async: () => Promise<void>

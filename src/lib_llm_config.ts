@@ -17,7 +17,11 @@ export function llm_config_get({
   llm_model_details,
   llm_model_name,
   llm_router,
-}: {llm_model_details: Array<LlmModelDetail>; llm_model_name: string; llm_router: boolean}): LlmConfig {
+}: {
+  llm_model_details: Array<LlmModelDetail>
+  llm_model_name: string
+  llm_router: boolean
+}): LlmConfig {
   const llm_model_detail = llm_model_find_detail({llm_model_details, llm_model_name})
 
   const access = llm_access_get({llm_model_details, llm_model_name, llm_router})
@@ -31,7 +35,11 @@ export function llm_config_get_all({
   llm_model_details,
   llm_router,
   llm_excludes,
-}: {llm_model_details: Array<LlmModelDetail>; llm_router: boolean; llm_excludes?: string}): Array<LlmConfig> {
+}: {
+  llm_model_details: Array<LlmModelDetail>
+  llm_router: boolean
+  llm_excludes?: string
+}): Array<LlmConfig> {
   const choices = llm_model_get_choices(llm_model_details)
 
   const available = choices.filter((llm_model_name) =>

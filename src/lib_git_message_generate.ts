@@ -27,7 +27,11 @@ async function git_message_generate_unstructured({
   llm_config,
   system_prompt,
   user_prompt,
-}: {llm_config: LlmConfig; system_prompt: string; user_prompt: string}): Promise<string> {
+}: {
+  llm_config: LlmConfig
+  system_prompt: string
+  user_prompt: string
+}): Promise<string> {
   const llm_response_text = await llm_chat_generate_text({llm_config, system_prompt, user_prompt})
 
   return llm_response_text
@@ -37,7 +41,11 @@ async function git_message_generate_structured({
   llm_config,
   system_prompt,
   user_prompt,
-}: {llm_config: LlmConfig; system_prompt: string; user_prompt: string}): Promise<string> {
+}: {
+  llm_config: LlmConfig
+  system_prompt: string
+  user_prompt: string
+}): Promise<string> {
   const schema = git_message_schema
 
   const llm_response_structured = await llm_chat_generate_object({
@@ -55,7 +63,10 @@ async function git_message_generate_structured({
 export async function git_message_generate_string({
   llm_config,
   inputs,
-}: {llm_config: LlmConfig; inputs: GitMessagePromptInputs}): Promise<string> {
+}: {
+  llm_config: LlmConfig
+  inputs: GitMessagePromptInputs
+}): Promise<string> {
   const {context_window, has_structured_json} = llm_config.llm_model_detail
 
   const system_prompt = git_message_get_system_prompt({has_structured_json})
@@ -84,7 +95,10 @@ export async function git_message_generate_string({
 export async function git_message_generate_result({
   llm_config,
   inputs,
-}: {llm_config: LlmConfig; inputs: GitMessagePromptInputs}): Promise<GitMessageGenerateResult> {
+}: {
+  llm_config: LlmConfig
+  inputs: GitMessagePromptInputs
+}): Promise<GitMessageGenerateResult> {
   const duration = new Duration()
   duration.start()
 

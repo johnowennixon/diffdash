@@ -1,6 +1,6 @@
 import {env_get_substitute} from "./lib_env.js"
-import {llm_model_get_choices, llm_model_get_details} from "./lib_llm_model.js"
 import type {LlmModelName} from "./lib_llm_model.js"
+import {llm_model_get_choices, llm_model_get_details} from "./lib_llm_model.js"
 
 const model_name_default: LlmModelName = "gpt-4.1-mini"
 const model_name_fallback: LlmModelName = "claude-3.5-haiku"

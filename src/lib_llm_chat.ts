@@ -1,5 +1,5 @@
-import {generateObject, generateText} from "ai"
 import type {ToolSet} from "ai"
+import {generateObject, generateText} from "ai"
 import type {ZodType} from "zod"
 
 import {debug_channels, debug_inspect_when} from "./lib_debug.js"
@@ -84,7 +84,12 @@ export async function llm_chat_generate_object<T>({
   user_prompt,
   system_prompt,
   schema,
-}: {llm_config: LlmConfig; user_prompt: string; system_prompt: string; schema: ZodType<T>}): Promise<T> {
+}: {
+  llm_config: LlmConfig
+  user_prompt: string
+  system_prompt: string
+  schema: ZodType<T>
+}): Promise<T> {
   const {llm_model_name, llm_provider, llm_model_code, llm_api_key} = llm_config
 
   const ai_sdk_language_model = llm_provider_get_ai_sdk_language_model({

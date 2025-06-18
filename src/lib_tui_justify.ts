@@ -26,7 +26,11 @@ export function tui_justify_centre({
   line,
   width,
   pad_char = SPACE,
-}: {line: string; width: number; pad_char?: string}): string {
+}: {
+  line: string
+  width: number
+  pad_char?: string
+}): string {
   if (line.length >= width) {
     return line
   }

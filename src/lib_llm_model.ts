@@ -328,7 +328,9 @@ export type LlmModelName = (typeof LLM_MODEL_DETAILS)[number]["llm_model_name"]
 
 export function llm_model_get_details({
   llm_model_names,
-}: {llm_model_names: Array<LlmModelName>}): Array<LlmModelDetail> {
+}: {
+  llm_model_names: Array<LlmModelName>
+}): Array<LlmModelDetail> {
   return LLM_MODEL_DETAILS.filter((detail) => llm_model_names.includes(detail.llm_model_name))
 }
 
@@ -339,7 +341,10 @@ export function llm_model_get_choices(llm_model_details: Array<LlmModelDetail>):
 export function llm_model_find_detail({
   llm_model_details,
   llm_model_name,
-}: {llm_model_details: Array<LlmModelDetail>; llm_model_name: string}): LlmModelDetail {
+}: {
+  llm_model_details: Array<LlmModelDetail>
+  llm_model_name: string
+}): LlmModelDetail {
   for (const detail of llm_model_details) {
     if (detail.llm_model_name === llm_model_name) {
       return detail

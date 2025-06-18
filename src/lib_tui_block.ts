@@ -9,7 +9,13 @@ export function tui_block_string({
   title,
   pad_char = BOX_DRAWINGS_LIGHT_HORIZONTAL,
   width = 120,
-}: {teller: TellSync; content: string; title?: string; pad_char?: string; width?: number}): void {
+}: {
+  teller: TellSync
+  content: string
+  title?: string
+  pad_char?: string
+  width?: number
+}): void {
   const separator = pad_char.repeat(width)
 
   const top_line = title ? tui_justify_centre({line: SPACE + title + SPACE, width, pad_char}) : separator

@@ -59,7 +59,11 @@ export function llm_provider_get_ai_sdk_language_model({
   llm_model_code,
   llm_provider,
   llm_api_key,
-}: {llm_model_code: string; llm_provider: LlmProvider; llm_api_key: string}): LanguageModelV1 {
+}: {
+  llm_model_code: string
+  llm_provider: LlmProvider
+  llm_api_key: string
+}): LanguageModelV1 {
   switch (llm_provider) {
     case "anthropic":
       return createAnthropic({apiKey: llm_api_key})(llm_model_code)

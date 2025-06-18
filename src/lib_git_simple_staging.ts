@@ -46,7 +46,11 @@ export async function git_simple_staging_push_to_remote({
   git,
   no_verify = false,
   force = false,
-}: {git: SimpleGit; no_verify?: boolean; force?: boolean}): Promise<void> {
+}: {
+  git: SimpleGit
+  no_verify?: boolean
+  force?: boolean
+}): Promise<void> {
   const push_args = ["--follow-tags"]
 
   if (no_verify) {

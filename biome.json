@@ -1,13 +1,25 @@
 {
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
   "files": {
-    "ignoreUnknown": true
+    "ignoreUnknown": true,
+    "includes": ["src/**"]
+  },
+  "vcs": {
+    "clientKind": "git",
+    "enabled": true,
+    "useIgnoreFile": true
+  },
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": "on"
+      }
+    }
   },
   "formatter": {
     "attributePosition": "auto",
     "enabled": true,
     "formatWithErrors": false,
-    "ignore": ["*.json", "*.jsonc"],
     "indentStyle": "space",
     "indentWidth": 2,
     "lineEnding": "lf",
@@ -36,7 +48,9 @@
       "complexity": {
         "noBannedTypes": "error",
         "noForEach": "error",
+        "noUselessContinue": "error",
         "noUselessRename": "error",
+        "noUselessStringRaw": "error",
         "noUselessTernary": "error",
         "useArrowFunction": "error",
         "useLiteralKeys": "off",
@@ -45,12 +59,14 @@
       },
       "correctness": {
         "noSwitchDeclarations": "error",
-        "noUnnecessaryContinue": "error",
         "noUnusedImports": "error",
         "noUnusedVariables": "error",
         "noVoidTypeReturn": "off",
         "useExhaustiveDependencies": "error",
         "useJsxKeyInIterable": "error"
+      },
+      "nursery": {
+        "noFloatingPromises": "error"
       },
       "performance": {
         "noAccumulatingSpread": "error",
@@ -69,6 +85,7 @@
         "noShoutyConstants": "error",
         "noUnusedTemplateLiteral": "error",
         "noUselessElse": "error",
+        "useAsConstAssertion": "error",
         "useBlockStatements": "error",
         "useCollapsedElseIf": "error",
         "useConsistentArrayType": {
@@ -78,6 +95,7 @@
           }
         },
         "useDefaultParameterLast": "error",
+        "useEnumInitializers": "error",
         "useExponentiationOperator": "error",
         "useExportType": "error",
         "useFilenamingConvention": {
@@ -95,7 +113,7 @@
         "useNumberNamespace": "error",
         "useSelfClosingElements": "error",
         "useShorthandAssign": "error",
-        "useSingleCaseStatement": "error",
+        "useSingleVarDeclarator": "error",
         "useTemplate": "off"
       },
       "suspicious": {
@@ -111,13 +129,5 @@
         "useAwait": "off"
       }
     }
-  },
-  "organizeImports": {
-    "enabled": true
-  },
-  "vcs": {
-    "clientKind": "git",
-    "enabled": true,
-    "useIgnoreFile": true
   }
 }

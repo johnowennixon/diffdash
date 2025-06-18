@@ -85,7 +85,11 @@ export function git_message_get_user_prompt({
   has_structured_json,
   inputs,
   max_length,
-}: {has_structured_json: boolean; inputs: GitMessagePromptInputs; max_length: number}): string {
+}: {
+  has_structured_json: boolean
+  inputs: GitMessagePromptInputs
+  max_length: number
+}): string {
   const {diffstat, diff} = inputs
 
   const truncate = diffstat.length + diff.length > max_length

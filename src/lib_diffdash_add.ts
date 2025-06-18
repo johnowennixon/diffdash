@@ -8,7 +8,11 @@ export function diffdash_add_prefix_or_suffix({
   git_message,
   add_prefix,
   add_suffix,
-}: {git_message: string; add_prefix: string | undefined; add_suffix: string | undefined}): string {
+}: {
+  git_message: string
+  add_prefix: string | undefined
+  add_suffix: string | undefined
+}): string {
   if (!add_prefix && !add_suffix) {
     return git_message
   }
