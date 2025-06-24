@@ -10,7 +10,7 @@ const model_name_options: Array<LlmModelName> = [
   "deepseek-r1",
   "devstral-small",
   "gemini-2.0-flash",
-  "gemini-2.5-flash-preview",
+  "gemini-2.5-flash",
   "gpt-4.1-mini", // the best
   "gpt-4.1-nano",
   "gpt-4o-mini",
