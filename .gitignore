@@ -1,9 +1,10 @@
-AGENT.md
-AGENTS.md
 .claude/settings.local.json
 .eslintcache/
+.npm.token
+AGENT.md
+AGENTS.md
+GEMINI.md
 dist/
 node_modules/
-.npm.token
 out/
 test.*/
