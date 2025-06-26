@@ -3,6 +3,7 @@
 .npm.token
 AGENT.md
 AGENTS.md
+CLAUDE.md
 GEMINI.md
 dist/
 node_modules/
