@@ -21,11 +21,26 @@ A command-line tool to generate Git commit messages using AI.
 npm install -g @johnowennixon/diffdash
 ```
 
+## LLM Models
+
+Currently, for this application, the best LLM model by far is **gpt-4.1-mini** from OpenAI.
+It is set as the default model.
+I can only presume they have done a ton of training on diffs.
+
 ## API Keys
 
 DiffDash requires at least one API key for an LLM provider. These must be provided as environment variables.
 
 ```bash
+# For OpenAI (recommended)
+export OPENAI_API_KEY=your-api-key
+
+# For Requesty
+export REQUESTY_API_KEY=your-api-key
+
+# For OpenRouter
+export OPENROUTER_API_KEY=your-api-key
+
 # For Anthropic
 export ANTHROPIC_API_KEY=your-api-key
 
@@ -34,15 +49,6 @@ export DEEPSEEK_API_KEY=your-api-key
 
 # For Google Gemini
 export GEMINI_API_KEY=your-api-key
-
-# For OpenAI
-export OPENAI_API_KEY=your-api-key
-
-# For Requesty
-export REQUESTY_API_KEY=your-api-key
-
-# For OpenRouter
-export OPENROUTER_API_KEY=your-api-key
 ```
 
 ## Usage
