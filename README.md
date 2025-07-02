@@ -2,6 +2,8 @@
 
 A command-line tool to generate Git commit messages using AI.
 
+![Demonstration](asciinema/diffdash-demo.gif)
+
 ## Features
 
 * Generates Git commit messages in natural English
