@@ -8,6 +8,8 @@
   },
   "ignorePatterns": [
     "**/dist",
+    "**/lib",
+    "**/node_modules",
     "**/out"
   ],
   "plugins": [
