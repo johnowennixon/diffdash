@@ -1,8 +1,9 @@
 {
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "root": true,
   "files": {
     "ignoreUnknown": true,
-    "includes": ["src/**"]
+    "includes": ["**"]
   },
   "vcs": {
     "clientKind": "git",
@@ -20,6 +21,7 @@
     "attributePosition": "auto",
     "enabled": true,
     "formatWithErrors": false,
+    "includes": ["**/*.js", "**/*.ts", "**/*.tsx"],
     "indentStyle": "space",
     "indentWidth": 2,
     "lineEnding": "lf",
@@ -52,6 +54,7 @@
         "noUselessRename": "error",
         "noUselessStringRaw": "error",
         "noUselessTernary": "error",
+        "noUselessUndefinedInitialization": "error",
         "useArrowFunction": "error",
         "useLiteralKeys": "off",
         "useOptionalChain": "error",
