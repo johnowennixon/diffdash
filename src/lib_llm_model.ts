@@ -224,6 +224,17 @@ const LLM_MODEL_DETAILS = [
     has_structured_json: true,
   },
   {
+    llm_model_name: "grok-4",
+    llm_provider: null,
+    llm_model_code_direct: "grok-4",
+    llm_model_code_requesty: "xai/grok-4",
+    llm_model_code_openrouter: "x-ai/grok-4",
+    context_window: 256_000,
+    cents_input: 300,
+    cents_output: 1500,
+    has_structured_json: true,
+  },
+  {
     llm_model_name: "llama-4-maverick",
     llm_provider: null,
     llm_model_code_direct: null,
