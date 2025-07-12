@@ -20,7 +20,7 @@ import {
   git_simple_staging_stage_all_changes,
 } from "./lib_git_simple_staging.js"
 import {llm_config_get_model_via} from "./lib_llm_config.js"
-import {stdio_write_stdout_linefeed} from "./lib_stdio_write.js"
+import {stdio_write_stdout, stdio_write_stdout_linefeed} from "./lib_stdio_write.js"
 import {tell_action, tell_info, tell_plain, tell_success, tell_warning} from "./lib_tell.js"
 import {tui_justify_left} from "./lib_tui_justify.js"
 import {tui_readline_confirm} from "./lib_tui_readline.js"
@@ -168,12 +168,12 @@ async function phase_compare({config, git}: {config: DiffDashConfig; git: Simple
   }
 }
 
-async function phase_commit({config, git}: {config: DiffDashConfig; git: SimpleGit}): Promise<void> {
-  const {add_prefix, add_suffix, auto_commit, disable_commit, disable_preview, silent, llm_config} = config
+async function phase_generate({config, git}: {config: DiffDashConfig; git: SimpleGit}): Promise<string> {
+  const {add_prefix, add_suffix, just_output, disable_preview, silent, llm_config} = config
 
   const model_via = llm_config_get_model_via(llm_config)
 
-  if (!silent) {
+  if (!silent && !just_output) {
     tell_action(`Generating the Git commit message using ${model_via}`)
   }
 
@@ -187,12 +187,8 @@ async function phase_commit({config, git}: {config: DiffDashConfig; git: SimpleG
   const {error_text} = result
   let {git_message} = result
 
-  if (error_text) {
+  if (error_text || git_message === null) {
     abort_with_error(`Failed to generate a commit message using ${model_via}: ${error_text}`)
-  }
-
-  if (!git_message) {
-    return
   }
 
   git_message_validate_check(git_message)
@@ -200,9 +196,25 @@ async function phase_commit({config, git}: {config: DiffDashConfig; git: SimpleG
   git_message = diffdash_add_prefix_or_suffix({git_message, add_prefix, add_suffix})
   git_message = diffdash_add_footer({git_message, llm_config})
 
-  if (!disable_preview && !silent) {
+  if (just_output) {
+    stdio_write_stdout(git_message)
+  } else if (!disable_preview && !silent) {
     git_message_display({git_message, teller: tell_plain})
   }
+
+  return git_message
+}
+
+async function phase_commit({
+  config,
+  git,
+  git_message,
+}: {
+  config: DiffDashConfig
+  git: SimpleGit
+  git_message: string
+}): Promise<void> {
+  const {auto_commit, disable_commit, silent} = config
 
   if (disable_commit) {
     return
@@ -261,8 +273,15 @@ export async function diffdash_sequence_normal(config: DiffDashConfig): Promise<
 
   await phase_add({config, git})
   await phase_status({config, git})
-  await phase_commit({config, git})
+  const git_message = await phase_generate({config, git})
+  await phase_commit({config, git, git_message})
   await phase_push({config, git})
+}
+
+export async function diffdash_sequence_output(config: DiffDashConfig): Promise<void> {
+  const git = await phase_open()
+
+  await phase_generate({config, git})
 }
 
 export async function diffdash_sequence_compare(config: DiffDashConfig): Promise<void> {

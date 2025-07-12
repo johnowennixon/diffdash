@@ -35,6 +35,8 @@ const diffdash_cli_schema = {
   }),
   llm_excludes: cli_string({help: "models to exclude from comparison (comma separated)", metavar: "MODELS"}),
 
+  just_output: cli_boolean({help: "just output the commit message for use in scripts"}),
+
   silent: cli_boolean({help: "suppress all normal output - errors and aborts still display"}),
 
   debug_llm_inputs: cli_boolean({help: "debug inputs (including all prompts) sent to the LLM"}),

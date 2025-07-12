@@ -23,6 +23,7 @@ export type DiffDashConfig = {
   llm_compare: boolean
   llm_config: LlmConfig
   all_llm_configs: Array<LlmConfig>
+  just_output: boolean
   silent: boolean
 }
 
@@ -49,6 +50,7 @@ export function diffdash_config_get(): DiffDashConfig {
     llm_fallback,
     llm_model,
     llm_excludes,
+    just_output,
     silent,
     debug_llm_inputs,
     debug_llm_outputs,
@@ -95,6 +97,7 @@ export function diffdash_config_get(): DiffDashConfig {
     llm_compare,
     llm_config,
     all_llm_configs,
+    just_output,
     silent,
   }
 

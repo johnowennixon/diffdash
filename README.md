@@ -12,6 +12,7 @@ A command-line tool to generate Git commit messages using AI.
 * Able to add a prefix or suffix to the summary line
 * Optionally select from a choice of LLM models
 * Compare messages generated from all configured models
+* Optionally just output the commit message for use in scripts
 * Configuration using standard API provider environment variables
 * Uses the Vercel AI SDK
 * Uses structured JSON with compatible models
@@ -101,6 +102,9 @@ diffdash --llm-fallback
 # Specify the LLM model by name
 diffdash --llm-model claude-3.5-haiku
 
+# Just output the commit message for use in scripts
+diffdash --just-output
+
 # Debug options
 diffdash --debug-llm-inputs --debug-llm-outputs
 ```
@@ -131,6 +135,7 @@ All command-line arguments are optional.
 | `--llm-fallback` | use the fallback LLM model instead of the default |
 | `--llm-model MODEL` | choose the LLM model by name (the default is normally best) |
 | `--llm-excludes MODELS` | models to exclude from comparison (comma separated) |
+| `--just-output` | just output the commit message for use in scripts |
 | `--silent` | suppress all normal output - errors and aborts still display |
 | `--debug-llm-inputs` | show inputs (including all prompts) sent to the LLM |
 | `--debug-llm-outputs` | show outputs received from the LLM |

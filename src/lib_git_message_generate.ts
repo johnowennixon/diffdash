@@ -17,8 +17,8 @@ type GitMessageGenerateSucceeded = {
 type GitMessageGenerateFailed = {
   llm_config: LlmConfig
   seconds: number
-  git_message: string | null
-  error_text: string | null
+  git_message: null
+  error_text: string
 }
 
 export type GitMessageGenerateResult = GitMessageGenerateSucceeded | GitMessageGenerateFailed
