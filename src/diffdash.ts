@@ -9,7 +9,7 @@ import {tell_okay, tell_plain} from "./lib_tell.js"
 async function main(): Promise<void> {
   const config = diffdash_config_get()
 
-  const {just_output, llm_compare, silent} = config
+  const {silent, just_output, llm_compare} = config
 
   if (!silent && !just_output) {
     const diffdash = ansi_italic(ansi_blue("Diff") + ansi_red("Dash"))

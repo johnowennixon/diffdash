@@ -8,9 +8,6 @@ import {
 const diffdash_cli_schema = {
   version: cli_boolean({help: "show program version information and exit"}),
 
-  add_prefix: cli_string({help: "add a prefix to the commit message summary line", metavar: "PREFIX"}),
-  add_suffix: cli_string({help: "add a suffix to the commit message summary line", metavar: "SUFFIX"}),
-
   auto_add: cli_boolean({help: "automatically stage all changes without confirmation"}),
   auto_commit: cli_boolean({help: "automatically commit changes without confirmation"}),
   auto_push: cli_boolean({help: "automatically push changes after commit without confirmation"}),
@@ -23,6 +20,9 @@ const diffdash_cli_schema = {
 
   push_no_verify: cli_boolean({help: "bypass git hooks when pushing to Git"}),
   push_force: cli_boolean({help: "apply force when pushing to Git"}),
+
+  add_prefix: cli_string({help: "add a prefix to the commit message summary line", metavar: "PREFIX"}),
+  add_suffix: cli_string({help: "add a suffix to the commit message summary line", metavar: "SUFFIX"}),
 
   llm_list: cli_boolean({help: "display a list of available Large Language Models and exit"}),
   llm_compare: cli_boolean({help: "compare the generated messages from all models - but do not commit"}),

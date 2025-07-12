@@ -8,8 +8,6 @@ import {PACKAGE_NAME, PACKAGE_VERSION} from "./lib_package.js"
 import {tell_plain} from "./lib_tell.js"
 
 export type DiffDashConfig = {
-  add_prefix: string | undefined
-  add_suffix: string | undefined
   auto_add: boolean
   auto_commit: boolean
   auto_push: boolean
@@ -20,6 +18,8 @@ export type DiffDashConfig = {
   disable_push: boolean
   push_no_verify: boolean
   push_force: boolean
+  add_prefix: string | undefined
+  add_suffix: string | undefined
   llm_compare: boolean
   llm_config: LlmConfig
   all_llm_configs: Array<LlmConfig>
@@ -32,8 +32,6 @@ export function diffdash_config_get(): DiffDashConfig {
 
   const {
     version,
-    add_prefix,
-    add_suffix,
     auto_add,
     auto_commit,
     auto_push,
@@ -44,6 +42,8 @@ export function diffdash_config_get(): DiffDashConfig {
     disable_push,
     push_no_verify,
     push_force,
+    add_prefix,
+    add_suffix,
     llm_list,
     llm_compare,
     llm_router,
@@ -82,8 +82,6 @@ export function diffdash_config_get(): DiffDashConfig {
   debug_channels.llm_outputs = debug_llm_outputs
 
   const config: DiffDashConfig = {
-    add_prefix,
-    add_suffix,
     auto_add,
     auto_commit,
     auto_push,
@@ -94,6 +92,8 @@ export function diffdash_config_get(): DiffDashConfig {
     disable_push,
     push_no_verify,
     push_force,
+    add_prefix,
+    add_suffix,
     llm_compare,
     llm_config,
     all_llm_configs,

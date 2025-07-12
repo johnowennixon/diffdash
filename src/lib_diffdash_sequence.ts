@@ -169,7 +169,7 @@ async function phase_compare({config, git}: {config: DiffDashConfig; git: Simple
 }
 
 async function phase_generate({config, git}: {config: DiffDashConfig; git: SimpleGit}): Promise<string> {
-  const {add_prefix, add_suffix, just_output, disable_preview, silent, llm_config} = config
+  const {disable_preview, add_prefix, add_suffix, llm_config, just_output, silent} = config
 
   const model_via = llm_config_get_model_via(llm_config)
 
