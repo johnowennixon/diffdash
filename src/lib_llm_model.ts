@@ -235,6 +235,17 @@ const LLM_MODEL_DETAILS = [
     has_structured_json: true,
   },
   {
+    llm_model_name: "kimi-k2",
+    llm_provider: null,
+    llm_model_code_direct: "kimi-k2-0711-preview",
+    llm_model_code_requesty: "novita/moonshotai/kimi-k2-instruct",
+    llm_model_code_openrouter: "moonshotai/kimi-k2",
+    context_window: 131_072,
+    cents_input: 60,
+    cents_output: 250,
+    has_structured_json: true,
+  },
+  {
     llm_model_name: "llama-4-maverick",
     llm_provider: null,
     llm_model_code_direct: null,
