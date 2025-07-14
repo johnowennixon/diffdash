@@ -22,13 +22,13 @@ importers:
         version: 1.3.23(zod@3.25.76)
       '@openrouter/ai-sdk-provider':
         specifier: 0.7.2
-        version: 0.7.2(ai@4.3.17(react@19.1.0)(zod@3.25.76))(zod@3.25.76)
+        version: 0.7.2(ai@4.3.18(react@19.1.0)(zod@3.25.76))(zod@3.25.76)
       '@requesty/ai-sdk':
         specifier: 0.0.9
         version: 0.0.9(zod@3.25.76)
       ai:
-        specifier: 4.3.17
-        version: 4.3.17(react@19.1.0)(zod@3.25.76)
+        specifier: 4.3.18
+        version: 4.3.18(react@19.1.0)(zod@3.25.76)
       ansis:
         specifier: 4.1.0
         version: 4.1.0
@@ -721,8 +721,8 @@ packages:
     engines: {node: '>=0.4.0'}
     hasBin: true
 
-  ai@4.3.17:
-    resolution: {integrity: sha512-uWqIQ94Nb1GTYtYElGHegJMOzv3r2mCKNFlKrqkft9xrfvIahTI5OdcnD5U9612RFGuUNGmSDTO1/YRNFXobaQ==}
+  ai@4.3.18:
+    resolution: {integrity: sha512-Mn6JdNGB56GOyrfGJ746zzK6e0f6Ozr7lwfEYkQZjhf261wj1aAJgCvUsgML5/7pSiBJq3ytNEBVcR1oUKTCZw==}
     engines: {node: '>=18'}
     peerDependencies:
       react: ^18 || ^19 || ^19.0.0-rc
@@ -2346,11 +2346,11 @@ snapshots:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.19.1
 
-  '@openrouter/ai-sdk-provider@0.7.2(ai@4.3.17(react@19.1.0)(zod@3.25.76))(zod@3.25.76)':
+  '@openrouter/ai-sdk-provider@0.7.2(ai@4.3.18(react@19.1.0)(zod@3.25.76))(zod@3.25.76)':
     dependencies:
       '@ai-sdk/provider': 1.1.3
       '@ai-sdk/provider-utils': 2.2.8(zod@3.25.76)
-      ai: 4.3.17(react@19.1.0)(zod@3.25.76)
+      ai: 4.3.18(react@19.1.0)(zod@3.25.76)
       zod: 3.25.76
 
   '@opentelemetry/api@1.9.0': {}
@@ -2640,7 +2640,7 @@ snapshots:
 
   acorn@8.15.0: {}
 
-  ai@4.3.17(react@19.1.0)(zod@3.25.76):
+  ai@4.3.18(react@19.1.0)(zod@3.25.76):
     dependencies:
       '@ai-sdk/provider': 1.1.3
       '@ai-sdk/provider-utils': 2.2.8(zod@3.25.76)
