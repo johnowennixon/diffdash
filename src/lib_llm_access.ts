@@ -40,14 +40,14 @@ export function llm_access_available({
     }
   }
 
-  if (llm_model_code_requesty !== null) {
-    if (llm_provider_get_api_key("requesty")) {
+  if (llm_model_code_openrouter !== null) {
+    if (llm_provider_get_api_key("openrouter")) {
       return true
     }
   }
 
-  if (llm_model_code_openrouter !== null) {
-    if (llm_provider_get_api_key("openrouter")) {
+  if (llm_model_code_requesty !== null) {
+    if (llm_provider_get_api_key("requesty")) {
       return true
     }
   }
@@ -77,17 +77,17 @@ export function llm_access_get({
     }
   }
 
-  if (llm_model_code_requesty !== null) {
-    const llm_api_key = llm_provider_get_api_key("requesty")
-    if (llm_api_key) {
-      return {llm_model_code: llm_model_code_requesty, llm_provider: "requesty", llm_api_key}
-    }
-  }
-
   if (llm_model_code_openrouter !== null) {
     const llm_api_key = llm_provider_get_api_key("openrouter")
     if (llm_api_key) {
       return {llm_model_code: llm_model_code_openrouter, llm_provider: "openrouter", llm_api_key}
+    }
+  }
+
+  if (llm_model_code_requesty !== null) {
+    const llm_api_key = llm_provider_get_api_key("requesty")
+    if (llm_api_key) {
+      return {llm_model_code: llm_model_code_requesty, llm_provider: "requesty", llm_api_key}
     }
   }
 
@@ -98,13 +98,13 @@ export function llm_access_get({
     }
   }
 
-  const env_requesty = llm_provider_get_api_key_env("requesty")
   const env_openrouter = llm_provider_get_api_key_env("openrouter")
+  const env_requesty = llm_provider_get_api_key_env("requesty")
 
   if (llm_provider !== null) {
     const env_provider = llm_provider_get_api_key_env(llm_provider)
-    abort_with_error(`Please set environment variable ${env_requesty}, ${env_openrouter} or ${env_provider}`)
+    abort_with_error(`Please set environment variable ${env_provider}, ${env_openrouter} or ${env_requesty}`)
   }
 
-  abort_with_error(`Please set environment variable ${env_requesty} or ${env_openrouter}`)
+  abort_with_error(`Please set environment variable ${env_openrouter} or ${env_requesty}`)
 }

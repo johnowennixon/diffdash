@@ -7,16 +7,17 @@ const model_name_fallback: LlmModelName = "claude-3.5-haiku"
 const model_name_options: Array<LlmModelName> = [
   "claude-3.5-haiku",
   "deepseek-v3",
-  "deepseek-r1",
+  "devstral-medium",
   "devstral-small",
-  "ernie-4.5-300b",
   "gemini-2.0-flash",
   "gemini-2.5-flash",
   "gpt-4.1-mini", // the best
   "gpt-4.1-nano",
   "gpt-4o-mini",
   "grok-3-mini",
+  "kimi-k2",
   "llama-4-maverick",
+  "mercury-coder",
   "mistral-medium-3",
   "qwen3-235b-a22b",
 ]
