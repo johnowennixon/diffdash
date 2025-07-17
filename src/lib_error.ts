@@ -1,4 +1,5 @@
 import {abort_with_error} from "./lib_abort.js"
+import {LF} from "./lib_char_control.js"
 
 export function error_ignore(_error: Error): void {
   /* intentionally left empty */
@@ -13,14 +14,18 @@ export function error_get_text(error: unknown): string {
 }
 
 export function error_get_message(error: unknown): string {
-  return error instanceof Error
-    ? error.name === "Error"
-      ? error.message
-      : `${error.name}: ${error.message}`
-    : String(error)
+  const message_perhaps_multiline =
+    error instanceof Error
+      ? error.name === "Error"
+        ? error.message
+        : `${error.name}: ${error.message}`
+      : String(error)
+
+  return message_perhaps_multiline.split(LF)[0] || "Blank Error"
 }
 
 export function error_abort(error: Error): void {
-  const message = `Unhandled error: ${error_get_text(error)}`
-  abort_with_error(message)
+  const message_perhaps_multiline = `Unhandled error: ${error_get_text(error)}`
+
+  abort_with_error(message_perhaps_multiline)
 }
