@@ -124,6 +124,10 @@ Provides a way to convert objects into formatted strings for inspection. Uses No
 
 Provides tools to check and retrieve access details for large language models. Determines if a model is available based on provider and API key checks. Handles fallback options when direct access is not possible.
 
+### src/lib_llm_api.ts
+
+Provides tools for working with different language model providers. Determines how a provider is accessed and retrieves its API key from the environment. Creates a language model instance based on the specified provider and model code.
+
 ### src/lib_llm_chat.ts
 
 Provides tools for interacting with language models to generate text or structured data. Handles configuration like timeouts, temperature, and token limits for model inputs. Supports debugging by logging inputs and outputs during the process.
@@ -139,10 +143,6 @@ Displays a formatted table of language model details including names, context si
 ### src/lib_llm_model.ts
 
 Provides details about various language models, including their names, providers, and costs. Lists models with specific attributes like context window size and support for structured JSON. Offers functions to filter and retrieve model details based on given criteria.
-
-### src/lib_llm_provider.ts
-
-Provides tools for working with different language model providers. Determines how a provider is accessed and retrieves its API key from the environment. Creates a language model instance based on the specified provider and model code.
 
 ### src/lib_llm_tokens.ts
 

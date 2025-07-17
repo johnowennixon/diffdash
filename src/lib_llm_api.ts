@@ -9,10 +9,10 @@ import type {LanguageModelV1} from "ai"
 import {abort_with_error} from "./lib_abort.js"
 import {env_get} from "./lib_env.js"
 
-export type LlmProvider = "anthropic" | "deepseek" | "google" | "openai" | "requesty" | "openrouter"
+export type LlmApiCode = "anthropic" | "deepseek" | "google" | "openai" | "requesty" | "openrouter"
 
-export function llm_provider_get_via(llm_provider: LlmProvider): string {
-  switch (llm_provider) {
+export function llm_api_get_via(llm_api_code: LlmApiCode): string {
+  switch (llm_api_code) {
     case "anthropic":
     case "deepseek":
     case "google":
@@ -26,12 +26,12 @@ export function llm_provider_get_via(llm_provider: LlmProvider): string {
       return "via OpenRouter"
 
     default:
-      abort_with_error("Unknown LLM provider")
+      abort_with_error("Unknown LLM API")
   }
 }
 
-export function llm_provider_get_api_key_env(llm_provider: LlmProvider): string {
-  switch (llm_provider) {
+export function llm_api_get_api_key_env(llm_api_code: LlmApiCode): string {
+  switch (llm_api_code) {
     case "anthropic":
       return "ANTHROPIC_API_KEY"
     case "deepseek":
@@ -45,26 +45,26 @@ export function llm_provider_get_api_key_env(llm_provider: LlmProvider): string 
     case "openrouter":
       return "OPENROUTER_API_KEY"
     default:
-      abort_with_error("Unknown LLM provider")
+      abort_with_error("Unknown LLM API")
   }
 }
 
-export function llm_provider_get_api_key(llm_provider: LlmProvider): string | null {
-  const env = llm_provider_get_api_key_env(llm_provider)
+export function llm_api_get_api_key(llm_api_code: LlmApiCode): string | null {
+  const env = llm_api_get_api_key_env(llm_api_code)
 
   return env_get(env)
 }
 
-export function llm_provider_get_ai_sdk_language_model({
+export function llm_api_get_ai_sdk_language_model({
   llm_model_code,
-  llm_provider,
+  llm_api_code,
   llm_api_key,
 }: {
   llm_model_code: string
-  llm_provider: LlmProvider
+  llm_api_code: LlmApiCode
   llm_api_key: string
 }): LanguageModelV1 {
-  switch (llm_provider) {
+  switch (llm_api_code) {
     case "anthropic":
       return createAnthropic({apiKey: llm_api_key})(llm_model_code)
     case "deepseek":
@@ -78,6 +78,6 @@ export function llm_provider_get_ai_sdk_language_model({
     case "openrouter":
       return createOpenRouter({apiKey: llm_api_key})(llm_model_code)
     default:
-      abort_with_error("Unknown LLM provider")
+      abort_with_error("Unknown LLM API")
   }
 }

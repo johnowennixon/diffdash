@@ -1,13 +1,13 @@
 import {abort_with_error} from "./lib_abort.js"
 import {COMMA} from "./lib_char_punctuation.js"
+import type {LlmApiCode} from "./lib_llm_api.js"
+import {llm_api_get_api_key, llm_api_get_api_key_env} from "./lib_llm_api.js"
 import type {LlmModelDetail} from "./lib_llm_model.js"
 import {llm_model_find_detail} from "./lib_llm_model.js"
-import type {LlmProvider} from "./lib_llm_provider.js"
-import {llm_provider_get_api_key, llm_provider_get_api_key_env} from "./lib_llm_provider.js"
 
 export type LlmAccess = {
   llm_model_code: string
-  llm_provider: LlmProvider
+  llm_api_code: LlmApiCode
   llm_api_key: string
 }
 
@@ -32,22 +32,22 @@ export function llm_access_available({
 
   const detail = llm_model_find_detail({llm_model_details, llm_model_name})
 
-  const {llm_provider, llm_model_code_direct, llm_model_code_requesty, llm_model_code_openrouter} = detail
+  const {llm_api_code, llm_model_code_direct, llm_model_code_requesty, llm_model_code_openrouter} = detail
 
-  if (llm_model_code_direct !== null && llm_provider !== null) {
-    if (llm_provider_get_api_key(llm_provider)) {
+  if (llm_model_code_direct !== null && llm_api_code !== null) {
+    if (llm_api_get_api_key(llm_api_code)) {
       return true
     }
   }
 
   if (llm_model_code_openrouter !== null) {
-    if (llm_provider_get_api_key("openrouter")) {
+    if (llm_api_get_api_key("openrouter")) {
       return true
     }
   }
 
   if (llm_model_code_requesty !== null) {
-    if (llm_provider_get_api_key("requesty")) {
+    if (llm_api_get_api_key("requesty")) {
       return true
     }
   }
@@ -66,43 +66,43 @@ export function llm_access_get({
 }): LlmAccess {
   const detail = llm_model_find_detail({llm_model_details, llm_model_name})
 
-  const {llm_provider, llm_model_code_direct, llm_model_code_requesty, llm_model_code_openrouter} = detail
+  const {llm_api_code, llm_model_code_direct, llm_model_code_requesty, llm_model_code_openrouter} = detail
 
   if (!llm_router) {
-    if (llm_model_code_direct !== null && llm_provider !== null) {
-      const llm_api_key = llm_provider_get_api_key(llm_provider)
+    if (llm_model_code_direct !== null && llm_api_code !== null) {
+      const llm_api_key = llm_api_get_api_key(llm_api_code)
       if (llm_api_key) {
-        return {llm_model_code: llm_model_code_direct, llm_provider, llm_api_key}
+        return {llm_model_code: llm_model_code_direct, llm_api_code, llm_api_key}
       }
     }
   }
 
   if (llm_model_code_openrouter !== null) {
-    const llm_api_key = llm_provider_get_api_key("openrouter")
+    const llm_api_key = llm_api_get_api_key("openrouter")
     if (llm_api_key) {
-      return {llm_model_code: llm_model_code_openrouter, llm_provider: "openrouter", llm_api_key}
+      return {llm_model_code: llm_model_code_openrouter, llm_api_code: "openrouter", llm_api_key}
     }
   }
 
   if (llm_model_code_requesty !== null) {
-    const llm_api_key = llm_provider_get_api_key("requesty")
+    const llm_api_key = llm_api_get_api_key("requesty")
     if (llm_api_key) {
-      return {llm_model_code: llm_model_code_requesty, llm_provider: "requesty", llm_api_key}
+      return {llm_model_code: llm_model_code_requesty, llm_api_code: "requesty", llm_api_key}
     }
   }
 
-  if (llm_model_code_direct !== null && llm_provider !== null) {
-    const llm_api_key = llm_provider_get_api_key(llm_provider)
+  if (llm_model_code_direct !== null && llm_api_code !== null) {
+    const llm_api_key = llm_api_get_api_key(llm_api_code)
     if (llm_api_key) {
-      return {llm_model_code: llm_model_code_direct, llm_provider, llm_api_key}
+      return {llm_model_code: llm_model_code_direct, llm_api_code, llm_api_key}
     }
   }
 
-  const env_openrouter = llm_provider_get_api_key_env("openrouter")
-  const env_requesty = llm_provider_get_api_key_env("requesty")
+  const env_openrouter = llm_api_get_api_key_env("openrouter")
+  const env_requesty = llm_api_get_api_key_env("requesty")
 
-  if (llm_provider !== null) {
-    const env_provider = llm_provider_get_api_key_env(llm_provider)
+  if (llm_api_code !== null) {
+    const env_provider = llm_api_get_api_key_env(llm_api_code)
     abort_with_error(`Please set environment variable ${env_provider}, ${env_openrouter} or ${env_requesty}`)
   }
 

@@ -4,8 +4,8 @@ import type {ZodType} from "zod"
 
 import {debug_channels, debug_inspect_when} from "./lib_debug.js"
 import {env_get_empty, env_get_substitute} from "./lib_env.js"
+import {llm_api_get_ai_sdk_language_model} from "./lib_llm_api.js"
 import type {LlmConfig} from "./lib_llm_config.js"
-import {llm_provider_get_ai_sdk_language_model} from "./lib_llm_provider.js"
 import {parse_float_or_undefined, parse_int, parse_int_or_undefined} from "./lib_parse_number.js"
 
 type LlmChatParameters = {
@@ -39,11 +39,11 @@ export async function llm_chat_generate_text({
   max_steps?: number
   min_steps?: number
 }): Promise<string> {
-  const {llm_model_name, llm_provider, llm_model_code, llm_api_key} = llm_config
+  const {llm_model_name, llm_api_code, llm_model_code, llm_api_key} = llm_config
 
-  const ai_sdk_language_model = llm_provider_get_ai_sdk_language_model({
+  const ai_sdk_language_model = llm_api_get_ai_sdk_language_model({
     llm_model_code,
-    llm_provider,
+    llm_api_code,
     llm_api_key,
   })
 
@@ -90,11 +90,11 @@ export async function llm_chat_generate_object<T>({
   system_prompt: string
   schema: ZodType<T>
 }): Promise<T> {
-  const {llm_model_name, llm_provider, llm_model_code, llm_api_key} = llm_config
+  const {llm_model_name, llm_api_code, llm_model_code, llm_api_key} = llm_config
 
-  const ai_sdk_language_model = llm_provider_get_ai_sdk_language_model({
+  const ai_sdk_language_model = llm_api_get_ai_sdk_language_model({
     llm_model_code,
-    llm_provider,
+    llm_api_code,
     llm_api_key,
   })
 

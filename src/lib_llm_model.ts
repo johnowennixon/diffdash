@@ -1,9 +1,9 @@
 import {abort_with_error} from "./lib_abort.js"
-import type {LlmProvider} from "./lib_llm_provider.js"
+import type {LlmApiCode} from "./lib_llm_api.js"
 
 export type LlmModelDetail = {
   llm_model_name: string
-  llm_provider: LlmProvider | null
+  llm_api_code: LlmApiCode | null
   llm_model_code_direct: string | null
   llm_model_code_requesty: string | null
   llm_model_code_openrouter: string | null
@@ -16,7 +16,7 @@ export type LlmModelDetail = {
 const LLM_MODEL_DETAILS = [
   {
     llm_model_name: "claude-3.5-haiku",
-    llm_provider: "anthropic",
+    llm_api_code: "anthropic",
     llm_model_code_direct: "claude-3-5-haiku-latest",
     llm_model_code_requesty: "anthropic/claude-3-5-haiku-latest",
     llm_model_code_openrouter: "anthropic/claude-3.5-haiku",
@@ -27,7 +27,7 @@ const LLM_MODEL_DETAILS = [
   },
   {
     llm_model_name: "claude-3.7-sonnet",
-    llm_provider: "anthropic",
+    llm_api_code: "anthropic",
     llm_model_code_direct: "claude-3-7-sonnet-20250219",
     llm_model_code_requesty: "anthropic/claude-3-7-sonnet-latest",
     llm_model_code_openrouter: "anthropic/claude-3.7-sonnet",
@@ -38,7 +38,7 @@ const LLM_MODEL_DETAILS = [
   },
   {
     llm_model_name: "claude-sonnet-4",
-    llm_provider: "anthropic",
+    llm_api_code: "anthropic",
     llm_model_code_direct: "claude-sonnet-4-0",
     llm_model_code_requesty: "anthropic/claude-sonnet-4-20250514",
     llm_model_code_openrouter: "anthropic/claude-sonnet-4",
@@ -49,7 +49,7 @@ const LLM_MODEL_DETAILS = [
   },
   {
     llm_model_name: "codex-mini",
-    llm_provider: "openai",
+    llm_api_code: "openai",
     llm_model_code_direct: "codex-mini-latest",
     llm_model_code_requesty: null,
     llm_model_code_openrouter: "openai/codex-mini",
@@ -60,7 +60,7 @@ const LLM_MODEL_DETAILS = [
   },
   {
     llm_model_name: "deepseek-v3",
-    llm_provider: "deepseek",
+    llm_api_code: "deepseek",
     llm_model_code_direct: "deepseek-chat",
     llm_model_code_requesty: "novita/deepseek/deepseek-v3-0324",
     llm_model_code_openrouter: "deepseek/deepseek-chat-v3-0324",
@@ -71,7 +71,7 @@ const LLM_MODEL_DETAILS = [
   },
   {
     llm_model_name: "deepseek-r1",
-    llm_provider: "deepseek",
+    llm_api_code: "deepseek",
     llm_model_code_direct: "deepseek-reasoner",
     llm_model_code_requesty: "netmind/deepseek-ai/DeepSeek-R1-0528",
     llm_model_code_openrouter: "deepseek/deepseek-r1-0528",
@@ -82,7 +82,7 @@ const LLM_MODEL_DETAILS = [
   },
   {
     llm_model_name: "devstral-medium",
-    llm_provider: null,
+    llm_api_code: null,
     llm_model_code_direct: "devstral-medium-latest",
     llm_model_code_requesty: "mistral/devstral-medium-latest",
     llm_model_code_openrouter: "mistralai/devstral-medium",
@@ -93,7 +93,7 @@ const LLM_MODEL_DETAILS = [
   },
   {
     llm_model_name: "devstral-small",
-    llm_provider: null,
+    llm_api_code: null,
     llm_model_code_direct: "devstral-small-latest",
     llm_model_code_requesty: "mistral/devstral-small-latest",
     llm_model_code_openrouter: "mistralai/devstral-small",
@@ -104,7 +104,7 @@ const LLM_MODEL_DETAILS = [
   },
   {
     llm_model_name: "ernie-4.5-300b",
-    llm_provider: null,
+    llm_api_code: null,
     llm_model_code_direct: null,
     llm_model_code_requesty: null,
     llm_model_code_openrouter: "baidu/ernie-4.5-300b-a47b",
@@ -115,7 +115,7 @@ const LLM_MODEL_DETAILS = [
   },
   {
     llm_model_name: "gemini-2.0-flash",
-    llm_provider: "google",
+    llm_api_code: "google",
     llm_model_code_direct: "gemini-2.0-flash",
     llm_model_code_requesty: "google/gemini-2.0-flash-001",
     llm_model_code_openrouter: "google/gemini-2.0-flash-001",
@@ -126,7 +126,7 @@ const LLM_MODEL_DETAILS = [
   },
   {
     llm_model_name: "gemini-2.5-flash",
-    llm_provider: "google",
+    llm_api_code: "google",
     llm_model_code_direct: "gemini-2.5-flash",
     llm_model_code_requesty: "google/gemini-2.5-flash",
     llm_model_code_openrouter: "google/gemini-2.5-flash",
@@ -137,7 +137,7 @@ const LLM_MODEL_DETAILS = [
   },
   {
     llm_model_name: "gemini-2.5-pro",
-    llm_provider: "google",
+    llm_api_code: "google",
     llm_model_code_direct: "gemini-2.5-pro",
     llm_model_code_requesty: "google/gemini-2.5-pro",
     llm_model_code_openrouter: "google/gemini-2.5-pro",
@@ -148,7 +148,7 @@ const LLM_MODEL_DETAILS = [
   },
   {
     llm_model_name: "glm-4-32b",
-    llm_provider: null,
+    llm_api_code: null,
     llm_model_code_direct: null,
     llm_model_code_requesty: null,
     llm_model_code_openrouter: "thudm/glm-4-32b",
@@ -159,7 +159,7 @@ const LLM_MODEL_DETAILS = [
   },
   {
     llm_model_name: "gpt-4.1",
-    llm_provider: "openai",
+    llm_api_code: "openai",
     llm_model_code_direct: "gpt-4.1",
     llm_model_code_requesty: "openai/gpt-4.1",
     llm_model_code_openrouter: "openai/gpt-4.1",
@@ -170,7 +170,7 @@ const LLM_MODEL_DETAILS = [
   },
   {
     llm_model_name: "gpt-4.1-mini",
-    llm_provider: "openai",
+    llm_api_code: "openai",
     llm_model_code_direct: "gpt-4.1-mini",
     llm_model_code_requesty: "openai/gpt-4.1-mini",
     llm_model_code_openrouter: "openai/gpt-4.1-mini",
@@ -181,7 +181,7 @@ const LLM_MODEL_DETAILS = [
   },
   {
     llm_model_name: "gpt-4.1-nano",
-    llm_provider: "openai",
+    llm_api_code: "openai",
     llm_model_code_direct: "gpt-4.1-nano",
     llm_model_code_requesty: "openai/gpt-4.1-nano",
     llm_model_code_openrouter: "openai/gpt-4.1-nano",
@@ -192,7 +192,7 @@ const LLM_MODEL_DETAILS = [
   },
   {
     llm_model_name: "gpt-4o",
-    llm_provider: "openai",
+    llm_api_code: "openai",
     llm_model_code_direct: "gpt-4o-2024-11-20",
     llm_model_code_requesty: "openai/gpt-4o-2024-11-20",
     llm_model_code_openrouter: "openai/gpt-4o-2024-11-20",
@@ -203,7 +203,7 @@ const LLM_MODEL_DETAILS = [
   },
   {
     llm_model_name: "gpt-4o-mini",
-    llm_provider: "openai",
+    llm_api_code: "openai",
     llm_model_code_direct: "gpt-4o-mini",
     llm_model_code_requesty: "openai/gpt-4o-mini-2024-07-18",
     llm_model_code_openrouter: "openai/gpt-4o-mini-2024-07-18",
@@ -214,7 +214,7 @@ const LLM_MODEL_DETAILS = [
   },
   {
     llm_model_name: "grok-3",
-    llm_provider: null,
+    llm_api_code: null,
     llm_model_code_direct: "grok-3",
     llm_model_code_requesty: "xai/grok-3-beta",
     llm_model_code_openrouter: "x-ai/grok-3",
@@ -225,7 +225,7 @@ const LLM_MODEL_DETAILS = [
   },
   {
     llm_model_name: "grok-3-mini",
-    llm_provider: null,
+    llm_api_code: null,
     llm_model_code_direct: "grok-3-mini",
     llm_model_code_requesty: "xai/grok-3-mini-beta",
     llm_model_code_openrouter: "x-ai/grok-3-mini",
@@ -236,7 +236,7 @@ const LLM_MODEL_DETAILS = [
   },
   {
     llm_model_name: "grok-4",
-    llm_provider: null,
+    llm_api_code: null,
     llm_model_code_direct: "grok-4",
     llm_model_code_requesty: "xai/grok-4",
     llm_model_code_openrouter: "x-ai/grok-4",
@@ -247,7 +247,7 @@ const LLM_MODEL_DETAILS = [
   },
   {
     llm_model_name: "kimi-k2",
-    llm_provider: null,
+    llm_api_code: null,
     llm_model_code_direct: "kimi-k2-0711-preview",
     llm_model_code_requesty: null /* "moonshot/kimi-k2-0711-preview" */,
     llm_model_code_openrouter: "moonshotai/kimi-k2:turbo",
@@ -258,7 +258,7 @@ const LLM_MODEL_DETAILS = [
   },
   {
     llm_model_name: "llama-4-maverick",
-    llm_provider: null,
+    llm_api_code: null,
     llm_model_code_direct: null,
     llm_model_code_requesty: "parasail/meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8",
     llm_model_code_openrouter: "meta-llama/llama-4-maverick",
@@ -269,7 +269,7 @@ const LLM_MODEL_DETAILS = [
   },
   {
     llm_model_name: "llama-4-scout",
-    llm_provider: null,
+    llm_api_code: null,
     llm_model_code_direct: null,
     llm_model_code_requesty: "parasail/meta-llama/Llama-4-Scout-17B-16E-Instruct",
     llm_model_code_openrouter: "meta-llama/llama-4-scout",
@@ -280,7 +280,7 @@ const LLM_MODEL_DETAILS = [
   },
   {
     llm_model_name: "mercury",
-    llm_provider: null,
+    llm_api_code: null,
     llm_model_code_direct: null,
     llm_model_code_requesty: null,
     llm_model_code_openrouter: "inception/mercury",
@@ -291,7 +291,7 @@ const LLM_MODEL_DETAILS = [
   },
   {
     llm_model_name: "mercury-coder",
-    llm_provider: null,
+    llm_api_code: null,
     llm_model_code_direct: null,
     llm_model_code_requesty: null,
     llm_model_code_openrouter: "inception/mercury-coder-small-beta",
@@ -302,7 +302,7 @@ const LLM_MODEL_DETAILS = [
   },
   {
     llm_model_name: "mistral-medium-3",
-    llm_provider: null,
+    llm_api_code: null,
     llm_model_code_direct: null,
     llm_model_code_requesty: null,
     llm_model_code_openrouter: "mistralai/mistral-medium-3",
@@ -313,7 +313,7 @@ const LLM_MODEL_DETAILS = [
   },
   {
     llm_model_name: "o3",
-    llm_provider: "openai",
+    llm_api_code: "openai",
     llm_model_code_direct: "o3-2025-04-16",
     llm_model_code_requesty: "openai/o3-2025-04-16",
     llm_model_code_openrouter: "openai/o3-2025-04-16",
@@ -324,7 +324,7 @@ const LLM_MODEL_DETAILS = [
   },
   {
     llm_model_name: "o3-pro",
-    llm_provider: "openai",
+    llm_api_code: "openai",
     llm_model_code_direct: "o3-pro",
     llm_model_code_requesty: "openai/o3-pro",
     llm_model_code_openrouter: "openai/o3-pro",
@@ -335,7 +335,7 @@ const LLM_MODEL_DETAILS = [
   },
   {
     llm_model_name: "o4-mini",
-    llm_provider: "openai",
+    llm_api_code: "openai",
     llm_model_code_direct: "o4-mini-2025-04-16",
     llm_model_code_requesty: "openai/o4-mini-2025-04-16",
     llm_model_code_openrouter: "openai/o4-mini-2025-04-16",
@@ -346,7 +346,7 @@ const LLM_MODEL_DETAILS = [
   },
   {
     llm_model_name: "qwen3-30b-a3b",
-    llm_provider: null,
+    llm_api_code: null,
     llm_model_code_direct: null,
     llm_model_code_requesty: null,
     llm_model_code_openrouter: "qwen/qwen3-30b-a3b",
@@ -357,7 +357,7 @@ const LLM_MODEL_DETAILS = [
   },
   {
     llm_model_name: "qwen3-32b",
-    llm_provider: null,
+    llm_api_code: null,
     llm_model_code_direct: null,
     llm_model_code_requesty: "deepinfra/Qwen/Qwen3-32B",
     llm_model_code_openrouter: "qwen/qwen3-32b",
@@ -368,7 +368,7 @@ const LLM_MODEL_DETAILS = [
   },
   {
     llm_model_name: "qwen3-235b-a22b",
-    llm_provider: null,
+    llm_api_code: null,
     llm_model_code_direct: null,
     llm_model_code_requesty: "deepinfra/Qwen/Qwen3-235B-A22B",
     llm_model_code_openrouter: "qwen/qwen3-235b-a22b",
