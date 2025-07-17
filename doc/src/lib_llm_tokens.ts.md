@@ -1,1 +1,1 @@
-Provides a way to estimate token counts for text based on the LLM model being used. Uses different methods for specific models like GPT variants and falls back to a simple length-based estimate otherwise. Also includes a debug utility to log token usage details when enabled.
+Estimates the number of tokens in a given text based on its length. Provides debug information about token usage including text length, estimated tokens, and their ratio when debugging is enabled. Helps track token consumption related to a language model configuration.

@@ -1,1 +1,1 @@
-Provides tools for interacting with language models to generate text or structured data. Handles configuration like timeouts, temperature, and token limits for model inputs. Supports debugging by logging inputs and outputs during the process.
+Handles text and object generation using large language models with configurable parameters. Supports prompts, optional tools, and timeout controls while providing debugging information. Throws errors if the model's step count is outside expected bounds.

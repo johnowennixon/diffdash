@@ -1,1 +1,1 @@
-Provides tools for working with different language model providers. Determines how a provider is accessed and retrieves its API key from the environment. Creates a language model instance based on the specified provider and model code.
+Handles different large language model (LLM) API providers by mapping API codes to their key environment variables and connection methods. Provides a way to retrieve API keys from environment variables and to instantiate language model clients using those keys. Includes error handling for unknown or unsupported API codes.

@@ -1,1 +1,1 @@
-Provides tools to check and retrieve access details for large language models. Determines if a model is available based on provider and API key checks. Handles fallback options when direct access is not possible.
+Provides utilities to check if access to a language model is available and to get the necessary access details. Handles different API codes and keys based on model details and environment settings. Ensures that required environment variables are set or raises an error otherwise.

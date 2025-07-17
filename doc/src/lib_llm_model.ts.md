@@ -1,1 +1,1 @@
-Provides details about various language models, including their names, providers, and costs. Lists models with specific attributes like context window size and support for structured JSON. Offers functions to filter and retrieve model details based on given criteria.
+Details about many language models are listed with their names, API codes, context sizes, and costs. Functions are provided to get details for given model names, list model name choices, and find a detail entry by model name. Errors are raised if an unknown model name is requested.

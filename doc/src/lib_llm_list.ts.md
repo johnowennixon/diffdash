@@ -1,1 +1,1 @@
-Displays a formatted table of language model details including names, context sizes, and costs. Formats the data with right-aligned numbers and currency symbols for clarity. Outputs the table to the standard output for easy viewing.
+Displays a table of language model details with columns for name, context window size, input cost, and output cost. Prices are shown in dollars per million tokens and aligned neatly for easy reading. Includes notes about price accuracy and encourages users to verify with their provider.
