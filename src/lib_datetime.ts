@@ -42,19 +42,11 @@ export function datetime_format_utc_iso_hms(date: Date): string {
 }
 
 export function datetime_format_utc_timestamp_alpha(date: Date): string {
-  const s1 = date.toISOString().slice(0, 19)
-  const s2 = s1.replaceAll(DASH, EMPTY)
-  const s3 = s2.replaceAll(COLON, EMPTY)
-  const s4 = s3 + "Z"
-  return s4
+  return date.toISOString().slice(0, 19).replaceAll(DASH, EMPTY).replaceAll(COLON, EMPTY) + "Z"
 }
 
 export function datetime_format_utc_timestamp_numeric(date: Date): string {
-  const s1 = date.toISOString().slice(0, 19)
-  const s2 = s1.replaceAll(DASH, EMPTY)
-  const s3 = s2.replaceAll(COLON, EMPTY)
-  const s4 = s3.replace("T", EMPTY)
-  return s4
+  return date.toISOString().slice(0, 19).replaceAll(DASH, EMPTY).replaceAll(COLON, EMPTY).replace("T", EMPTY)
 }
 
 function datetime_localize(date: Date): Date {
