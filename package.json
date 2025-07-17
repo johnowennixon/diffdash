@@ -53,7 +53,7 @@
     "zod": "3.25.76"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.1.1",
+    "@biomejs/biome": "2.1.2",
     "@eslint/eslintrc": "3.3.1",
     "@eslint/js": "9.31.0",
     "@johnowennixon/add-shebangs": "1.1.0",
