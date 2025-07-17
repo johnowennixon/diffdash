@@ -102,8 +102,8 @@ export function llm_access_get({
   const env_requesty = llm_api_get_api_key_env("requesty")
 
   if (llm_api_code !== null) {
-    const env_provider = llm_api_get_api_key_env(llm_api_code)
-    abort_with_error(`Please set environment variable ${env_provider}, ${env_openrouter} or ${env_requesty}`)
+    const env_direct = llm_api_get_api_key_env(llm_api_code)
+    abort_with_error(`Please set environment variable ${env_direct}, ${env_openrouter} or ${env_requesty}`)
   }
 
   abort_with_error(`Please set environment variable ${env_openrouter} or ${env_requesty}`)

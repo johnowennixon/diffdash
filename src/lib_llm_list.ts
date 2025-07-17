@@ -26,5 +26,5 @@ export function llm_list_models({llm_model_details}: {llm_model_details: Array<L
   stdio_write_stdout_linefeed(table.toString())
 
   tell_info("Prices are per million tokens.")
-  tell_warning("Prices are best effort and are liable to change - always double-check with your LLM provider.")
+  tell_warning("Prices are best effort and are liable to change - always double-check with your LLM API provider.")
 }

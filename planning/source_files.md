@@ -122,31 +122,31 @@ Provides a way to convert objects into formatted strings for inspection. Uses No
 
 ### src/lib_llm_access.ts
 
-Provides tools to check and retrieve access details for large language models. Determines if a model is available based on provider and API key checks. Handles fallback options when direct access is not possible.
+Provides utilities to check if access to a language model is available and to get the necessary access details. Handles different API codes and keys based on model details and environment settings. Ensures that required environment variables are set or raises an error otherwise.
 
 ### src/lib_llm_api.ts
 
-Provides tools for working with different language model providers. Determines how a provider is accessed and retrieves its API key from the environment. Creates a language model instance based on the specified provider and model code.
+Handles different large language model (LLM) API providers by mapping API codes to their key environment variables and connection methods. Provides a way to retrieve API keys from environment variables and to instantiate language model clients using those keys. Includes error handling for unknown or unsupported API codes.
 
 ### src/lib_llm_chat.ts
 
-Provides tools for interacting with language models to generate text or structured data. Handles configuration like timeouts, temperature, and token limits for model inputs. Supports debugging by logging inputs and outputs during the process.
+Handles text and object generation using large language models with configurable parameters. Supports prompts, optional tools, and timeout controls while providing debugging information. Throws errors if the model's step count is outside expected bounds.
 
 ### src/lib_llm_config.ts
 
-Provides configuration details for language models, including model names, provider information, and API keys. Helps retrieve and manage model configurations based on available choices and access rules. Also includes utilities to display model details in a user-friendly format.
+Handles configuration related to language models by gathering and organizing details like model name, API code, and access keys. Supports retrieving configurations for a specific model or all available models, considering exclusions and routing preferences. Provides a way to display information about the chosen model and its API source.
 
 ### src/lib_llm_list.ts
 
-Displays a formatted table of language model details including names, context sizes, and costs. Formats the data with right-aligned numbers and currency symbols for clarity. Outputs the table to the standard output for easy viewing.
+Displays a table of language model details with columns for name, context window size, input cost, and output cost. Prices are shown in dollars per million tokens and aligned neatly for easy reading. Includes notes about price accuracy and encourages users to verify with their provider.
 
 ### src/lib_llm_model.ts
 
-Provides details about various language models, including their names, providers, and costs. Lists models with specific attributes like context window size and support for structured JSON. Offers functions to filter and retrieve model details based on given criteria.
+Details about many language models are listed with their names, API codes, context sizes, and costs. Functions are provided to get details for given model names, list model name choices, and find a detail entry by model name. Errors are raised if an unknown model name is requested.
 
 ### src/lib_llm_tokens.ts
 
-Provides a way to estimate token counts for text based on the LLM model being used. Uses different methods for specific models like GPT variants and falls back to a simple length-based estimate otherwise. Also includes a debug utility to log token usage details when enabled.
+Estimates the number of tokens in a given text based on its length. Provides debug information about token usage including text length, estimated tokens, and their ratio when debugging is enabled. Helps track token consumption related to a language model configuration.
 
 ### src/lib_package.ts
 
