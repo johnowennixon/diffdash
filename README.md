@@ -2,17 +2,19 @@
 
 A command-line tool to generate Git commit messages using AI.
 
+## Demonstration
+
 ![Demonstration](asciinema/diffdash-demo.gif)
 
 ## Features
 
-* Generates Git commit messages in natural English
-* Adds a footer to the generated commit messages
-* Options to disable or auto-approve various stages of the process
-* Able to add a prefix or suffix to the summary line
-* Optionally select from a choice of LLM models
+* Generate Git commit messages in natural English
+* Add a footer to the generated commit messages
+* Add a prefix or suffix to the summary line
+* Select from a choice of LLM models
 * Compare messages generated from all configured models
-* Can just output the commit message for use in scripts
+* Disable or auto-approve various stages
+* Just output the commit message for use in scripts
 * Configuration using standard API provider environment variables
 * Uses the Vercel AI SDK
 * Uses structured JSON with compatible models
