@@ -60,7 +60,7 @@ Many of these coding style rules are enforced using linters and other tools.
 ### Functions and Methods
 
 * Use snake_case for function and method names.
-* Names of functions should start with the words in the module file name. The remainder should be verbs or verb phrases that clearly indicate the action (e.g., `calculate_total`, `get_user_by_id`, `send_message`).
+* Names of functions should start with the words in the module file name. The remainder should be verbs or verb phrases that clearly indicate the action (e.g., `debug_inspect_if`, `llm_chat_generate_text`, `pushover_send`).
 
 ### Classes, Interfaces and other Types
 
@@ -79,7 +79,7 @@ Many of these coding style rules are enforced using linters and other tools.
 
 * Use snake_case for file names.
 * Library modules should use the `lib_` prefix (e.g., `lib_tell.ts`).
-* Many program filenames start with a two-character code.
+* Many program filenames start with a two-character code indicating the user base.
 
 ## Comments
 

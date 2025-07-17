@@ -155,6 +155,7 @@ As agreed by stakeholders:
 ### 6.2 Reliability
 
 * The system shall handle network interruptions gracefully during LLM API communication
+* The system shall enforce reasonable timeouts for LLM API calls
 * The system shall prevent data loss by validating repository state before operations
 * The system shall recover from errors when possible and suggest remediation steps
 
@@ -197,7 +198,6 @@ As agreed by stakeholders:
 
 The following items are identified as potential future enhancements but are not required for the initial release:
 
-* Timeouts for LLM API calls
 * Configuration file support
-* Message quality metrics and suggestions
 * Integration as a pre-commit hook
+* Message quality metrics
