@@ -267,7 +267,7 @@ const configs = [
       },
       parser: parser_typescript,
       parserOptions: {
-        project: true,
+        projectService: true,
       },
       sourceType: "module",
     },
