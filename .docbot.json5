@@ -3,6 +3,6 @@
   "doc": "./doc",
   "copy": "~/jet",
   "files": {
-    "include": ["src/**"],
+    "include": ["src/**/*.ts"],
   }
 }
