@@ -23,6 +23,7 @@ export const debug_channels = {
   lines: false,
   llm_inputs: false,
   llm_outputs: false,
+  llm_prompts: false,
   llm_tokens: false,
   llm_tools: false,
   node: false,

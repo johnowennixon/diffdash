@@ -39,8 +39,9 @@ const diffdash_cli_schema = {
 
   silent: cli_boolean({help: "suppress all normal output - errors and aborts still display"}),
 
-  debug_llm_inputs: cli_boolean({help: "debug inputs (including all prompts) sent to the LLM"}),
-  debug_llm_outputs: cli_boolean({help: "debug outputs received from the LLM"}),
+  debug_llm_prompts: cli_boolean({help: "debug prompts sent to the LLM"}),
+  debug_llm_inputs: cli_boolean({help: "debug inputs object sent to the LLM"}),
+  debug_llm_outputs: cli_boolean({help: "debug outputs object received from the LLM"}),
 }
 
 export const diffdash_cli_parser = cli_make_parser({

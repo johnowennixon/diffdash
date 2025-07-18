@@ -107,8 +107,8 @@ diffdash --llm-model claude-3.5-haiku
 # Just output the commit message for use in scripts
 diffdash --just-output
 
-# Debug options
-diffdash --debug-llm-inputs --debug-llm-outputs
+# Debug prompts
+diffdash --debug-llm-prompts
 ```
 
 ## Command Line Arguments
@@ -139,8 +139,9 @@ All command-line arguments are optional.
 | `--llm-excludes MODELS` | models to exclude from comparison (comma separated) |
 | `--just-output` | just output the commit message for use in scripts |
 | `--silent` | suppress all normal output - errors and aborts still display |
-| `--debug-llm-inputs` | show inputs (including all prompts) sent to the LLM |
-| `--debug-llm-outputs` | show outputs received from the LLM |
+| `--debug-llm-prompts` | show prompts sent to the LLM |
+| `--debug-llm-inputs` | show inputs object sent to the LLM |
+| `--debug-llm-outputs` | show outputs object received from the LLM |
 
 ## Files containing secrets
 

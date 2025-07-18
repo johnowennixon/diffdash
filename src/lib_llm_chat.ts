@@ -7,6 +7,8 @@ import {env_get_empty, env_get_substitute} from "./lib_env.js"
 import {llm_api_get_ai_sdk_language_model} from "./lib_llm_api.js"
 import type {LlmConfig} from "./lib_llm_config.js"
 import {parse_float_or_undefined, parse_int, parse_int_or_undefined} from "./lib_parse_number.js"
+import {tell_debug} from "./lib_tell.js"
+import {tui_block_string} from "./lib_tui_block.js"
 
 type LlmChatParameters = {
   max_tokens: number | undefined
@@ -19,6 +21,21 @@ function llm_chat_get_parameters(): LlmChatParameters {
     max_tokens: parse_int_or_undefined(env_get_empty("lib_llm_chat_max_tokens")),
     temperature: parse_float_or_undefined(env_get_substitute("lib_llm_chat_temperature", "0.6")),
     timeout: parse_int(env_get_substitute("lib_llm_chat_timeout", "60")),
+  }
+}
+
+function llm_chat_debug_prompts({
+  llm_model_name,
+  system_prompt,
+  user_prompt,
+}: {
+  llm_model_name: string
+  system_prompt: string
+  user_prompt: string
+}): void {
+  if (debug_channels.llm_prompts) {
+    tui_block_string({teller: tell_debug, title: `LLM system prompt (for ${llm_model_name}):`, content: system_prompt})
+    tui_block_string({teller: tell_debug, title: `LLM user prompt (for ${llm_model_name}):`, content: user_prompt})
   }
 }
 
@@ -41,6 +58,8 @@ export async function llm_chat_generate_text({
 }): Promise<string> {
   const {llm_model_name, llm_api_code, llm_model_code, llm_api_key} = llm_config
 
+  llm_chat_debug_prompts({system_prompt, user_prompt, llm_model_name})
+
   const ai_sdk_language_model = llm_api_get_ai_sdk_language_model({
     llm_model_code,
     llm_api_code,
@@ -61,12 +80,12 @@ export async function llm_chat_generate_text({
     abortSignal: AbortSignal.timeout(timeout * 1000),
   }
 
-  debug_inspect_when(debug_channels.llm_inputs, llm_inputs, `llm_inputs (for ${llm_model_name})`)
+  debug_inspect_when(debug_channels.llm_inputs, llm_inputs, `LLM inputs object (for ${llm_model_name})`)
 
   // This is liable to throw an error
   const llm_outputs = await generateText(llm_inputs)
 
-  debug_inspect_when(debug_channels.llm_outputs, llm_outputs, `llm_outputs (for ${llm_model_name})`)
+  debug_inspect_when(debug_channels.llm_outputs, llm_outputs, `LLM outputs object (for ${llm_model_name})`)
 
   if (min_steps !== undefined && llm_outputs.steps.length < min_steps) {
     throw new Error("Too few steps taken")
@@ -92,6 +111,8 @@ export async function llm_chat_generate_object<T>({
 }): Promise<T> {
   const {llm_model_name, llm_api_code, llm_model_code, llm_api_key} = llm_config
 
+  llm_chat_debug_prompts({system_prompt, user_prompt, llm_model_name})
+
   const ai_sdk_language_model = llm_api_get_ai_sdk_language_model({
     llm_model_code,
     llm_api_code,
@@ -110,12 +131,12 @@ export async function llm_chat_generate_object<T>({
     abortSignal: AbortSignal.timeout(timeout * 1000),
   }
 
-  debug_inspect_when(debug_channels.llm_inputs, llm_inputs, `llm_inputs (for ${llm_model_name})`)
+  debug_inspect_when(debug_channels.llm_inputs, llm_inputs, `LLM inputs object (for ${llm_model_name})`)
 
   // This is liable to throw an error
   const llm_outputs = await generateObject<T>(llm_inputs)
 
-  debug_inspect_when(debug_channels.llm_outputs, llm_outputs, `llm_outputs (for ${llm_model_name})`)
+  debug_inspect_when(debug_channels.llm_outputs, llm_outputs, `LLM outputs object (for ${llm_model_name})`)
 
   return llm_outputs.object
 }

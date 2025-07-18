@@ -111,7 +111,7 @@ As agreed by stakeholders:
 * The system shall allow users to specify their preferred LLM provider and model
 * The system shall support automation flags for non-interactive operation
 * The system shall support constraint options to limit functionality
-* The system shall provide debugging options for LLM inputs and outputs
+* The system shall provide debugging options for LLM prompts, inputs, and outputs
 
 ## 4. Interface Requirements
 

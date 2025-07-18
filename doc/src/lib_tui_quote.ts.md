@@ -1,0 +1,1 @@
+Provides ways to wrap text in different types of quotes or brackets. Supports plain and smart quotes, round and square brackets, angle brackets, and backticks. Each function takes a string and returns it wrapped in the chosen symbol.

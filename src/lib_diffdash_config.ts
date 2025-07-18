@@ -1,11 +1,26 @@
+import {z} from "zod"
+
+import {abort_with_error} from "./lib_abort.js"
 import {debug_channels, debug_inspect_when} from "./lib_debug.js"
 import {diffdash_cli_parser} from "./lib_diffdash_cli.js"
 import {diffdash_llm_model_details, diffdash_llm_model_fallback} from "./lib_diffdash_llm.js"
+import {file_io_read_text} from "./lib_file_io.js"
+import {file_is_file} from "./lib_file_is.js"
+import {json5_parse} from "./lib_json5.js"
 import type {LlmConfig} from "./lib_llm_config.js"
 import {llm_config_get, llm_config_get_all} from "./lib_llm_config.js"
 import {llm_list_models} from "./lib_llm_list.js"
 import {PACKAGE_NAME, PACKAGE_VERSION} from "./lib_package.js"
 import {tell_plain} from "./lib_tell.js"
+import {tui_quote_smart_single} from "./lib_tui_quote.js"
+
+const diffdash_config_file_schema = z
+  .object({
+    extra_prompts: z.string().array().optional(),
+  })
+  .strict()
+
+type DiffDashConfigFile = z.infer<typeof diffdash_config_file_schema>
 
 export type DiffDashConfig = {
   auto_add: boolean
@@ -25,11 +40,32 @@ export type DiffDashConfig = {
   all_llm_configs: Array<LlmConfig>
   just_output: boolean
   silent: boolean
+  extra_prompts?: Array<string> | undefined
+}
+
+function diffdash_config_file_read(config: DiffDashConfig): void {
+  const config_file_name = ".diffdash.json5"
+
+  if (!file_is_file(config_file_name)) {
+    return
+  }
+
+  const config_content = file_io_read_text(config_file_name)
+  const parsed_json = json5_parse(config_content)
+
+  const validation_result = diffdash_config_file_schema.safeParse(parsed_json)
+  if (!validation_result.success) {
+    abort_with_error(`Unable to parse DiffDash config file: ${tui_quote_smart_single(config_file_name)}`)
+  }
+
+  const data: DiffDashConfigFile = validation_result.data
+
+  if (data.extra_prompts) {
+    config.extra_prompts = data.extra_prompts
+  }
 }
 
 export function diffdash_config_get(): DiffDashConfig {
-  const pa = diffdash_cli_parser.parsed_args
-
   const {
     version,
     auto_add,
@@ -52,9 +88,10 @@ export function diffdash_config_get(): DiffDashConfig {
     llm_excludes,
     just_output,
     silent,
+    debug_llm_prompts,
     debug_llm_inputs,
     debug_llm_outputs,
-  } = pa
+  } = diffdash_cli_parser.parsed_args
 
   if (version) {
     tell_plain(`${PACKAGE_NAME} v${PACKAGE_VERSION}`)
@@ -78,6 +115,7 @@ export function diffdash_config_get(): DiffDashConfig {
     llm_excludes,
   })
 
+  debug_channels.llm_prompts = debug_llm_prompts
   debug_channels.llm_inputs = debug_llm_inputs
   debug_channels.llm_outputs = debug_llm_outputs
 
@@ -99,7 +137,10 @@ export function diffdash_config_get(): DiffDashConfig {
     all_llm_configs,
     just_output,
     silent,
+    extra_prompts: undefined,
   }
+
+  diffdash_config_file_read(config)
 
   debug_inspect_when(debug_channels.config, config, "config")
 

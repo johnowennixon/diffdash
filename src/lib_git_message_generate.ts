@@ -69,7 +69,7 @@ export async function git_message_generate_string({
 }): Promise<string> {
   const {context_window, has_structured_json} = llm_config.llm_model_detail
 
-  const system_prompt = git_message_get_system_prompt({has_structured_json})
+  const system_prompt = git_message_get_system_prompt({has_structured_json, inputs})
 
   // Estimate remaining prompt length
   const user_tokens = context_window - llm_tokens_count_estimated({llm_config, text: system_prompt}) - 1000

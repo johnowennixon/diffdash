@@ -1,0 +1,4 @@
+export const LEFT_DOUBLE_QUOTATION_MARK = "“"
+export const LEFT_SINGLE_QUOTATION_MARK = "‘"
+export const RIGHT_DOUBLE_QUOTATION_MARK = "”"
+export const RIGHT_SINGLE_QUOTATION_MARK = "’"

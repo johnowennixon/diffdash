@@ -1,0 +1,1 @@
+Provides smart typography characters for text formatting. Exports constants for left and right double and single quotation marks. Helps create more typographically correct documents by using proper opening and closing quote characters instead of straight quotes.

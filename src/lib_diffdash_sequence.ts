@@ -129,12 +129,12 @@ async function phase_compare({config, git}: {config: DiffDashConfig; git: Simple
     tell_action("Generating Git commit messages using all models in parallel")
   }
 
-  const {all_llm_configs, add_prefix, add_suffix} = config
+  const {all_llm_configs, add_prefix, add_suffix, extra_prompts} = config
 
   const diffstat = await git_simple_staging_get_staged_diffstat(git)
   const diff = await git_simple_staging_get_staged_diff(git)
 
-  const inputs: GitMessagePromptInputs = {diffstat, diff}
+  const inputs: GitMessagePromptInputs = {diffstat, diff, extra_prompts}
 
   const result_promises = all_llm_configs.map((llm_config) => git_message_generate_result({llm_config, inputs}))
 
@@ -169,7 +169,7 @@ async function phase_compare({config, git}: {config: DiffDashConfig; git: Simple
 }
 
 async function phase_generate({config, git}: {config: DiffDashConfig; git: SimpleGit}): Promise<string> {
-  const {disable_preview, add_prefix, add_suffix, llm_config, just_output, silent} = config
+  const {disable_preview, add_prefix, add_suffix, llm_config, just_output, silent, extra_prompts} = config
 
   const model_via = llm_config_get_model_via({llm_config})
 
@@ -180,7 +180,7 @@ async function phase_generate({config, git}: {config: DiffDashConfig; git: Simpl
   const diffstat = await git_simple_staging_get_staged_diffstat(git)
   const diff = await git_simple_staging_get_staged_diff(git)
 
-  const inputs: GitMessagePromptInputs = {diffstat, diff}
+  const inputs: GitMessagePromptInputs = {diffstat, diff, extra_prompts}
 
   const result: GitMessageGenerateResult = await git_message_generate_result({llm_config, inputs})
 
