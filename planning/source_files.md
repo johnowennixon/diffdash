@@ -36,6 +36,10 @@ Provides a constant for an empty string. Helps avoid magic strings in code. Can 
 
 Provides named constants for common punctuation and special characters. Makes code more readable by replacing literal character use with descriptive variable names. Helps prevent typos and improves maintainability when working with special characters in string operations.
 
+### src/lib_char_smart.ts
+
+Provides smart typography characters for text formatting. Exports constants for left and right double and single quotation marks. Helps create more typographically correct documents by using proper opening and closing quote characters instead of straight quotes.
+
 ### src/lib_cli.ts
 
 Provides tools for defining and parsing command-line arguments with support for various types like strings, numbers, and choices. Handles nested argument structures and optional or required fields. Includes functions to execute commands based on parsed arguments.
@@ -84,6 +88,14 @@ Provides utilities for working with environment variables. Handles fetching valu
 
 Provides ways to handle errors in a simple and flexible manner. Logs errors to the console or ignores them silently. Converts errors to readable text and can abort execution with a custom message.
 
+### src/lib_file_io.ts
+
+Reads and writes files in both binary and text formats. Handles file operations synchronously for simplicity. Uses Node.js file system methods under the hood.
+
+### src/lib_file_is.ts
+
+Checks if a given path is a directory, file, socket, or executable. Handles errors gracefully by returning false if the check fails. Uses the filesystem to verify the type or permissions of the path.
+
 ### src/lib_file_path.ts
 
 Provides utilities for working with file paths in a Node.js environment. Helps join, split, and analyze paths to files or directories. Offers methods to get the base name, directory, extension, or absolute path of a file.
@@ -119,6 +131,10 @@ Checks for staged and unstaged changes in a Git repository. Stages all changes a
 ### src/lib_inspect.ts
 
 Provides a way to convert objects into formatted strings for inspection. Uses Node.js's built-in inspection tool with customizable depth and colors. Helps debug complex objects by showing their structure clearly.
+
+### src/lib_json5.ts
+
+Parses JSON5-formatted text into a JavaScript object. Uses the JSON5 library to handle relaxed syntax rules. Does not include any additional features beyond basic parsing.
 
 ### src/lib_llm_access.ts
 
@@ -175,6 +191,10 @@ Creates a bordered block of text with optional title and padding. Centers the ti
 ### src/lib_tui_justify.ts
 
 Aligns text to the left, right, or center within a given width, optionally truncating or adding ellipsis. Pads text with spaces or zeros to fit the specified length. Centers text by evenly distributing padding on both sides.
+
+### src/lib_tui_quote.ts
+
+Provides ways to wrap text in different types of quotes or brackets. Supports plain and smart quotes, round and square brackets, angle brackets, and backticks. Each function takes a string and returns it wrapped in the chosen symbol.
 
 ### src/lib_tui_readline.ts
 
