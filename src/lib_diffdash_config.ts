@@ -2,7 +2,7 @@ import {z} from "zod"
 
 import {abort_with_error} from "./lib_abort.js"
 import {debug_channels, debug_inspect_when} from "./lib_debug.js"
-import {diffdash_cli_parser} from "./lib_diffdash_cli.js"
+import {diffdash_cli_parsed_args} from "./lib_diffdash_cli.js"
 import {diffdash_llm_model_details, diffdash_llm_model_fallback} from "./lib_diffdash_llm.js"
 import {file_io_read_text} from "./lib_file_io.js"
 import {file_is_file} from "./lib_file_is.js"
@@ -91,7 +91,7 @@ export function diffdash_config_get(): DiffDashConfig {
     debug_llm_prompts,
     debug_llm_inputs,
     debug_llm_outputs,
-  } = diffdash_cli_parser.parsed_args
+  } = diffdash_cli_parsed_args
 
   if (version) {
     tell_plain(`${PACKAGE_NAME} v${PACKAGE_VERSION}`)

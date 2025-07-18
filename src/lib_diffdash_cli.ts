@@ -48,3 +48,5 @@ export const diffdash_cli_parser = cli_make_parser({
   cli_schema: diffdash_cli_schema,
   description: "DiffDash - generate Git commit messages using AI",
 })
+
+export const diffdash_cli_parsed_args = diffdash_cli_parser.parsed_args
