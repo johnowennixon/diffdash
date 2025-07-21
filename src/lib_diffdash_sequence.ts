@@ -142,20 +142,17 @@ async function phase_compare({config, git}: {config: DiffDashConfig; git: Simple
 
   for (const result of all_results) {
     const {llm_config, seconds, error_text} = result
-    let {git_message} = result
 
     const model_via = llm_config_get_model_via({llm_config})
 
-    if (error_text) {
+    if (error_text !== null) {
       tell_warning(`Failed to generate a commit message in ${seconds} seconds using ${model_via}: ${error_text}`)
       continue
     }
 
-    if (!git_message) {
-      continue
-    }
-
     tell_info(`Git commit message in ${seconds} seconds using ${model_via}:`)
+
+    let {git_message} = result
 
     const validation_result = git_message_validate_get_result(git_message)
 
@@ -185,11 +182,12 @@ async function phase_generate({config, git}: {config: DiffDashConfig; git: Simpl
   const result: GitMessageGenerateResult = await git_message_generate_result({llm_config, inputs})
 
   const {error_text} = result
-  let {git_message} = result
 
-  if (error_text || git_message === null) {
+  if (error_text !== null) {
     abort_with_error(`Failed to generate a commit message using ${model_via}: ${error_text}`)
   }
+
+  let {git_message} = result
 
   git_message_validate_check(git_message)
 
