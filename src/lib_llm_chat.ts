@@ -3,7 +3,9 @@ import {generateObject, generateText} from "ai"
 import type {ZodType} from "zod"
 
 import {debug_channels, debug_inspect_when} from "./lib_debug.js"
+import {Duration} from "./lib_duration.js"
 import {env_get_empty, env_get_substitute} from "./lib_env.js"
+import {error_get_text} from "./lib_error.js"
 import {llm_api_get_ai_sdk_language_model} from "./lib_llm_api.js"
 import type {LlmConfig} from "./lib_llm_config.js"
 import {parse_float_or_undefined, parse_int, parse_int_or_undefined} from "./lib_parse_number.js"
@@ -30,12 +32,16 @@ function llm_chat_debug_prompts({
   user_prompt,
 }: {
   llm_model_name: string
-  system_prompt: string
+  system_prompt: string | undefined
   user_prompt: string
 }): void {
   if (debug_channels.llm_prompts) {
-    tui_block_string({teller: tell_debug, title: `LLM system prompt (for ${llm_model_name}):`, content: system_prompt})
-    tui_block_string({teller: tell_debug, title: `LLM user prompt (for ${llm_model_name}):`, content: user_prompt})
+    const teller = tell_debug
+
+    if (system_prompt) {
+      tui_block_string({teller, title: `LLM system prompt (for ${llm_model_name}):`, content: system_prompt})
+    }
+    tui_block_string({teller, title: `LLM user prompt (for ${llm_model_name}):`, content: user_prompt})
   }
 }
 
@@ -50,7 +56,7 @@ export async function llm_chat_generate_text({
 }: {
   llm_config: LlmConfig
   headers?: Record<string, string | undefined>
-  system_prompt: string
+  system_prompt?: string | undefined
   user_prompt: string
   tools?: ToolSet
   max_steps?: number
@@ -98,6 +104,50 @@ export async function llm_chat_generate_text({
   return llm_outputs.text
 }
 
+type LlmChatGenerateSucceeded = {
+  llm_config: LlmConfig
+  seconds: number
+  llm_response_text: string
+  error_text: null
+}
+
+type LlmChatGenerateFailed = {
+  llm_config: LlmConfig
+  seconds: number
+  llm_response_text: null
+  error_text: string
+}
+
+export type LlmChatGenerateResult = LlmChatGenerateSucceeded | LlmChatGenerateFailed
+
+export async function llm_chat_generate_result({
+  llm_config,
+  system_prompt,
+  user_prompt,
+}: {
+  llm_config: LlmConfig
+  system_prompt?: string | undefined
+  user_prompt: string
+}): Promise<LlmChatGenerateResult> {
+  const duration = new Duration()
+  duration.start()
+
+  try {
+    const llm_response_text = await llm_chat_generate_text({llm_config, system_prompt, user_prompt})
+
+    duration.stop()
+    const seconds = duration.seconds_rounded()
+
+    return {llm_config, seconds, llm_response_text, error_text: null}
+  } catch (error) {
+    duration.stop()
+    const seconds = duration.seconds_rounded()
+
+    const error_text = error_get_text(error)
+    return {llm_config, seconds, llm_response_text: null, error_text}
+  }
+}
+
 export async function llm_chat_generate_object<T>({
   llm_config,
   user_prompt,
@@ -106,7 +156,7 @@ export async function llm_chat_generate_object<T>({
 }: {
   llm_config: LlmConfig
   user_prompt: string
-  system_prompt: string
+  system_prompt: string | undefined
   schema: ZodType<T>
 }): Promise<T> {
   const {llm_model_name, llm_api_code, llm_model_code, llm_api_key} = llm_config
