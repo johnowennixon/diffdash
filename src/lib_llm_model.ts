@@ -112,18 +112,6 @@ const LLM_MODEL_DETAILS = [
     has_structured_json: true,
   },
   {
-    llm_model_name: "ernie-4.5-300b",
-    llm_api_code: null,
-    llm_model_code_direct: null,
-    llm_model_code_requesty: null,
-    llm_model_code_openrouter: "baidu/ernie-4.5-300b-a47b",
-    context_window: 123_000,
-    cents_input: 30,
-    cents_output: 100,
-    default_reasoning: false,
-    has_structured_json: true,
-  },
-  {
     llm_model_name: "gemini-2.0-flash",
     llm_api_code: "google",
     llm_model_code_direct: "gemini-2.0-flash",
