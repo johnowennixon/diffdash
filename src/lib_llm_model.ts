@@ -10,6 +10,7 @@ export type LlmModelDetail = {
   context_window: number
   cents_input: number
   cents_output: number
+  default_reasoning: boolean
   has_structured_json: boolean
 }
 
@@ -23,6 +24,7 @@ const LLM_MODEL_DETAILS = [
     context_window: 200_000,
     cents_input: 80,
     cents_output: 400,
+    default_reasoning: false,
     has_structured_json: true,
   },
   {
@@ -34,6 +36,7 @@ const LLM_MODEL_DETAILS = [
     context_window: 200_000,
     cents_input: 300,
     cents_output: 1500,
+    default_reasoning: false,
     has_structured_json: true,
   },
   {
@@ -45,6 +48,7 @@ const LLM_MODEL_DETAILS = [
     context_window: 200_000,
     cents_input: 300,
     cents_output: 1500,
+    default_reasoning: false,
     has_structured_json: true,
   },
   {
@@ -56,6 +60,7 @@ const LLM_MODEL_DETAILS = [
     context_window: 200_000,
     cents_input: 150,
     cents_output: 600,
+    default_reasoning: false,
     has_structured_json: true,
   },
   {
@@ -67,6 +72,7 @@ const LLM_MODEL_DETAILS = [
     context_window: 64_000,
     cents_input: 27,
     cents_output: 110,
+    default_reasoning: false,
     has_structured_json: true,
   },
   {
@@ -78,6 +84,7 @@ const LLM_MODEL_DETAILS = [
     context_window: 163_840,
     cents_input: 55,
     cents_output: 219,
+    default_reasoning: true,
     has_structured_json: true,
   },
   {
@@ -89,6 +96,7 @@ const LLM_MODEL_DETAILS = [
     context_window: 128_000,
     cents_input: 40,
     cents_output: 200,
+    default_reasoning: false,
     has_structured_json: true,
   },
   {
@@ -100,6 +108,7 @@ const LLM_MODEL_DETAILS = [
     context_window: 128_000,
     cents_input: 10,
     cents_output: 30,
+    default_reasoning: false,
     has_structured_json: true,
   },
   {
@@ -111,6 +120,7 @@ const LLM_MODEL_DETAILS = [
     context_window: 123_000,
     cents_input: 30,
     cents_output: 100,
+    default_reasoning: false,
     has_structured_json: true,
   },
   {
@@ -122,6 +132,7 @@ const LLM_MODEL_DETAILS = [
     context_window: 1_048_576,
     cents_input: 10,
     cents_output: 40,
+    default_reasoning: false,
     has_structured_json: true,
   },
   {
@@ -133,6 +144,7 @@ const LLM_MODEL_DETAILS = [
     context_window: 1_048_576,
     cents_input: 30,
     cents_output: 250,
+    default_reasoning: false,
     has_structured_json: true,
   },
   {
@@ -144,6 +156,7 @@ const LLM_MODEL_DETAILS = [
     context_window: 1_048_576,
     cents_input: 125,
     cents_output: 1000,
+    default_reasoning: false,
     has_structured_json: true,
   },
   {
@@ -155,6 +168,7 @@ const LLM_MODEL_DETAILS = [
     context_window: 32_000,
     cents_input: 24,
     cents_output: 24,
+    default_reasoning: false,
     has_structured_json: false,
   },
   {
@@ -166,6 +180,7 @@ const LLM_MODEL_DETAILS = [
     context_window: 1_047_576,
     cents_input: 200,
     cents_output: 800,
+    default_reasoning: false,
     has_structured_json: true,
   },
   {
@@ -177,6 +192,7 @@ const LLM_MODEL_DETAILS = [
     context_window: 1_047_576,
     cents_input: 40,
     cents_output: 160,
+    default_reasoning: false,
     has_structured_json: true,
   },
   {
@@ -188,6 +204,7 @@ const LLM_MODEL_DETAILS = [
     context_window: 1_047_576,
     cents_input: 10,
     cents_output: 40,
+    default_reasoning: false,
     has_structured_json: true,
   },
   {
@@ -199,6 +216,7 @@ const LLM_MODEL_DETAILS = [
     context_window: 128_000,
     cents_input: 250,
     cents_output: 1000,
+    default_reasoning: false,
     has_structured_json: true,
   },
   {
@@ -210,6 +228,7 @@ const LLM_MODEL_DETAILS = [
     context_window: 128_000,
     cents_input: 15,
     cents_output: 60,
+    default_reasoning: false,
     has_structured_json: true,
   },
   {
@@ -221,6 +240,7 @@ const LLM_MODEL_DETAILS = [
     context_window: 131_072,
     cents_input: 300,
     cents_output: 1500,
+    default_reasoning: false,
     has_structured_json: true,
   },
   {
@@ -232,6 +252,7 @@ const LLM_MODEL_DETAILS = [
     context_window: 131_072,
     cents_input: 30,
     cents_output: 50,
+    default_reasoning: false,
     has_structured_json: true,
   },
   {
@@ -243,6 +264,7 @@ const LLM_MODEL_DETAILS = [
     context_window: 256_000,
     cents_input: 300,
     cents_output: 1500,
+    default_reasoning: true,
     has_structured_json: true,
   },
   {
@@ -254,6 +276,7 @@ const LLM_MODEL_DETAILS = [
     context_window: 131_072,
     cents_input: 60,
     cents_output: 250,
+    default_reasoning: false,
     has_structured_json: true,
   },
   {
@@ -265,6 +288,7 @@ const LLM_MODEL_DETAILS = [
     context_window: 1_048_576,
     cents_input: 15,
     cents_output: 60,
+    default_reasoning: false,
     has_structured_json: true,
   },
   {
@@ -276,6 +300,7 @@ const LLM_MODEL_DETAILS = [
     context_window: 1_048_576,
     cents_input: 14,
     cents_output: 58,
+    default_reasoning: false,
     has_structured_json: true,
   },
   {
@@ -287,6 +312,7 @@ const LLM_MODEL_DETAILS = [
     context_window: 32_000,
     cents_input: 25,
     cents_output: 100,
+    default_reasoning: false,
     has_structured_json: false,
   },
   {
@@ -298,6 +324,7 @@ const LLM_MODEL_DETAILS = [
     context_window: 32_000,
     cents_input: 25,
     cents_output: 100,
+    default_reasoning: false,
     has_structured_json: false,
   },
   {
@@ -309,39 +336,43 @@ const LLM_MODEL_DETAILS = [
     context_window: 131_072,
     cents_input: 40,
     cents_output: 200,
+    default_reasoning: false,
     has_structured_json: true,
   },
   {
     llm_model_name: "o3",
     llm_api_code: "openai",
-    llm_model_code_direct: "o3-2025-04-16",
-    llm_model_code_requesty: "openai/o3-2025-04-16",
-    llm_model_code_openrouter: "openai/o3-2025-04-16",
+    llm_model_code_direct: "o3", // Your organization needs to be verified
+    llm_model_code_requesty: "openai/o3", // You need your own OpenAI key
+    llm_model_code_openrouter: "openai/o3", // You need your own OpenAI key
     context_window: 200_000,
     cents_input: 200,
     cents_output: 800,
+    default_reasoning: true,
     has_structured_json: true,
   },
   {
     llm_model_name: "o3-pro",
     llm_api_code: "openai",
-    llm_model_code_direct: "o3-pro",
-    llm_model_code_requesty: "openai/o3-pro",
-    llm_model_code_openrouter: "openai/o3-pro",
+    llm_model_code_direct: "o3-pro", // Your organization needs to be verified
+    llm_model_code_requesty: "openai/o3-pro", // You need your own OpenAI key
+    llm_model_code_openrouter: "openai/o3-pro", // You need your own OpenAI key
     context_window: 200_000,
     cents_input: 2000,
     cents_output: 8000,
+    default_reasoning: true,
     has_structured_json: true,
   },
   {
     llm_model_name: "o4-mini",
     llm_api_code: "openai",
-    llm_model_code_direct: "o4-mini-2025-04-16",
-    llm_model_code_requesty: "openai/o4-mini-2025-04-16",
-    llm_model_code_openrouter: "openai/o4-mini-2025-04-16",
+    llm_model_code_direct: "o4-mini",
+    llm_model_code_requesty: "openai/o4-mini",
+    llm_model_code_openrouter: "openai/o4-mini",
     context_window: 200_000,
     cents_input: 110,
     cents_output: 440,
+    default_reasoning: true,
     has_structured_json: true,
   },
   {
@@ -353,6 +384,7 @@ const LLM_MODEL_DETAILS = [
     context_window: 40_000,
     cents_input: 8,
     cents_output: 29,
+    default_reasoning: false,
     has_structured_json: true,
   },
   {
@@ -364,6 +396,7 @@ const LLM_MODEL_DETAILS = [
     context_window: 40_000,
     cents_input: 10,
     cents_output: 30,
+    default_reasoning: false,
     has_structured_json: true,
   },
   {
@@ -375,6 +408,7 @@ const LLM_MODEL_DETAILS = [
     context_window: 40_000,
     cents_input: 20,
     cents_output: 60,
+    default_reasoning: false,
     has_structured_json: true,
   },
 ] as const satisfies Array<LlmModelDetail>
