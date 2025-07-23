@@ -43,14 +43,17 @@
     "rules": {
       "recommended": true,
       "a11y": {
+        "noStaticElementInteractions": "error",
         "noSvgWithoutTitle": "error",
         "useAltText": "error",
-        "useKeyWithClickEvents": "error"
+        "useKeyWithClickEvents": "error",
+        "useSemanticElements": "error"
       },
       "complexity": {
         "noBannedTypes": "error",
         "noForEach": "error",
         "noUselessContinue": "error",
+        "noUselessFragments": "error",
         "noUselessRename": "error",
         "noUselessStringRaw": "error",
         "noUselessTernary": "error",
@@ -67,9 +70,6 @@
         "noVoidTypeReturn": "off",
         "useExhaustiveDependencies": "error",
         "useJsxKeyInIterable": "error"
-      },
-      "nursery": {
-        "noFloatingPromises": "error"
       },
       "performance": {
         "noAccumulatingSpread": "error",
