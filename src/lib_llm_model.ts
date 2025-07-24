@@ -247,8 +247,44 @@ const LLM_MODEL_DETAILS = [
     llm_model_name: "kimi-k2",
     llm_api_code: null,
     llm_model_code_direct: "kimi-k2-0711-preview",
-    llm_model_code_requesty: null /* "moonshot/kimi-k2-0711-preview" */,
-    llm_model_code_openrouter: "moonshotai/kimi-k2:turbo",
+    llm_model_code_requesty: null,
+    llm_model_code_openrouter: "moonshotai/kimi-k2",
+    context_window: 131_072,
+    cents_input: 60,
+    cents_output: 250,
+    default_reasoning: false,
+    has_structured_json: true,
+  },
+  {
+    llm_model_name: "kimi-k2@chutes",
+    llm_api_code: null,
+    llm_model_code_direct: null,
+    llm_model_code_requesty: null,
+    llm_model_code_openrouter: "moonshotai/kimi-k2@chutes",
+    context_window: 131_072,
+    cents_input: 30,
+    cents_output: 30,
+    default_reasoning: false,
+    has_structured_json: true,
+  },
+  {
+    llm_model_name: "kimi-k2@groq",
+    llm_api_code: null,
+    llm_model_code_direct: null,
+    llm_model_code_requesty: null,
+    llm_model_code_openrouter: "moonshotai/kimi-k2@groq",
+    context_window: 131_072,
+    cents_input: 100,
+    cents_output: 300,
+    default_reasoning: false,
+    has_structured_json: true,
+  },
+  {
+    llm_model_name: "kimi-k2@moonshotai",
+    llm_api_code: null,
+    llm_model_code_direct: "kimi-k2-0711-preview",
+    llm_model_code_requesty: null,
+    llm_model_code_openrouter: "moonshotai/kimi-k2@moonshotai",
     context_window: 131_072,
     cents_input: 60,
     cents_output: 250,
@@ -406,8 +442,20 @@ const LLM_MODEL_DETAILS = [
     llm_model_code_requesty: null,
     llm_model_code_openrouter: "qwen/qwen3-coder",
     context_window: 262_144,
-    cents_input: 200,
-    cents_output: 200,
+    cents_input: 150,
+    cents_output: 750,
+    default_reasoning: false,
+    has_structured_json: true,
+  },
+  {
+    llm_model_name: "qwen3-coder@chutes",
+    llm_api_code: null,
+    llm_model_code_direct: null,
+    llm_model_code_requesty: null,
+    llm_model_code_openrouter: "qwen/qwen3-coder@chutes",
+    context_window: 262_144,
+    cents_input: 30,
+    cents_output: 30,
     default_reasoning: false,
     has_structured_json: true,
   },
@@ -423,7 +471,7 @@ export function llm_model_get_details({
   return LLM_MODEL_DETAILS.filter((detail) => llm_model_names.includes(detail.llm_model_name))
 }
 
-export function llm_model_get_choices(llm_model_details: Array<LlmModelDetail>): Array<string> {
+export function llm_model_get_choices({llm_model_details}: {llm_model_details: Array<LlmModelDetail>}): Array<string> {
   return llm_model_details.map((model) => model.llm_model_name)
 }
 

@@ -23,6 +23,6 @@ const model_name_options: Array<LlmModelName> = [
 ]
 
 export const diffdash_llm_model_details = llm_model_get_details({llm_model_names: model_name_options})
-export const diffdash_llm_model_choices = llm_model_get_choices(diffdash_llm_model_details)
+export const diffdash_llm_model_choices = llm_model_get_choices({llm_model_details: diffdash_llm_model_details})
 export const diffdash_llm_model_default = env_get_substitute("DIFFDASH_LLM_MODEL", model_name_default)
 export const diffdash_llm_model_fallback = model_name_fallback

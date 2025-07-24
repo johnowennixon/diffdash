@@ -14,12 +14,20 @@ export type LlmAccess = {
 export function llm_access_available({
   llm_model_details,
   llm_model_name,
+  llm_include,
   llm_excludes,
 }: {
   llm_model_details: Array<LlmModelDetail>
   llm_model_name: string
+  llm_include?: string
   llm_excludes?: string
 }): boolean {
+  if (llm_include) {
+    if (!llm_model_name.includes(llm_include)) {
+      return false
+    }
+  }
+
   if (llm_excludes) {
     const llm_excludes_array = llm_excludes.split(COMMA).map((exclude) => exclude.trim())
 

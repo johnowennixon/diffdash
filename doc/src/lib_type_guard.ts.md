@@ -1,0 +1,1 @@
+Provides simple checks to confirm if a value matches a specific type like boolean, number, or string. Helps ensure data is of the expected type before further processing. Useful for validating inputs or handling unknown data safely.

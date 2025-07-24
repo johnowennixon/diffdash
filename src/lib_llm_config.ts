@@ -34,16 +34,18 @@ export function llm_config_get({
 export function llm_config_get_all({
   llm_model_details,
   llm_router,
+  llm_include,
   llm_excludes,
 }: {
   llm_model_details: Array<LlmModelDetail>
   llm_router: boolean
+  llm_include?: string
   llm_excludes?: string
 }): Array<LlmConfig> {
-  const choices = llm_model_get_choices(llm_model_details)
+  const choices = llm_model_get_choices({llm_model_details})
 
   const available = choices.filter((llm_model_name) =>
-    llm_access_available({llm_model_details, llm_model_name, llm_excludes}),
+    llm_access_available({llm_model_details, llm_model_name, llm_include, llm_excludes}),
   )
 
   return available.map((llm_model_name) => llm_config_get({llm_model_details, llm_model_name, llm_router}))
