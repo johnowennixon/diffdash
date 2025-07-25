@@ -16,6 +16,10 @@ Provides ways to stop a program with warnings or errors. Formats messages with c
 
 Provides tools to add colors and styles to text in the terminal. Offers functions to make text bold, dim, italic, or colored in various shades. Also includes a way to remove ANSI color codes from text.
 
+### src/lib_assert_type.ts
+
+Checks if a value matches a specific type and stops execution if it does not. Handles booleans, numbers, strings, and objects with clear error messages. Relies on helper functions to verify types and manage failures.
+
 ### src/lib_char_box.ts
 
 Provides a constant for the Unicode heavy horizontal box drawing character. The character can be used to create visual dividers or borders in text-based interfaces. This single constant is part of what appears to be a collection of box-drawing characters for text formatting.
@@ -207,6 +211,10 @@ Creates formatted tables for terminal output with optional bold headings. Adds r
 ### src/lib_tui_truncate.ts
 
 Trims strings to a given length, either plainly or with an ellipsis. Handles cases where truncation is not needed or disabled. Uses a space and ellipsis for truncated text when specified.
+
+### src/lib_type_guard.ts
+
+Provides simple checks to confirm if a value matches a specific type like boolean, number, or string. Helps ensure data is of the expected type before further processing. Useful for validating inputs or handling unknown data safely.
 
 ### src/lib_type_infer.ts
 
