@@ -8,8 +8,10 @@ import {enabled_from_env} from "./lib_enabled.js"
 import {stdio_write_stderr_linefeed} from "./lib_stdio_write.js"
 
 export const tell_enables = {
-  timestamp: enabled_from_env("TELL_TIMESTAMP"),
+  ansi: enabled_from_env("TELL_ANSI", {default: true}),
   okay: enabled_from_env("TELL_OKAY", {default: true}),
+  stdout: enabled_from_env("TELL_STDOUT"),
+  timestamp: enabled_from_env("TELL_TIMESTAMP"),
 }
 
 export type TellParams = {
@@ -33,9 +35,7 @@ function tell_generic({message, colourizer}: {message: string; colourizer?: Ansi
     text += SPACE
   }
 
-  if (colourizer) {
-    text += colourizer(message)
-  }
+  text += tell_enables.ansi && colourizer ? colourizer(message) : message
 
   stdio_write_stderr_linefeed(text)
 }
@@ -73,7 +73,7 @@ export function tell_debug(message: string): void {
 }
 
 export function tell_blank(): void {
-  tell_plain(EMPTY)
+  tell_generic({message: EMPTY})
 }
 
 export function tell_okay(): void {
