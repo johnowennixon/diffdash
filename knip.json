@@ -3,7 +3,7 @@
   "entry": ["src/diffdash.ts"],
   "project": ["src/**/*.ts"],
   "ignore": [],
-  "ignoreBinaries": [],
+  "ignoreBinaries": ["docbot"],
   "ignoreDependencies": ["oxlint-tsgolint"],
   "exclude": ["exports", "types"]
 }
