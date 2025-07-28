@@ -1,5 +1,7 @@
 # DiffDash
 
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/johnowennixon/diffdash)
+
 A command-line tool to generate Git commit messages using AI.
 
 ## Demonstration
