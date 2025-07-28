@@ -26,7 +26,7 @@
     "build:tsc": "echo 'Transpiling TypeScript to dist (using tsc)' && tsc --erasableSyntaxOnly --libReplacement false",
     "fix": "run-s -ls fix:biome fix:markdownlint",
     "fix:biome": "echo 'Fixing with Biome' && biome check --write",
-    "fix:docbot": "echo 'Fixing with DocBot' && docbot --remove --generate",
+    "fix:docbot": "echo 'Fixing with DocBot' && docbot --prune --generate",
     "fix:markdownlint": "echo 'Fixing with markdownlint' && markdownlint-cli2 '**/*.md' --fix",
     "fix:oxlint": "echo 'Fixing with oxlint' && oxlint --fix",
     "lint": "run-s -ls lint:biome lint:oxlint lint:tsgolint lint:knip lint:markdownlint",
