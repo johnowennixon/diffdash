@@ -24,6 +24,7 @@
     "build:clean": "echo 'Removing dist' && rimraf dist",
     "build:shebang": "echo 'Fixing the shebangs' && add-shebangs --node --exclude 'dist/**/lib_*.js' 'dist/**/*.js'",
     "build:tsc": "echo 'Transpiling TypeScript to dist (using tsc)' && tsc --erasableSyntaxOnly --libReplacement false",
+    "build:tsgo": "echo 'Transpiling TypeScript to dist (using tsgo)' && tsgo || (rimraf dist && false)",
     "fix": "run-s -ls fix:biome fix:markdownlint",
     "fix:biome": "echo 'Fixing with Biome' && biome check --write",
     "fix:docbot": "echo 'Fixing with DocBot' && docbot --prune --generate",
@@ -36,6 +37,7 @@
     "lint:markdownlint": "echo 'Linting with markdownlint' && markdownlint-cli2 '**/*.md'",
     "lint:oxlint": "echo 'Linting with oxlint' && oxlint",
     "lint:tsc": "echo 'Linting with tsc' && tsc --noEmit --erasableSyntaxOnly --libReplacement false",
+    "lint:tsgo": "echo 'Linting with tsgo' && tsgo --noEmit",
     "lint:tsgolint": "echo 'Linting with tsgolint' && (tsgolint | grep -A5 no-floating-promises) 2>&1 | pipe-exit",
     "test": "run-s -ls lint build"
   },
@@ -61,6 +63,7 @@
     "@johnowennixon/pipe-exit": "1.0.1",
     "@types/argparse": "2.0.17",
     "@types/node": "24.1.0",
+    "@typescript/native-preview": "7.0.0-dev.20250728.1",
     "knip": "5.62.0",
     "markdownlint-cli2": "0.18.1",
     "npm-run-all2": "8.0.4",
