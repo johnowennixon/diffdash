@@ -148,6 +148,18 @@ const LLM_MODEL_DETAILS = [
     has_structured_json: false,
   },
   {
+    llm_model_name: "glm-4.5",
+    llm_api_code: null,
+    llm_model_code_direct: null,
+    llm_model_code_requesty: null,
+    llm_model_code_openrouter: "z-ai/glm-4.5",
+    context_window: 128_000,
+    cents_input: 60,
+    cents_output: 220,
+    default_reasoning: true, // we need to confirm
+    has_structured_json: false,
+  },
+  {
     llm_model_name: "gpt-4.1",
     llm_api_code: "openai",
     llm_model_code_direct: "gpt-4.1",
