@@ -5,7 +5,7 @@ import {EMPTY} from "./lib_char_empty.js"
 import {SPACE} from "./lib_char_punctuation.js"
 import {datetime_format_local_iso_ymdthms, datetime_now} from "./lib_datetime.js"
 import {enabled_from_env} from "./lib_enabled.js"
-import {stdio_write_stderr_linefeed} from "./lib_stdio_write.js"
+import {stdio_write_stderr_linefeed, stdio_write_stdout_linefeed} from "./lib_stdio_write.js"
 
 export const tell_enables = {
   ansi: enabled_from_env("TELL_ANSI", {default: true}),
@@ -37,7 +37,9 @@ function tell_generic({message, colourizer}: {message: string; colourizer?: Ansi
 
   text += tell_enables.ansi && colourizer ? colourizer(message) : message
 
-  stdio_write_stderr_linefeed(text)
+  const teller = tell_enables.stdout ? stdio_write_stdout_linefeed : stdio_write_stderr_linefeed
+
+  teller(text)
 }
 
 export function tell_nowhere(_message: string): void {
