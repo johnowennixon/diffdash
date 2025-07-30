@@ -51,15 +51,15 @@ importers:
       '@biomejs/biome':
         specifier: 2.1.2
         version: 2.1.2
+      '@candide/tsgolint':
+        specifier: 1.2.0
+        version: 1.2.0
       '@johnowennixon/add-shebangs':
         specifier: 1.1.0
         version: 1.1.0
       '@johnowennixon/chmodx':
         specifier: 2.0.0
         version: 2.0.0
-      '@johnowennixon/pipe-exit':
-        specifier: 1.0.1
-        version: 1.0.1
       '@types/argparse':
         specifier: 2.0.17
         version: 2.0.17
@@ -81,9 +81,6 @@ importers:
       oxlint:
         specifier: 1.8.0
         version: 1.8.0
-      oxlint-tsgolint:
-        specifier: 0.0.0-8
-        version: 0.0.0-8
       rimraf:
         specifier: 6.0.1
         version: 6.0.1
@@ -215,6 +212,11 @@ packages:
     cpu: [x64]
     os: [win32]
 
+  '@candide/tsgolint@1.2.0':
+    resolution: {integrity: sha512-wp5TGw3IRNRXiG0iq6JWfOGXROi1N8uZE9CtU/wVwKhrcd+asOfzKcirD650SFrUd5lahcM4YqLNqGiXRJVUOA==}
+    engines: {node: '>=20'}
+    hasBin: true
+
   '@colors/colors@1.5.0':
     resolution: {integrity: sha512-ooWCrlZP11i8GImSjTHYHLkvFDP48nS4+204nGb1RiX/WXYHmJA2III9/e2DWVabCESdW7hBAEzHRqUn9OUVvQ==}
     engines: {node: '>=0.1.90'}
@@ -247,11 +249,6 @@ packages:
 
   '@johnowennixon/chmodx@2.0.0':
     resolution: {integrity: sha512-O1qRQH67mYXr+gJEgXoRLyrnGsotGXO9hZDkALyuzSL0HTWs/X4QXeC58M5kUzTIZjDfDcRucp4Ij/d6sP2dQQ==}
-    engines: {node: '>=20'}
-    hasBin: true
-
-  '@johnowennixon/pipe-exit@1.0.1':
-    resolution: {integrity: sha512-Y2lP4d1n8K9327K0f2PxFkdR726KTQTNQQkRNdIg9QPTOmqWhm/jkzJP4NvAdUNN3XZdFRDkDuVX6bd1qWV2ww==}
     engines: {node: '>=20'}
     hasBin: true
 
@@ -1239,6 +1236,10 @@ snapshots:
   '@biomejs/cli-win32-x64@2.1.2':
     optional: true
 
+  '@candide/tsgolint@1.2.0':
+    dependencies:
+      oxlint-tsgolint: 0.0.0-8
+
   '@colors/colors@1.5.0':
     optional: true
 
@@ -1282,8 +1283,6 @@ snapshots:
     dependencies:
       ansis: 3.1.1
       globby: 11.1.0
-
-  '@johnowennixon/pipe-exit@1.0.1': {}
 
   '@kwsites/file-exists@1.1.1':
     dependencies:

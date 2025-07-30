@@ -4,6 +4,6 @@
   "project": ["src/**/*.ts"],
   "ignore": [],
   "ignoreBinaries": ["docbot"],
-  "ignoreDependencies": ["oxlint-tsgolint"],
+  "ignoreDependencies": [],
   "exclude": ["exports", "types"]
 }

@@ -29,16 +29,16 @@
     "fix:biome": "echo 'Fixing with Biome' && biome check --write",
     "fix:docbot": "echo 'Fixing with DocBot' && docbot --prune --generate",
     "fix:markdownlint": "echo 'Fixing with markdownlint' && markdownlint-cli2 '**/*.md' --fix",
-    "fix:oxlint": "echo 'Fixing with oxlint' && oxlint --fix",
+    "fix:oxlint": "echo 'Fixing with Oxlint' && oxlint --fix",
     "lint": "run-s -ls lint:biome lint:oxlint lint:tsgolint lint:knip lint:markdownlint",
     "lint:biome": "echo 'Linting with Biome' && biome check",
     "lint:docbot": "echo 'Linting with DocBot' && docbot",
     "lint:knip": "echo 'Linting with Knip' && knip",
-    "lint:markdownlint": "echo 'Linting with markdownlint' && markdownlint-cli2 '**/*.md'",
-    "lint:oxlint": "echo 'Linting with oxlint' && oxlint",
+    "lint:markdownlint": "echo 'Linting with Markdownlint' && markdownlint-cli2 '**/*.md'",
+    "lint:oxlint": "echo 'Linting with Oxlint' && oxlint",
     "lint:tsc": "echo 'Linting with tsc' && tsc --noEmit --erasableSyntaxOnly --libReplacement false",
     "lint:tsgo": "echo 'Linting with tsgo' && tsgo --noEmit",
-    "lint:tsgolint": "echo 'Linting with tsgolint' && (tsgolint | grep -A5 no-floating-promises) 2>&1 | pipe-exit",
+    "lint:tsgolint": "echo 'Linting with tsgolint' && candide-tsgolint",
     "test": "run-s -ls lint build"
   },
   "dependencies": {
@@ -58,9 +58,9 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.1.2",
+    "@candide/tsgolint": "1.2.0",
     "@johnowennixon/add-shebangs": "1.1.0",
     "@johnowennixon/chmodx": "2.0.0",
-    "@johnowennixon/pipe-exit": "1.0.1",
     "@types/argparse": "2.0.17",
     "@types/node": "24.1.0",
     "@typescript/native-preview": "7.0.0-dev.20250728.1",
@@ -68,7 +68,6 @@
     "markdownlint-cli2": "0.18.1",
     "npm-run-all2": "8.0.4",
     "oxlint": "1.8.0",
-    "oxlint-tsgolint": "0.0.0-8",
     "rimraf": "6.0.1",
     "typescript": "5.8.3"
   }
