@@ -1,24 +1,36 @@
+import type {HorizontalAlignment, Table, TableConstructorOptions} from "cli-table3"
 import cli_table3 from "cli-table3"
 
+import {abort_with_error} from "./lib_abort.js"
 import {ansi_bold} from "./lib_ansi.js"
 
 export class TuiTable {
-  table: cli_table3.Table
-  count = 0
+  private table: Table
+  private columns_total: number
 
-  constructor({headings}: {headings?: Array<string>}) {
-    const constructor_options: cli_table3.TableConstructorOptions = {style: {head: []}}
+  constructor({headings, aligns}: {headings: Array<string>; aligns?: Array<HorizontalAlignment>}) {
+    const constructor_options: TableConstructorOptions = {style: {head: []}}
 
-    if (headings) {
-      constructor_options.head = headings.map((heading) => ansi_bold(heading))
+    constructor_options.head = headings.map((heading) => ansi_bold(heading))
+    this.columns_total = headings.length
+
+    if (aligns) {
+      if (aligns.length !== this.columns_total) {
+        abort_with_error(`length of aligns (${aligns.length}) must match length of headings (${this.columns_total})`)
+      }
+
+      constructor_options.colAligns = aligns
     }
 
     this.table = new cli_table3(constructor_options)
   }
 
   push(row: Array<string>): void {
+    if (row.length !== this.columns_total) {
+      abort_with_error(`length of row (${row.length}) must match length of headings (${this.columns_total})`)
+    }
+
     this.table.push(row)
-    this.count++
   }
 
   toString(): string {
