@@ -3,7 +3,7 @@ import {ansi_cyan, ansi_green, ansi_grey, ansi_magenta, ansi_normal, ansi_red, a
 import {LF} from "./lib_char_control.js"
 import {EMPTY} from "./lib_char_empty.js"
 import {SPACE} from "./lib_char_punctuation.js"
-import {datetime_format_local_iso_ymdthms, datetime_now} from "./lib_datetime.js"
+import {datetime_format_local_iso_ymd_hms, datetime_now} from "./lib_datetime.js"
 import {enabled_from_env} from "./lib_enabled.js"
 import {stdio_write_stderr_linefeed, stdio_write_stdout_linefeed} from "./lib_stdio_write.js"
 
@@ -30,9 +30,9 @@ function tell_generic({message, colourizer}: {message: string; colourizer?: Ansi
   let text = EMPTY
 
   if (tell_enables.timestamp) {
-    const now_local_ymdthms = datetime_format_local_iso_ymdthms(datetime_now())
+    const now_local_ymdthms = datetime_format_local_iso_ymd_hms(datetime_now())
     text += ansi_grey(now_local_ymdthms)
-    text += SPACE
+    text += SPACE + SPACE
   }
 
   text += tell_enables.ansi && colourizer ? colourizer(message) : message

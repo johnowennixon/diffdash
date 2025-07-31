@@ -33,6 +33,10 @@ export function datetime_format_utc_iso_ymdthms(date: Date): string {
   return date.toISOString().slice(0, 19)
 }
 
+export function datetime_format_utc_iso_ymd_hms(date: Date): string {
+  return date.toISOString().slice(0, 19).replace("T", SPACE)
+}
+
 export function datetime_format_utc_iso_ymd(date: Date): string {
   return date.toISOString().slice(0, 10)
 }
@@ -58,7 +62,7 @@ export function datetime_format_local_iso_ymdthms(date: Date): string {
 }
 
 export function datetime_format_local_iso_ymd_hms(date: Date): string {
-  return datetime_format_utc_iso_ymdthms(datetime_localize(date)).replace("T", SPACE)
+  return datetime_format_utc_iso_ymd_hms(datetime_localize(date))
 }
 
 export function datetime_format_local_iso_ymd(date: Date): string {
