@@ -1,14 +1,21 @@
-.claude/settings.local.json
-.crush/
+# Operating system utilities
 .DS_Store
-.eslintcache/
-.npm.token
+
+# AI coding tools
 AGENT.md
 AGENTS.md
 CLAUDE.md
 CRUSH.md
 GEMINI.md
+.aider*
+.claude/settings.local.json
+.crush/
+
+# TypeScript
 dist/
 node_modules/
 out/
 test.*/
+.env
+.eslintcache
+.npm.token
