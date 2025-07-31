@@ -1,10 +1,12 @@
 .claude/settings.local.json
+.crush/
 .DS_Store
 .eslintcache/
 .npm.token
 AGENT.md
 AGENTS.md
 CLAUDE.md
+CRUSH.md
 GEMINI.md
 dist/
 node_modules/
