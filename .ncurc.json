@@ -1,5 +1,10 @@
 {
   "reject": [
+    "@ai-sdk/anthropic",
+    "@ai-sdk/deepseek",
+    "@ai-sdk/google",
+    "@ai-sdk/openai",
+    "ai",
     "zod"
   ]
 }
