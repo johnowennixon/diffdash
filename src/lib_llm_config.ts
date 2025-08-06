@@ -16,15 +16,13 @@ export type LlmConfig = {
 export function llm_config_get({
   llm_model_details,
   llm_model_name,
-  llm_router,
 }: {
   llm_model_details: Array<LlmModelDetail>
   llm_model_name: string
-  llm_router: boolean
 }): LlmConfig {
   const llm_model_detail = llm_model_find_detail({llm_model_details, llm_model_name})
 
-  const access = llm_access_get({llm_model_details, llm_model_name, llm_router})
+  const access = llm_access_get({llm_model_details, llm_model_name})
 
   const {llm_model_code, llm_api_code, llm_api_key} = access
 
@@ -33,12 +31,10 @@ export function llm_config_get({
 
 export function llm_config_get_all({
   llm_model_details,
-  llm_router,
   llm_include,
   llm_excludes,
 }: {
   llm_model_details: Array<LlmModelDetail>
-  llm_router: boolean
   llm_include?: string
   llm_excludes?: string
 }): Array<LlmConfig> {
@@ -48,7 +44,7 @@ export function llm_config_get_all({
     llm_access_available({llm_model_details, llm_model_name, llm_include, llm_excludes}),
   )
 
-  return available.map((llm_model_name) => llm_config_get({llm_model_details, llm_model_name, llm_router}))
+  return available.map((llm_model_name) => llm_config_get({llm_model_details, llm_model_name}))
 }
 
 export function llm_config_get_model_via({llm_config}: {llm_config: LlmConfig}): string {

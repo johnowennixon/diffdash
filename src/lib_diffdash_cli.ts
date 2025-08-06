@@ -1,9 +1,5 @@
 import {cli_boolean, cli_choice_default, cli_make_parser, cli_string} from "./lib_cli.js"
-import {
-  diffdash_llm_model_choices,
-  diffdash_llm_model_default,
-  diffdash_llm_model_fallback,
-} from "./lib_diffdash_llm.js"
+import {diffdash_llm_model_choices, diffdash_llm_model_default} from "./lib_diffdash_llm.js"
 
 const diffdash_cli_schema = {
   version: cli_boolean({help: "show program version information and exit"}),
@@ -26,8 +22,6 @@ const diffdash_cli_schema = {
 
   llm_list: cli_boolean({help: "display a list of available Large Language Models and exit"}),
   llm_compare: cli_boolean({help: "compare the generated messages from all models - but do not commit"}),
-  llm_router: cli_boolean({help: "prefer to access the LLM via a router rather than direct"}),
-  llm_fallback: cli_boolean({help: `use the fallback model (${diffdash_llm_model_fallback})`}),
   llm_model: cli_choice_default<string>({
     help: `choose the Large Language Model by name (defaults to ${diffdash_llm_model_default})`,
     choices: diffdash_llm_model_choices,

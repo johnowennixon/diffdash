@@ -40,65 +40,32 @@ export function llm_access_available({
 
   const detail = llm_model_find_detail({llm_model_details, llm_model_name})
 
-  const {llm_api_code, llm_model_code_direct, llm_model_code_openrouter} = detail
+  const {llm_api_code} = detail
 
-  if (llm_model_code_direct !== null && llm_api_code !== null) {
-    if (llm_api_get_api_key(llm_api_code)) {
-      return true
-    }
+  if (llm_api_get_api_key(llm_api_code) === null) {
+    return false
   }
 
-  if (llm_model_code_openrouter !== null) {
-    if (llm_api_get_api_key("openrouter")) {
-      return true
-    }
-  }
-
-  return false
+  return true
 }
 
 export function llm_access_get({
   llm_model_details,
   llm_model_name,
-  llm_router,
 }: {
   llm_model_details: Array<LlmModelDetail>
   llm_model_name: string
-  llm_router: boolean
 }): LlmAccess {
   const detail = llm_model_find_detail({llm_model_details, llm_model_name})
 
-  const {llm_api_code, llm_model_code_direct, llm_model_code_openrouter} = detail
+  const {llm_api_code, llm_model_code} = detail
 
-  if (!llm_router) {
-    if (llm_model_code_direct !== null && llm_api_code !== null) {
-      const llm_api_key = llm_api_get_api_key(llm_api_code)
-      if (llm_api_key) {
-        return {llm_model_code: llm_model_code_direct, llm_api_code, llm_api_key}
-      }
-    }
+  const llm_api_key = llm_api_get_api_key(llm_api_code)
+
+  if (!llm_api_key) {
+    const env_name = llm_api_get_api_key_env(llm_api_code)
+    abort_with_error(`Please set environment variable ${env_name}`)
   }
 
-  if (llm_model_code_openrouter !== null) {
-    const llm_api_key = llm_api_get_api_key("openrouter")
-    if (llm_api_key) {
-      return {llm_model_code: llm_model_code_openrouter, llm_api_code: "openrouter", llm_api_key}
-    }
-  }
-
-  if (llm_model_code_direct !== null && llm_api_code !== null) {
-    const llm_api_key = llm_api_get_api_key(llm_api_code)
-    if (llm_api_key) {
-      return {llm_model_code: llm_model_code_direct, llm_api_code, llm_api_key}
-    }
-  }
-
-  const env_openrouter = llm_api_get_api_key_env("openrouter")
-
-  if (llm_api_code !== null) {
-    const env_direct = llm_api_get_api_key_env(llm_api_code)
-    abort_with_error(`Please set environment variable ${env_direct} or ${env_openrouter}`)
-  }
-
-  abort_with_error(`Please set environment variable ${env_openrouter}`)
+  return {llm_model_code, llm_api_code, llm_api_key}
 }

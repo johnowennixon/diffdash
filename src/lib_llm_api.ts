@@ -3,7 +3,6 @@ import {createDeepSeek} from "@ai-sdk/deepseek"
 import {createGoogleGenerativeAI} from "@ai-sdk/google"
 import {createOpenAI} from "@ai-sdk/openai"
 import {createOpenRouter} from "@openrouter/ai-sdk-provider"
-
 import type {LanguageModelV1} from "ai"
 
 import {abort_with_error} from "./lib_abort.js"
@@ -39,7 +38,6 @@ export function llm_api_get_api_key_env(llm_api_code: LlmApiCode): string {
       return "GEMINI_API_KEY"
     case "openai":
       return "OPENAI_API_KEY"
-
     case "openrouter":
       return "OPENROUTER_API_KEY"
     default:

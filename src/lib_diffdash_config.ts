@@ -3,7 +3,7 @@ import {z} from "zod"
 import {abort_with_error} from "./lib_abort.js"
 import {debug_channels, debug_inspect_when} from "./lib_debug.js"
 import {diffdash_cli_parsed_args} from "./lib_diffdash_cli.js"
-import {diffdash_llm_model_details, diffdash_llm_model_fallback} from "./lib_diffdash_llm.js"
+import {diffdash_llm_model_details} from "./lib_diffdash_llm.js"
 import {file_io_read_text} from "./lib_file_io.js"
 import {file_is_file} from "./lib_file_is.js"
 import {json5_parse} from "./lib_json5.js"
@@ -82,8 +82,6 @@ export function diffdash_config_get(): DiffDashConfig {
     add_suffix,
     llm_list,
     llm_compare,
-    llm_router,
-    llm_fallback,
     llm_model,
     llm_excludes,
     just_output,
@@ -103,17 +101,8 @@ export function diffdash_config_get(): DiffDashConfig {
     process.exit(0)
   }
 
-  const llm_model_name = llm_fallback ? diffdash_llm_model_fallback : llm_model
-  const llm_config = llm_config_get({
-    llm_model_details: diffdash_llm_model_details,
-    llm_model_name,
-    llm_router,
-  })
-  const all_llm_configs = llm_config_get_all({
-    llm_model_details: diffdash_llm_model_details,
-    llm_router,
-    llm_excludes,
-  })
+  const llm_config = llm_config_get({llm_model_details: diffdash_llm_model_details, llm_model_name: llm_model})
+  const all_llm_configs = llm_config_get_all({llm_model_details: diffdash_llm_model_details, llm_excludes})
 
   debug_channels.llm_prompts = debug_llm_prompts
   debug_channels.llm_inputs = debug_llm_inputs
