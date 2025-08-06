@@ -42,8 +42,7 @@ DiffDash requires at least one API key for an LLM provider. These must be provid
 # For OpenAI (recommended)
 export OPENAI_API_KEY=your-api-key
 
-# For Requesty
-export REQUESTY_API_KEY=your-api-key
+
 
 # For OpenRouter
 export OPENROUTER_API_KEY=your-api-key

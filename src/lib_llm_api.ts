@@ -3,7 +3,7 @@ import {createDeepSeek} from "@ai-sdk/deepseek"
 import {createGoogleGenerativeAI} from "@ai-sdk/google"
 import {createOpenAI} from "@ai-sdk/openai"
 import {createOpenRouter} from "@openrouter/ai-sdk-provider"
-import {createRequesty} from "@requesty/ai-sdk"
+
 import type {LanguageModelV1} from "ai"
 
 import {abort_with_error} from "./lib_abort.js"
@@ -11,7 +11,7 @@ import {assert_type_string} from "./lib_assert_type.js"
 import {AT_SIGN} from "./lib_char_punctuation.js"
 import {env_get} from "./lib_env.js"
 
-export type LlmApiCode = "anthropic" | "deepseek" | "google" | "openai" | "requesty" | "openrouter"
+export type LlmApiCode = "anthropic" | "deepseek" | "google" | "openai" | "openrouter"
 
 export function llm_api_get_via(llm_api_code: LlmApiCode): string {
   switch (llm_api_code) {
@@ -20,9 +20,6 @@ export function llm_api_get_via(llm_api_code: LlmApiCode): string {
     case "google":
     case "openai":
       return "direct"
-
-    case "requesty":
-      return "via Requesty"
 
     case "openrouter":
       return "via OpenRouter"
@@ -42,8 +39,7 @@ export function llm_api_get_api_key_env(llm_api_code: LlmApiCode): string {
       return "GEMINI_API_KEY"
     case "openai":
       return "OPENAI_API_KEY"
-    case "requesty":
-      return "REQUESTY_API_KEY"
+
     case "openrouter":
       return "OPENROUTER_API_KEY"
     default:
@@ -75,8 +71,7 @@ export function llm_api_get_ai_sdk_language_model({
       return createGoogleGenerativeAI({apiKey: llm_api_key})(llm_model_code)
     case "openai":
       return createOpenAI({apiKey: llm_api_key})(llm_model_code)
-    case "requesty":
-      return createRequesty({apiKey: llm_api_key})(llm_model_code)
+
     case "openrouter": {
       const openrouter = createOpenRouter({apiKey: llm_api_key})
 

@@ -40,7 +40,7 @@ export function llm_access_available({
 
   const detail = llm_model_find_detail({llm_model_details, llm_model_name})
 
-  const {llm_api_code, llm_model_code_direct, llm_model_code_requesty, llm_model_code_openrouter} = detail
+  const {llm_api_code, llm_model_code_direct, llm_model_code_openrouter} = detail
 
   if (llm_model_code_direct !== null && llm_api_code !== null) {
     if (llm_api_get_api_key(llm_api_code)) {
@@ -50,12 +50,6 @@ export function llm_access_available({
 
   if (llm_model_code_openrouter !== null) {
     if (llm_api_get_api_key("openrouter")) {
-      return true
-    }
-  }
-
-  if (llm_model_code_requesty !== null) {
-    if (llm_api_get_api_key("requesty")) {
       return true
     }
   }
@@ -74,7 +68,7 @@ export function llm_access_get({
 }): LlmAccess {
   const detail = llm_model_find_detail({llm_model_details, llm_model_name})
 
-  const {llm_api_code, llm_model_code_direct, llm_model_code_requesty, llm_model_code_openrouter} = detail
+  const {llm_api_code, llm_model_code_direct, llm_model_code_openrouter} = detail
 
   if (!llm_router) {
     if (llm_model_code_direct !== null && llm_api_code !== null) {
@@ -92,13 +86,6 @@ export function llm_access_get({
     }
   }
 
-  if (llm_model_code_requesty !== null) {
-    const llm_api_key = llm_api_get_api_key("requesty")
-    if (llm_api_key) {
-      return {llm_model_code: llm_model_code_requesty, llm_api_code: "requesty", llm_api_key}
-    }
-  }
-
   if (llm_model_code_direct !== null && llm_api_code !== null) {
     const llm_api_key = llm_api_get_api_key(llm_api_code)
     if (llm_api_key) {
@@ -107,12 +94,11 @@ export function llm_access_get({
   }
 
   const env_openrouter = llm_api_get_api_key_env("openrouter")
-  const env_requesty = llm_api_get_api_key_env("requesty")
 
   if (llm_api_code !== null) {
     const env_direct = llm_api_get_api_key_env(llm_api_code)
-    abort_with_error(`Please set environment variable ${env_direct}, ${env_openrouter} or ${env_requesty}`)
+    abort_with_error(`Please set environment variable ${env_direct} or ${env_openrouter}`)
   }
 
-  abort_with_error(`Please set environment variable ${env_openrouter} or ${env_requesty}`)
+  abort_with_error(`Please set environment variable ${env_openrouter}`)
 }

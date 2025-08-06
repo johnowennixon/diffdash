@@ -86,7 +86,7 @@ As agreed by stakeholders:
 ### 3.2 Message Generation
 
 * The system shall use LLMs to generate Git commit messages based on staged changes
-* The system shall support multiple LLM providers (Anthropic, DeepSeek, Google, OpenAI, Requesty, OpenRouter)
+* The system shall support multiple LLM providers (Anthropic, DeepSeek, Google, OpenAI, OpenRouter)
 * The system shall format generated messages with a summary line followed by detailed explanations
 * The system shall generate commit messages using natural English (explicitly not Conventional commits)
 * The system shall validate generated messages for quality and format compliance
