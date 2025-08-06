@@ -429,7 +429,7 @@ const LLM_MODEL_DETAILS = [
     llm_model_code_direct: null,
     llm_model_code_requesty: null,
     llm_model_code_openrouter: "qwen/qwen3-coder@cerebras/fp8",
-    context_window: 262_144,
+    context_window: 131_072,
     cents_input: 200,
     cents_output: 200,
     default_reasoning: false,
