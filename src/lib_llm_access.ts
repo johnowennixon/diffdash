@@ -22,8 +22,16 @@ export function llm_access_available({
   llm_include?: string
   llm_excludes?: string
 }): boolean {
+  const detail = llm_model_find_detail({llm_model_details, llm_model_name})
+
+  const {llm_api_code} = detail
+
+  if (llm_api_get_api_key(llm_api_code) === null) {
+    return false
+  }
+
   if (llm_include) {
-    if (!llm_model_name.includes(llm_include)) {
+    if (!(llm_model_name.includes(llm_include) || llm_include === llm_api_code)) {
       return false
     }
   }
@@ -36,14 +44,6 @@ export function llm_access_available({
         return false
       }
     }
-  }
-
-  const detail = llm_model_find_detail({llm_model_details, llm_model_name})
-
-  const {llm_api_code} = detail
-
-  if (llm_api_get_api_key(llm_api_code) === null) {
-    return false
   }
 
   return true
