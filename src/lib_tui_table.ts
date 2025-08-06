@@ -4,22 +4,26 @@ import cli_table3 from "cli-table3"
 import {abort_with_error} from "./lib_abort.js"
 import {ansi_bold} from "./lib_ansi.js"
 
+export type {HorizontalAlignment} from "cli-table3"
+
 export class TuiTable {
   private table: Table
   private columns_total: number
 
-  constructor({headings, aligns}: {headings: Array<string>; aligns?: Array<HorizontalAlignment>}) {
+  constructor({headings, alignments}: {headings: Array<string>; alignments?: Array<HorizontalAlignment>}) {
     const constructor_options: TableConstructorOptions = {style: {head: []}}
 
     constructor_options.head = headings.map((heading) => ansi_bold(heading))
     this.columns_total = headings.length
 
-    if (aligns) {
-      if (aligns.length !== this.columns_total) {
-        abort_with_error(`length of aligns (${aligns.length}) must match length of headings (${this.columns_total})`)
+    if (alignments) {
+      if (alignments.length !== this.columns_total) {
+        abort_with_error(
+          `length of alignments (${alignments.length}) must match length of headings (${this.columns_total})`,
+        )
       }
 
-      constructor_options.colAligns = aligns
+      constructor_options.colAligns = alignments
     }
 
     this.table = new cli_table3(constructor_options)
