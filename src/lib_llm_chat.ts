@@ -1,5 +1,5 @@
 import type {LanguageModelUsage, ProviderMetadata, ToolSet} from "ai"
-import {generateObject, generateText} from "ai"
+import {generateObject, generateText, stepCountIs} from "ai"
 import type {ZodType} from "zod"
 
 import {debug_channels, debug_inspect_when} from "./lib_debug.js"
@@ -87,6 +87,7 @@ export async function llm_chat_generate_text({
     prompt: user_prompt,
     tools,
     headers,
+    stopWhen: max_steps === undefined ? undefined : stepCountIs(max_steps),
     maxSteps: max_steps,
     maxTokens: max_tokens,
     temperature,
