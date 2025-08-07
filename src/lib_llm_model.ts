@@ -276,7 +276,7 @@ const LLM_MODEL_DETAILS = [
   {
     llm_model_name: "llama-4-maverick@cerebras",
     llm_api_code: "openrouter",
-    llm_model_code: "meta-llama/llama-4-maverick",
+    llm_model_code: "meta-llama/llama-4-maverick@cerebras",
     context_window: 32_000,
     cents_input: 20,
     cents_output: 60,
