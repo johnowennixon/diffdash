@@ -16,7 +16,7 @@ const model_name_options: Array<LlmModelName> = [
   "gpt-4o-mini",
   "grok-3-mini",
   "kimi-k2@groq",
-  "llama-4-maverick",
+  "llama-4-maverick@cerebras",
   "mercury-coder",
   "mistral-medium-3",
   "qwen3-coder@cerebras",
