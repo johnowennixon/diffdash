@@ -13,14 +13,14 @@ import {tell_debug} from "./lib_tell.js"
 import {tui_block_string} from "./lib_tui_block.js"
 
 type LlmChatParameters = {
-  max_tokens: number | undefined
+  max_output_tokens: number | undefined
   temperature: number | undefined
   timeout: number
 }
 
 function llm_chat_get_parameters(): LlmChatParameters {
   return {
-    max_tokens: parse_int_or_undefined(env_get_empty("lib_llm_chat_max_tokens")),
+    max_output_tokens: parse_int_or_undefined(env_get_empty("lib_llm_chat_max_output_tokens")),
     temperature: parse_float_or_undefined(env_get_substitute("lib_llm_chat_temperature", "0.6")),
     timeout: parse_int(env_get_substitute("lib_llm_chat_timeout", "60")),
   }
@@ -54,7 +54,6 @@ type LlmChatGenerateTextOutputs = {
 
 export async function llm_chat_generate_text({
   llm_config,
-  headers,
   system_prompt,
   user_prompt,
   tools,
@@ -62,7 +61,6 @@ export async function llm_chat_generate_text({
   min_steps,
 }: {
   llm_config: LlmConfig
-  headers?: Record<string, string | undefined>
   system_prompt?: string | undefined
   user_prompt: string
   tools?: ToolSet
@@ -79,17 +77,15 @@ export async function llm_chat_generate_text({
     llm_api_key,
   })
 
-  const {max_tokens, temperature, timeout} = llm_chat_get_parameters()
+  const {max_output_tokens, temperature, timeout} = llm_chat_get_parameters()
 
   const llm_inputs = {
     model: ai_sdk_language_model,
     system: system_prompt,
     prompt: user_prompt,
     tools,
-    headers,
     stopWhen: max_steps === undefined ? undefined : stepCountIs(max_steps),
-    maxSteps: max_steps,
-    maxTokens: max_tokens,
+    maxOutputTokens: max_output_tokens,
     temperature,
     abortSignal: AbortSignal.timeout(timeout * 1000),
   }
@@ -184,7 +180,7 @@ export async function llm_chat_generate_object<T>({
     llm_api_key,
   })
 
-  const {max_tokens, temperature, timeout} = llm_chat_get_parameters()
+  const {max_output_tokens, temperature, timeout} = llm_chat_get_parameters()
 
   const llm_inputs = {
     model: ai_sdk_language_model,
@@ -192,7 +188,7 @@ export async function llm_chat_generate_object<T>({
     prompt: user_prompt,
     output: "object" as const,
     schema,
-    maxTokens: max_tokens,
+    maxOutputTokens: max_output_tokens,
     temperature,
     abortSignal: AbortSignal.timeout(timeout * 1000),
   }
