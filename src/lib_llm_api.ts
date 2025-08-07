@@ -51,6 +51,7 @@ export function llm_api_get_api_key(llm_api_code: LlmApiCode): string | null {
   return env_get(env)
 }
 
+// eslint-disable-next-line sonarjs/function-return-type
 export function llm_api_get_ai_sdk_language_model({
   llm_model_code,
   llm_api_code,
