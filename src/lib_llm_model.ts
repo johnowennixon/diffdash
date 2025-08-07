@@ -46,7 +46,7 @@ const LLM_MODEL_DETAILS = [
   {
     llm_model_name: "codestral-2508",
     llm_api_code: "openrouter",
-    llm_model_code: "mistralai/codestral-2508",
+    llm_model_code: "mistralai/codestral-2508@mistral",
     context_window: 256_000,
     cents_input: 30,
     cents_output: 90,
@@ -76,7 +76,7 @@ const LLM_MODEL_DETAILS = [
   {
     llm_model_name: "devstral-medium",
     llm_api_code: "openrouter",
-    llm_model_code: "mistralai/devstral-medium",
+    llm_model_code: "mistralai/devstral-medium@mistral",
     context_window: 128_000,
     cents_input: 40,
     cents_output: 200,
@@ -86,7 +86,7 @@ const LLM_MODEL_DETAILS = [
   {
     llm_model_name: "devstral-small",
     llm_api_code: "openrouter",
-    llm_model_code: "mistralai/devstral-small",
+    llm_model_code: "mistralai/devstral-small@mistral",
     context_window: 128_000,
     cents_input: 10,
     cents_output: 30,
@@ -140,7 +140,7 @@ const LLM_MODEL_DETAILS = [
     context_window: 128_000,
     cents_input: 60,
     cents_output: 220,
-    default_reasoning: true, // we need to confirm
+    default_reasoning: true,
     has_structured_json: false,
   },
   {
@@ -150,7 +150,7 @@ const LLM_MODEL_DETAILS = [
     context_window: 128_000,
     cents_input: 20,
     cents_output: 110,
-    default_reasoning: true, // we need to confirm
+    default_reasoning: true,
     has_structured_json: false,
   },
   {
@@ -230,7 +230,7 @@ const LLM_MODEL_DETAILS = [
     context_window: 131_072,
     cents_input: 300,
     cents_output: 1500,
-    default_reasoning: false,
+    default_reasoning: true,
     has_structured_json: true,
   },
   {
@@ -240,7 +240,7 @@ const LLM_MODEL_DETAILS = [
     context_window: 131_072,
     cents_input: 30,
     cents_output: 50,
-    default_reasoning: false,
+    default_reasoning: true,
     has_structured_json: true,
   },
   {
@@ -316,7 +316,7 @@ const LLM_MODEL_DETAILS = [
   {
     llm_model_name: "mistral-medium-3",
     llm_api_code: "openrouter",
-    llm_model_code: "mistralai/mistral-medium-3",
+    llm_model_code: "mistralai/mistral-medium-3@mistral",
     context_window: 131_072,
     cents_input: 40,
     cents_output: 200,

@@ -1,4 +1,4 @@
-import type {ToolSet} from "ai"
+import type {LanguageModelUsage, ProviderMetadata, ToolSet} from "ai"
 import {generateObject, generateText} from "ai"
 import type {ZodType} from "zod"
 
@@ -45,6 +45,13 @@ function llm_chat_debug_prompts({
   }
 }
 
+type LlmChatGenerateTextOutputs = {
+  generated_text: string
+  reasoning_text: string | undefined
+  total_usage: LanguageModelUsage
+  provider_metadata: ProviderMetadata | undefined
+}
+
 export async function llm_chat_generate_text({
   llm_config,
   headers,
@@ -61,7 +68,7 @@ export async function llm_chat_generate_text({
   tools?: ToolSet
   max_steps?: number
   min_steps?: number
-}): Promise<string> {
+}): Promise<LlmChatGenerateTextOutputs> {
   const {llm_model_name, llm_api_code, llm_model_code, llm_api_key} = llm_config
 
   llm_chat_debug_prompts({system_prompt, user_prompt, llm_model_name})
@@ -101,26 +108,33 @@ export async function llm_chat_generate_text({
     throw new Error("Too many steps taken")
   }
 
-  return llm_outputs.text
+  const {
+    text: generated_text,
+    reasoningText: reasoning_text,
+    totalUsage: total_usage,
+    providerMetadata: provider_metadata,
+  } = llm_outputs
+
+  return {generated_text, reasoning_text, total_usage, provider_metadata}
 }
 
-type LlmChatGenerateSucceeded = {
+type LlmChatGenerateTextCookedSucceeded = {
   llm_config: LlmConfig
   seconds: number
-  llm_response_text: string
   error_text: null
+  outputs: LlmChatGenerateTextOutputs
 }
 
-type LlmChatGenerateFailed = {
+type LlmChatGenerateTextCookedFailed = {
   llm_config: LlmConfig
   seconds: number
-  llm_response_text: null
   error_text: string
+  outputs: null
 }
 
-export type LlmChatGenerateResult = LlmChatGenerateSucceeded | LlmChatGenerateFailed
+export type LlmChatGenerateTextCookedResult = LlmChatGenerateTextCookedSucceeded | LlmChatGenerateTextCookedFailed
 
-export async function llm_chat_generate_result({
+export async function llm_chat_generate_text_cooked({
   llm_config,
   system_prompt,
   user_prompt,
@@ -128,23 +142,23 @@ export async function llm_chat_generate_result({
   llm_config: LlmConfig
   system_prompt?: string | undefined
   user_prompt: string
-}): Promise<LlmChatGenerateResult> {
+}): Promise<LlmChatGenerateTextCookedResult> {
   const duration = new Duration()
   duration.start()
 
   try {
-    const llm_response_text = await llm_chat_generate_text({llm_config, system_prompt, user_prompt})
+    const outputs = await llm_chat_generate_text({llm_config, system_prompt, user_prompt})
 
     duration.stop()
     const seconds = duration.seconds_rounded()
 
-    return {llm_config, seconds, llm_response_text, error_text: null}
+    return {llm_config, seconds, error_text: null, outputs}
   } catch (error) {
     duration.stop()
     const seconds = duration.seconds_rounded()
 
     const error_text = error_get_text(error)
-    return {llm_config, seconds, llm_response_text: null, error_text}
+    return {llm_config, seconds, error_text, outputs: null}
   }
 }
 

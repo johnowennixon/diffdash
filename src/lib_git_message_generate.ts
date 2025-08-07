@@ -32,9 +32,9 @@ async function git_message_generate_unstructured({
   system_prompt: string
   user_prompt: string
 }): Promise<string> {
-  const llm_response_text = await llm_chat_generate_text({llm_config, system_prompt, user_prompt})
+  const {generated_text} = await llm_chat_generate_text({llm_config, system_prompt, user_prompt})
 
-  return llm_response_text
+  return generated_text
 }
 
 async function git_message_generate_structured({
