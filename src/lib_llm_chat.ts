@@ -175,6 +175,7 @@ export async function llm_chat_generate_object<T>({
     model: ai_sdk_language_model,
     system: system_prompt,
     prompt: user_prompt,
+    output: "object" as const,
     schema,
     maxTokens: max_tokens,
     temperature,
@@ -184,7 +185,7 @@ export async function llm_chat_generate_object<T>({
   debug_inspect_when(debug_channels.llm_inputs, llm_inputs, `LLM inputs object (for ${llm_model_name})`)
 
   // This is liable to throw an error
-  const llm_outputs = await generateObject<T>(llm_inputs)
+  const llm_outputs = await generateObject(llm_inputs)
 
   debug_inspect_when(debug_channels.llm_outputs, llm_outputs, `LLM outputs object (for ${llm_model_name})`)
 

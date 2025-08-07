@@ -3,7 +3,7 @@ import {createDeepSeek} from "@ai-sdk/deepseek"
 import {createGoogleGenerativeAI} from "@ai-sdk/google"
 import {createOpenAI} from "@ai-sdk/openai"
 import {createOpenRouter} from "@openrouter/ai-sdk-provider"
-import type {LanguageModelV1} from "ai"
+import type {LanguageModel} from "ai"
 
 import {abort_with_error} from "./lib_abort.js"
 import {assert_type_string} from "./lib_assert_type.js"
@@ -59,7 +59,7 @@ export function llm_api_get_ai_sdk_language_model({
   llm_model_code: string
   llm_api_code: LlmApiCode
   llm_api_key: string
-}): LanguageModelV1 {
+}): LanguageModel {
   switch (llm_api_code) {
     case "anthropic":
       return createAnthropic({apiKey: llm_api_key})(llm_model_code)
