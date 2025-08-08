@@ -272,6 +272,20 @@ export const LLM_MODEL_DETAILS = [
     provider_options: undefined,
   },
   {
+    llm_model_name: "gpt-5-mini-high",
+    llm_model_code: "gpt-5-mini",
+    llm_api_code: "openai",
+    context_window: 400_000,
+    cents_input: 25,
+    cents_output: 200,
+    default_reasoning: true,
+    has_structured_json: true,
+    recommended_temperature: undefined,
+    provider_options: {
+      openai: {reasoningEffort: "high"}, // is this working?
+    },
+  },
+  {
     llm_model_name: "gpt-5-mini-minimal",
     llm_model_code: "gpt-5-mini",
     llm_api_code: "openai",
@@ -282,7 +296,7 @@ export const LLM_MODEL_DETAILS = [
     has_structured_json: true,
     recommended_temperature: undefined,
     provider_options: {
-      openai: {reasoningEffort: "foo"},
+      openai: {reasoningEffort: "minimal"}, // is this working?
     },
   },
   {
