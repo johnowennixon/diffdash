@@ -66,7 +66,7 @@ export const LLM_MODEL_DETAILS = [
     cents_input: 27,
     cents_output: 110,
     default_reasoning: false,
-    has_structured_json: true,
+    has_structured_json: false,
     recommended_temperature: undefined,
   },
   {
@@ -319,7 +319,7 @@ export const LLM_MODEL_DETAILS = [
     cents_input: 100,
     cents_output: 300,
     default_reasoning: false,
-    has_structured_json: true,
+    has_structured_json: false,
     recommended_temperature: undefined,
   },
   {
