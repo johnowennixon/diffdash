@@ -8,20 +8,18 @@ import {env_get_empty, env_get_substitute} from "./lib_env.js"
 import {error_get_text} from "./lib_error.js"
 import {llm_api_get_ai_sdk_language_model} from "./lib_llm_api.js"
 import type {LlmConfig} from "./lib_llm_config.js"
-import {parse_float_or_undefined, parse_int, parse_int_or_undefined} from "./lib_parse_number.js"
+import {parse_int, parse_int_or_undefined} from "./lib_parse_number.js"
 import {tell_debug} from "./lib_tell.js"
 import {tui_block_string} from "./lib_tui_block.js"
 
 type LlmChatParameters = {
   max_output_tokens: number | undefined
-  temperature: number | undefined
   timeout: number
 }
 
 function llm_chat_get_parameters(): LlmChatParameters {
   return {
     max_output_tokens: parse_int_or_undefined(env_get_empty("lib_llm_chat_max_output_tokens")),
-    temperature: parse_float_or_undefined(env_get_substitute("lib_llm_chat_temperature", "0.6")),
     timeout: parse_int(env_get_substitute("lib_llm_chat_timeout", "60")),
   }
 }
@@ -67,7 +65,7 @@ export async function llm_chat_generate_text({
   max_steps?: number
   min_steps?: number
 }): Promise<LlmChatGenerateTextOutputs> {
-  const {llm_model_name, llm_api_code, llm_model_code, llm_api_key} = llm_config
+  const {llm_model_name, llm_model_detail, llm_model_code, llm_api_code, llm_api_key} = llm_config
 
   llm_chat_debug_prompts({system_prompt, user_prompt, llm_model_name})
 
@@ -77,7 +75,9 @@ export async function llm_chat_generate_text({
     llm_api_key,
   })
 
-  const {max_output_tokens, temperature, timeout} = llm_chat_get_parameters()
+  const temperature = llm_model_detail.recommended_temperature
+
+  const {max_output_tokens, timeout} = llm_chat_get_parameters()
 
   const llm_inputs = {
     model: ai_sdk_language_model,
@@ -170,7 +170,7 @@ export async function llm_chat_generate_object<T>({
   system_prompt: string | undefined
   schema: ZodType<T>
 }): Promise<T> {
-  const {llm_model_name, llm_api_code, llm_model_code, llm_api_key} = llm_config
+  const {llm_model_name, llm_model_detail, llm_model_code, llm_api_code, llm_api_key} = llm_config
 
   llm_chat_debug_prompts({system_prompt, user_prompt, llm_model_name})
 
@@ -180,7 +180,9 @@ export async function llm_chat_generate_object<T>({
     llm_api_key,
   })
 
-  const {max_output_tokens, temperature, timeout} = llm_chat_get_parameters()
+  const temperature = llm_model_detail.recommended_temperature
+
+  const {max_output_tokens, timeout} = llm_chat_get_parameters()
 
   const llm_inputs = {
     model: ai_sdk_language_model,
