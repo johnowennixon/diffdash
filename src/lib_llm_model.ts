@@ -282,7 +282,7 @@ export const LLM_MODEL_DETAILS = [
     has_structured_json: true,
     recommended_temperature: undefined,
     provider_options: {
-      openai: {reasoningEffort: "minimal"},
+      openai: {reasoningEffort: "foo"},
     },
   },
   {
