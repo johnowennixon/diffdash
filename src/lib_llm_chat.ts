@@ -75,7 +75,9 @@ export async function llm_chat_generate_text({
     llm_api_key,
   })
 
-  const temperature = llm_model_detail.recommended_temperature
+  const {recommended_temperature, provider_options} = llm_model_detail
+
+  const temperature = recommended_temperature
 
   const {max_output_tokens, timeout} = llm_chat_get_parameters()
 
@@ -87,6 +89,7 @@ export async function llm_chat_generate_text({
     stopWhen: max_steps === undefined ? undefined : stepCountIs(max_steps),
     maxOutputTokens: max_output_tokens,
     temperature,
+    providerOptions: provider_options,
     abortSignal: AbortSignal.timeout(timeout * 1000),
   }
 
@@ -180,7 +183,9 @@ export async function llm_chat_generate_object<T>({
     llm_api_key,
   })
 
-  const temperature = llm_model_detail.recommended_temperature
+  const {recommended_temperature, provider_options} = llm_model_detail
+
+  const temperature = recommended_temperature
 
   const {max_output_tokens, timeout} = llm_chat_get_parameters()
 
@@ -192,6 +197,7 @@ export async function llm_chat_generate_object<T>({
     schema,
     maxOutputTokens: max_output_tokens,
     temperature,
+    providerOptions: provider_options,
     abortSignal: AbortSignal.timeout(timeout * 1000),
   }
 

@@ -10,6 +10,8 @@ import {assert_type_string} from "./lib_assert_type.js"
 import {AT_SIGN} from "./lib_char_punctuation.js"
 import {env_get} from "./lib_env.js"
 
+// export {SharedV2ProviderOptions} from "ai"
+
 export type LlmApiCode = "anthropic" | "deepseek" | "google" | "openai" | "openrouter"
 
 export function llm_api_get_via(llm_api_code: LlmApiCode): string {

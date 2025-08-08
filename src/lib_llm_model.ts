@@ -1,5 +1,9 @@
+import type {JSONValue} from "ai"
+
 import {abort_with_error} from "./lib_abort.js"
 import type {LlmApiCode} from "./lib_llm_api.js"
+
+type ProviderOptions = Record<string, Record<string, JSONValue>>
 
 export type LlmModelDetail = {
   llm_model_name: string
@@ -11,6 +15,7 @@ export type LlmModelDetail = {
   default_reasoning: boolean
   has_structured_json: boolean
   recommended_temperature: number | undefined
+  provider_options: ProviderOptions | undefined
 }
 
 export const LLM_MODEL_DETAILS = [
@@ -24,6 +29,7 @@ export const LLM_MODEL_DETAILS = [
     default_reasoning: false,
     has_structured_json: true,
     recommended_temperature: undefined,
+    provider_options: undefined,
   },
   {
     llm_model_name: "claude-3.7-sonnet",
@@ -35,6 +41,7 @@ export const LLM_MODEL_DETAILS = [
     default_reasoning: false,
     has_structured_json: true,
     recommended_temperature: undefined,
+    provider_options: undefined,
   },
   {
     llm_model_name: "claude-sonnet-4",
@@ -46,6 +53,7 @@ export const LLM_MODEL_DETAILS = [
     default_reasoning: false,
     has_structured_json: true,
     recommended_temperature: undefined,
+    provider_options: undefined,
   },
   {
     llm_model_name: "codestral-2508",
@@ -57,6 +65,7 @@ export const LLM_MODEL_DETAILS = [
     default_reasoning: false,
     has_structured_json: true,
     recommended_temperature: undefined,
+    provider_options: undefined,
   },
   {
     llm_model_name: "deepseek-chat",
@@ -68,6 +77,7 @@ export const LLM_MODEL_DETAILS = [
     default_reasoning: false,
     has_structured_json: false,
     recommended_temperature: undefined,
+    provider_options: undefined,
   },
   {
     llm_model_name: "deepseek-reasoner",
@@ -79,6 +89,7 @@ export const LLM_MODEL_DETAILS = [
     default_reasoning: true,
     has_structured_json: true,
     recommended_temperature: undefined,
+    provider_options: undefined,
   },
   {
     llm_model_name: "devstral-medium",
@@ -90,6 +101,7 @@ export const LLM_MODEL_DETAILS = [
     default_reasoning: false,
     has_structured_json: true,
     recommended_temperature: undefined,
+    provider_options: undefined,
   },
   {
     llm_model_name: "devstral-small",
@@ -101,6 +113,7 @@ export const LLM_MODEL_DETAILS = [
     default_reasoning: false,
     has_structured_json: true,
     recommended_temperature: undefined,
+    provider_options: undefined,
   },
   {
     llm_model_name: "gemini-2.0-flash",
@@ -112,6 +125,7 @@ export const LLM_MODEL_DETAILS = [
     default_reasoning: false,
     has_structured_json: true,
     recommended_temperature: undefined,
+    provider_options: undefined,
   },
   {
     llm_model_name: "gemini-2.5-flash",
@@ -123,6 +137,7 @@ export const LLM_MODEL_DETAILS = [
     default_reasoning: false,
     has_structured_json: true,
     recommended_temperature: undefined,
+    provider_options: undefined,
   },
   {
     llm_model_name: "gemini-2.5-pro",
@@ -134,6 +149,7 @@ export const LLM_MODEL_DETAILS = [
     default_reasoning: false,
     has_structured_json: true,
     recommended_temperature: undefined,
+    provider_options: undefined,
   },
   {
     llm_model_name: "glm-4-32b@z-ai",
@@ -145,6 +161,7 @@ export const LLM_MODEL_DETAILS = [
     default_reasoning: false,
     has_structured_json: false,
     recommended_temperature: undefined,
+    provider_options: undefined,
   },
   {
     llm_model_name: "glm-4.5@z-ai",
@@ -156,6 +173,7 @@ export const LLM_MODEL_DETAILS = [
     default_reasoning: true,
     has_structured_json: false,
     recommended_temperature: undefined,
+    provider_options: undefined,
   },
   {
     llm_model_name: "glm-4.5-air@z-ai",
@@ -167,6 +185,7 @@ export const LLM_MODEL_DETAILS = [
     default_reasoning: true,
     has_structured_json: false,
     recommended_temperature: undefined,
+    provider_options: undefined,
   },
   {
     llm_model_name: "gpt-4.1",
@@ -178,6 +197,7 @@ export const LLM_MODEL_DETAILS = [
     default_reasoning: false,
     has_structured_json: true,
     recommended_temperature: 0.6,
+    provider_options: undefined,
   },
   {
     llm_model_name: "gpt-4.1-mini",
@@ -189,6 +209,7 @@ export const LLM_MODEL_DETAILS = [
     default_reasoning: false,
     has_structured_json: true,
     recommended_temperature: 0.6,
+    provider_options: undefined,
   },
   {
     llm_model_name: "gpt-4.1-nano",
@@ -200,6 +221,7 @@ export const LLM_MODEL_DETAILS = [
     default_reasoning: false,
     has_structured_json: true,
     recommended_temperature: 0.6,
+    provider_options: undefined,
   },
   {
     llm_model_name: "gpt-4o",
@@ -211,6 +233,7 @@ export const LLM_MODEL_DETAILS = [
     default_reasoning: false,
     has_structured_json: true,
     recommended_temperature: undefined,
+    provider_options: undefined,
   },
   {
     llm_model_name: "gpt-4o-mini",
@@ -222,6 +245,7 @@ export const LLM_MODEL_DETAILS = [
     default_reasoning: false,
     has_structured_json: true,
     recommended_temperature: undefined,
+    provider_options: undefined,
   },
   {
     llm_model_name: "gpt-5",
@@ -233,6 +257,7 @@ export const LLM_MODEL_DETAILS = [
     default_reasoning: true,
     has_structured_json: true,
     recommended_temperature: undefined,
+    provider_options: undefined,
   },
   {
     llm_model_name: "gpt-5-mini",
@@ -244,6 +269,21 @@ export const LLM_MODEL_DETAILS = [
     default_reasoning: true,
     has_structured_json: true,
     recommended_temperature: undefined,
+    provider_options: undefined,
+  },
+  {
+    llm_model_name: "gpt-5-mini-minimal",
+    llm_model_code: "gpt-5-mini",
+    llm_api_code: "openai",
+    context_window: 400_000,
+    cents_input: 25,
+    cents_output: 200,
+    default_reasoning: true,
+    has_structured_json: true,
+    recommended_temperature: undefined,
+    provider_options: {
+      openai: {reasoningEffort: "minimal"},
+    },
   },
   {
     llm_model_name: "gpt-5-nano",
@@ -255,6 +295,7 @@ export const LLM_MODEL_DETAILS = [
     default_reasoning: true,
     has_structured_json: true,
     recommended_temperature: undefined,
+    provider_options: undefined,
   },
   {
     llm_model_name: "gpt-oss-120b@cerebras",
@@ -266,6 +307,7 @@ export const LLM_MODEL_DETAILS = [
     default_reasoning: false,
     has_structured_json: true,
     recommended_temperature: undefined,
+    provider_options: undefined,
   },
   {
     llm_model_name: "gpt-oss-120b@groq",
@@ -277,6 +319,7 @@ export const LLM_MODEL_DETAILS = [
     default_reasoning: false,
     has_structured_json: true,
     recommended_temperature: undefined,
+    provider_options: undefined,
   },
   {
     llm_model_name: "grok-3",
@@ -288,6 +331,7 @@ export const LLM_MODEL_DETAILS = [
     default_reasoning: true,
     has_structured_json: true,
     recommended_temperature: undefined,
+    provider_options: undefined,
   },
   {
     llm_model_name: "grok-3-mini",
@@ -299,6 +343,7 @@ export const LLM_MODEL_DETAILS = [
     default_reasoning: true,
     has_structured_json: true,
     recommended_temperature: undefined,
+    provider_options: undefined,
   },
   // {
   //   llm_model_name: "grok-4",
@@ -310,6 +355,7 @@ export const LLM_MODEL_DETAILS = [
   //   default_reasoning: true,
   //   has_structured_json: true,
   //   recommended_temperature: undefined,
+  //   provider_options: undefined,
   // },
   {
     llm_model_name: "kimi-k2@groq",
@@ -321,6 +367,7 @@ export const LLM_MODEL_DETAILS = [
     default_reasoning: false,
     has_structured_json: false,
     recommended_temperature: undefined,
+    provider_options: undefined,
   },
   {
     llm_model_name: "kimi-k2@moonshotai",
@@ -332,6 +379,7 @@ export const LLM_MODEL_DETAILS = [
     default_reasoning: false,
     has_structured_json: true,
     recommended_temperature: undefined,
+    provider_options: undefined,
   },
   {
     llm_model_name: "llama-4-maverick@cerebras",
@@ -343,6 +391,7 @@ export const LLM_MODEL_DETAILS = [
     default_reasoning: false,
     has_structured_json: true,
     recommended_temperature: undefined,
+    provider_options: undefined,
   },
   {
     llm_model_name: "llama-4-scout@cerebras",
@@ -354,6 +403,7 @@ export const LLM_MODEL_DETAILS = [
     default_reasoning: false,
     has_structured_json: true,
     recommended_temperature: undefined,
+    provider_options: undefined,
   },
   {
     llm_model_name: "mercury",
@@ -365,6 +415,7 @@ export const LLM_MODEL_DETAILS = [
     default_reasoning: false,
     has_structured_json: false,
     recommended_temperature: undefined,
+    provider_options: undefined,
   },
   {
     llm_model_name: "mercury-coder",
@@ -376,6 +427,7 @@ export const LLM_MODEL_DETAILS = [
     default_reasoning: false,
     has_structured_json: false,
     recommended_temperature: undefined,
+    provider_options: undefined,
   },
   {
     llm_model_name: "mistral-medium-3",
@@ -387,6 +439,7 @@ export const LLM_MODEL_DETAILS = [
     default_reasoning: false,
     has_structured_json: true,
     recommended_temperature: undefined,
+    provider_options: undefined,
   },
   {
     llm_model_name: "o3",
@@ -398,6 +451,7 @@ export const LLM_MODEL_DETAILS = [
     default_reasoning: true,
     has_structured_json: true,
     recommended_temperature: undefined,
+    provider_options: undefined,
   },
   // {
   //   llm_model_name: "o3-pro",
@@ -409,6 +463,7 @@ export const LLM_MODEL_DETAILS = [
   //   default_reasoning: true,
   //   has_structured_json: true,
   //   recommended_temperature: undefined,
+  //   provider_options: undefined,
   // },
   {
     llm_model_name: "o4-mini",
@@ -420,6 +475,7 @@ export const LLM_MODEL_DETAILS = [
     default_reasoning: true,
     has_structured_json: true,
     recommended_temperature: undefined,
+    provider_options: undefined,
   },
   {
     llm_model_name: "qwen3-235b-a22b-2507-instruct@cerebras",
@@ -431,6 +487,7 @@ export const LLM_MODEL_DETAILS = [
     default_reasoning: false,
     has_structured_json: true,
     recommended_temperature: undefined,
+    provider_options: undefined,
   },
   {
     llm_model_name: "qwen3-235b-a22b-2507-thinking@cerebras",
@@ -442,6 +499,7 @@ export const LLM_MODEL_DETAILS = [
     default_reasoning: true,
     has_structured_json: true,
     recommended_temperature: undefined,
+    provider_options: undefined,
   },
   {
     llm_model_name: "qwen3-coder@alibaba",
@@ -453,6 +511,7 @@ export const LLM_MODEL_DETAILS = [
     default_reasoning: false,
     has_structured_json: true,
     recommended_temperature: undefined,
+    provider_options: undefined,
   },
   {
     llm_model_name: "qwen3-coder@cerebras",
@@ -464,6 +523,7 @@ export const LLM_MODEL_DETAILS = [
     default_reasoning: false,
     has_structured_json: true,
     recommended_temperature: undefined,
+    provider_options: undefined,
   },
 ] as const satisfies Array<LlmModelDetail>
 

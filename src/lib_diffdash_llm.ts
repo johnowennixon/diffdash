@@ -5,16 +5,15 @@ import {llm_model_get_choices, llm_model_get_details} from "./lib_llm_model.js"
 const model_name_default: LlmModelName = "gpt-4.1-mini"
 const model_name_options: Array<LlmModelName> = [
   "claude-3.5-haiku", // fallback
-  "codestral-2508",
   "devstral-medium",
   "gemini-2.0-flash",
   "gemini-2.5-flash",
   "gpt-4.1-mini", // the best
   "gpt-4.1-nano",
   "gpt-5-mini",
+  "gpt-5-mini-minimal",
   "gpt-5-nano",
   "grok-3-mini",
-  "kimi-k2@groq",
   "llama-4-maverick@cerebras",
   "mistral-medium-3",
 ]
