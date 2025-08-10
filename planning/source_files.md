@@ -164,6 +164,10 @@ Displays a table of language model details with columns for name, context window
 
 Details about many language models are listed with their names, API codes, context sizes, and costs. Functions are provided to get details for given model names, list model name choices, and find a detail entry by model name. Errors are raised if an unknown model name is requested.
 
+### src/lib_llm_results.ts
+
+Provides a way to show a summary of results from multiple language model responses. It sorts the results by time taken and displays warnings for any errors found. It then shows details like model name, time, token usage, and provider information for successful responses.
+
 ### src/lib_llm_tokens.ts
 
 Estimates the number of tokens in a given text based on its length. Provides debug information about token usage including text length, estimated tokens, and their ratio when debugging is enabled. Helps track token consumption related to a language model configuration.
@@ -195,6 +199,14 @@ Creates a bordered block of text with optional title and padding. Centers the ti
 ### src/lib_tui_justify.ts
 
 Aligns text to the left, right, or center within a given width, optionally truncating or adding ellipsis. Pads text with spaces or zeros to fit the specified length. Centers text by evenly distributing padding on both sides.
+
+### src/lib_tui_none.ts
+
+Provides a way to handle undefined or null values by replacing them with a dash. Works with strings, numbers, or empty values. Simple and focused on clean output formatting.
+
+### src/lib_tui_number.ts
+
+Formats numbers for display with commas and money values. Handles rounding and splits money into units and cents. Uses helper functions for formatting but does not define them itself.
 
 ### src/lib_tui_quote.ts
 
