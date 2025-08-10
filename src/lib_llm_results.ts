@@ -1,11 +1,11 @@
 import {SPACE} from "./lib_char_punctuation.js"
-import type {LlmChatGenerateTextCookedResult} from "./lib_llm_chat.js"
+import type {LlmChatGenerateTextResult} from "./lib_llm_chat.js"
 import {tell_action, tell_info, tell_warning} from "./lib_tell.js"
 import {tui_justify_left} from "./lib_tui_justify.js"
 import {tui_none_blank} from "./lib_tui_none.js"
 import {tui_number_plain} from "./lib_tui_number.js"
 
-export function llm_results_summary(all_results: Array<LlmChatGenerateTextCookedResult>): void {
+export function llm_results_summary(all_results: Array<LlmChatGenerateTextResult>): void {
   tell_action("Showing summary of responses ...")
 
   all_results.sort((a, b) => a.seconds - b.seconds)

@@ -118,23 +118,23 @@ export async function llm_chat_generate_text({
   return {generated_text, reasoning_text, total_usage, provider_metadata}
 }
 
-type LlmChatGenerateTextCookedSucceeded = {
+type LlmChatGenerateTextSucceeded = {
   llm_config: LlmConfig
   seconds: number
   error_text: null
   outputs: LlmChatGenerateTextOutputs
 }
 
-type LlmChatGenerateTextCookedFailed = {
+type LlmChatGenerateTextFailed = {
   llm_config: LlmConfig
   seconds: number
   error_text: string
   outputs: null
 }
 
-export type LlmChatGenerateTextCookedResult = LlmChatGenerateTextCookedSucceeded | LlmChatGenerateTextCookedFailed
+export type LlmChatGenerateTextResult = LlmChatGenerateTextSucceeded | LlmChatGenerateTextFailed
 
-export async function llm_chat_generate_text_cooked({
+export async function llm_chat_generate_text_result({
   llm_config,
   system_prompt,
   user_prompt,
@@ -142,7 +142,7 @@ export async function llm_chat_generate_text_cooked({
   llm_config: LlmConfig
   system_prompt?: string | undefined
   user_prompt: string
-}): Promise<LlmChatGenerateTextCookedResult> {
+}): Promise<LlmChatGenerateTextResult> {
   const duration = new Duration()
   duration.start()
 

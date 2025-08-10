@@ -3,7 +3,7 @@ import {error_get_text} from "./lib_error.js"
 import type {GitMessagePromptInputs} from "./lib_git_message_prompt.js"
 import {git_message_get_system_prompt, git_message_get_user_prompt} from "./lib_git_message_prompt.js"
 import {git_message_schema, git_message_schema_format} from "./lib_git_message_schema.js"
-import type {LlmChatGenerateTextCookedResult, LlmChatGenerateTextOutputs} from "./lib_llm_chat.js"
+import type {LlmChatGenerateTextOutputs, LlmChatGenerateTextResult} from "./lib_llm_chat.js"
 import {llm_chat_generate_object, llm_chat_generate_text} from "./lib_llm_chat.js"
 import type {LlmConfig} from "./lib_llm_config.js"
 import {llm_tokens_count_estimated, llm_tokens_debug_usage} from "./lib_llm_tokens.js"
@@ -77,7 +77,7 @@ export async function git_message_generate_string({
   return outputs
 }
 
-export type GitMessageGenerateResult = LlmChatGenerateTextCookedResult
+export type GitMessageGenerateResult = LlmChatGenerateTextResult
 
 export async function git_message_generate_result({
   llm_config,
