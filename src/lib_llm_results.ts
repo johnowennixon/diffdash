@@ -8,7 +8,7 @@ import {tui_number_plain} from "./lib_tui_number.js"
 export function llm_results_summary(all_results: Array<LlmChatGenerateTextResult>): void {
   tell_action("Showing summary of responses ...")
 
-  all_results.sort((a, b) => a.seconds - b.seconds)
+  all_results = all_results.toSorted((a, b) => a.seconds - b.seconds)
 
   const max_length_model = Math.max(...all_results.map((result) => result.llm_config.llm_model_name.length))
 
@@ -21,9 +21,10 @@ export function llm_results_summary(all_results: Array<LlmChatGenerateTextResult
 
     const {llm_model_name} = llm_config
 
+    const tui_model = tui_justify_left(max_length_model, llm_model_name)
     const tui_seconds = tui_number_plain({num: seconds, justify_left: 2})
 
-    tell_warning(`${tui_justify_left(max_length_model, llm_model_name)} - seconds=${tui_seconds}  ${error_text}`)
+    tell_warning(`${tui_model}  seconds=${tui_seconds}  ${error_text}`)
   }
 
   for (const result of all_results) {
@@ -50,7 +51,7 @@ export function llm_results_summary(all_results: Array<LlmChatGenerateTextResult
 
     const segments = []
 
-    segments.push(`model=${tui_model}`)
+    segments.push(tui_model)
     segments.push(`seconds=${tui_seconds}`)
     segments.push(`input=${tui_input}`)
     segments.push(`output=${tui_output}`)
