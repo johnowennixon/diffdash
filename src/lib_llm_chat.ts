@@ -43,7 +43,7 @@ function llm_chat_debug_prompts({
   }
 }
 
-type LlmChatGenerateTextOutputs = {
+export type LlmChatGenerateTextOutputs = {
   generated_text: string
   reasoning_text: string | undefined
   total_usage: LanguageModelUsage
@@ -162,6 +162,12 @@ export async function llm_chat_generate_text_cooked({
   }
 }
 
+type LlmChatGenerateObjectOutputs<T> = {
+  generated_object: T
+  total_usage: LanguageModelUsage
+  provider_metadata: ProviderMetadata | undefined
+}
+
 export async function llm_chat_generate_object<T>({
   llm_config,
   user_prompt,
@@ -172,7 +178,7 @@ export async function llm_chat_generate_object<T>({
   user_prompt: string
   system_prompt: string | undefined
   schema: ZodType<T>
-}): Promise<T> {
+}): Promise<LlmChatGenerateObjectOutputs<T>> {
   const {llm_model_name, llm_model_detail, llm_model_code, llm_api_code, llm_api_key} = llm_config
 
   llm_chat_debug_prompts({system_prompt, user_prompt, llm_model_name})
@@ -208,5 +214,7 @@ export async function llm_chat_generate_object<T>({
 
   debug_inspect_when(debug_channels.llm_outputs, llm_outputs, `LLM outputs object (for ${llm_model_name})`)
 
-  return llm_outputs.object
+  const {object: generated_object, usage: total_usage, providerMetadata: provider_metadata} = llm_outputs
+
+  return {generated_object, total_usage, provider_metadata}
 }

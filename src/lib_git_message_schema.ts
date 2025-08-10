@@ -12,10 +12,10 @@ export const git_message_schema = z.object({
 
 export type GitMessageSchema = z.TypeOf<typeof git_message_schema>
 
-export function git_message_schema_format(message: GitMessageSchema): string {
+export function git_message_schema_format(git_message_object: GitMessageSchema): string {
   return [
-    message.summary_line,
+    git_message_object.summary_line,
     EMPTY, // Empty line
-    ...message.extra_lines.map((line) => (line.startsWith("- ") ? line : `- ${line}`)),
+    ...git_message_object.extra_lines.map((line) => (line.startsWith("- ") ? line : `- ${line}`)),
   ].join(LF)
 }

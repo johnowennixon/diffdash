@@ -19,6 +19,7 @@ import {
   git_simple_staging_push_to_remote,
   git_simple_staging_stage_all_changes,
 } from "./lib_git_simple_staging.js"
+import {llm_results_summary} from "./lib_llm_results.js"
 import {stdio_write_stdout, stdio_write_stdout_linefeed} from "./lib_stdio_write.js"
 import {tell_action, tell_info, tell_plain, tell_success, tell_warning} from "./lib_tell.js"
 import {tui_justify_left} from "./lib_tui_justify.js"
@@ -151,7 +152,9 @@ async function phase_compare({config, git}: {config: DiffDashConfig; git: Simple
 
     tell_info(`Git commit message in ${seconds} seconds using ${llm_model_name}:`)
 
-    let {git_message} = result
+    const {outputs} = result
+
+    let {generated_text: git_message} = outputs
 
     const validation_result = git_message_validate_get_result(git_message)
 
@@ -162,6 +165,8 @@ async function phase_compare({config, git}: {config: DiffDashConfig; git: Simple
 
     git_message_display({git_message, teller})
   }
+
+  llm_results_summary(all_results)
 }
 
 async function phase_generate({config, git}: {config: DiffDashConfig; git: SimpleGit}): Promise<string> {
@@ -186,7 +191,9 @@ async function phase_generate({config, git}: {config: DiffDashConfig; git: Simpl
     abort_with_error(`Failed to generate a commit message using ${llm_model_name}: ${error_text}`)
   }
 
-  let {git_message} = result
+  const {outputs} = result
+
+  let {generated_text: git_message} = outputs
 
   git_message_validate_check(git_message)
 

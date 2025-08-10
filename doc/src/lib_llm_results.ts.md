@@ -1,0 +1,1 @@
+Provides a way to show a summary of results from multiple language model responses. It sorts the results by time taken and displays warnings for any errors found. It then shows details like model name, time, token usage, and provider information for successful responses.
