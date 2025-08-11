@@ -12,6 +12,7 @@ const model_name_options: Array<LlmModelName> = [
   "gpt-5-mini",
   "gpt-5-mini-minimal", // fallback
   "gpt-5-nano",
+  "gpt-5-nano-minimal",
   "grok-3-mini",
   "llama-4-maverick@cerebras",
 ]

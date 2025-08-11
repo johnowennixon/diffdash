@@ -1,6 +1,7 @@
 import {EMPTY} from "./lib_char_empty.js"
 import {DASH} from "./lib_char_punctuation.js"
 
+// eslint-disable-next-line sonarjs/use-type-alias
 function tui_none_generic(str: string | number | null | undefined, replacement: string): string {
   if (str === undefined || str === null || str === EMPTY) {
     return replacement
