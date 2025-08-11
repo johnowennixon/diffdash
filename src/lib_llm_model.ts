@@ -1,10 +1,52 @@
+import type {AnthropicProviderOptions} from "@ai-sdk/anthropic"
 import type {OpenAIProviderOptions} from "@ai-sdk/openai/internal"
-import type {JSONValue} from "ai"
+import type {OpenRouterChatSettings} from "@openrouter/ai-sdk-provider/internal"
 
 import {abort_with_error} from "./lib_abort.js"
 import type {LlmApiCode} from "./lib_llm_api.js"
 
+type JSONValue = null | string | number | boolean | JSONObject | JSONArray
+type JSONArray = Array<JSONValue>
+type JSONObject = {
+  [key: string]: JSONValue
+}
+
 type ProviderOptions = Record<string, Record<string, JSONValue>>
+
+function provider_options_anthropic({thinking}: {thinking: boolean}): ProviderOptions | undefined {
+  return thinking
+    ? {
+        anthropic: {
+          thinking: {
+            type: "enabled",
+            budgetTokens: 1024,
+          },
+        } satisfies AnthropicProviderOptions,
+      }
+    : undefined
+}
+
+function provider_options_openai({
+  reasoning_effort,
+}: {
+  reasoning_effort: "minimal" | "low" | "medium" | "high"
+}): ProviderOptions {
+  return {
+    openai: {
+      reasoningEffort: reasoning_effort,
+    } satisfies OpenAIProviderOptions,
+  }
+}
+
+function provider_options_openrouter({only}: {only: string}): ProviderOptions {
+  return {
+    openrouter: {
+      provider: {
+        only: [only],
+      },
+    } satisfies OpenRouterChatSettings,
+  }
+}
 
 export type LlmModelDetail = {
   llm_model_name: string
@@ -30,7 +72,7 @@ export const LLM_MODEL_DETAILS = [
     default_reasoning: false,
     has_structured_json: true,
     recommended_temperature: undefined,
-    provider_options: undefined,
+    provider_options: provider_options_anthropic({thinking: false}),
   },
   {
     llm_model_name: "claude-3.7-sonnet",
@@ -42,7 +84,7 @@ export const LLM_MODEL_DETAILS = [
     default_reasoning: false,
     has_structured_json: true,
     recommended_temperature: undefined,
-    provider_options: undefined,
+    provider_options: provider_options_anthropic({thinking: false}),
   },
   {
     llm_model_name: "claude-sonnet-4",
@@ -54,11 +96,23 @@ export const LLM_MODEL_DETAILS = [
     default_reasoning: false,
     has_structured_json: true,
     recommended_temperature: undefined,
-    provider_options: undefined,
+    provider_options: provider_options_anthropic({thinking: false}),
+  },
+  {
+    llm_model_name: "claude-sonnet-4-thinking",
+    llm_model_code: "claude-sonnet-4-0",
+    llm_api_code: "anthropic",
+    context_window: 200_000,
+    cents_input: 300,
+    cents_output: 1500,
+    default_reasoning: false,
+    has_structured_json: true,
+    recommended_temperature: undefined,
+    provider_options: provider_options_anthropic({thinking: true}),
   },
   {
     llm_model_name: "codestral-2508",
-    llm_model_code: "mistralai/codestral-2508@mistral",
+    llm_model_code: "mistralai/codestral-2508",
     llm_api_code: "openrouter",
     context_window: 256_000,
     cents_input: 30,
@@ -66,7 +120,7 @@ export const LLM_MODEL_DETAILS = [
     default_reasoning: false,
     has_structured_json: true,
     recommended_temperature: undefined,
-    provider_options: undefined,
+    provider_options: provider_options_openrouter({only: "mistral"}),
   },
   {
     llm_model_name: "deepseek-chat",
@@ -94,7 +148,7 @@ export const LLM_MODEL_DETAILS = [
   },
   {
     llm_model_name: "devstral-medium",
-    llm_model_code: "mistralai/devstral-medium@mistral",
+    llm_model_code: "mistralai/devstral-medium",
     llm_api_code: "openrouter",
     context_window: 128_000,
     cents_input: 40,
@@ -102,11 +156,11 @@ export const LLM_MODEL_DETAILS = [
     default_reasoning: false,
     has_structured_json: true,
     recommended_temperature: undefined,
-    provider_options: undefined,
+    provider_options: provider_options_openrouter({only: "mistral"}),
   },
   {
     llm_model_name: "devstral-small",
-    llm_model_code: "mistralai/devstral-small@mistral",
+    llm_model_code: "mistralai/devstral-small",
     llm_api_code: "openrouter",
     context_window: 128_000,
     cents_input: 10,
@@ -114,7 +168,7 @@ export const LLM_MODEL_DETAILS = [
     default_reasoning: false,
     has_structured_json: true,
     recommended_temperature: undefined,
-    provider_options: undefined,
+    provider_options: provider_options_openrouter({only: "mistral"}),
   },
   {
     llm_model_name: "gemini-2.0-flash",
@@ -154,7 +208,7 @@ export const LLM_MODEL_DETAILS = [
   },
   {
     llm_model_name: "glm-4-32b@z-ai",
-    llm_model_code: "z-ai/glm-4-32b@z-ai",
+    llm_model_code: "z-ai/glm-4-32b",
     llm_api_code: "openrouter",
     context_window: 128_000,
     cents_input: 10,
@@ -162,11 +216,11 @@ export const LLM_MODEL_DETAILS = [
     default_reasoning: false,
     has_structured_json: false,
     recommended_temperature: undefined,
-    provider_options: undefined,
+    provider_options: provider_options_openrouter({only: "z-ai"}),
   },
   {
     llm_model_name: "glm-4.5@z-ai",
-    llm_model_code: "z-ai/glm-4.5@z-ai/fp8",
+    llm_model_code: "z-ai/glm-4.5",
     llm_api_code: "openrouter",
     context_window: 128_000,
     cents_input: 60,
@@ -174,11 +228,11 @@ export const LLM_MODEL_DETAILS = [
     default_reasoning: true,
     has_structured_json: false,
     recommended_temperature: undefined,
-    provider_options: undefined,
+    provider_options: provider_options_openrouter({only: "z-ai/fp8"}),
   },
   {
     llm_model_name: "glm-4.5-air@z-ai",
-    llm_model_code: "z-ai/glm-4.5-air@z-ai/fp8",
+    llm_model_code: "z-ai/glm-4.5-air",
     llm_api_code: "openrouter",
     context_window: 128_000,
     cents_input: 20,
@@ -186,7 +240,7 @@ export const LLM_MODEL_DETAILS = [
     default_reasoning: true,
     has_structured_json: false,
     recommended_temperature: undefined,
-    provider_options: undefined,
+    provider_options: provider_options_openrouter({only: "z-ai/fp8"}),
   },
   {
     llm_model_name: "gpt-4.1",
@@ -225,30 +279,6 @@ export const LLM_MODEL_DETAILS = [
     provider_options: undefined,
   },
   {
-    llm_model_name: "gpt-4o",
-    llm_model_code: "gpt-4o",
-    llm_api_code: "openai",
-    context_window: 128_000,
-    cents_input: 250,
-    cents_output: 1000,
-    default_reasoning: false,
-    has_structured_json: true,
-    recommended_temperature: undefined,
-    provider_options: undefined,
-  },
-  {
-    llm_model_name: "gpt-4o-mini",
-    llm_model_code: "gpt-4o-mini",
-    llm_api_code: "openai",
-    context_window: 128_000,
-    cents_input: 15,
-    cents_output: 60,
-    default_reasoning: false,
-    has_structured_json: true,
-    recommended_temperature: undefined,
-    provider_options: undefined,
-  },
-  {
     llm_model_name: "gpt-5",
     llm_model_code: "gpt-5",
     llm_api_code: "openai",
@@ -270,9 +300,7 @@ export const LLM_MODEL_DETAILS = [
     default_reasoning: true,
     has_structured_json: true,
     recommended_temperature: undefined,
-    provider_options: {
-      openai: {reasoningEffort: "minimal"} satisfies OpenAIProviderOptions,
-    },
+    provider_options: provider_options_openai({reasoning_effort: "minimal"}),
   },
   {
     llm_model_name: "gpt-5-mini",
@@ -296,9 +324,7 @@ export const LLM_MODEL_DETAILS = [
     default_reasoning: true,
     has_structured_json: true,
     recommended_temperature: undefined,
-    provider_options: {
-      openai: {reasoningEffort: "high"} satisfies OpenAIProviderOptions,
-    },
+    provider_options: provider_options_openai({reasoning_effort: "high"}),
   },
   {
     llm_model_name: "gpt-5-mini-low",
@@ -310,9 +336,7 @@ export const LLM_MODEL_DETAILS = [
     default_reasoning: true,
     has_structured_json: true,
     recommended_temperature: undefined,
-    provider_options: {
-      openai: {reasoningEffort: "low"} satisfies OpenAIProviderOptions,
-    },
+    provider_options: provider_options_openai({reasoning_effort: "low"}),
   },
   {
     llm_model_name: "gpt-5-mini-medium",
@@ -324,9 +348,7 @@ export const LLM_MODEL_DETAILS = [
     default_reasoning: true,
     has_structured_json: true,
     recommended_temperature: undefined,
-    provider_options: {
-      openai: {reasoningEffort: "medium"} satisfies OpenAIProviderOptions,
-    },
+    provider_options: provider_options_openai({reasoning_effort: "medium"}),
   },
   {
     llm_model_name: "gpt-5-mini-minimal",
@@ -338,9 +360,7 @@ export const LLM_MODEL_DETAILS = [
     default_reasoning: true,
     has_structured_json: true,
     recommended_temperature: undefined,
-    provider_options: {
-      openai: {reasoningEffort: "minimal"} satisfies OpenAIProviderOptions,
-    },
+    provider_options: provider_options_openai({reasoning_effort: "minimal"}),
   },
   {
     llm_model_name: "gpt-5-nano",
@@ -364,13 +384,11 @@ export const LLM_MODEL_DETAILS = [
     default_reasoning: true,
     has_structured_json: true,
     recommended_temperature: undefined,
-    provider_options: {
-      openai: {reasoningEffort: "minimal"} satisfies OpenAIProviderOptions,
-    },
+    provider_options: provider_options_openai({reasoning_effort: "minimal"}),
   },
   {
     llm_model_name: "gpt-oss-120b@cerebras",
-    llm_model_code: "openai/gpt-oss-120b@cerebras",
+    llm_model_code: "openai/gpt-oss-120b",
     llm_api_code: "openrouter",
     context_window: 131_072,
     cents_input: 25,
@@ -378,11 +396,11 @@ export const LLM_MODEL_DETAILS = [
     default_reasoning: false,
     has_structured_json: true,
     recommended_temperature: undefined,
-    provider_options: undefined,
+    provider_options: provider_options_openrouter({only: "cerebras"}),
   },
   {
     llm_model_name: "gpt-oss-120b@groq",
-    llm_model_code: "openai/gpt-oss-120b@groq",
+    llm_model_code: "openai/gpt-oss-120b",
     llm_api_code: "openrouter",
     context_window: 131_072,
     cents_input: 15,
@@ -390,7 +408,7 @@ export const LLM_MODEL_DETAILS = [
     default_reasoning: false,
     has_structured_json: true,
     recommended_temperature: undefined,
-    provider_options: undefined,
+    provider_options: provider_options_openrouter({only: "groq"}),
   },
   {
     llm_model_name: "grok-3",
@@ -430,7 +448,7 @@ export const LLM_MODEL_DETAILS = [
   // },
   {
     llm_model_name: "kimi-k2@groq",
-    llm_model_code: "moonshotai/kimi-k2@groq",
+    llm_model_code: "moonshotai/kimi-k2",
     llm_api_code: "openrouter",
     context_window: 131_072,
     cents_input: 100,
@@ -438,11 +456,11 @@ export const LLM_MODEL_DETAILS = [
     default_reasoning: false,
     has_structured_json: false,
     recommended_temperature: undefined,
-    provider_options: undefined,
+    provider_options: provider_options_openrouter({only: "groq"}),
   },
   {
     llm_model_name: "kimi-k2@moonshotai",
-    llm_model_code: "moonshotai/kimi-k2@moonshotai",
+    llm_model_code: "moonshotai/kimi-k2",
     llm_api_code: "openrouter",
     context_window: 131_072,
     cents_input: 60,
@@ -450,11 +468,11 @@ export const LLM_MODEL_DETAILS = [
     default_reasoning: false,
     has_structured_json: true,
     recommended_temperature: undefined,
-    provider_options: undefined,
+    provider_options: provider_options_openrouter({only: "moonshotai"}),
   },
   {
     llm_model_name: "llama-4-maverick@cerebras",
-    llm_model_code: "meta-llama/llama-4-maverick@cerebras",
+    llm_model_code: "meta-llama/llama-4-maverick",
     llm_api_code: "openrouter",
     context_window: 32_000,
     cents_input: 20,
@@ -462,11 +480,11 @@ export const LLM_MODEL_DETAILS = [
     default_reasoning: false,
     has_structured_json: true,
     recommended_temperature: undefined,
-    provider_options: undefined,
+    provider_options: provider_options_openrouter({only: "cerebras"}),
   },
   {
     llm_model_name: "llama-4-scout@cerebras",
-    llm_model_code: "meta-llama/llama-4-scout@cerebras",
+    llm_model_code: "meta-llama/llama-4-scout",
     llm_api_code: "openrouter",
     context_window: 32_000,
     cents_input: 65,
@@ -474,7 +492,7 @@ export const LLM_MODEL_DETAILS = [
     default_reasoning: false,
     has_structured_json: true,
     recommended_temperature: undefined,
-    provider_options: undefined,
+    provider_options: provider_options_openrouter({only: "cerebras"}),
   },
   {
     llm_model_name: "mercury",
@@ -502,7 +520,7 @@ export const LLM_MODEL_DETAILS = [
   },
   {
     llm_model_name: "mistral-medium-3",
-    llm_model_code: "mistralai/mistral-medium-3@mistral",
+    llm_model_code: "mistralai/mistral-medium-3",
     llm_api_code: "openrouter",
     context_window: 131_072,
     cents_input: 40,
@@ -510,47 +528,11 @@ export const LLM_MODEL_DETAILS = [
     default_reasoning: false,
     has_structured_json: true,
     recommended_temperature: undefined,
-    provider_options: undefined,
-  },
-  {
-    llm_model_name: "o3",
-    llm_model_code: "o3",
-    llm_api_code: "openai",
-    context_window: 200_000,
-    cents_input: 200,
-    cents_output: 800,
-    default_reasoning: true,
-    has_structured_json: true,
-    recommended_temperature: undefined,
-    provider_options: undefined,
-  },
-  // {
-  //   llm_model_name: "o3-pro",
-  //   llm_model_code: "o3-pro", // Your organization needs to be verified
-  //   llm_api_code: "openai",
-  //   context_window: 200_000,
-  //   cents_input: 2000,
-  //   cents_output: 8000,
-  //   default_reasoning: true,
-  //   has_structured_json: true,
-  //   recommended_temperature: undefined,
-  //   provider_options: undefined,
-  // },
-  {
-    llm_model_name: "o4-mini",
-    llm_model_code: "o4-mini",
-    llm_api_code: "openai",
-    context_window: 200_000,
-    cents_input: 110,
-    cents_output: 440,
-    default_reasoning: true,
-    has_structured_json: true,
-    recommended_temperature: undefined,
-    provider_options: undefined,
+    provider_options: provider_options_openrouter({only: "mistral"}),
   },
   {
     llm_model_name: "qwen3-235b-a22b-2507-instruct@cerebras",
-    llm_model_code: "qwen/qwen3-235b-a22b-2507@cerebras",
+    llm_model_code: "qwen/qwen3-235b-a22b-2507",
     llm_api_code: "openrouter",
     context_window: 262_144,
     cents_input: 60,
@@ -558,11 +540,11 @@ export const LLM_MODEL_DETAILS = [
     default_reasoning: false,
     has_structured_json: true,
     recommended_temperature: undefined,
-    provider_options: undefined,
+    provider_options: provider_options_openrouter({only: "cerebras"}),
   },
   {
     llm_model_name: "qwen3-235b-a22b-2507-thinking@cerebras",
-    llm_model_code: "qwen/qwen3-235b-a22b-thinking-2507@cerebras",
+    llm_model_code: "qwen/qwen3-235b-a22b-thinking-2507",
     llm_api_code: "openrouter",
     context_window: 262_144,
     cents_input: 60,
@@ -570,11 +552,11 @@ export const LLM_MODEL_DETAILS = [
     default_reasoning: true,
     has_structured_json: true,
     recommended_temperature: undefined,
-    provider_options: undefined,
+    provider_options: provider_options_openrouter({only: "cerebras"}),
   },
   {
     llm_model_name: "qwen3-coder@alibaba",
-    llm_model_code: "qwen/qwen3-coder@alibaba/opensource",
+    llm_model_code: "qwen/qwen3-coder",
     llm_api_code: "openrouter",
     context_window: 262_144,
     cents_input: 150,
@@ -582,11 +564,11 @@ export const LLM_MODEL_DETAILS = [
     default_reasoning: false,
     has_structured_json: true,
     recommended_temperature: undefined,
-    provider_options: undefined,
+    provider_options: provider_options_openrouter({only: "alibaba/opensource"}),
   },
   {
     llm_model_name: "qwen3-coder@cerebras",
-    llm_model_code: "qwen/qwen3-coder@cerebras/fp8",
+    llm_model_code: "qwen/qwen3-coder",
     llm_api_code: "openrouter",
     context_window: 131_072,
     cents_input: 200,
@@ -594,7 +576,7 @@ export const LLM_MODEL_DETAILS = [
     default_reasoning: false,
     has_structured_json: true,
     recommended_temperature: undefined,
-    provider_options: undefined,
+    provider_options: provider_options_openrouter({only: "cerebras"}),
   },
 ] as const satisfies Array<LlmModelDetail>
 

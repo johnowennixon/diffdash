@@ -1,1 +1,0 @@
-Checks if a value matches a specific type and stops execution if it does not. Handles booleans, numbers, strings, and objects with clear error messages. Relies on helper functions to verify types and manage failures.
