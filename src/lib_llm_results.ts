@@ -22,7 +22,7 @@ export function llm_results_summary(all_results: Array<LlmChatGenerateTextResult
     const {llm_model_name} = llm_config
 
     const tui_model = tui_justify_left(max_length_model, llm_model_name)
-    const tui_seconds = tui_number_plain({num: seconds, justify_left: 2})
+    const tui_seconds = tui_number_plain({num: seconds, justify_left: 3})
 
     tell_warning(`${tui_model}  seconds=${tui_seconds}  ${error_text}`)
   }
@@ -43,8 +43,8 @@ export function llm_results_summary(all_results: Array<LlmChatGenerateTextResult
     const openrouter_provider = provider_metadata?.["openrouter"]?.["provider"] as string | undefined
 
     const tui_model = tui_justify_left(max_length_model, llm_model_name)
-    const tui_seconds = tui_number_plain({num: seconds, justify_left: 2})
-    const tui_input = tui_number_plain({num: total_usage.inputTokens, justify_left: 3})
+    const tui_seconds = tui_number_plain({num: seconds, justify_left: 3})
+    const tui_input = tui_number_plain({num: total_usage.inputTokens, justify_left: 5})
     const tui_output = tui_number_plain({num: total_usage.outputTokens, justify_left: 5})
     const tui_reasoning = tui_number_plain({num: total_usage.reasoningTokens, justify_left: 5})
     const tui_provider = tui_none_blank(openrouter_provider)
