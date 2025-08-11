@@ -10,15 +10,15 @@ A command-line tool to generate Git commit messages using AI.
 
 ## Features
 
-* Generate Git commit messages in natural English
+* Generate Git commit messages in **natural English**
 * Add a footer to the generated commit messages
 * Add a prefix or suffix to the summary line
 * Select from a choice of LLM models
 * Compare messages generated from all configured models
 * Disable or auto-approve various stages
-* Just output the commit message for use in scripts
+* Option to output just the commit message for use in scripts
 * Configuration using standard API provider environment variables
-* Uses the Vercel AI SDK
+* Uses the Vercel AI SDK (version 5)
 * Uses structured JSON with compatible models
 * Substantially written using AI coding (Claude Code, Roo Code, and Amp)
 
@@ -30,16 +30,19 @@ npm install -g @johnowennixon/diffdash
 
 ## LLM Models
 
-Currently, for this application, the best LLM model by far is **gpt-4.1-mini** from OpenAI.
+Currently, for this application, the best LLM model is **gpt-4.1-mini** from OpenAI.
 It is set as the default model.
 I can only presume they have done a ton of training on diffs.
+
+I am now testing the GPT-5 models and **gpt-5-mini-minimal** (GPT-5 Mini with reasoning disabled) is behaving much the same.
+It will probably become the default model soon.
 
 ## API Keys
 
 DiffDash requires at least one API key for an LLM provider. These must be provided as environment variables.
 
 ```bash
-# For OpenAI (recommended)
+# For OpenAI (strongly recommended)
 export OPENAI_API_KEY=your-api-key
 
 # For Anthropic
@@ -51,7 +54,7 @@ export DEEPSEEK_API_KEY=your-api-key
 # For Google Gemini
 export GEMINI_API_KEY=your-api-key
 
-# For OpenRouter
+# For OpenRouter (all other models)
 export OPENROUTER_API_KEY=your-api-key
 ```
 
