@@ -1,3 +1,4 @@
+import type {OpenAIProviderOptions} from "@ai-sdk/openai/internal"
 import type {JSONValue} from "ai"
 
 import {abort_with_error} from "./lib_abort.js"
@@ -260,6 +261,20 @@ export const LLM_MODEL_DETAILS = [
     provider_options: undefined,
   },
   {
+    llm_model_name: "gpt-5-minimal",
+    llm_model_code: "gpt-5",
+    llm_api_code: "openai",
+    context_window: 400_000,
+    cents_input: 125,
+    cents_output: 1000,
+    default_reasoning: true,
+    has_structured_json: true,
+    recommended_temperature: undefined,
+    provider_options: {
+      openai: {reasoningEffort: "minimal"} satisfies OpenAIProviderOptions,
+    },
+  },
+  {
     llm_model_name: "gpt-5-mini",
     llm_model_code: "gpt-5-mini",
     llm_api_code: "openai",
@@ -282,7 +297,35 @@ export const LLM_MODEL_DETAILS = [
     has_structured_json: true,
     recommended_temperature: undefined,
     provider_options: {
-      openai: {reasoningEffort: "high"}, // is this working?
+      openai: {reasoningEffort: "high"} satisfies OpenAIProviderOptions,
+    },
+  },
+  {
+    llm_model_name: "gpt-5-mini-low",
+    llm_model_code: "gpt-5-mini",
+    llm_api_code: "openai",
+    context_window: 400_000,
+    cents_input: 25,
+    cents_output: 200,
+    default_reasoning: true,
+    has_structured_json: true,
+    recommended_temperature: undefined,
+    provider_options: {
+      openai: {reasoningEffort: "low"} satisfies OpenAIProviderOptions,
+    },
+  },
+  {
+    llm_model_name: "gpt-5-mini-medium",
+    llm_model_code: "gpt-5-mini",
+    llm_api_code: "openai",
+    context_window: 400_000,
+    cents_input: 25,
+    cents_output: 200,
+    default_reasoning: true,
+    has_structured_json: true,
+    recommended_temperature: undefined,
+    provider_options: {
+      openai: {reasoningEffort: "medium"} satisfies OpenAIProviderOptions,
     },
   },
   {
@@ -296,7 +339,7 @@ export const LLM_MODEL_DETAILS = [
     has_structured_json: true,
     recommended_temperature: undefined,
     provider_options: {
-      openai: {reasoningEffort: "minimal"}, // is this working?
+      openai: {reasoningEffort: "minimal"} satisfies OpenAIProviderOptions,
     },
   },
   {
@@ -310,6 +353,20 @@ export const LLM_MODEL_DETAILS = [
     has_structured_json: true,
     recommended_temperature: undefined,
     provider_options: undefined,
+  },
+  {
+    llm_model_name: "gpt-5-nano-minimal",
+    llm_model_code: "gpt-5-nano",
+    llm_api_code: "openai",
+    context_window: 400_000,
+    cents_input: 5,
+    cents_output: 40,
+    default_reasoning: true,
+    has_structured_json: true,
+    recommended_temperature: undefined,
+    provider_options: {
+      openai: {reasoningEffort: "minimal"} satisfies OpenAIProviderOptions,
+    },
   },
   {
     llm_model_name: "gpt-oss-120b@cerebras",
