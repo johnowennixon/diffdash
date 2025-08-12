@@ -105,7 +105,7 @@ export const LLM_MODEL_DETAILS = [
     context_window: 200_000,
     cents_input: 300,
     cents_output: 1500,
-    default_reasoning: false,
+    default_reasoning: true,
     has_structured_json: true,
     recommended_temperature: undefined,
     provider_options: provider_options_anthropic({thinking: true}),

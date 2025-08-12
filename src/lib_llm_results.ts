@@ -1,4 +1,4 @@
-import {SPACE} from "./lib_char_punctuation.js"
+import {QUESTION, SPACE} from "./lib_char_punctuation.js"
 import type {LlmChatGenerateTextResult} from "./lib_llm_chat.js"
 import {tell_action, tell_info, tell_warning} from "./lib_tell.js"
 import {tui_justify_left} from "./lib_tui_justify.js"
@@ -34,7 +34,9 @@ export function llm_results_summary(all_results: Array<LlmChatGenerateTextResult
       continue
     }
 
-    const {llm_model_name} = llm_config
+    const {llm_model_name, llm_model_detail} = llm_config
+
+    const {default_reasoning} = llm_model_detail
 
     const {outputs} = result
 
@@ -46,7 +48,7 @@ export function llm_results_summary(all_results: Array<LlmChatGenerateTextResult
     const tui_seconds = tui_number_plain({num: seconds, justify_left: 3})
     const tui_input = tui_number_plain({num: total_usage.inputTokens, justify_left: 5})
     const tui_output = tui_number_plain({num: total_usage.outputTokens, justify_left: 5})
-    const tui_reasoning = tui_number_plain({num: total_usage.reasoningTokens, justify_left: 5})
+    const tui_reasoning = tui_number_plain({num: total_usage.reasoningTokens, justify_left: 5, none: QUESTION})
     const tui_provider = tui_none_blank(openrouter_provider)
 
     const segments = []
@@ -55,7 +57,9 @@ export function llm_results_summary(all_results: Array<LlmChatGenerateTextResult
     segments.push(`seconds=${tui_seconds}`)
     segments.push(`input=${tui_input}`)
     segments.push(`output=${tui_output}`)
-    segments.push(`reasoning=${tui_reasoning}`)
+    if (default_reasoning || total_usage.reasoningTokens !== undefined) {
+      segments.push(`reasoning=${tui_reasoning}`)
+    }
     if (openrouter_provider) {
       segments.push(`provider=${tui_provider}`)
     }

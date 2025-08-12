@@ -4,14 +4,16 @@ import {tui_justify_left, tui_justify_zero} from "./lib_tui_justify.js"
 
 export function tui_number_plain({
   num,
+  none = EMPTY,
   justify_left,
   justify_right,
 }: {
   num: number | null | undefined
+  none?: string | undefined
   justify_left?: number | undefined
   justify_right?: number | undefined
 }): string {
-  let str = num === null || num === undefined ? EMPTY : num.toString()
+  let str = num === null || num === undefined ? none : num.toString()
 
   if (justify_left !== undefined) {
     str = tui_justify_left(justify_left, str)
