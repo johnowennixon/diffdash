@@ -1,4 +1,4 @@
-import type {SimpleGit} from "simple-git"
+import type {Options, SimpleGit} from "simple-git"
 
 import {SPACE} from "./lib_char_punctuation.js"
 
@@ -38,8 +38,22 @@ export async function git_simple_staging_get_staged_diff(git: SimpleGit): Promis
   return await git.diff(["--cached"])
 }
 
-export async function git_simple_staging_create_commit(git: SimpleGit, git_message: string): Promise<void> {
-  await git.commit(git_message)
+export async function git_simple_staging_create_commit({
+  git,
+  git_message,
+  no_verify = false,
+}: {
+  git: SimpleGit
+  git_message: string
+  no_verify?: boolean
+}): Promise<void> {
+  const options: Options = {}
+
+  if (no_verify) {
+    options["--no-verify"] = null
+  }
+
+  await git.commit(git_message, options)
 }
 
 export async function git_simple_staging_push_to_remote({
@@ -51,14 +65,16 @@ export async function git_simple_staging_push_to_remote({
   no_verify?: boolean
   force?: boolean
 }): Promise<void> {
-  const push_args = ["--follow-tags"]
+  const options: Options = {}
+
+  options["--follow-tags"] = null
 
   if (no_verify) {
-    push_args.push("--no-verify")
+    options["--no-verify"] = null
   }
   if (force) {
-    push_args.push("--force")
+    options["--force"] = null
   }
 
-  await git.push(push_args)
+  await git.push(options)
 }

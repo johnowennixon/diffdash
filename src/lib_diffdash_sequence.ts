@@ -218,7 +218,7 @@ async function phase_commit({
   git: SimpleGit
   git_message: string
 }): Promise<void> {
-  const {auto_commit, disable_commit, silent} = config
+  const {auto_commit, disable_commit, no_verify, silent} = config
 
   if (disable_commit) {
     return
@@ -236,7 +236,7 @@ async function phase_commit({
     }
   }
 
-  await git_simple_staging_create_commit(git, git_message)
+  await git_simple_staging_create_commit({git, git_message, no_verify})
 
   if (!silent) {
     tell_success("Changes committed successfully")
@@ -244,7 +244,7 @@ async function phase_commit({
 }
 
 async function phase_push({config, git}: {config: DiffDashConfig; git: SimpleGit}): Promise<void> {
-  const {auto_push, disable_commit, disable_push, push_no_verify, push_force, silent} = config
+  const {auto_push, disable_commit, disable_push, no_verify, force, silent} = config
 
   if (disable_push || disable_commit) {
     return
@@ -262,7 +262,7 @@ async function phase_push({config, git}: {config: DiffDashConfig; git: SimpleGit
   }
 
   try {
-    await git_simple_staging_push_to_remote({git, no_verify: push_no_verify, force: push_force})
+    await git_simple_staging_push_to_remote({git, no_verify, force})
   } catch (error) {
     abort_with_error(`Failed to push to remote: ${error_get_text(error)}`)
   }

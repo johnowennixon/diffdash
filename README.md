@@ -129,10 +129,10 @@ All command-line arguments are optional.
 | `--disable-preview` | disable previewing the generated message|
 | `--disable-commit` | disable committing changes - exit after generating the message |
 | `--disable-push` | disable pushing changes - exit after making the commit |
-| `--push-no-verify` | bypass git hooks when pushing to Git |
-| `--push-force` | apply force when pushing to Git |
 | `--add-prefix PREFIX` | add a prefix to the commit message summary line |
 | `--add-suffix SUFFIX` | add a suffix to the commit message summary line |
+| `--no-verify` | bypass git hooks when committing or pushing to Git |
+| `--force` | apply force when pushing to Git |
 | `--llm-list` | display a list of available Large Language Models and exit |
 | `--llm-compare` | compare the generated messages from all models - but do not commit |
 | `--llm-model MODEL` | choose the LLM model by name (the default is normally best) |

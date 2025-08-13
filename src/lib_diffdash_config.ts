@@ -31,10 +31,10 @@ export type DiffDashConfig = {
   disable_preview: boolean
   disable_status: boolean
   disable_push: boolean
-  push_no_verify: boolean
-  push_force: boolean
   add_prefix: string | undefined
   add_suffix: string | undefined
+  no_verify: boolean
+  force: boolean
   llm_compare: boolean
   llm_config: LlmConfig
   all_llm_configs: Array<LlmConfig>
@@ -76,8 +76,8 @@ export function diffdash_config_get(): DiffDashConfig {
     disable_preview,
     disable_status,
     disable_push,
-    push_no_verify,
-    push_force,
+    no_verify,
+    force,
     add_prefix,
     add_suffix,
     llm_list,
@@ -117,10 +117,10 @@ export function diffdash_config_get(): DiffDashConfig {
     disable_preview,
     disable_status,
     disable_push,
-    push_no_verify,
-    push_force,
     add_prefix,
     add_suffix,
+    no_verify,
+    force,
     llm_compare,
     llm_config,
     all_llm_configs,
