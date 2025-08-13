@@ -1,5 +1,8 @@
 # DiffDash
 
+![npm version](https://img.shields.io/npm/v/@johnowennixon/diffdash.svg)
+![NPM License](https://img.shields.io/npm/l/@johnowennixon/diffdash)
+![Downloads](https://img.shields.io/npm/dm/@johnowennixon/diffdash.svg)
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/johnowennixon/diffdash)
 
 A command-line tool to generate Git commit messages using AI.
