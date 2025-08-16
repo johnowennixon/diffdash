@@ -9,8 +9,9 @@ CRUSH.md
 GEMINI.md
 QWEN.md
 .aider*
-.claude/settings.local.json
+.claude/
 .crush/
+.gemini/
 
 # TypeScript
 dist/
