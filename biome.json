@@ -59,6 +59,7 @@
         "noUselessTernary": "error",
         "noUselessUndefinedInitialization": "error",
         "useArrowFunction": "error",
+        "useFlatMap": "off",
         "useLiteralKeys": "off",
         "useOptionalChain": "error",
         "useRegexLiterals": "off"
