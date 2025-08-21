@@ -30,7 +30,7 @@ export function llm_config_get({
   let effective_context_window = llm_model_detail.context_window
 
   const env_context_window = parse_int_or_undefined(env_get("LLM_CONFIG_CONTEXT_WINDOW"))
-  if (env_context_window) {
+  if (env_context_window !== undefined) {
     effective_context_window = Math.min(effective_context_window, env_context_window)
   }
 
