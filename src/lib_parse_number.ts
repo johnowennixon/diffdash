@@ -8,10 +8,10 @@ export function parse_float(input: string): number {
   return Number.parseFloat(input)
 }
 
-export function parse_int_or_undefined(input: string | undefined): number | undefined {
-  return input === undefined || input === EMPTY ? undefined : parse_int(input)
+export function parse_int_or_undefined(input: string | undefined | null): number | undefined {
+  return input === undefined || input === null || input === EMPTY ? undefined : parse_int(input)
 }
 
-export function parse_float_or_undefined(input: string | undefined): number | undefined {
-  return input === undefined || input === EMPTY ? undefined : parse_float(input)
+export function parse_float_or_undefined(input: string | undefined | null): number | undefined {
+  return input === undefined || input === null || input === EMPTY ? undefined : parse_float(input)
 }

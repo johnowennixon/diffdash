@@ -52,13 +52,13 @@ export async function git_message_generate_string({
   llm_config: LlmConfig
   inputs: GitMessagePromptInputs
 }): Promise<LlmChatGenerateTextOutputs> {
-  const {context_window, has_structured_json} = llm_config.llm_model_detail
+  const {effective_context_window} = llm_config
+  const {has_structured_json} = llm_config.llm_model_detail
 
   const system_prompt = git_message_get_system_prompt({has_structured_json, inputs})
 
-  // Estimate remaining prompt length
-  const user_tokens = context_window - llm_tokens_count_estimated({llm_config, text: system_prompt}) - 1000
-  const user_length = user_tokens * 3
+  const user_tokens = effective_context_window - llm_tokens_count_estimated({llm_config, text: system_prompt}) - 1000
+  const user_length = Math.floor(user_tokens * 3)
 
   const user_prompt = git_message_get_user_prompt({
     has_structured_json,
