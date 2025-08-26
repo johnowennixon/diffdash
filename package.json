@@ -42,31 +42,31 @@
     "test": "run-s -ls lint build"
   },
   "dependencies": {
-    "@ai-sdk/anthropic": "2.0.4",
-    "@ai-sdk/deepseek": "1.0.7",
-    "@ai-sdk/google": "2.0.6",
-    "@ai-sdk/openai": "2.0.15",
+    "@ai-sdk/anthropic": "2.0.7",
+    "@ai-sdk/deepseek": "1.0.12",
+    "@ai-sdk/google": "2.0.9",
+    "@ai-sdk/openai": "2.0.21",
     "@openrouter/ai-sdk-provider": "1.1.2",
-    "ai": "5.0.15",
+    "ai": "5.0.24",
     "ansis": "4.1.0",
     "argparse": "2.0.1",
     "cli-table3": "0.6.5",
     "json5": "2.2.3",
     "simple-git": "3.28.0",
-    "zod": "4.0.17"
+    "zod": "4.1.3"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.2.0",
+    "@biomejs/biome": "2.2.2",
     "@candide/tsgolint": "1.3.0",
     "@johnowennixon/add-shebangs": "1.1.0",
     "@johnowennixon/chmodx": "2.0.0",
     "@types/argparse": "2.0.17",
     "@types/node": "24.3.0",
-    "@typescript/native-preview": "7.0.0-dev.20250818.1",
-    "knip": "5.62.0",
+    "@typescript/native-preview": "7.0.0-dev.20250826.1",
+    "knip": "5.63.0",
     "markdownlint-cli2": "0.18.1",
     "npm-run-all2": "8.0.4",
-    "oxlint": "1.12.0",
+    "oxlint": "1.13.0",
     "rimraf": "6.0.1",
     "typescript": "5.9.2"
   }
