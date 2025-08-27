@@ -192,6 +192,10 @@ Provides colored output for messages with optional timestamps. Supports differen
 
 Creates a bordered block of text with optional title and padding. Centers the title if provided and surrounds the content with separator lines. Uses a simple layout to make the content stand out visually.
 
+### src/lib_tui_confirm.ts
+
+Provides a way to ask for a yes or no confirmation from the user in a terminal interface. Accepts a message and a default boolean value to guide the user input. Returns a boolean based on whether the user confirms with yes or no.
+
 ### src/lib_tui_justify.ts
 
 Aligns text to the left, right, or center within a given width, optionally truncating or adding ellipsis. Pads text with spaces or zeros to fit the specified length. Centers text by evenly distributing padding on both sides.
@@ -207,10 +211,6 @@ Formats numbers for display with commas and money values. Handles rounding and s
 ### src/lib_tui_quote.ts
 
 Provides ways to wrap text in different types of quotes or brackets. Supports plain and smart quotes, round and square brackets, angle brackets, and backticks. Each function takes a string and returns it wrapped in the chosen symbol.
-
-### src/lib_tui_readline.ts
-
-Provides a way to ask for user confirmation in a terminal with a yes-or-no prompt. Formats the question in bold blue text for better visibility. Waits for the user's input and returns true for affirmative answers or false otherwise.
 
 ### src/lib_tui_table.ts
 
