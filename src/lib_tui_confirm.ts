@@ -14,13 +14,17 @@ export async function tui_confirm({
     default: default_value === undefined ? undefined : default_value ? "Yes" : "No",
     validate: (text: string) => {
       const cleaned = text.trim().toLowerCase()
-      return cleaned === "y" || cleaned === "yes" || cleaned === "n" || cleaned === "no"
+      if (cleaned === "y" || cleaned === "yes" || cleaned === "n" || cleaned === "no") {
+        return true
+      }
+      return "Please enter Yes or No"
     },
     transformer: (text: string, {isFinal: is_final}: {isFinal: boolean}) => {
       const cleaned = text.trim().toLowerCase()
       return is_final ? (cleaned === "y" || cleaned === "yes" ? "Yes" : "No") : text
     },
     theme: {
+      prefix: {idle: undefined, done: undefined},
       style: {
         message: style_message,
       },
