@@ -46,6 +46,7 @@
     "@ai-sdk/deepseek": "1.0.12",
     "@ai-sdk/google": "2.0.9",
     "@ai-sdk/openai": "2.0.21",
+    "@inquirer/prompts": "7.8.4",
     "@openrouter/ai-sdk-provider": "1.1.2",
     "ai": "5.0.24",
     "ansis": "4.1.0",

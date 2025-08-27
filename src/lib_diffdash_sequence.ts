@@ -1,4 +1,5 @@
 import {abort_with_error, abort_with_warning} from "./lib_abort.js"
+import {ansi_blue} from "./lib_ansi.js"
 import {debug_channels, debug_inspect} from "./lib_debug.js"
 import {diffdash_add_footer, diffdash_add_prefix_or_suffix} from "./lib_diffdash_add.js"
 import type {DiffDashConfig} from "./lib_diffdash_config.js"
@@ -22,8 +23,8 @@ import {
 import {llm_results_summary} from "./lib_llm_results.js"
 import {stdio_write_stdout, stdio_write_stdout_linefeed} from "./lib_stdio_write.js"
 import {tell_action, tell_info, tell_plain, tell_success, tell_warning} from "./lib_tell.js"
+import {tui_confirm} from "./lib_tui_confirm.js"
 import {tui_justify_left} from "./lib_tui_justify.js"
-import {tui_readline_confirm} from "./lib_tui_readline.js"
 
 async function phase_open(): Promise<SimpleGit> {
   const git = await git_simple_open_git_repo()
@@ -63,7 +64,11 @@ async function phase_add({config, git}: {config: DiffDashConfig; git: SimpleGit}
       tell_action("Auto-adding changes")
     }
   } else {
-    const add_confirmed = await tui_readline_confirm("No staged changes found - would you like to add all changes?")
+    const add_confirmed = await tui_confirm({
+      question: "No staged changes found - would you like to add all changes?",
+      default: true,
+      style_message: ansi_blue,
+    })
 
     if (!add_confirmed) {
       abort_with_warning("Please add changes before creating a commit")
@@ -229,7 +234,11 @@ async function phase_commit({
       tell_action("Auto-committing changes")
     }
   } else {
-    const commit_confirmed = await tui_readline_confirm("Do you want to commit these changes?")
+    const commit_confirmed = await tui_confirm({
+      question: "Do you want to commit these changes?",
+      default: true,
+      style_message: ansi_blue,
+    })
 
     if (!commit_confirmed) {
       abort_with_warning("Commit cancelled by user")
@@ -255,7 +264,12 @@ async function phase_push({config, git}: {config: DiffDashConfig; git: SimpleGit
       tell_action("Auto-pushing changes")
     }
   } else {
-    const push_confirmed = await tui_readline_confirm("Do you want to push these changes?")
+    const push_confirmed = await tui_confirm({
+      question: "Do you want to push these changes?",
+      default: true,
+      style_message: ansi_blue,
+    })
+
     if (!push_confirmed) {
       return
     }

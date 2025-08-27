@@ -1,1 +1,0 @@
-Provides a way to ask for user confirmation in a terminal with a yes-or-no prompt. Formats the question in bold blue text for better visibility. Waits for the user's input and returns true for affirmative answers or false otherwise.

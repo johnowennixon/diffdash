@@ -1,0 +1,1 @@
+Provides a way to ask for a yes or no confirmation from the user in a terminal interface. Accepts a message and a default boolean value to guide the user input. Returns a boolean based on whether the user confirms with yes or no.
