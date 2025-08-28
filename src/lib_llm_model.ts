@@ -452,6 +452,18 @@ export const LLM_MODEL_DETAILS = [
   //   provider_options: undefined,
   // },
   {
+    llm_model_name: "grok-code-fast-1",
+    llm_model_code: "x-ai/grok-code-fast-1",
+    llm_api_code: "openrouter",
+    context_window: 256_000,
+    cents_input: 20,
+    cents_output: 150,
+    default_reasoning: true,
+    has_structured_json: true,
+    recommended_temperature: undefined,
+    provider_options: undefined,
+  },
+  {
     llm_model_name: "kimi-k2@groq",
     llm_model_code: "moonshotai/kimi-k2",
     llm_api_code: "openrouter",
