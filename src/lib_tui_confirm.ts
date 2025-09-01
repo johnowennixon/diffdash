@@ -1,4 +1,4 @@
-import {input} from "@inquirer/prompts"
+import {input as inquirer_input} from "@inquirer/prompts"
 
 export async function tui_confirm({
   question,
@@ -9,7 +9,7 @@ export async function tui_confirm({
   default?: boolean
   style_message?: (text: string) => string
 }): Promise<boolean> {
-  const result = await input({
+  const result = await inquirer_input({
     message: question,
     default: default_value === undefined ? undefined : default_value ? "Yes" : "No",
     validate: (text: string) => {
