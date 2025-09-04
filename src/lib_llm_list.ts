@@ -9,7 +9,7 @@ export function llm_list_models({llm_model_details}: {llm_model_details: Array<L
   const headings = ["NAME", "API", "CONTEXT", "INPUT", "OUTPUT", "REASONING"]
   const alignments: Array<HorizontalAlignment> = ["left", "left", "right", "right", "right", "left"]
 
-  const table = new TuiTable({headings, alignments})
+  const table = new TuiTable({headings, alignments, compact: true})
 
   for (const detail of llm_model_details) {
     const {llm_model_name, llm_api_code, context_window, cents_input, cents_output, default_reasoning} = detail
