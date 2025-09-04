@@ -10,8 +10,12 @@ export class TuiTable {
   private table: Table
   private columns_total: number
 
-  constructor({headings, alignments}: {headings: Array<string>; alignments?: Array<HorizontalAlignment>}) {
-    const constructor_options: TableConstructorOptions = {style: {head: []}}
+  constructor({
+    headings,
+    alignments,
+    compact,
+  }: {headings: Array<string>; alignments?: Array<HorizontalAlignment>; compact?: boolean}) {
+    const constructor_options: TableConstructorOptions = {style: {head: [], compact}}
 
     constructor_options.head = headings.map((heading) => ansi_bold(heading))
     this.columns_total = headings.length
