@@ -14,7 +14,7 @@ export class TuiTable {
     headings,
     alignments,
     compact,
-  }: {headings: Array<string>; alignments?: Array<HorizontalAlignment>; compact?: boolean}) {
+  }: {headings: Array<string>; alignments?: Array<HorizontalAlignment>; compact: boolean}) {
     const constructor_options: TableConstructorOptions = {style: {head: [], compact}}
 
     constructor_options.head = headings.map((heading) => ansi_bold(heading))
