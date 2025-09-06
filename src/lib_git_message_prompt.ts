@@ -66,7 +66,7 @@ If there are a lot of changes, you will need to summarize even more.
 `.trim() + LF_LF
 
 const portion_extra = (extra_prompts: Array<string> | undefined): string => {
-  return extra_prompts && extra_prompts.length > 0 ? extra_prompts.map((s) => s.trim).join(LF) + LF_LF : EMPTY
+  return extra_prompts && extra_prompts.length > 0 ? extra_prompts.map((s) => s.trim()).join(LF) + LF_LF : EMPTY
 }
 
 const portion_final =
