@@ -75,7 +75,7 @@ Everything you write will be checked for validity and then saved directly to Git
 Therefore, you must just output the Git message itself without any introductory or concluding sections.
 `.trim() + LF_LF
 
-export function git_message_get_system_prompt({
+export function git_message_prompt_get_system({
   has_structured_json,
   inputs,
 }: {
@@ -95,7 +95,7 @@ export function git_message_get_system_prompt({
   return system_prompt.trim()
 }
 
-export function git_message_get_user_prompt({
+export function git_message_prompt_get_user({
   has_structured_json,
   inputs,
   max_length,
