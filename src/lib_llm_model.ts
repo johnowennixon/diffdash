@@ -464,7 +464,7 @@ export const LLM_MODEL_DETAILS = [
     provider_options: undefined,
   },
   {
-    llm_model_name: "kimi-k2@groq",
+    llm_model_name: "kimi-k2-0711@groq",
     llm_model_code: "moonshotai/kimi-k2",
     llm_api_code: "openrouter",
     context_window: 131_072,
@@ -476,7 +476,7 @@ export const LLM_MODEL_DETAILS = [
     provider_options: provider_options_openrouter({only: "groq"}),
   },
   {
-    llm_model_name: "kimi-k2@moonshotai",
+    llm_model_name: "kimi-k2-0711@moonshotai",
     llm_model_code: "moonshotai/kimi-k2",
     llm_api_code: "openrouter",
     context_window: 131_072,
@@ -486,6 +486,18 @@ export const LLM_MODEL_DETAILS = [
     has_structured_json: true,
     recommended_temperature: undefined,
     provider_options: provider_options_openrouter({only: "moonshotai"}),
+  },
+  {
+    llm_model_name: "kimi-k2-0905@groq",
+    llm_model_code: "moonshotai/kimi-k2-0905",
+    llm_api_code: "openrouter",
+    context_window: 262_144,
+    cents_input: 100,
+    cents_output: 300,
+    default_reasoning: false,
+    has_structured_json: false,
+    recommended_temperature: undefined,
+    provider_options: provider_options_openrouter({only: "groq"}),
   },
   {
     llm_model_name: "llama-4-maverick@cerebras",
