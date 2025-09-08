@@ -30,6 +30,7 @@ export const debug_channels = {
   path: false,
   kubectl: false,
   postgresql: false,
+  regex: false,
   rejects: false,
   retries: false,
   sql: false,
