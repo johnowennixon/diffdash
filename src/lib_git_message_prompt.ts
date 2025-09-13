@@ -1,5 +1,6 @@
 import {LF} from "./lib_char_control.js"
 import {EMPTY} from "./lib_char_empty.js"
+import {tell_warning} from "./lib_tell.js"
 
 const LF_LF = LF + LF
 
@@ -107,6 +108,10 @@ export function git_message_prompt_get_user({
   const {diffstat, diff} = inputs
 
   const truncate = diffstat.length + diff.length > max_length
+
+  if (truncate) {
+    tell_warning("The Diff is too long to fit in the user prompt - it is being truncated")
+  }
 
   const diff_truncated = truncate ? diff.slice(0, max_length - diffstat.length) + LF : diff
 

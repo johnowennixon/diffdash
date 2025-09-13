@@ -17,6 +17,8 @@ const regexp_identifier_exactly = createRegExp(
     oneOrMore(letter)
       .and(oneOrMore(digit))
       .and(oneOrMore(letter)),
+    // Only digits (no letters)
+    oneOrMore(digit),
   )
     .at.lineStart()
     .at.lineEnd(),
