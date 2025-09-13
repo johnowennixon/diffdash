@@ -9,13 +9,13 @@ const regexp_secret_global = createRegExp(oneOrMore(anyOf(letter, digit)), [glob
 
 const regexp_identifier_exactly = createRegExp(
   anyOf(
-    // Only letters (no digit)
+    // Only letters (no digits)
     oneOrMore(letter),
-    // Digit at the end
-    oneOrMore(letter).and(digit),
-    // Digit in the middle (letters before and after)
+    // Digits at the end
+    oneOrMore(letter).and(oneOrMore(digit)),
+    // Digits in the middle (letters before and after)
     oneOrMore(letter)
-      .and(digit)
+      .and(oneOrMore(digit))
       .and(oneOrMore(letter)),
   )
     .at.lineStart()
