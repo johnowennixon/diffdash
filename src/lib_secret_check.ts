@@ -59,6 +59,10 @@ export async function secret_check({text, interactive}: {text: string; interacti
       continue
     }
 
+    if (line.endsWith(" # secret") || line.endsWith(" // secret")) {
+      throw new Error(`Secret detected: ${tui_quote_smart_single(line.trim())}`)
+    }
+
     for (const word of words) {
       if (not_secret_words.has(word)) {
         continue
