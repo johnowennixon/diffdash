@@ -1,15 +1,26 @@
-import * as r from "magic-regexp"
+import {anyOf, createRegExp, digit, global, letter, oneOrMore} from "magic-regexp"
 
 import {ansi_yellow} from "./lib_ansi.js"
 import {text_split_lines} from "./lib_text.js"
 import {tui_confirm} from "./lib_tui_confirm.js"
 import {tui_quote_smart_single} from "./lib_tui_quote.js"
 
-const magic_letters = r.oneOrMore(r.anyOf(r.letter))
-const magic_word = r.oneOrMore(r.anyOf(r.letter, r.digit))
+const regexp_secret_global = createRegExp(oneOrMore(anyOf(letter, digit)), [global])
 
-const regexp_letters_exactly = r.createRegExp(magic_letters.at.lineStart().at.lineEnd())
-const regexp_words_global = r.createRegExp(magic_word, [r.global])
+const regexp_identifier_exactly = createRegExp(
+  anyOf(
+    // Only letters (no digit)
+    oneOrMore(letter),
+    // Digit at the end
+    oneOrMore(letter).and(digit),
+    // Digit in the middle (letters before and after)
+    oneOrMore(letter)
+      .and(digit)
+      .and(oneOrMore(letter)),
+  )
+    .at.lineStart()
+    .at.lineEnd(),
+)
 
 const non_secrets = ["http://", "https://"]
 
@@ -33,7 +44,7 @@ export async function secret_check({text, interactive}: {text: string; interacti
   const lines = text_split_lines(text)
 
   for (const line of lines.toReversed()) {
-    const words = line.match(regexp_words_global)
+    const words = line.match(regexp_secret_global)
 
     if (!words) {
       continue
@@ -51,11 +62,11 @@ export async function secret_check({text, interactive}: {text: string; interacti
         continue
       }
 
-      if (word.length < 20) {
+      if (regexp_identifier_exactly.test(word)) {
         continue
       }
 
-      if (word.length <= 43 && regexp_letters_exactly.test(word)) {
+      if (word.length < 20) {
         continue
       }
 
