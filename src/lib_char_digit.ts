@@ -8,3 +8,5 @@ export const DIGIT_6 = "6"
 export const DIGIT_7 = "7"
 export const DIGIT_8 = "8"
 export const DIGIT_9 = "9"
+
+export const DIGITS = "0123456789"

@@ -116,6 +116,10 @@ Provides prompts for generating Git commit messages in a conversational style. F
 
 Provides a way to structure and validate Git commit messages. Defines a schema for a summary line and additional details. Formats the message with proper spacing and bullet points for extra lines.
 
+### src/lib_git_message_secret.ts
+
+Checks lines of text for potential secrets by examining long words that are not marked as safe or containing certain URL patterns. Asks the user to confirm if a suspicious word is a secret and throws an error if confirmed. Helps prevent accidental inclusion of secret data in Git messages or diffs.
+
 ### src/lib_git_message_validate.ts
 
 Checks if a Git commit message meets specific formatting rules. Ensures the message is not too short or too long and follows a structured format with bullet points. Reports validation failures with clear reasons for rejection.
@@ -187,6 +191,10 @@ Defines types for working with strings in various ways. Includes types for maps,
 ### src/lib_tell.ts
 
 Provides colored output for messages with optional timestamps. Supports different message types like errors, warnings, and success notifications. Silently ignores messages if configured or outputs them to standard error.
+
+### src/lib_text.ts
+
+Provides tools for splitting and joining text into lines, handling empty lines gracefully. Filters lines based on patterns, either keeping or removing matches. Uses simple operations to process text without modifying the original content.
 
 ### src/lib_tui_block.ts
 

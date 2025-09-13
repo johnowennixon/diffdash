@@ -1,0 +1,1 @@
+Provides tools for splitting and joining text into lines, handling empty lines gracefully. Filters lines based on patterns, either keeping or removing matches. Uses simple operations to process text without modifying the original content.

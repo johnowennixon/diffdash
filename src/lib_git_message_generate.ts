@@ -49,7 +49,7 @@ async function git_message_generate_structured({
   return {generated_text, reasoning_text: undefined, total_usage, provider_metadata}
 }
 
-export async function git_message_generate_string({
+async function git_message_generate_outputs({
   llm_config,
   inputs,
 }: {
@@ -96,7 +96,7 @@ export async function git_message_generate_result({
   duration.start()
 
   try {
-    const outputs = await git_message_generate_string({llm_config, inputs})
+    const outputs = await git_message_generate_outputs({llm_config, inputs})
 
     duration.stop()
     const seconds = duration.seconds_rounded()

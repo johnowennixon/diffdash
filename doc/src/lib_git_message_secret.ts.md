@@ -1,0 +1,1 @@
+Checks lines of text for potential secrets by examining long words that are not marked as safe or containing certain URL patterns. Asks the user to confirm if a suspicious word is a secret and throws an error if confirmed. Helps prevent accidental inclusion of secret data in Git messages or diffs.

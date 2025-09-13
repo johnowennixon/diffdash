@@ -8,6 +8,7 @@ import {git_message_display} from "./lib_git_message_display.js"
 import type {GitMessageGenerateResult} from "./lib_git_message_generate.js"
 import {git_message_generate_result} from "./lib_git_message_generate.js"
 import type {GitMessagePromptInputs} from "./lib_git_message_prompt.js"
+import {git_message_secret_check} from "./lib_git_message_secret.js"
 import {git_message_validate_check, git_message_validate_get_result} from "./lib_git_message_validate.js"
 import type {SimpleGit} from "./lib_git_simple_open.js"
 import {git_simple_open_check_not_bare, git_simple_open_git_repo} from "./lib_git_simple_open.js"
@@ -130,16 +131,22 @@ async function phase_status({config, git}: {config: DiffDashConfig; git: SimpleG
 async function phase_compare({config, git}: {config: DiffDashConfig; git: SimpleGit}): Promise<void> {
   const {silent} = config
 
-  if (!silent) {
-    tell_action("Generating Git commit messages using all models in parallel")
-  }
-
   const {all_llm_configs, add_prefix, add_suffix, extra_prompts} = config
 
   const diffstat = await git_simple_staging_get_staged_diffstat(git)
   const diff = await git_simple_staging_get_staged_diff(git)
 
   const inputs: GitMessagePromptInputs = {diffstat, diff, extra_prompts}
+
+  try {
+    await git_message_secret_check({inputs})
+  } catch {
+    abort_with_error("Aborting: secret detected")
+  }
+
+  if (!silent) {
+    tell_action("Generating Git commit messages using all models in parallel")
+  }
 
   const result_promises = all_llm_configs.map((llm_config) => git_message_generate_result({llm_config, inputs}))
 
@@ -179,14 +186,20 @@ async function phase_generate({config, git}: {config: DiffDashConfig; git: Simpl
 
   const {llm_model_name} = llm_config
 
-  if (!silent && !just_output) {
-    tell_action(`Generating the Git commit message using ${llm_model_name}`)
-  }
-
   const diffstat = await git_simple_staging_get_staged_diffstat(git)
   const diff = await git_simple_staging_get_staged_diff(git)
 
   const inputs: GitMessagePromptInputs = {diffstat, diff, extra_prompts}
+
+  try {
+    await git_message_secret_check({inputs})
+  } catch {
+    abort_with_error("Aborting: secret detected")
+  }
+
+  if (!silent && !just_output) {
+    tell_action(`Generating the Git commit message using ${llm_model_name}`)
+  }
 
   const result: GitMessageGenerateResult = await git_message_generate_result({llm_config, inputs})
 
