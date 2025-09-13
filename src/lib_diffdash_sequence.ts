@@ -3,7 +3,7 @@ import {ansi_blue} from "./lib_ansi.js"
 import {debug_channels, debug_inspect} from "./lib_debug.js"
 import {diffdash_add_footer, diffdash_add_prefix_or_suffix} from "./lib_diffdash_add.js"
 import type {DiffDashConfig} from "./lib_diffdash_config.js"
-import {error_get_text} from "./lib_error.js"
+import {error_get_message, error_get_text} from "./lib_error.js"
 import {git_message_display} from "./lib_git_message_display.js"
 import type {GitMessageGenerateResult} from "./lib_git_message_generate.js"
 import {git_message_generate_result} from "./lib_git_message_generate.js"
@@ -138,8 +138,8 @@ async function phase_compare({config, git}: {config: DiffDashConfig; git: Simple
 
   try {
     await secret_check({text: diff, interactive: true})
-  } catch {
-    abort_with_error("Aborting: secret detected")
+  } catch (error) {
+    abort_with_error(`Aborting: ${error_get_message(error)}`)
   }
 
   const inputs: GitMessagePromptInputs = {diffstat, diff, extra_prompts}
@@ -191,8 +191,8 @@ async function phase_generate({config, git}: {config: DiffDashConfig; git: Simpl
 
   try {
     await secret_check({text: diff, interactive: true})
-  } catch {
-    abort_with_error("Aborting: secret detected")
+  } catch (error) {
+    abort_with_error(`Aborting: ${error_get_message(error)}`)
   }
 
   const inputs: GitMessagePromptInputs = {diffstat, diff, extra_prompts}
