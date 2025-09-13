@@ -22,15 +22,15 @@ const regexp_identifier_exactly = createRegExp(
     .at.lineEnd(),
 )
 
-const non_secrets = ["http://", "https://"]
+const NOT_SECRET_LINE_INCLUDES = ["http://", "https://"]
 
 function is_not_secret_line(line: string): boolean {
   if (line.endsWith(" not secret")) {
     return true
   }
 
-  for (const non_secret of non_secrets) {
-    if (line.includes(non_secret)) {
+  for (const not_secret_line_include of NOT_SECRET_LINE_INCLUDES) {
+    if (line.includes(not_secret_line_include)) {
       return true
     }
   }
