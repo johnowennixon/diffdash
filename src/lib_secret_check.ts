@@ -1,7 +1,6 @@
 import * as r from "magic-regexp"
 
 import {ansi_yellow} from "./lib_ansi.js"
-import type {GitMessagePromptInputs} from "./lib_git_message_prompt.js"
 import {text_split_lines} from "./lib_text.js"
 import {tui_confirm} from "./lib_tui_confirm.js"
 import {tui_quote_smart_single} from "./lib_tui_quote.js"
@@ -28,10 +27,10 @@ function is_not_secret_line(line: string): boolean {
   return false
 }
 
-export async function git_message_secret_check({inputs}: {inputs: GitMessagePromptInputs}): Promise<void> {
+export async function secret_check({text, interactive}: {text: string; interactive: boolean}): Promise<void> {
   const not_secret_words: Set<string> = new Set()
 
-  const lines = text_split_lines(inputs.diff)
+  const lines = text_split_lines(text)
 
   for (const line of lines.toReversed()) {
     const words = line.match(regexp_words_global)
@@ -60,15 +59,17 @@ export async function git_message_secret_check({inputs}: {inputs: GitMessageProm
         continue
       }
 
-      const confirmed_is_secret = await tui_confirm({
-        question: `Is ${tui_quote_smart_single(word)} a secret?`,
-        default: false,
-        style_message: ansi_yellow,
-      })
+      if (interactive) {
+        const confirmed_is_secret = await tui_confirm({
+          question: `Is ${tui_quote_smart_single(word)} a secret?`,
+          default: false,
+          style_message: ansi_yellow,
+        })
 
-      if (!confirmed_is_secret) {
-        not_secret_words.add(word)
-        continue
+        if (!confirmed_is_secret) {
+          not_secret_words.add(word)
+          continue
+        }
       }
 
       throw new Error(`Secret detected: ${tui_quote_smart_single(word)}`)
