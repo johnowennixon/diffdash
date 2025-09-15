@@ -13,15 +13,10 @@ type CliPredicate = StringPredicate
 
 type CliOptions = ArgumentOptions & {positional?: boolean; predicate?: CliPredicate}
 
-type CliCommandSync = (pa: unknown) => void
-type CliCommandAsync = (pa: unknown) => Promise<void>
-
 type CliGeneric<V> = {
   kind: CliKind
   options: CliOptions
   value: V
-  command_sync?: CliCommandSync
-  command_async?: CliCommandAsync
 }
 
 type CliSchema = {[key: string]: CliGeneric<unknown>}
@@ -58,14 +53,6 @@ export function cli_integer_always(options: CliOptions = {}): CliIntegerAlways {
 
 export function cli_boolean(options: CliOptions = {}): CliBoolean {
   return {kind: "boolean", options, value: false}
-}
-
-export function cli_command_sync(command_sync: CliCommandSync, options: CliOptions = {}): CliBoolean {
-  return {kind: "boolean", options, value: false, command_sync}
-}
-
-export function cli_command_async(command_async: CliCommandAsync, options: CliOptions = {}): CliBoolean {
-  return {kind: "boolean", options, value: false, command_async}
 }
 
 export function cli_choice_optional<C>(options: CliOptions = {}): CliChoiceOptional<C> {
@@ -248,70 +235,6 @@ function cli_recursive_parse<U extends CliSchema>({
   return result as CliParsedArgs<U>
 }
 
-function cli_recursive_despatch_sync<U extends CliSchema, T extends CliSchema>({
-  schema,
-  namespace,
-  parsed_args,
-}: {
-  schema: U
-  namespace: Namespace
-  parsed_args: CliParsedArgs<T>
-}): void {
-  for (const key in schema) {
-    if (!Object.hasOwn(schema, key)) {
-      continue
-    }
-
-    const cli = schema[key]
-    if (!cli) {
-      continue
-    }
-
-    if (cli.kind === "meg") {
-      const nested_schema = cli.value as CliSchema
-      cli_recursive_despatch_sync({schema: nested_schema, namespace, parsed_args})
-    } else if (cli.kind === "boolean") {
-      if (namespace[key] as boolean) {
-        if (cli.command_sync) {
-          cli.command_sync(parsed_args)
-        }
-      }
-    }
-  }
-}
-
-async function cli_recursive_despatch_async<U extends CliSchema, T extends CliSchema>({
-  schema,
-  namespace,
-  parsed_args,
-}: {
-  schema: U
-  namespace: Namespace
-  parsed_args: CliParsedArgs<T>
-}): Promise<void> {
-  for (const key in schema) {
-    if (!Object.hasOwn(schema, key)) {
-      continue
-    }
-
-    const cli = schema[key]
-    if (!cli) {
-      continue
-    }
-
-    if (cli.kind === "meg") {
-      const nested_schema = cli.value as CliSchema
-      await cli_recursive_despatch_async({schema: nested_schema, namespace, parsed_args})
-    } else if (cli.kind === "boolean") {
-      if (namespace[key] as boolean) {
-        if (cli.command_async) {
-          await cli.command_async(parsed_args)
-        }
-      }
-    }
-  }
-}
-
 export function cli_make_parser<T extends CliSchema>({
   cli_schema,
   description,
@@ -320,8 +243,6 @@ export function cli_make_parser<T extends CliSchema>({
   description: string
 }): {
   parsed_args: CliParsedArgs<T>
-  despatch_sync: () => void
-  despatch_async: () => Promise<void>
 } {
   const argument_parser_options = {description, allow_abbrev: false} as unknown as ArgumentParserOptions
 
@@ -335,13 +256,5 @@ export function cli_make_parser<T extends CliSchema>({
 
   const parsed_args = cli_recursive_parse({schema: cli_schema, namespace})
 
-  function despatch_sync(): void {
-    cli_recursive_despatch_sync({schema: cli_schema, namespace, parsed_args})
-  }
-
-  async function despatch_async(): Promise<void> {
-    await cli_recursive_despatch_async({schema: cli_schema, namespace, parsed_args})
-  }
-
-  return {parsed_args, despatch_sync, despatch_async}
+  return {parsed_args}
 }
