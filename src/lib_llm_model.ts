@@ -524,6 +524,18 @@ export const LLM_MODEL_DETAILS = [
     provider_options: provider_options_openrouter({only: "cerebras"}),
   },
   {
+    llm_model_name: "longcat-flash",
+    llm_model_code: "meituan/longcat-flash-chat",
+    llm_api_code: "openrouter",
+    context_window: 131_072,
+    cents_input: 15,
+    cents_output: 75,
+    default_reasoning: false,
+    has_structured_json: true,
+    recommended_temperature: undefined,
+    provider_options: undefined,
+  },
+  {
     llm_model_name: "mercury",
     llm_model_code: "inception/mercury",
     llm_api_code: "openrouter",
@@ -606,6 +618,18 @@ export const LLM_MODEL_DETAILS = [
     has_structured_json: true,
     recommended_temperature: undefined,
     provider_options: provider_options_openrouter({only: "cerebras"}),
+  },
+  {
+    llm_model_name: "qwen-plus@alibaba",
+    llm_model_code: "qwen/qwen-plus-2025-07-28",
+    llm_api_code: "openrouter",
+    context_window: 1_000_000,
+    cents_input: 40,
+    cents_output: 120,
+    default_reasoning: false,
+    has_structured_json: true,
+    recommended_temperature: undefined,
+    provider_options: provider_options_openrouter({only: "alibaba"}),
   },
 ] as const satisfies Array<LlmModelDetail>
 
