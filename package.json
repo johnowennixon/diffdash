@@ -43,19 +43,19 @@
   },
   "dependencies": {
     "@ai-sdk/anthropic": "2.0.17",
-    "@ai-sdk/deepseek": "1.0.17",
+    "@ai-sdk/deepseek": "1.0.18",
     "@ai-sdk/google": "2.0.14",
-    "@ai-sdk/openai": "2.0.30",
+    "@ai-sdk/openai": "2.0.32",
     "@inquirer/prompts": "7.8.6",
     "@openrouter/ai-sdk-provider": "1.2.0",
-    "ai": "5.0.44",
+    "ai": "5.0.48",
     "ansis": "4.1.0",
     "argparse": "2.0.1",
     "cli-table3": "0.6.5",
     "json5": "2.2.3",
     "magic-regexp": "0.10.0",
     "simple-git": "3.28.0",
-    "zod": "4.1.8"
+    "zod": "4.1.11"
   },
   "devDependencies": {
     "@biomejs/biome": "2.2.4",
@@ -63,12 +63,12 @@
     "@johnowennixon/add-shebangs": "1.1.0",
     "@johnowennixon/chmodx": "2.1.0",
     "@types/argparse": "2.0.17",
-    "@types/node": "24.4.0",
+    "@types/node": "24.5.2",
     "@typescript/native-preview": "7.0.0-dev.20250915.1",
     "knip": "5.63.1",
     "markdownlint-cli2": "0.18.1",
     "npm-run-all2": "8.0.4",
-    "oxlint": "1.15.0",
+    "oxlint": "1.16.0",
     "rimraf": "6.0.1",
     "typescript": "5.9.2"
   }
