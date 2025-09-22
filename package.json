@@ -6,7 +6,7 @@
   "author": "John Owen Nixon",
   "repository": {
     "type": "git",
-    "url": "https://github.com/johnowennixon/diffdash.git"
+    "url": "git+https://github.com/johnowennixon/diffdash.git"
   },
   "engines": {
     "node": ">=20"
