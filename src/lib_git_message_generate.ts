@@ -16,12 +16,14 @@ async function git_message_generate_unstructured({
   llm_config,
   system_prompt,
   user_prompt,
+  max_output_tokens,
 }: {
   llm_config: LlmConfig
   system_prompt: string
   user_prompt: string
+  max_output_tokens: number
 }): Promise<LlmChatGenerateTextOutputs> {
-  const outputs = await llm_chat_generate_text({llm_config, system_prompt, user_prompt})
+  const outputs = await llm_chat_generate_text({llm_config, system_prompt, user_prompt, max_output_tokens})
 
   return outputs
 }
@@ -30,10 +32,12 @@ async function git_message_generate_structured({
   llm_config,
   system_prompt,
   user_prompt,
+  max_output_tokens,
 }: {
   llm_config: LlmConfig
   system_prompt: string
   user_prompt: string
+  max_output_tokens: number
 }): Promise<LlmChatGenerateTextOutputs> {
   const schema = git_message_schema
 
@@ -41,6 +45,7 @@ async function git_message_generate_structured({
     llm_config,
     system_prompt,
     user_prompt,
+    max_output_tokens,
     schema,
   })
 
@@ -72,11 +77,13 @@ async function git_message_generate_outputs({
     max_length: user_length,
   })
 
+  const max_output_tokens = 10_000
+
   llm_tokens_debug_usage({name: "Inputs", llm_config, text: system_prompt + user_prompt})
 
   const outputs = has_structured_json
-    ? await git_message_generate_structured({llm_config, system_prompt, user_prompt})
-    : await git_message_generate_unstructured({llm_config, system_prompt, user_prompt})
+    ? await git_message_generate_structured({llm_config, system_prompt, user_prompt, max_output_tokens})
+    : await git_message_generate_unstructured({llm_config, system_prompt, user_prompt, max_output_tokens})
 
   llm_tokens_debug_usage({name: "Outputs", llm_config, text: outputs.generated_text})
 

@@ -20,7 +20,7 @@ type LlmChatParameters = {
 function llm_chat_get_parameters(): LlmChatParameters {
   return {
     max_output_tokens: parse_int_or_undefined(env_get_empty("lib_llm_chat_max_output_tokens")),
-    timeout: parse_int(env_get_substitute("lib_llm_chat_timeout", "60")),
+    timeout: parse_int(env_get_substitute("lib_llm_chat_timeout", "90")),
   }
 }
 
@@ -54,6 +54,7 @@ export async function llm_chat_generate_text({
   llm_config,
   system_prompt,
   user_prompt,
+  max_output_tokens,
   tools,
   max_steps,
   min_steps,
@@ -61,6 +62,7 @@ export async function llm_chat_generate_text({
   llm_config: LlmConfig
   system_prompt?: string | undefined
   user_prompt: string
+  max_output_tokens: number | undefined
   tools?: ToolSet
   max_steps?: number
   min_steps?: number
@@ -79,7 +81,7 @@ export async function llm_chat_generate_text({
 
   const temperature = recommended_temperature
 
-  const {max_output_tokens, timeout} = llm_chat_get_parameters()
+  const {timeout, max_output_tokens: max_output_tokens_env} = llm_chat_get_parameters()
 
   const llm_inputs = {
     model: ai_sdk_language_model,
@@ -87,7 +89,7 @@ export async function llm_chat_generate_text({
     prompt: user_prompt,
     tools,
     stopWhen: max_steps === undefined ? undefined : stepCountIs(max_steps),
-    maxOutputTokens: max_output_tokens,
+    maxOutputTokens: max_output_tokens_env ?? max_output_tokens,
     temperature,
     providerOptions: provider_options,
     abortSignal: AbortSignal.timeout(timeout * 1000),
@@ -138,16 +140,18 @@ export async function llm_chat_generate_text_result({
   llm_config,
   system_prompt,
   user_prompt,
+  max_output_tokens,
 }: {
   llm_config: LlmConfig
   system_prompt?: string | undefined
   user_prompt: string
+  max_output_tokens: number | undefined
 }): Promise<LlmChatGenerateTextResult> {
   const duration = new Duration()
   duration.start()
 
   try {
-    const outputs = await llm_chat_generate_text({llm_config, system_prompt, user_prompt})
+    const outputs = await llm_chat_generate_text({llm_config, system_prompt, user_prompt, max_output_tokens})
 
     duration.stop()
     const seconds = duration.seconds_rounded()
@@ -172,11 +176,13 @@ export async function llm_chat_generate_object<T>({
   llm_config,
   user_prompt,
   system_prompt,
+  max_output_tokens,
   schema,
 }: {
   llm_config: LlmConfig
   user_prompt: string
   system_prompt: string | undefined
+  max_output_tokens: number | undefined
   schema: ZodType<T>
 }): Promise<LlmChatGenerateObjectOutputs<T>> {
   const {llm_model_name, llm_model_detail, llm_model_code, llm_api_code, llm_api_key} = llm_config
@@ -193,7 +199,7 @@ export async function llm_chat_generate_object<T>({
 
   const temperature = recommended_temperature
 
-  const {max_output_tokens, timeout} = llm_chat_get_parameters()
+  const {timeout, max_output_tokens: max_output_tokens_env} = llm_chat_get_parameters()
 
   const llm_inputs = {
     model: ai_sdk_language_model,
@@ -201,7 +207,7 @@ export async function llm_chat_generate_object<T>({
     prompt: user_prompt,
     output: "object" as const,
     schema,
-    maxOutputTokens: max_output_tokens,
+    maxOutputTokens: max_output_tokens_env ?? max_output_tokens,
     temperature,
     providerOptions: provider_options,
     abortSignal: AbortSignal.timeout(timeout * 1000),
