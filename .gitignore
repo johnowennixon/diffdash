@@ -15,6 +15,7 @@ QWEN.md
 
 # TypeScript
 dist/
+lib/
 node_modules/
 out/
 test.*/
