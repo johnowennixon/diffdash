@@ -130,7 +130,8 @@
         "noGlobalIsNan": "error",
         "noImplicitAnyLet": "error",
         "noRedeclare": "error",
-        "useAwait": "off"
+        "useAwait": "off",
+        "useIterableCallbackReturn": "off"
       }
     }
   }
