@@ -77,11 +77,21 @@ export async function llm_chat_generate_text({
     llm_api_key,
   })
 
-  const {recommended_temperature, provider_options} = llm_model_detail
+  const {recommended_temperature, provider_options, max_output_tokens: max_output_tokens_model} = llm_model_detail
 
   const temperature = recommended_temperature
 
   const {timeout, max_output_tokens: max_output_tokens_env} = llm_chat_get_parameters()
+
+  if (max_output_tokens_env !== undefined) {
+    max_output_tokens = max_output_tokens_env
+  }
+
+  if (max_output_tokens === undefined) {
+    max_output_tokens = max_output_tokens_model
+  } else {
+    max_output_tokens = Math.min(max_output_tokens, max_output_tokens_model)
+  }
 
   const llm_inputs = {
     model: ai_sdk_language_model,
@@ -89,7 +99,7 @@ export async function llm_chat_generate_text({
     prompt: user_prompt,
     tools,
     stopWhen: max_steps === undefined ? undefined : stepCountIs(max_steps),
-    maxOutputTokens: max_output_tokens_env ?? max_output_tokens,
+    maxOutputTokens: max_output_tokens,
     temperature,
     providerOptions: provider_options,
     abortSignal: AbortSignal.timeout(timeout * 1000),
