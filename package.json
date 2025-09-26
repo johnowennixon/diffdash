@@ -64,11 +64,11 @@
     "@johnowennixon/chmodx": "2.1.0",
     "@types/argparse": "2.0.17",
     "@types/node": "24.5.2",
-    "@typescript/native-preview": "7.0.0-dev.20250915.1",
+    "@typescript/native-preview": "7.0.0-dev.20250925.1",
     "knip": "5.63.1",
     "markdownlint-cli2": "0.18.1",
     "npm-run-all2": "8.0.4",
-    "oxlint": "1.16.0",
+    "oxlint": "1.18.0",
     "rimraf": "6.0.1",
     "typescript": "5.9.2"
   }
