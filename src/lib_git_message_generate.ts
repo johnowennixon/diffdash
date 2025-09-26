@@ -77,7 +77,7 @@ async function git_message_generate_outputs({
     max_length: user_length,
   })
 
-  const max_output_tokens = 10_000
+  const max_output_tokens = 8192 // This is the maximum for some models
 
   llm_tokens_debug_usage({name: "Inputs", llm_config, text: system_prompt + user_prompt})
 
