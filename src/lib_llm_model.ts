@@ -121,6 +121,32 @@ export const LLM_MODEL_DETAILS = [
     provider_options: provider_options_anthropic({thinking: true}),
   },
   {
+    llm_model_name: "claude-sonnet-4.5",
+    llm_model_code: "claude-sonnet-4-5",
+    llm_api_code: "anthropic",
+    context_window: 1_000_000,
+    max_output_tokens: 64_000,
+    cents_input: 300, // for input tokens <= 200K
+    cents_output: 1500, // for input tokens <= 200K
+    default_reasoning: false,
+    has_structured_json: true,
+    recommended_temperature: undefined,
+    provider_options: provider_options_anthropic({thinking: false}),
+  },
+  {
+    llm_model_name: "claude-sonnet-4.5-thinking",
+    llm_model_code: "claude-sonnet-4-5",
+    llm_api_code: "anthropic",
+    context_window: 1_000_000,
+    max_output_tokens: 62_976, // = 64000 - 1024 used for reasoning
+    cents_input: 300, // for input tokens <= 200K
+    cents_output: 1500, // for input tokens <= 200K
+    default_reasoning: false,
+    has_structured_json: true,
+    recommended_temperature: undefined,
+    provider_options: provider_options_anthropic({thinking: true}),
+  },
+  {
     llm_model_name: "codestral-2508",
     llm_model_code: "mistralai/codestral-2508",
     llm_api_code: "openrouter",
@@ -258,6 +284,19 @@ export const LLM_MODEL_DETAILS = [
     max_output_tokens: 96_000,
     cents_input: 20,
     cents_output: 110,
+    default_reasoning: true,
+    has_structured_json: false,
+    recommended_temperature: undefined,
+    provider_options: provider_options_openrouter({only: "z-ai"}),
+  },
+  {
+    llm_model_name: "glm-4.6@z-ai",
+    llm_model_code: "z-ai/glm-4.6",
+    llm_api_code: "openrouter",
+    context_window: 128_000,
+    max_output_tokens: 96_000,
+    cents_input: 60,
+    cents_output: 220,
     default_reasoning: true,
     has_structured_json: false,
     recommended_temperature: undefined,
