@@ -87,11 +87,8 @@ export async function llm_chat_generate_text({
     max_output_tokens = max_output_tokens_env
   }
 
-  if (max_output_tokens === undefined) {
-    max_output_tokens = max_output_tokens_model
-  } else {
-    max_output_tokens = Math.min(max_output_tokens, max_output_tokens_model)
-  }
+  max_output_tokens =
+    max_output_tokens === undefined ? max_output_tokens_model : Math.min(max_output_tokens, max_output_tokens_model)
 
   const llm_inputs = {
     model: ai_sdk_language_model,
