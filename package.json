@@ -42,14 +42,14 @@
     "test": "run-s -ls lint build"
   },
   "dependencies": {
-    "@ai-sdk/anthropic": "2.0.17",
-    "@ai-sdk/deepseek": "1.0.18",
-    "@ai-sdk/google": "2.0.14",
-    "@ai-sdk/openai": "2.0.32",
+    "@ai-sdk/anthropic": "2.0.23",
+    "@ai-sdk/deepseek": "1.0.20",
+    "@ai-sdk/google": "2.0.17",
+    "@ai-sdk/openai": "2.0.42",
     "@inquirer/prompts": "7.8.6",
     "@openrouter/ai-sdk-provider": "1.2.0",
-    "ai": "5.0.48",
-    "ansis": "4.1.0",
+    "ai": "5.0.60",
+    "ansis": "4.2.0",
     "argparse": "2.0.1",
     "cli-table3": "0.6.5",
     "json5": "2.2.3",
@@ -58,7 +58,7 @@
     "zod": "4.1.11"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.2.4",
+    "@biomejs/biome": "2.2.5",
     "@candide/tsgolint": "1.4.0",
     "@johnowennixon/add-shebangs": "1.1.0",
     "@johnowennixon/chmodx": "2.1.0",
@@ -68,8 +68,8 @@
     "knip": "5.63.1",
     "markdownlint-cli2": "0.18.1",
     "npm-run-all2": "8.0.4",
-    "oxlint": "1.18.0",
+    "oxlint": "1.19.0",
     "rimraf": "6.0.1",
-    "typescript": "5.9.2"
+    "typescript": "5.9.3"
   }
 }

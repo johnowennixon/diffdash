@@ -1,5 +1,5 @@
 import type {AnthropicProviderOptions} from "@ai-sdk/anthropic"
-import type {OpenAIProviderOptions} from "@ai-sdk/openai/internal"
+import type {OpenAIChatLanguageModelOptions} from "@ai-sdk/openai"
 import type {OpenRouterChatSettings} from "@openrouter/ai-sdk-provider/internal"
 
 import {abort_with_error} from "./lib_abort.js"
@@ -39,7 +39,7 @@ function provider_options_openai({
   return {
     openai: {
       reasoningEffort: reasoning_effort,
-    } satisfies OpenAIProviderOptions,
+    } satisfies OpenAIChatLanguageModelOptions,
   }
 }
 
