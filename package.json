@@ -1,6 +1,6 @@
 {
   "name": "@johnowennixon/diffdash",
-  "version": "1.9.0",
+  "version": "1.10.0",
   "description": "A command-line tool to generate Git commit messages using AI",
   "license": "0BSD",
   "author": "John Owen Nixon",
