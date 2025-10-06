@@ -14,9 +14,6 @@ const diffdash_cli_schema = {
   disable_commit: cli_boolean({help: "disable committing changes - exit after generating the message"}),
   disable_push: cli_boolean({help: "disable pushing changes - exit after making the commit"}),
 
-  no_verify: cli_boolean({help: "bypass git hooks when committing or pushing to Git"}),
-  force: cli_boolean({help: "apply force when pushing to Git"}),
-
   add_prefix: cli_string({help: "add a prefix to the commit message summary line", metavar: "PREFIX"}),
   add_suffix: cli_string({help: "add a suffix to the commit message summary line", metavar: "SUFFIX"}),
 
@@ -28,6 +25,10 @@ const diffdash_cli_schema = {
     default: diffdash_llm_model_default,
   }),
   llm_excludes: cli_string({help: "models to exclude from comparison (comma separated)", metavar: "MODELS"}),
+
+  no_secret_check: cli_boolean({help: "bypass checking for secrets in diffs"}),
+  no_verify: cli_boolean({help: "bypass git hooks when committing or pushing to Git"}),
+  force: cli_boolean({help: "apply force when pushing to Git"}),
 
   just_output: cli_boolean({help: "just output the commit message for use in scripts"}),
 

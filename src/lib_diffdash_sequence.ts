@@ -131,15 +131,17 @@ async function phase_status({config, git}: {config: DiffDashConfig; git: SimpleG
 async function phase_compare({config, git}: {config: DiffDashConfig; git: SimpleGit}): Promise<void> {
   const {silent} = config
 
-  const {all_llm_configs, add_prefix, add_suffix, extra_prompts} = config
+  const {all_llm_configs, add_prefix, add_suffix, no_secret_check, extra_prompts} = config
 
   const diffstat = await git_simple_staging_get_staged_diffstat(git)
   const diff = await git_simple_staging_get_staged_diff(git)
 
-  try {
-    await secret_check({text: diff, interactive: true})
-  } catch (error) {
-    abort_with_error(`Aborting: ${error_get_message(error)}`)
+  if (!no_secret_check) {
+    try {
+      await secret_check({text: diff, interactive: true})
+    } catch (error) {
+      abort_with_error(`Aborting: ${error_get_message(error)}`)
+    }
   }
 
   const inputs: GitMessagePromptInputs = {diffstat, diff, extra_prompts}
@@ -182,17 +184,20 @@ async function phase_compare({config, git}: {config: DiffDashConfig; git: Simple
 }
 
 async function phase_generate({config, git}: {config: DiffDashConfig; git: SimpleGit}): Promise<string> {
-  const {disable_preview, add_prefix, add_suffix, llm_config, just_output, silent, extra_prompts} = config
+  const {disable_preview, add_prefix, add_suffix, llm_config, no_secret_check, just_output, silent, extra_prompts} =
+    config
 
   const {llm_model_name} = llm_config
 
   const diffstat = await git_simple_staging_get_staged_diffstat(git)
   const diff = await git_simple_staging_get_staged_diff(git)
 
-  try {
-    await secret_check({text: diff, interactive: true})
-  } catch (error) {
-    abort_with_error(`Aborting: ${error_get_message(error)}`)
+  if (!no_secret_check) {
+    try {
+      await secret_check({text: diff, interactive: true})
+    } catch (error) {
+      abort_with_error(`Aborting: ${error_get_message(error)}`)
+    }
   }
 
   const inputs: GitMessagePromptInputs = {diffstat, diff, extra_prompts}

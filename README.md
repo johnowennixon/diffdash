@@ -131,12 +131,13 @@ All command-line arguments are optional.
 | `--disable-push` | disable pushing changes - exit after making the commit |
 | `--add-prefix PREFIX` | add a prefix to the commit message summary line |
 | `--add-suffix SUFFIX` | add a suffix to the commit message summary line |
-| `--no-verify` | bypass git hooks when committing or pushing to Git |
-| `--force` | apply force when pushing to Git |
 | `--llm-list` | display a list of available Large Language Models and exit |
 | `--llm-compare` | compare the generated messages from all models - but do not commit |
 | `--llm-model MODEL` | choose the LLM model by name (the default is normally best) |
 | `--llm-excludes MODELS` | models to exclude from comparison (comma separated) |
+| `--no-secret-check` | bypass checking for secrets in diffs |
+| `--no-verify` | bypass git hooks when committing or pushing to Git |
+| `--force` | apply force when pushing to Git |
 | `--just-output` | just output the commit message for use in scripts |
 | `--silent` | suppress all normal output - errors and aborts still display |
 | `--debug-llm-prompts` | show prompts sent to the LLM |
@@ -152,6 +153,8 @@ Files containing secrets should not be in Git. But if they are, you can add an e
 
 .env  -diff
 ```
+
+There is a rudimentary check for secrets in diffs before submitting to the LLM. If any are found, there is an interactive option to ignore. If you want to bypass this check, you can use the `--no-secret-check` flag.
 
 ## Development
 
