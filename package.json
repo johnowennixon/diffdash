@@ -42,8 +42,8 @@
     "test": "run-s -ls lint build"
   },
   "dependencies": {
-    "@ai-sdk/anthropic": "2.0.23",
-    "@ai-sdk/deepseek": "1.0.20",
+    "@ai-sdk/anthropic": "2.0.25",
+    "@ai-sdk/deepseek": "1.0.21",
     "@ai-sdk/google": "2.0.17",
     "@ai-sdk/openai": "2.0.42",
     "@inquirer/prompts": "7.8.6",
@@ -55,7 +55,7 @@
     "json5": "2.2.3",
     "magic-regexp": "0.10.0",
     "simple-git": "3.28.0",
-    "zod": "4.1.11"
+    "zod": "4.1.12"
   },
   "devDependencies": {
     "@biomejs/biome": "2.2.5",
@@ -68,7 +68,7 @@
     "knip": "5.63.1",
     "markdownlint-cli2": "0.18.1",
     "npm-run-all2": "8.0.4",
-    "oxlint": "1.19.0",
+    "oxlint": "1.22.0",
     "rimraf": "6.0.1",
     "typescript": "5.9.3"
   }
