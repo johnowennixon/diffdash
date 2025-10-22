@@ -1,8 +1,10 @@
 minimumReleaseAge: 1440
+
 minimumReleaseAgeExclude:
-  - "@candide/*"
-  - "@johnowennixon/*"
-  - "@typescript/native-preview*"
+  - '@candide/*'
+  - '@johnowennixon/*'
+  - '@typescript/native-preview*'
+
 onlyBuiltDependencies:
   - oxc-resolver
   - unrs-resolver
