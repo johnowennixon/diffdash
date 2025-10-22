@@ -70,8 +70,8 @@ importers:
         specifier: 24.9.1
         version: 24.9.1
       '@typescript/native-preview':
-        specifier: 7.0.0-dev.20250925.1
-        version: 7.0.0-dev.20250925.1
+        specifier: 7.0.0-dev.20251022.1
+        version: 7.0.0-dev.20251022.1
       knip:
         specifier: 5.66.2
         version: 5.66.2(@types/node@24.9.1)(typescript@5.9.3)
@@ -626,43 +626,43 @@ packages:
   '@types/unist@2.0.11':
     resolution: {integrity: sha512-CmBKiL6NNo/OqgmMn95Fk9Whlp2mtvIv+KNpQKN2F4SjvrEesubTRWGYSg+BnWZOnlCaSTU1sMpsBOzgbYhnsA==}
 
-  '@typescript/native-preview-darwin-arm64@7.0.0-dev.20250925.1':
-    resolution: {integrity: sha512-Mu0V/Lb0bB1IwvEW6GHk/1hMK0TVZyu2vWbNHaFZm+21mqlEnNK/H5bAi6VZNlVJwJf6lvTG3TdNQEECaaWAVg==}
+  '@typescript/native-preview-darwin-arm64@7.0.0-dev.20251022.1':
+    resolution: {integrity: sha512-587KAFZacVCY49Nqj9ItyTr/mJrLNgiZKyp0SzkT7gb8yW7oh/FbLU/UZ9z7f0/axXxZnbojpYZlUq3pVf4dRA==}
     cpu: [arm64]
     os: [darwin]
 
-  '@typescript/native-preview-darwin-x64@7.0.0-dev.20250925.1':
-    resolution: {integrity: sha512-K7aCZ8iGB4q7Q3HDvHJHHvMqHUt7i4PFkrz0WD6TUiiWs8BPGnVBrSYeQhCSh2GDhRrcQ7SbKZjL/7RXTyFwKw==}
+  '@typescript/native-preview-darwin-x64@7.0.0-dev.20251022.1':
+    resolution: {integrity: sha512-57X1Cf8xttErZ0QpjVx1xu/7A0y2pM86JKZ/z2uZCQH4wt1ofvj79cwWrWC3QJVVZhHoe61ig7pA/ZFRV31Akg==}
     cpu: [x64]
     os: [darwin]
 
-  '@typescript/native-preview-linux-arm64@7.0.0-dev.20250925.1':
-    resolution: {integrity: sha512-S2Uclj4YAueB21CYnimRMVeognpLc/4KGxi4TAutN9gZC5Jdk6MwFnQA+RQsP4ptmikimBxh78Fcs2nE/pNaKQ==}
+  '@typescript/native-preview-linux-arm64@7.0.0-dev.20251022.1':
+    resolution: {integrity: sha512-/5XR+HdVMnfVSS5ZdekHSnbpYOnE4R381L9SWbrgIORd2JEhFBbTkDjDztyF9OfrGwX8W7nl94yIWHADtnGvRw==}
     cpu: [arm64]
     os: [linux]
 
-  '@typescript/native-preview-linux-arm@7.0.0-dev.20250925.1':
-    resolution: {integrity: sha512-TicMESUOpyqw4WmwSHCppABHuT4RU8i+cAnGHxArYxexV9cOqP+iEhnpuRC+uhUCHD4IVX62jPN2ZvNmvt1OKg==}
+  '@typescript/native-preview-linux-arm@7.0.0-dev.20251022.1':
+    resolution: {integrity: sha512-B0p4+636fNQqV0PpYi38Vwc37zaKGJaJOS9m0ggvHUnzHGXUebgeM1loO8hNyjPJavExxTIX7Sy7NldEPsn6tw==}
     cpu: [arm]
     os: [linux]
 
-  '@typescript/native-preview-linux-x64@7.0.0-dev.20250925.1':
-    resolution: {integrity: sha512-3vv38yKlQGcv+lya83e59lnKE9N5VBlA5tz8UBlmpRMRScR7WwUYKuwgvsxPdRrpCp/4UjDMIq+Xld5M5oZnGA==}
+  '@typescript/native-preview-linux-x64@7.0.0-dev.20251022.1':
+    resolution: {integrity: sha512-KCviAkcWrbuWRAg0gKJuLLpwZrjMkUWLRiSXvtpE0vbJ0E9kXM4Q6bZohbwXHFbia75mjvtpYOpxcjS7xAfLbQ==}
     cpu: [x64]
     os: [linux]
 
-  '@typescript/native-preview-win32-arm64@7.0.0-dev.20250925.1':
-    resolution: {integrity: sha512-+zJmqeuJtT9+g7fieVAdo1ZPoGtBLyUruVJJeoUuaKm4AbjmVTvOv7m3XQs8ZDPOMy57tXklQlCAlq4LI6jmzg==}
+  '@typescript/native-preview-win32-arm64@7.0.0-dev.20251022.1':
+    resolution: {integrity: sha512-2fjXEEiCrnB+NaD1ycIQ6PaM3rxKHyQjlVmuKKPgeMzHsTQ1L96iMj+pRUlYvnjmJRFXKxel5OHudiYtTO/BYQ==}
     cpu: [arm64]
     os: [win32]
 
-  '@typescript/native-preview-win32-x64@7.0.0-dev.20250925.1':
-    resolution: {integrity: sha512-QoPz+7IzS+izWCKTg/axmj+yNRTivBI+xfTnnF8ak3MWE69ljxgSCEplryFCFSTxaesa7rGUtq3IpFmXm8yKhQ==}
+  '@typescript/native-preview-win32-x64@7.0.0-dev.20251022.1':
+    resolution: {integrity: sha512-b0vitxu0pUne3njcgoh3Ed5vFJbhmrIOFXxTfjX3y5ZoegnItCoURouMAr4bHP+wV8ij4WDQyffPBCg2lnfMZQ==}
     cpu: [x64]
     os: [win32]
 
-  '@typescript/native-preview@7.0.0-dev.20250925.1':
-    resolution: {integrity: sha512-gthaZy3GVmZSCVk9fl9ipF+tDkwqOx2ob68nmH1HLaT4XdX6E7O3btHtwkIxiQaG+z0GXwcYH/NEo8qS3juvBg==}
+  '@typescript/native-preview@7.0.0-dev.20251022.1':
+    resolution: {integrity: sha512-qMoYkH4nnPPaIlmrtl9Hf3jKvB8rCaN8h0DyPApdjaTNHiXEW3seUocA0fX4ezhnlKgVKfeewSPCUiodvM/rlg==}
     hasBin: true
 
   '@vercel/oidc@3.0.3':
@@ -1728,36 +1728,36 @@ snapshots:
 
   '@types/unist@2.0.11': {}
 
-  '@typescript/native-preview-darwin-arm64@7.0.0-dev.20250925.1':
+  '@typescript/native-preview-darwin-arm64@7.0.0-dev.20251022.1':
     optional: true
 
-  '@typescript/native-preview-darwin-x64@7.0.0-dev.20250925.1':
+  '@typescript/native-preview-darwin-x64@7.0.0-dev.20251022.1':
     optional: true
 
-  '@typescript/native-preview-linux-arm64@7.0.0-dev.20250925.1':
+  '@typescript/native-preview-linux-arm64@7.0.0-dev.20251022.1':
     optional: true
 
-  '@typescript/native-preview-linux-arm@7.0.0-dev.20250925.1':
+  '@typescript/native-preview-linux-arm@7.0.0-dev.20251022.1':
     optional: true
 
-  '@typescript/native-preview-linux-x64@7.0.0-dev.20250925.1':
+  '@typescript/native-preview-linux-x64@7.0.0-dev.20251022.1':
     optional: true
 
-  '@typescript/native-preview-win32-arm64@7.0.0-dev.20250925.1':
+  '@typescript/native-preview-win32-arm64@7.0.0-dev.20251022.1':
     optional: true
 
-  '@typescript/native-preview-win32-x64@7.0.0-dev.20250925.1':
+  '@typescript/native-preview-win32-x64@7.0.0-dev.20251022.1':
     optional: true
 
-  '@typescript/native-preview@7.0.0-dev.20250925.1':
+  '@typescript/native-preview@7.0.0-dev.20251022.1':
     optionalDependencies:
-      '@typescript/native-preview-darwin-arm64': 7.0.0-dev.20250925.1
-      '@typescript/native-preview-darwin-x64': 7.0.0-dev.20250925.1
-      '@typescript/native-preview-linux-arm': 7.0.0-dev.20250925.1
-      '@typescript/native-preview-linux-arm64': 7.0.0-dev.20250925.1
-      '@typescript/native-preview-linux-x64': 7.0.0-dev.20250925.1
-      '@typescript/native-preview-win32-arm64': 7.0.0-dev.20250925.1
-      '@typescript/native-preview-win32-x64': 7.0.0-dev.20250925.1
+      '@typescript/native-preview-darwin-arm64': 7.0.0-dev.20251022.1
+      '@typescript/native-preview-darwin-x64': 7.0.0-dev.20251022.1
+      '@typescript/native-preview-linux-arm': 7.0.0-dev.20251022.1
+      '@typescript/native-preview-linux-arm64': 7.0.0-dev.20251022.1
+      '@typescript/native-preview-linux-x64': 7.0.0-dev.20251022.1
+      '@typescript/native-preview-win32-arm64': 7.0.0-dev.20251022.1
+      '@typescript/native-preview-win32-x64': 7.0.0-dev.20251022.1
 
   '@vercel/oidc@3.0.3': {}
 
