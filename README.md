@@ -118,7 +118,7 @@ diffdash --debug-llm-prompts
 All command-line arguments are optional.
 
 | Argument | Description |
-|--------|-------------|
+| -------- | ----------- |
 | `--help` | show a help message and exit |
 | `--version` | show program version information and exit |
 | `--auto-add` | automatically stage all changes without confirmation |
@@ -126,7 +126,7 @@ All command-line arguments are optional.
 | `--auto-push` | automatically push changes after commit without confirmation |
 | `--disable-add` | disable adding unstaged changes - exit if no changes staged |
 | `--disable-status` | disable listing the staged files before generating a message |
-| `--disable-preview` | disable previewing the generated message|
+| `--disable-preview` | disable previewing the generated message |
 | `--disable-commit` | disable committing changes - exit after generating the message |
 | `--disable-push` | disable pushing changes - exit after making the commit |
 | `--add-prefix PREFIX` | add a prefix to the commit message summary line |
