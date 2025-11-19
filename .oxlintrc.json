@@ -272,7 +272,7 @@
     "unicorn/prefer-prototype-methods": "error",
     "unicorn/prefer-query-selector": "error",
     "unicorn/prefer-reflect-apply": "error",
-    "unicorn/prefer-regexp-test": "error",
+    "unicorn/prefer-regexp-test": "off",
     "unicorn/prefer-set-has": "off",
     "unicorn/prefer-set-size": "error",
     "unicorn/prefer-spread": "off",
