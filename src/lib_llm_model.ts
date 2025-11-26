@@ -1,4 +1,5 @@
 import type {AnthropicProviderOptions} from "@ai-sdk/anthropic"
+import type {GoogleGenerativeAIProviderOptions} from "@ai-sdk/google"
 import type {OpenAIChatLanguageModelOptions} from "@ai-sdk/openai"
 import type {OpenRouterChatSettings} from "@openrouter/ai-sdk-provider/internal"
 
@@ -29,6 +30,16 @@ function provider_options_anthropic({thinking}: {thinking: boolean}): ProviderOp
         } satisfies AnthropicProviderOptions,
       }
     : undefined
+}
+
+function provider_options_google({thinking_level}: {thinking_level: "high" | "low"}): ProviderOptions | undefined {
+  return {
+    google: {
+      thinkingConfig: {
+        thinkingLevel: thinking_level,
+      },
+    } satisfies GoogleGenerativeAIProviderOptions,
+  }
 }
 
 function provider_options_openai({
@@ -258,10 +269,36 @@ export const LLM_MODEL_DETAILS = [
     max_output_tokens: 65_536,
     cents_input: 125,
     cents_output: 1000,
-    default_reasoning: false,
+    default_reasoning: true,
     has_structured_json: true,
     recommended_temperature: undefined,
     provider_options: undefined,
+  },
+  {
+    llm_model_name: "gemini-3-pro-preview-high",
+    llm_model_code: "gemini-3-pro-preview",
+    llm_api_code: "google",
+    context_window: 1_048_576,
+    max_output_tokens: 65_536,
+    cents_input: 200,
+    cents_output: 1200,
+    default_reasoning: true,
+    has_structured_json: true,
+    recommended_temperature: undefined,
+    provider_options: provider_options_google({thinking_level: "high"}),
+  },
+  {
+    llm_model_name: "gemini-3-pro-preview-low",
+    llm_model_code: "gemini-3-pro-preview",
+    llm_api_code: "google",
+    context_window: 1_048_576,
+    max_output_tokens: 65_536,
+    cents_input: 200,
+    cents_output: 1200,
+    default_reasoning: false,
+    has_structured_json: true,
+    recommended_temperature: undefined,
+    provider_options: provider_options_google({thinking_level: "low"}),
   },
   {
     llm_model_name: "glm-4-32b@z-ai",
