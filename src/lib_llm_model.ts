@@ -82,17 +82,30 @@ export const LLM_MODEL_DETAILS = [
     provider_options: provider_options_anthropic({thinking: false}),
   },
   {
-    llm_model_name: "claude-3.7-sonnet",
-    llm_model_code: "claude-3-7-sonnet-latest",
+    llm_model_name: "claude-opus-4.5",
+    llm_model_code: "claude-opus-4-5",
     llm_api_code: "anthropic",
     context_window: 200_000,
     max_output_tokens: 64_000,
-    cents_input: 300,
-    cents_output: 1500,
+    cents_input: 300, // for input tokens <= 200K
+    cents_output: 1500, // for input tokens <= 200K
     default_reasoning: false,
     has_structured_json: true,
     recommended_temperature: undefined,
     provider_options: provider_options_anthropic({thinking: false}),
+  },
+  {
+    llm_model_name: "claude-opus-4.5-thinking",
+    llm_model_code: "claude-opus-4-5",
+    llm_api_code: "anthropic",
+    context_window: 200_000,
+    max_output_tokens: 64_000,
+    cents_input: 300, // for input tokens <= 200K
+    cents_output: 1500, // for input tokens <= 200K
+    default_reasoning: false,
+    has_structured_json: true,
+    recommended_temperature: undefined,
+    provider_options: provider_options_anthropic({thinking: true}),
   },
   {
     llm_model_name: "claude-sonnet-4",
@@ -124,7 +137,7 @@ export const LLM_MODEL_DETAILS = [
     llm_model_name: "claude-sonnet-4.5",
     llm_model_code: "claude-sonnet-4-5",
     llm_api_code: "anthropic",
-    context_window: 1_000_000,
+    context_window: 200_000, // 1_000_000 available with context-1m beta header
     max_output_tokens: 64_000,
     cents_input: 300, // for input tokens <= 200K
     cents_output: 1500, // for input tokens <= 200K
@@ -137,7 +150,7 @@ export const LLM_MODEL_DETAILS = [
     llm_model_name: "claude-sonnet-4.5-thinking",
     llm_model_code: "claude-sonnet-4-5",
     llm_api_code: "anthropic",
-    context_window: 1_000_000,
+    context_window: 200_000, // 1_000_000 available with context-1m beta header
     max_output_tokens: 62_976, // = 64000 - 1024 used for reasoning
     cents_input: 300, // for input tokens <= 200K
     cents_output: 1500, // for input tokens <= 200K
