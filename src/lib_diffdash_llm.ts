@@ -15,7 +15,7 @@ const model_name_options: Array<LlmModelName> = [
   "gpt-5-nano",
   "gpt-5-nano-minimal",
   "grok-code-fast-1",
-  "llama-4-maverick@cerebras",
+  "llama-4-maverick@groq",
 ]
 
 export const diffdash_llm_model_details = llm_model_get_details({llm_model_names: model_name_options})
