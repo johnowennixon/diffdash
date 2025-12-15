@@ -6,6 +6,7 @@
     "alwaysStrict": true,
     "checkJs": false,
     "declaration": false,
+    "erasableSyntaxOnly": true,
     "esModuleInterop": true,
     "exactOptionalPropertyTypes": false,
     "forceConsistentCasingInFileNames": true,
@@ -14,6 +15,7 @@
     "lib": [
       "ES2024"
     ],
+    "libReplacement": false,
     "module": "NodeNext",
     "moduleDetection": "force",
     "moduleResolution": "NodeNext",
