@@ -30,10 +30,10 @@ Before considering any change as complete, you must:
 
 Try running these Bash commands:
 
-* to lint the code, run `pnpm run lint`
-* to build the code, run `pnpm run build`
-* to fix formatting issues in source code, run `pnpm run fix:biome`
-* to fix formatting issues in markdown documents, run `pnpm run fix:markdownlint`
+* to lint the code, run `bun run lint`
+* to build the code, run `bun run build`
+* to fix formatting issues in source code, run `bun run fix:biome`
+* to fix formatting issues in markdown documents, run `bun run fix:markdownlint`
 
 ## Library Usage
 
@@ -45,20 +45,20 @@ Try running these Bash commands:
 
 ## Fixing lint errors
 
-* Many errors, especially formatting errors, can be auto-fixed with `pnpm run fix:biome`.
+* Many errors, especially formatting errors, can be auto-fixed with `bun run fix:biome`.
 * The diagnostic is there for a reason - don't mark errors as ignored unless you have found no way to fix them.
 
 ## Available Linux Commands
 
 All common Linux utilities are available including:
 
+* `bun` - our package manager for Node.
 * `chmod` - change file permissions.
 * `comm` - compare two sorted files line by line.
 * `diff` - find differences between files.
 * `find` - find files which have matching characteristics.
 * `git` - examine the commit history and status of changes.
 * `grep` - find specific lines from files.
-* `pnpm` - for access to Node packages and scripts.
 * `sort` - sort a file or stream alphabetically.
 * `xargs` - run a command for each line of the input
 
