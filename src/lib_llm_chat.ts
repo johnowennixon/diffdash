@@ -1,5 +1,5 @@
 import type {LanguageModelUsage, ProviderMetadata, ToolSet} from "ai"
-import {generateObject, generateText, stepCountIs} from "ai"
+import {generateText, Output, stepCountIs} from "ai"
 import type {ZodType} from "zod"
 
 import {debug_channels, debug_inspect_when} from "./lib_debug.js"
@@ -212,8 +212,7 @@ export async function llm_chat_generate_object<T>({
     model: ai_sdk_language_model,
     system: system_prompt,
     prompt: user_prompt,
-    output: "object" as const,
-    schema,
+    output: Output.object<T>({schema}),
     maxOutputTokens: max_output_tokens_env ?? max_output_tokens,
     temperature,
     providerOptions: provider_options,
@@ -223,11 +222,11 @@ export async function llm_chat_generate_object<T>({
   debug_inspect_when(debug_channels.llm_inputs, llm_inputs, `LLM inputs object (for ${llm_model_name})`)
 
   // This is liable to throw an error
-  const llm_outputs = await generateObject(llm_inputs)
+  const llm_outputs = await generateText(llm_inputs)
 
   debug_inspect_when(debug_channels.llm_outputs, llm_outputs, `LLM outputs object (for ${llm_model_name})`)
 
-  const {object: generated_object, usage: total_usage, providerMetadata: provider_metadata} = llm_outputs
+  const {output: generated_object, usage: total_usage, providerMetadata: provider_metadata} = llm_outputs
 
   return {generated_object, total_usage, provider_metadata}
 }

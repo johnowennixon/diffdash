@@ -42,13 +42,15 @@ export function llm_results_summary(all_results: Array<LlmChatGenerateTextResult
 
     const {total_usage, provider_metadata} = outputs
 
+    const {reasoningTokens: reasoning_tokens} = total_usage.outputTokenDetails
+
     const openrouter_provider = provider_metadata?.["openrouter"]?.["provider"] as string | undefined
 
     const tui_model = tui_justify_left(max_length_model, llm_model_name)
     const tui_seconds = tui_number_plain({num: seconds, justify_left: 3})
     const tui_input = tui_number_plain({num: total_usage.inputTokens, justify_left: 5})
     const tui_output = tui_number_plain({num: total_usage.outputTokens, justify_left: 5})
-    const tui_reasoning = tui_number_plain({num: total_usage.reasoningTokens, justify_left: 5, none: QUESTION})
+    const tui_reasoning = tui_number_plain({num: reasoning_tokens, justify_left: 5, none: QUESTION})
     const tui_provider = tui_none_blank(openrouter_provider)
 
     const segments = []
@@ -57,7 +59,7 @@ export function llm_results_summary(all_results: Array<LlmChatGenerateTextResult
     segments.push(`seconds=${tui_seconds}`)
     segments.push(`input=${tui_input}`)
     segments.push(`output=${tui_output}`)
-    if (default_reasoning || total_usage.reasoningTokens !== undefined) {
+    if (default_reasoning || reasoning_tokens !== undefined) {
       segments.push(`reasoning=${tui_reasoning}`)
     }
     if (openrouter_provider) {

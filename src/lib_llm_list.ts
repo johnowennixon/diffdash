@@ -3,11 +3,11 @@ import type {LlmModelDetail} from "./lib_llm_model.js"
 import {stdio_write_stdout_linefeed} from "./lib_stdio_write.js"
 import {tell_info, tell_warning} from "./lib_tell.js"
 import type {HorizontalAlignment} from "./lib_tui_table.js"
-import {TuiTable} from "./lib_tui_table.js"
+import {LEFT, RIGHT, TuiTable} from "./lib_tui_table.js"
 
 export function llm_list_models({llm_model_details}: {llm_model_details: Array<LlmModelDetail>}): void {
   const headings = ["NAME", "API", "CONTEXT", "INPUT", "OUTPUT", "REASONING"]
-  const alignments: Array<HorizontalAlignment> = ["left", "left", "right", "right", "right", "left"]
+  const alignments: Array<HorizontalAlignment> = [LEFT, LEFT, RIGHT, RIGHT, RIGHT, LEFT]
 
   const table = new TuiTable({headings, alignments, compact: true})
 
