@@ -6,6 +6,10 @@ import {ansi_bold} from "./lib_ansi.js"
 
 export type {HorizontalAlignment} from "cli-table3"
 
+export const LEFT: HorizontalAlignment = "left"
+export const CENTER: HorizontalAlignment = "center"
+export const RIGHT: HorizontalAlignment = "right"
+
 export class TuiTable {
   private table: Table
   private columns_total: number
