@@ -1,6 +1,16 @@
 import {EMPTY} from "./lib_char_empty.js"
 import {COLON, DASH, SPACE} from "./lib_char_punctuation.js"
 
+export const DatetimeWeekday = {
+  SUNDAY: 0,
+  MONDAY: 1,
+  TUESDAY: 2,
+  WEDNESDAY: 3,
+  THURSDAY: 4,
+  FRIDAY: 5,
+  SATURDAY: 6,
+} as const
+
 export function datetime_now(): Date {
   return new Date()
 }
@@ -8,6 +18,12 @@ export function datetime_now(): Date {
 export function datetime_now_minus_days(days: number): Date {
   const date = datetime_now()
   date.setDate(date.getDate() - days)
+  return date
+}
+
+export function datetime_now_plus_days(days: number): Date {
+  const date = datetime_now()
+  date.setDate(date.getDate() + days)
   return date
 }
 
