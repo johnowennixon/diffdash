@@ -1,7 +1,7 @@
 import {EMPTY} from "./lib_char_empty.js"
 import {COLON, DASH, SPACE} from "./lib_char_punctuation.js"
 
-export const DatetimeWeekday = {
+export const DATETIME_WEEKDAYS = {
   SUNDAY: 0,
   MONDAY: 1,
   TUESDAY: 2,
