@@ -6,8 +6,8 @@ const model_name_default: LlmModelName = "gpt-4.1-mini"
 const model_name_options: Array<LlmModelName> = [
   "claude-3.5-haiku", // fallback
   "deepseek-chat",
-  "gemini-2.0-flash",
   "gemini-2.5-flash",
+  "gemini-3-flash-preview-low",
   "gpt-4.1-mini", // the best
   "gpt-4.1-nano",
   "gpt-5-mini",
@@ -15,7 +15,6 @@ const model_name_options: Array<LlmModelName> = [
   "gpt-5-nano",
   "gpt-5-nano-minimal",
   "grok-code-fast-1",
-  "llama-4-maverick@groq",
 ]
 
 export const diffdash_llm_model_details = llm_model_get_details({llm_model_names: model_name_options})

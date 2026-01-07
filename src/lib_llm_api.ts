@@ -8,6 +8,9 @@ import type {LanguageModel} from "ai"
 import {abort_with_error} from "./lib_abort.js"
 import {env_get} from "./lib_env.js"
 
+// Disable AI SDK warning logs temporarily
+globalThis.AI_SDK_LOG_WARNINGS = false
+
 export type LlmApiCode = "anthropic" | "deepseek" | "google" | "openai" | "openrouter"
 
 export function llm_api_get_api_key_env(llm_api_code: LlmApiCode): string {

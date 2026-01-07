@@ -1,8 +1,14 @@
 [install]
 minimumReleaseAge = 86400
 minimumReleaseAgeExcludes = [
+  "ai",
+  "@ai-sdk/anthropic",
+  "@ai-sdk/deepseek",
+  "@ai-sdk/google",
+  "@ai-sdk/openai",
   "@candide/tsgolint",
   "@johnowennixon/add-shebangs",
   "@johnowennixon/chmodx",
+  "@openrouter/ai-sdk-provider",
   "@typescript/native-preview",
 ]
