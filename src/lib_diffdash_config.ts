@@ -12,7 +12,7 @@ import {llm_config_get, llm_config_get_all} from "./lib_llm_config.js"
 import {llm_list_models} from "./lib_llm_list.js"
 import {PACKAGE_NAME, PACKAGE_VERSION} from "./lib_package.js"
 import {tell_plain} from "./lib_tell.js"
-import {tui_quote_smart_single} from "./lib_tui_quote.js"
+import {tui_quote_smart_single as qss} from "./lib_tui_quote.js"
 
 const diffdash_config_file_schema = z
   .object({
@@ -56,7 +56,7 @@ function diffdash_config_file_read(config: DiffDashConfig): void {
 
   const validation_result = diffdash_config_file_schema.safeParse(parsed_json)
   if (!validation_result.success) {
-    abort_with_error(`Unable to parse DiffDash config file: ${tui_quote_smart_single(config_file_name)}`)
+    abort_with_error(`Unable to parse DiffDash config file: ${qss(config_file_name)}`)
   }
 
   const data: DiffDashConfigFile = validation_result.data

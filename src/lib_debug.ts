@@ -4,6 +4,7 @@ import {enabled_from_env} from "./lib_enabled.js"
 import {inspect_obj_to_string} from "./lib_inspect.js"
 import {stdio_write_stderr_linefeed} from "./lib_stdio_write.js"
 import {tell_debug} from "./lib_tell.js"
+import {tui_quote_smart_single as qss} from "./lib_tui_quote.js"
 
 export const debug_channels = {
   api: false,
@@ -41,7 +42,7 @@ type DebugChannel = keyof typeof debug_channels
 export function debug_enable_if(channel: DebugChannel, enabled: boolean): void {
   if (enabled && !debug_channels[channel]) {
     debug_channels[channel] = true
-    tell_debug(`Debugging enabled for ‘${channel}’`)
+    tell_debug(`Debugging enabled for ${qss(channel)}`)
   }
 }
 

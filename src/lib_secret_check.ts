@@ -4,7 +4,7 @@ import {ansi_yellow} from "./lib_ansi.js"
 import {DASH} from "./lib_char_punctuation.js"
 import {text_split_lines} from "./lib_text.js"
 import {tui_confirm} from "./lib_tui_confirm.js"
-import {tui_quote_smart_single} from "./lib_tui_quote.js"
+import {tui_quote_smart_single as qss} from "./lib_tui_quote.js"
 
 const regexp_word_global = createRegExp(oneOrMore(anyOf(wordChar, exactly(DASH))), [global])
 
@@ -90,7 +90,7 @@ async function is_secret_segment(
 
   if (interactive) {
     const confirmed_is_secret = await tui_confirm({
-      question: `Is ${tui_quote_smart_single(segment)} a secret?`,
+      question: `Is ${qss(segment)} a secret?`,
       default: false,
       style_message: ansi_yellow,
     })
@@ -111,7 +111,7 @@ export async function secret_check({text, interactive}: {text: string; interacti
 
   for (const line of lines.toReversed()) {
     if (is_secret_line(line)) {
-      throw new Error(`Secret detected: ${tui_quote_smart_single(line.trim())}`)
+      throw new Error(`Secret detected: ${qss(line.trim())}`)
     }
 
     const words = line.match(regexp_word_global)
@@ -130,13 +130,13 @@ export async function secret_check({text, interactive}: {text: string; interacti
 
     for (const word of words) {
       if (is_secret_word(word)) {
-        throw new Error(`Secret detected: ${tui_quote_smart_single(word)}`)
+        throw new Error(`Secret detected: ${qss(word)}`)
       }
     }
 
     for (const segment of segments) {
       if (await is_secret_segment(segment, not_secret_segments, interactive)) {
-        throw new Error(`Secret detected: ${tui_quote_smart_single(segment)}`)
+        throw new Error(`Secret detected: ${qss(segment)}`)
       }
     }
   }
