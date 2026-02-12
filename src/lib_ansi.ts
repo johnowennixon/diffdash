@@ -24,6 +24,5 @@ export function ansi_boolean(bool: boolean): AnsiColourizer {
 
 export function ansi_strip(text: string): string {
   const pattern = String.raw`\u001B\[[^m]*m`
-  // eslint-disable-next-line sonarjs/no-control-regex
   return text.replace(new RegExp(pattern, "g"), EMPTY)
 }
