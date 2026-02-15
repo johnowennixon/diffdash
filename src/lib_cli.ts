@@ -2,7 +2,7 @@ import type {ArgumentGroup, ArgumentOptions, ArgumentParserOptions, Namespace} f
 import {ArgumentParser} from "argparse"
 
 import {EMPTY} from "./lib_char_empty.js"
-import {DASH, PLUS, UNDERSCORE} from "./lib_char_punctuation.js"
+import {DASH, PLUS, QUESTION, UNDERSCORE} from "./lib_char_punctuation.js"
 import {debug_channels, debug_inspect_when} from "./lib_debug.js"
 import type {TypeInferExpand} from "./lib_type_infer.js"
 
@@ -18,11 +18,11 @@ type CliGeneric<V> = {
 
 type CliSchema = {[key: string]: CliGeneric<unknown>}
 
-type CliString = CliGeneric<string | undefined>
+type CliStringOptional = CliGeneric<string | undefined>
 type CliStringAlways = CliGeneric<string>
-type CliInteger = CliGeneric<number | undefined>
+type CliIntegerOptional = CliGeneric<number | undefined>
 type CliIntegerAlways = CliGeneric<number>
-type CliBoolean = CliGeneric<boolean>
+type CliBooleanAlways = CliGeneric<boolean>
 type CliChoiceOptional<C> = CliGeneric<C | undefined>
 type CliChoiceAlways<C> = CliGeneric<C>
 type CliList = CliGeneric<Array<string>>
@@ -32,41 +32,109 @@ type CliMeg<V extends CliSchema> = {
   value: V
 }
 
-export function cli_string({help, metavar}: {help: string; metavar: string}): CliString {
+type CliParamsHelp = {
+  help: string
+}
+
+type CliParamsMetavar = {
+  help: string
+  metavar?: string
+}
+
+type CliParamsDefault<V> = {
+  help: string
+  metavar?: string
+  default: V
+}
+
+type CliParamsChoices = {
+  help: string
+  metavar?: string
+  choices: Array<string>
+}
+
+type CliParamsChoicesDefault<V> = {
+  help: string
+  metavar?: string
+  choices: Array<string>
+  default: V
+}
+
+export function cli_string_optional(params: CliParamsMetavar): CliStringOptional {
+  const {help, metavar} = params
   const options: CliOptions = {help, metavar}
   return {kind: "string", options, value: ""}
 }
 
-export function cli_string_always(options: CliOptions = {}): CliStringAlways {
+export function cli_string_required(params: CliParamsMetavar): CliStringAlways {
+  const {help, metavar} = params
+  const options: CliOptions = {help, metavar, required: true}
   return {kind: "string", options, value: ""}
 }
 
-export function cli_integer(options: CliOptions = {}): CliInteger {
+export function cli_string_default(params: CliParamsDefault<string>): CliStringAlways {
+  const {help, metavar, default: _default} = params
+  const options: CliOptions = {help, metavar, default: _default}
+  return {kind: "string", options, value: ""}
+}
+
+export function cli_string_positional_required(params: CliParamsMetavar): CliStringAlways {
+  const {help, metavar} = params
+  const options: CliOptions = {help, metavar, positional: true}
+  return {kind: "string", options, value: ""}
+}
+
+export function cli_string_positional_optional(params: CliParamsMetavar): CliStringOptional {
+  const {help, metavar} = params
+  const options: CliOptions = {help, metavar, positional: true, nargs: QUESTION}
+  return {kind: "string", options, value: ""}
+}
+
+export function cli_integer_optional(params: CliParamsMetavar): CliIntegerOptional {
+  const {help, metavar} = params
+  const options: CliOptions = {help, metavar}
   return {kind: "integer", options, value: 0}
 }
 
-export function cli_integer_always(options: CliOptions = {}): CliIntegerAlways {
+export function cli_integer_default(params: CliParamsDefault<number>): CliIntegerAlways {
+  const {help, metavar, default: _default} = params
+  const options: CliOptions = {help, metavar, default: _default}
   return {kind: "integer", options, value: 0}
 }
 
-export function cli_boolean(options: CliOptions = {}): CliBoolean {
+export function cli_boolean_always(params: CliParamsHelp): CliBooleanAlways {
+  const {help} = params
+  const options: CliOptions = {help}
   return {kind: "boolean", options, value: false}
 }
 
-export function cli_choice_optional<C>(options: CliOptions = {}): CliChoiceOptional<C> {
+export function cli_boolean_default(params: CliParamsDefault<boolean>): CliBooleanAlways {
+  const {help, default: _default} = params
+  const options: CliOptions = {help, default: _default}
+  return {kind: "boolean", options, value: false}
+}
+
+export function cli_choice_optional<C>(params: CliParamsChoices): CliChoiceOptional<C> {
+  const {help, metavar, choices} = params
+  const options: CliOptions = {help, metavar, choices}
   return {kind: "choice", options, value: undefined}
 }
 
-export function cli_choice_default<C>(options: CliOptions = {}): CliChoiceAlways<C> {
+export function cli_choice_required<C>(params: CliParamsChoices): CliChoiceAlways<C> {
+  const {help, metavar, choices} = params
+  const options: CliOptions = {help, metavar, choices, required: true}
   return {kind: "choice", options, value: undefined as C}
 }
 
-export function cli_choice_required<C>(options: CliOptions = {}): CliChoiceAlways<C> {
-  options.required = true
+export function cli_choice_default<C>(params: CliParamsChoicesDefault<C>): CliChoiceAlways<C> {
+  const {help, metavar, choices, default: _default} = params
+  const options: CliOptions = {help, metavar, choices, default: _default}
   return {kind: "choice", options, value: undefined as C}
 }
 
-export function cli_list(options: CliOptions = {}): CliList {
+export function cli_list_positional(params: CliParamsHelp): CliList {
+  const {help} = params
+  const options: CliOptions = {help, positional: true}
   return {kind: "list", options, value: []}
 }
 
@@ -79,21 +147,21 @@ export function cli_meg_required<T extends CliSchema>(meg_schema: T): CliMeg<T> 
 }
 
 type CliParsedArgsOld<T extends CliSchema> = {
-  [K in keyof T]: T[K] extends CliBoolean
+  [K in keyof T]: T[K] extends CliBooleanAlways
     ? boolean
     : T[K] extends CliIntegerAlways
       ? number
-      : T[K] extends CliInteger
+      : T[K] extends CliIntegerOptional
         ? number | undefined
         : T[K] extends CliList
           ? Array<string>
           : T[K] extends CliMeg<infer U>
             ? {
-                [NestedK in keyof U]: U[NestedK] extends CliBoolean
+                [NestedK in keyof U]: U[NestedK] extends CliBooleanAlways
                   ? boolean
                   : U[NestedK] extends CliIntegerAlways
                     ? number
-                    : U[NestedK] extends CliInteger
+                    : U[NestedK] extends CliIntegerOptional
                       ? number | undefined
                       : U[NestedK] extends CliList
                         ? Array<string>
@@ -103,7 +171,7 @@ type CliParsedArgsOld<T extends CliSchema> = {
                             ? C | undefined
                             : U[NestedK] extends CliStringAlways
                               ? string
-                              : U[NestedK] extends CliString
+                              : U[NestedK] extends CliStringOptional
                                 ? string | undefined
                                 : never
               }
@@ -113,7 +181,7 @@ type CliParsedArgsOld<T extends CliSchema> = {
                 ? C | undefined
                 : T[K] extends CliStringAlways
                   ? string
-                  : T[K] extends CliString
+                  : T[K] extends CliStringOptional
                     ? string | undefined
                     : never
 }
