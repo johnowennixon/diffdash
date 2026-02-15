@@ -8,13 +8,17 @@ export type GitMessagePromptInputs = {
   diffstat: string
   diff: string
   extra_prompts: Array<string> | undefined
+  language_name: string
 }
 
-const portion_role =
-  `
-Your role is to generate a Git commit message in conversational English.
+function portion_role(language_name: string): string {
+  return (
+    `
+Your role is to generate a Git commit message in conversational ${language_name}.
 The user does not want Conventional Commits - the summary line must be a normal sentence.
 `.trim() + LF_LF
+  )
+}
 
 const portion_inputs =
   `
@@ -85,7 +89,7 @@ export function git_message_prompt_get_system({
 }): string {
   let system_prompt = EMPTY
 
-  system_prompt += portion_role
+  system_prompt += portion_role(inputs.language_name)
   system_prompt += portion_inputs
   system_prompt += portion_reminders
   system_prompt += portion_format(has_structured_json)

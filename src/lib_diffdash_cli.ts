@@ -1,5 +1,7 @@
 import {cli_boolean, cli_choice_default, cli_make_parser, cli_string} from "./lib_cli.js"
 import {diffdash_llm_model_choices, diffdash_llm_model_default} from "./lib_diffdash_llm.js"
+import {LANGUAGE_CODE_ENGLISH, language_get_code_choices} from "./lib_language.js"
+import {tui_quote_smart_single as qss} from "./lib_tui_quote.js"
 
 const diffdash_cli_schema = {
   version: cli_boolean({help: "show program version information and exit"}),
@@ -17,10 +19,16 @@ const diffdash_cli_schema = {
   add_prefix: cli_string({help: "add a prefix to the commit message summary line", metavar: "PREFIX"}),
   add_suffix: cli_string({help: "add a suffix to the commit message summary line", metavar: "SUFFIX"}),
 
+  language: cli_choice_default<string>({
+    help: `choose the language for commit messages (defaults to ${qss(LANGUAGE_CODE_ENGLISH)})`,
+    choices: language_get_code_choices(),
+    default: LANGUAGE_CODE_ENGLISH,
+  }),
+
   llm_list: cli_boolean({help: "display a list of available Large Language Models and exit"}),
   llm_compare: cli_boolean({help: "compare the generated messages from all models - but do not commit"}),
   llm_model: cli_choice_default<string>({
-    help: `choose the Large Language Model by name (defaults to ${diffdash_llm_model_default})`,
+    help: `choose the Large Language Model by name (defaults to ${qss(diffdash_llm_model_default)})`,
     choices: diffdash_llm_model_choices,
     default: diffdash_llm_model_default,
   }),

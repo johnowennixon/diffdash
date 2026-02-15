@@ -7,6 +7,7 @@ import {diffdash_llm_model_details} from "./lib_diffdash_llm.js"
 import {file_io_read_text} from "./lib_file_io.js"
 import {file_is_file} from "./lib_file_is.js"
 import {json5_parse} from "./lib_json5.js"
+import {language_get_name_from_code} from "./lib_language.js"
 import type {LlmConfig} from "./lib_llm_config.js"
 import {llm_config_get, llm_config_get_all} from "./lib_llm_config.js"
 import {llm_list_models} from "./lib_llm_list.js"
@@ -33,6 +34,7 @@ export type DiffDashConfig = {
   disable_push: boolean
   add_prefix: string | undefined
   add_suffix: string | undefined
+  language_name: string
   llm_compare: boolean
   llm_config: LlmConfig
   all_llm_configs: Array<LlmConfig>
@@ -79,6 +81,7 @@ export function diffdash_config_get(): DiffDashConfig {
     disable_push,
     add_prefix,
     add_suffix,
+    language,
     llm_list,
     llm_compare,
     llm_model,
@@ -103,6 +106,8 @@ export function diffdash_config_get(): DiffDashConfig {
     process.exit(0)
   }
 
+  const language_name = language_get_name_from_code(language)
+
   const llm_config = llm_config_get({llm_model_details: diffdash_llm_model_details, llm_model_name: llm_model})
   const all_llm_configs = llm_config_get_all({llm_model_details: diffdash_llm_model_details, llm_excludes})
 
@@ -121,6 +126,7 @@ export function diffdash_config_get(): DiffDashConfig {
     disable_push,
     add_prefix,
     add_suffix,
+    language_name,
     no_secret_check,
     no_verify,
     force,

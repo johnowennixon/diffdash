@@ -136,6 +136,10 @@ Provides a way to convert objects into formatted strings for inspection. Uses No
 
 Parses JSON5-formatted text into a JavaScript object. Uses the JSON5 library to handle relaxed syntax rules. Does not include any additional features beyond basic parsing.
 
+### src/lib_language.ts
+
+A list of languages with their codes and names is provided for reference. A function is included to get the name of a language when given its code, and it stops with an error if the code is not found. The file supports language code validation and name retrieval in a straightforward way.
+
 ### src/lib_llm_access.ts
 
 Provides utilities to check if access to a language model is available and to get the necessary access details. Handles different API codes and keys based on model details and environment settings. Ensures that required environment variables are set or raises an error otherwise.

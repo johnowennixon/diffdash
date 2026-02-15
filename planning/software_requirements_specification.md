@@ -48,9 +48,10 @@ The primary users of DiffDash shall be software developers who:
 
 * Use Git for version control
 * Seek to improve the speed, quality and consistency of their commit messages
-* Prefer natural English - this program intentionally does not follow any conventions
+* Prefer natural language prose - this program intentionally does not follow any conventions
 * Value clear documentation of code changes
 * Are comfortable with command-line tools
+* May work in multiple languages and prefer commit messages in their native language
 
 ### 2.4 Operating Environment
 
@@ -88,7 +89,9 @@ As agreed by stakeholders:
 * The system shall use LLMs to generate Git commit messages based on staged changes
 * The system shall support multiple LLM providers (Anthropic, DeepSeek, Google, OpenAI, OpenRouter)
 * The system shall format generated messages with a summary line followed by detailed explanations
-* The system shall generate commit messages using natural English (explicitly not Conventional commits)
+* The system shall generate commit messages using natural language prose (explicitly not Conventional commits)
+* The system shall support generating commit messages in multiple languages as specified by the user
+* The system shall default to English if no language is specified
 * The system shall validate generated messages for quality and format compliance
 * The system shall append a footer that identifies the commit as AI-assisted
 
@@ -109,6 +112,7 @@ As agreed by stakeholders:
 ### 3.5 Configuration
 
 * The system shall allow users to specify their preferred LLM provider and model
+* The system shall allow users to specify their preferred language for commit messages
 * The system shall support automation flags for non-interactive operation
 * The system shall support constraint options to limit functionality
 * The system shall provide debugging options for LLM prompts, inputs, and outputs

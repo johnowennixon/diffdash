@@ -1,0 +1,1 @@
+A list of languages with their codes and names is provided for reference. A function is included to get the name of a language when given its code, and it stops with an error if the code is not found. The file supports language code validation and name retrieval in a straightforward way.
