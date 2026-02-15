@@ -188,10 +188,6 @@ Checks lines of text for potential secrets by examining long words that are not 
 
 Provides utilities for interacting with standard output and error streams in a terminal. Checks if the streams are available and retrieves their column widths. Writes messages to the streams with optional line feeds.
 
-### src/lib_string_types.ts
-
-Defines types for working with strings in various ways. Includes types for maps, predicates, replacers, and objects that use strings. Focuses on string manipulation and storage without implementing specific logic.
-
 ### src/lib_tell.ts
 
 Provides colored output for messages with optional timestamps. Supports different message types like errors, warnings, and success notifications. Silently ignores messages if configured or outputs them to standard error.

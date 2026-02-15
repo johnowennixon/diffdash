@@ -1,1 +1,0 @@
-Defines types for working with strings in various ways. Includes types for maps, predicates, replacers, and objects that use strings. Focuses on string manipulation and storage without implementing specific logic.

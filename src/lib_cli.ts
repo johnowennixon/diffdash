@@ -4,14 +4,11 @@ import {ArgumentParser} from "argparse"
 import {EMPTY} from "./lib_char_empty.js"
 import {DASH, PLUS, UNDERSCORE} from "./lib_char_punctuation.js"
 import {debug_channels, debug_inspect_when} from "./lib_debug.js"
-import type {StringPredicate} from "./lib_string_types.js"
 import type {TypeInferExpand} from "./lib_type_infer.js"
 
 type CliKind = "string" | "integer" | "boolean" | "choice" | "list" | "meg"
 
-type CliPredicate = StringPredicate
-
-type CliOptions = ArgumentOptions & {positional?: boolean; predicate?: CliPredicate}
+type CliOptions = ArgumentOptions & {positional?: boolean}
 
 type CliGeneric<V> = {
   kind: CliKind
@@ -35,7 +32,8 @@ type CliMeg<V extends CliSchema> = {
   value: V
 }
 
-export function cli_string(options: CliOptions = {}): CliString {
+export function cli_string({help, metavar}: {help: string; metavar: string}): CliString {
+  const options: CliOptions = {help, metavar}
   return {kind: "string", options, value: ""}
 }
 
@@ -78,10 +76,6 @@ export function cli_meg_optional<T extends CliSchema>(meg_schema: T): CliMeg<T> 
 
 export function cli_meg_required<T extends CliSchema>(meg_schema: T): CliMeg<T> {
   return {kind: "meg", options: {required: true}, value: meg_schema}
-}
-
-export function cli_meg_required_predicate<T extends CliSchema>(meg_schema: T, predicate: CliPredicate): CliMeg<T> {
-  return {kind: "meg", options: {required: true, predicate}, value: meg_schema}
 }
 
 type CliParsedArgsOld<T extends CliSchema> = {
@@ -131,15 +125,7 @@ function cli_omit<T, K extends keyof T>(obj: T, key_to_omit: K): Omit<T, K> {
   return rest
 }
 
-function cli_add_keys({
-  cli_schema,
-  parser_group,
-  predicate,
-}: {
-  cli_schema: CliSchema
-  parser_group: ArgumentGroup
-  predicate?: CliPredicate
-}): void {
+function cli_add_keys({cli_schema, parser_group}: {cli_schema: CliSchema; parser_group: ArgumentGroup}): void {
   for (const key in cli_schema) {
     if (!Object.hasOwn(cli_schema, key)) {
       continue
@@ -148,12 +134,6 @@ function cli_add_keys({
     const cli = cli_schema[key]
     if (!cli) {
       continue
-    }
-
-    if (predicate !== undefined) {
-      if (!predicate(key)) {
-        continue
-      }
     }
 
     const key_replaced = key.replaceAll(UNDERSCORE, DASH)
@@ -183,7 +163,6 @@ function cli_add_keys({
           cli_add_keys({
             cli_schema: cli.value as CliSchema,
             parser_group: mutually_exclusive_group,
-            predicate: cli.options.predicate,
           })
         }
         break
@@ -196,11 +175,9 @@ function cli_add_keys({
 function cli_recursive_parse<U extends CliSchema>({
   schema,
   namespace,
-  predicate,
 }: {
   schema: U
   namespace: Namespace
-  predicate?: CliPredicate
 }): CliParsedArgs<U> {
   const result: Partial<CliParsedArgs<U>> = {}
 
@@ -214,18 +191,11 @@ function cli_recursive_parse<U extends CliSchema>({
       continue
     }
 
-    if (predicate !== undefined) {
-      if (!predicate(key)) {
-        continue
-      }
-    }
-
     if (cli.kind === "meg") {
       const nested_schema = cli.value as CliSchema
       result[key] = cli_recursive_parse({
         schema: nested_schema,
         namespace,
-        predicate: cli.options.predicate,
       }) as CliParsedArgs<U>[Extract<keyof U, string>]
     } else {
       result[key] = namespace[key] as CliParsedArgs<U>[Extract<keyof U, string>]
