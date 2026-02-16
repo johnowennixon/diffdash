@@ -2,16 +2,16 @@ import {env_get_substitute} from "./lib_env.js"
 import type {LlmModelName} from "./lib_llm_model.js"
 import {llm_model_get_choices, llm_model_get_details} from "./lib_llm_model.js"
 
-const model_name_default: LlmModelName = "gpt-4.1-mini"
+const model_name_default: LlmModelName = "gpt-5-mini-minimal"
 const model_name_options: Array<LlmModelName> = [
-  "claude-3.5-haiku", // fallback
+  "claude-haiku-4.5", // fallback
   "deepseek-chat",
   "gemini-2.5-flash",
   "gemini-3-flash-preview-low",
-  "gpt-4.1-mini", // the best
+  "gpt-4.1-mini", // fallback
   "gpt-4.1-nano",
   "gpt-5-mini",
-  "gpt-5-mini-minimal", // fallback
+  "gpt-5-mini-minimal", // the best
   "gpt-5-nano",
   "gpt-5-nano-minimal",
   "grok-code-fast-1",
