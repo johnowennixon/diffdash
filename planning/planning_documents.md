@@ -20,6 +20,12 @@ Basic instructions for linting, building, and fixing formatting issues in the co
 
 AI coding agents should not edit this file unless explicitly requested.
 
+## planning/local_library_guide.md
+
+Instructions for consuming and creating local libraries.
+
+AI coding agents should not edit this file unless explicitly requested.
+
 ## planning/other_files.md
 
 Documentation of all non-source, non-test, non-planning files in the codebase, explaining their purpose and functionality.
