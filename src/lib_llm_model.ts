@@ -80,19 +80,6 @@ export type LlmModelDetail = {
 
 export const LLM_MODEL_DETAILS = [
   {
-    llm_model_name: "claude-3.5-haiku",
-    llm_model_code: "claude-3-5-haiku-latest",
-    llm_api_code: "anthropic",
-    context_window: 200_000,
-    max_output_tokens: 8192,
-    cents_input: 80,
-    cents_output: 400,
-    default_reasoning: false,
-    has_structured_json: true,
-    recommended_temperature: undefined,
-    provider_options: provider_options_anthropic({thinking: false}),
-  },
-  {
     llm_model_name: "claude-haiku-4.5",
     llm_model_code: "claude-haiku-4-5",
     llm_api_code: "anthropic",
@@ -104,32 +91,6 @@ export const LLM_MODEL_DETAILS = [
     has_structured_json: true,
     recommended_temperature: undefined,
     provider_options: provider_options_anthropic({thinking: false}),
-  },
-  {
-    llm_model_name: "claude-opus-4.5",
-    llm_model_code: "claude-opus-4-5",
-    llm_api_code: "anthropic",
-    context_window: 200_000,
-    max_output_tokens: 64_000,
-    cents_input: 300, // for input tokens <= 200K
-    cents_output: 1500, // for input tokens <= 200K
-    default_reasoning: false,
-    has_structured_json: true,
-    recommended_temperature: undefined,
-    provider_options: provider_options_anthropic({thinking: false}),
-  },
-  {
-    llm_model_name: "claude-opus-4.5-thinking",
-    llm_model_code: "claude-opus-4-5",
-    llm_api_code: "anthropic",
-    context_window: 200_000,
-    max_output_tokens: 64_000 - 1024,
-    cents_input: 300, // for input tokens <= 200K
-    cents_output: 1500, // for input tokens <= 200K
-    default_reasoning: false,
-    has_structured_json: true,
-    recommended_temperature: undefined,
-    provider_options: provider_options_anthropic({thinking: true}),
   },
   {
     llm_model_name: "claude-opus-4.6",
@@ -158,34 +119,8 @@ export const LLM_MODEL_DETAILS = [
     provider_options: provider_options_anthropic({thinking: true}),
   },
   {
-    llm_model_name: "claude-sonnet-4",
-    llm_model_code: "claude-sonnet-4-0",
-    llm_api_code: "anthropic",
-    context_window: 200_000,
-    max_output_tokens: 64_000,
-    cents_input: 300,
-    cents_output: 1500,
-    default_reasoning: false,
-    has_structured_json: true,
-    recommended_temperature: undefined,
-    provider_options: provider_options_anthropic({thinking: false}),
-  },
-  {
-    llm_model_name: "claude-sonnet-4-thinking",
-    llm_model_code: "claude-sonnet-4-0",
-    llm_api_code: "anthropic",
-    context_window: 200_000,
-    max_output_tokens: 62_976, // = 64000 - 1024 used for reasoning
-    cents_input: 300,
-    cents_output: 1500,
-    default_reasoning: true,
-    has_structured_json: true,
-    recommended_temperature: undefined,
-    provider_options: provider_options_anthropic({thinking: true}),
-  },
-  {
-    llm_model_name: "claude-sonnet-4.5",
-    llm_model_code: "claude-sonnet-4-5",
+    llm_model_name: "claude-sonnet-4.6",
+    llm_model_code: "claude-sonnet-4-6",
     llm_api_code: "anthropic",
     context_window: 200_000, // 1_000_000 available with context-1m beta header
     max_output_tokens: 64_000,
@@ -197,8 +132,8 @@ export const LLM_MODEL_DETAILS = [
     provider_options: provider_options_anthropic({thinking: false}),
   },
   {
-    llm_model_name: "claude-sonnet-4.5-thinking",
-    llm_model_code: "claude-sonnet-4-5",
+    llm_model_name: "claude-sonnet-4.6-thinking",
+    llm_model_code: "claude-sonnet-4-6",
     llm_api_code: "anthropic",
     context_window: 200_000, // 1_000_000 available with context-1m beta header
     max_output_tokens: 62_976, // = 64000 - 1024 used for reasoning
