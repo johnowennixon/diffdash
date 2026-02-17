@@ -78,7 +78,6 @@ Many of these coding style rules are enforced using linters and other tools.
 ### Files
 
 * Use snake_case for file names.
-* Library modules should use the `lib_` prefix (e.g., `lib_tell.ts`).
 * Many program filenames start with a two-character code indicating the user base.
 
 ## Comments
@@ -153,7 +152,7 @@ Many of these coding style rules are enforced using linters and other tools.
 
 ### Characters
 
-* Character literals (e.g. `"$"`) should be retrieved one of the `lib_char_*` libraries instead of hardcoding. This includes the empty string.
+* Character literals (e.g. `"$"`) should be retrieved from a library instead of hardcoding. This includes the empty string.
 
 ### User Messages
 

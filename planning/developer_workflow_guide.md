@@ -40,6 +40,7 @@ Try running these Bash commands:
 * Prefer to use available libraries rather than writing code.
 * Prefer to use libraries that are locally available rather than importing external libraries.
 * Local libraries are likely to shared between projects that you can not see.
+* Local libraries should use the `lib_` prefix (e.g., `lib_tell.ts`).
 * If you want to write a new library, make it as general purpose as possible.
 * If you need to write a library that is only useful for this project, including this project's name in the filename.
 
