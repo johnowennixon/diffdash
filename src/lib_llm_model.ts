@@ -54,14 +54,43 @@ function provider_options_openai({
   }
 }
 
-function provider_options_openrouter({only}: {only: string}): ProviderOptions {
-  return {
-    openrouter: {
-      provider: {
-        only: [only],
+function provider_options_openrouter({
+  only,
+  thinking,
+}: {
+  only?: string
+  thinking?: boolean
+}): ProviderOptions | undefined {
+  if (only !== undefined && thinking !== undefined) {
+    return {
+      openrouter: {
+        provider: {
+          only: [only],
+        },
+        thinking,
       },
-    } satisfies OpenRouterChatSettings,
+    }
   }
+
+  if (thinking !== undefined) {
+    return {
+      openrouter: {
+        thinking,
+      },
+    }
+  }
+
+  if (only !== undefined) {
+    return {
+      openrouter: {
+        provider: {
+          only: [only],
+        },
+      } satisfies OpenRouterChatSettings,
+    }
+  }
+
+  return undefined
 }
 
 export type LlmModelDetail = {
@@ -96,10 +125,10 @@ export const LLM_MODEL_DETAILS = [
     llm_model_name: "claude-opus-4.6",
     llm_model_code: "claude-opus-4-6",
     llm_api_code: "anthropic",
-    context_window: 200_000,
-    max_output_tokens: 64_000,
-    cents_input: 300, // for input tokens <= 200K
-    cents_output: 1500, // for input tokens <= 200K
+    context_window: 200_000, // 1_000_000 available with context-1m beta header
+    max_output_tokens: 128_000,
+    cents_input: 500, // for input tokens <= 200K
+    cents_output: 2500, // for input tokens <= 200K
     default_reasoning: false,
     has_structured_json: true,
     recommended_temperature: undefined,
@@ -109,11 +138,11 @@ export const LLM_MODEL_DETAILS = [
     llm_model_name: "claude-opus-4.6-thinking",
     llm_model_code: "claude-opus-4-6",
     llm_api_code: "anthropic",
-    context_window: 200_000,
-    max_output_tokens: 64_000 - 1024,
-    cents_input: 300, // for input tokens <= 200K
-    cents_output: 1500, // for input tokens <= 200K
-    default_reasoning: false,
+    context_window: 200_000, // 1_000_000 available with context-1m beta header
+    max_output_tokens: 128_000 - 1024,
+    cents_input: 500, // for input tokens <= 200K
+    cents_output: 2500, // for input tokens <= 200K
+    default_reasoning: true,
     has_structured_json: true,
     recommended_temperature: undefined,
     provider_options: provider_options_anthropic({thinking: true}),
@@ -139,7 +168,7 @@ export const LLM_MODEL_DETAILS = [
     max_output_tokens: 62_976, // = 64000 - 1024 used for reasoning
     cents_input: 300, // for input tokens <= 200K
     cents_output: 1500, // for input tokens <= 200K
-    default_reasoning: false,
+    default_reasoning: true,
     has_structured_json: true,
     recommended_temperature: undefined,
     provider_options: provider_options_anthropic({thinking: true}),
@@ -269,7 +298,7 @@ export const LLM_MODEL_DETAILS = [
     max_output_tokens: 65_536,
     cents_input: 200,
     cents_output: 1200,
-    default_reasoning: false,
+    default_reasoning: true,
     has_structured_json: true,
     recommended_temperature: undefined,
     provider_options: provider_options_google({thinking_level: "low"}),
@@ -548,33 +577,33 @@ export const LLM_MODEL_DETAILS = [
     provider_options: undefined,
   },
   {
-    llm_model_name: "kimi-k2-0711@moonshotai",
-    llm_model_code: "moonshotai/kimi-k2",
+    llm_model_name: "kimi-k2.5@moonshot",
+    llm_model_code: "moonshotai/kimi-k2.5",
     llm_api_code: "openrouter",
     context_window: 131_072,
     max_output_tokens: 131_072,
     cents_input: 60,
-    cents_output: 250,
-    default_reasoning: false,
+    cents_output: 300,
+    default_reasoning: true,
     has_structured_json: true,
     recommended_temperature: undefined,
     provider_options: provider_options_openrouter({only: "moonshotai"}),
   },
   {
-    llm_model_name: "kimi-k2-0905@groq",
-    llm_model_code: "moonshotai/kimi-k2-0905",
+    llm_model_name: "kimi-k2.5@groq",
+    llm_model_code: "moonshotai/kimi-k2.5",
     llm_api_code: "openrouter",
-    context_window: 262_144,
-    max_output_tokens: 16_384,
-    cents_input: 100,
+    context_window: 131_072,
+    max_output_tokens: 131_072,
+    cents_input: 60,
     cents_output: 300,
-    default_reasoning: false,
-    has_structured_json: false,
+    default_reasoning: true,
+    has_structured_json: true,
     recommended_temperature: undefined,
-    provider_options: provider_options_openrouter({only: "groq"}),
+    provider_options: provider_options_openrouter({only: "qroq"}),
   },
   {
-    llm_model_name: "kimi-k2.5",
+    llm_model_name: "kimi-k2.5-nonthinking",
     llm_model_code: "moonshotai/kimi-k2.5",
     llm_api_code: "openrouter",
     context_window: 131_072,
@@ -584,7 +613,7 @@ export const LLM_MODEL_DETAILS = [
     default_reasoning: false,
     has_structured_json: true,
     recommended_temperature: undefined,
-    provider_options: provider_options_openrouter({only: "moonshotai"}),
+    provider_options: provider_options_openrouter({only: "moonshotai", thinking: false}),
   },
   {
     llm_model_name: "llama-4-maverick@groq",
@@ -650,19 +679,6 @@ export const LLM_MODEL_DETAILS = [
     has_structured_json: false,
     recommended_temperature: undefined,
     provider_options: undefined,
-  },
-  {
-    llm_model_name: "minimax-m2.1",
-    llm_model_code: "minimax/minimax-m2.1",
-    llm_api_code: "openrouter",
-    context_window: 204_800,
-    max_output_tokens: 131_072,
-    cents_input: 30,
-    cents_output: 120,
-    default_reasoning: false,
-    has_structured_json: false,
-    recommended_temperature: undefined,
-    provider_options: provider_options_openrouter({only: "minimax"}),
   },
   {
     llm_model_name: "minimax-m2.5",
