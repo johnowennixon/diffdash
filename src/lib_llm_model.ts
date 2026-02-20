@@ -707,39 +707,13 @@ export const LLM_MODEL_DETAILS = [
     provider_options: provider_options_openrouter({only: "mistral"}),
   },
   {
-    llm_model_name: "qwen3-235b-a22b-2507-instruct@cerebras",
-    llm_model_code: "qwen/qwen3-235b-a22b-2507",
-    llm_api_code: "openrouter",
-    context_window: 131_072,
-    max_output_tokens: 131_072,
-    cents_input: 60,
-    cents_output: 120,
-    default_reasoning: false,
-    has_structured_json: true,
-    recommended_temperature: undefined,
-    provider_options: provider_options_openrouter({only: "cerebras"}),
-  },
-  {
-    llm_model_name: "qwen3-coder@alibaba",
-    llm_model_code: "qwen/qwen3-coder",
+    llm_model_name: "qwen3.5-397b-a17b@alibaba",
+    llm_model_code: "qwen/qwen3.5-397b-a17b",
     llm_api_code: "openrouter",
     context_window: 262_144,
     max_output_tokens: 65_536,
-    cents_input: 150, // for input tokens <= 128K
-    cents_output: 750, // for input tokens <= 128K
-    default_reasoning: false,
-    has_structured_json: true,
-    recommended_temperature: undefined,
-    provider_options: provider_options_openrouter({only: "alibaba/opensource"}),
-  },
-  {
-    llm_model_name: "qwen-plus@alibaba",
-    llm_model_code: "qwen/qwen-plus-2025-07-28",
-    llm_api_code: "openrouter",
-    context_window: 1_000_000,
-    max_output_tokens: 32_768,
-    cents_input: 40, // for input tokens <= 256K
-    cents_output: 120, // for input tokens <= 256K
+    cents_input: 60,
+    cents_output: 360,
     default_reasoning: false,
     has_structured_json: true,
     recommended_temperature: undefined,
