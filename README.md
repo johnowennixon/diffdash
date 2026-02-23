@@ -32,9 +32,10 @@ npm install -g @johnowennixon/diffdash
 
 ## LLM Models
 
-Currently, for this application, the best LLM model is **gpt-5-mini-minimal** (GPT-5 Mini with reasoning disabled) from OpenAI.
+Currently, for this application, the best LLM model is **gpt-4.1-mini** from OpenAI.
 It is set as the default model.
 I can only presume they have done a ton of training on diffs.
+I have tested later GPT models but they don't seem to be as good.
 
 ## API Keys
 
